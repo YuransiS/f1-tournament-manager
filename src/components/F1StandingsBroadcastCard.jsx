@@ -3,7 +3,7 @@ import { Camera, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import FlagIcon from './FlagIcon';
 
-export default function F1StandingsBroadcastCard({ driverStandings }) {
+export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabel = 'ТЕКУЩИЙ ЗАЧЕТ' }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -17,7 +17,7 @@ export default function F1StandingsBroadcastCard({ driverStandings }) {
     try {
       const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: true });
       const link = document.createElement('a');
-      link.download = `F1_Drivers_Championship_Standings.png`;
+      link.download = `F1_Drivers_Championship_Standings_${subtitleLabel.replace(/\s+/g, '_')}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -80,8 +80,8 @@ export default function F1StandingsBroadcastCard({ driverStandings }) {
             </div>
 
             <div>
-              <div style={{ fontSize: '0.8rem', color: '#9CA3AF', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '1px' }}>
-                SEASON 2026
+              <div style={{ fontSize: '0.8rem', color: 'var(--f1-red)', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '1px' }}>
+                SEASON 2026 • {subtitleLabel.toUpperCase()}
               </div>
               <h1 style={{ fontSize: '1.8rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '1px', color: '#FFF' }}>
                 FORMULA 1 DRIVERS CHAMPIONSHIP

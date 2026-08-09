@@ -10,7 +10,6 @@ import {
   saveTournamentData,
   resetToDefaultData,
   exportDataAsJSON,
-  importDataFromJSON,
   calculateStandings
 } from './services/storage';
 
@@ -51,7 +50,7 @@ export default function App() {
   }, []);
 
   const handleResetData = () => {
-    if (confirm('Сбросить все турнирные таблицы и заезды к исходным данным из скриншота F1?')) {
+    if (confirm('Сбросить все турнирные таблицы и заезды к исходным данным?')) {
       const reset = resetToDefaultData();
       setData(reset);
     }
@@ -61,7 +60,7 @@ export default function App() {
     exportDataAsJSON(data);
   };
 
-  // Calculate live standings
+  // Calculate live overall standings
   const standings = calculateStandings(data);
 
   return (
@@ -82,8 +81,7 @@ export default function App() {
       <main>
         {activeTab === 'standings' && (
           <StandingsView
-            driverStandings={standings.driverStandings}
-            constructorStandings={standings.constructorStandings}
+            data={data}
           />
         )}
 
