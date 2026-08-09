@@ -1,7 +1,7 @@
 import React from 'react';
-import { Trophy, Flag, Users, Download, RefreshCw } from 'lucide-react';
+import { Trophy, Flag, Users, Download } from 'lucide-react';
 
-export default function Header({ activeTab, setActiveTab, data, onResetData, onExportData }) {
+export default function Header({ activeTab, setActiveTab, onExportData }) {
   return (
     <header className="navbar">
       <div className="brand" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -57,13 +57,6 @@ export default function Header({ activeTab, setActiveTab, data, onResetData, onE
           onClick={onExportData}
         >
           <Download size={14} /> JSON
-        </button>
-        <button
-          className="btn btn-sm btn-danger"
-          title="Сбросить к исходным данным скриншота"
-          onClick={onResetData}
-        >
-          <RefreshCw size={14} /> Сброс
         </button>
       </div>
     </header>

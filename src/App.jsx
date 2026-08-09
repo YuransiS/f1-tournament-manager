@@ -7,8 +7,6 @@ import DriversView from './components/DriversView';
 
 import {
   getTournamentData,
-  saveTournamentData,
-  resetToDefaultData,
   exportDataAsJSON,
   calculateStandings
 } from './services/storage';
@@ -49,13 +47,6 @@ export default function App() {
     return () => window.removeEventListener('popstate', handleLocationChange);
   }, []);
 
-  const handleResetData = () => {
-    if (confirm('Сбросить все турнирные таблицы и заезды к исходным данным?')) {
-      const reset = resetToDefaultData();
-      setData(reset);
-    }
-  };
-
   const handleExportData = () => {
     exportDataAsJSON(data);
   };
@@ -69,7 +60,6 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         data={data}
-        onResetData={handleResetData}
         onExportData={handleExportData}
       />
 

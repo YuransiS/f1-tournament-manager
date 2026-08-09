@@ -103,6 +103,7 @@ h1, h2, h3, h4, h5, .f1-font {
   padding: 4px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
+  flex-wrap: wrap;
 }
 
 .nav-btn {
@@ -120,6 +121,7 @@ h1, h2, h3, h4, h5, .f1-font {
   transition: all 0.2s ease;
   font-family: var(--font-f1);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav-btn:hover {
@@ -131,14 +133,6 @@ h1, h2, h3, h4, h5, .f1-font {
   background: var(--f1-red);
   color: #FFF;
   box-shadow: 0 4px 12px rgba(225, 6, 0, 0.4);
-}
-
-.nav-btn.admin-btn {
-  border: 1px solid rgba(225, 6, 0, 0.5);
-}
-
-.nav-btn.admin-btn.active {
-  background: #B91C1C;
 }
 
 /* Cards & Layout */
@@ -175,12 +169,15 @@ h1, h2, h3, h4, h5, .f1-font {
 /* F1 Table Styling */
 .f1-table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 8px;
   border: 1px solid var(--border-color);
+  max-width: 100%;
 }
 
 .f1-table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   text-align: left;
   font-size: 0.95rem;
@@ -326,19 +323,6 @@ h1, h2, h3, h4, h5, .f1-font {
   color: var(--text-dark);
 }
 
-/* Grid Change Indicator */
-.grid-change {
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  margin-left: 6px;
-}
-.grid-up { color: #10B981; }
-.grid-down { color: #EF4444; }
-.grid-same { color: var(--text-dark); }
-
 /* Buttons & Inputs */
 .btn {
   background: var(--bg-card-hover);
@@ -368,15 +352,6 @@ h1, h2, h3, h4, h5, .f1-font {
 .btn-primary:hover {
   background: var(--f1-red-hover);
   box-shadow: 0 4px 14px rgba(225,6,0,0.4);
-}
-
-.btn-danger {
-  background: #991B1B;
-  color: #FFF;
-  border: none;
-}
-.btn-danger:hover {
-  background: #DC2626;
 }
 
 .btn-sm {
@@ -413,12 +388,6 @@ h1, h2, h3, h4, h5, .f1-font {
   border-color: var(--f1-red);
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-
 /* Winner Banner */
 .winner-banner {
   background: linear-gradient(135deg, rgba(225,6,0,0.15) 0%, rgba(255,215,0,0.1) 100%);
@@ -429,6 +398,7 @@ h1, h2, h3, h4, h5, .f1-font {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  gap: 16px;
 }
 
 .winner-info {
@@ -452,87 +422,79 @@ h1, h2, h3, h4, h5, .f1-font {
   color: var(--text-muted);
 }
 
-/* Filter Controls */
-.filter-bar {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.filter-chip {
-  background: var(--bg-card-hover);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.filter-chip.active {
-  background: #2563EB;
-  color: #FFF;
-  border-color: #3B82F6;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
-.modal-content {
-  background: var(--bg-card);
-  border: 1px solid var(--border-active);
-  border-radius: 12px;
-  max-width: 600px;
+/* F1 Broadcast TV Canvas Scroll Wrappers for Mobile */
+.broadcast-card-scroll-wrapper {
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 12px;
+/* Mobile Media Queries */
+@media (max-width: 992px) {
+  .broadcast-standings-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
-.close-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-.close-btn:hover { color: #FFF; }
-
-/* Responsive Adjustments */
 @media (max-width: 768px) {
+  .app-container {
+    padding: 12px 12px 40px 12px;
+  }
+
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    padding: 14px 16px;
   }
+
+  .brand {
+    justify-content: center;
+    text-align: center;
+  }
+
   .nav-tabs {
     width: 100%;
-    overflow-x: auto;
+    justify-content: center;
   }
+
+  .nav-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
   .winner-banner {
     flex-direction: column;
     text-align: center;
-    gap: 12px;
+    padding: 16px;
+  }
+
+  .winner-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-title {
+    font-size: 1rem;
+  }
+
+  .nav-btn {
+    font-size: 0.75rem;
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .form-control {
+    font-size: 0.85rem;
+    padding: 8px 10px;
   }
 }

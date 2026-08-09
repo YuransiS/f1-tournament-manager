@@ -56,7 +56,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-9', grid: 9, stops: 1, bestLap: '1:35.807', totalTime: '+8.527', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-10', grid: 18, stops: 1, bestLap: '1:36.060', totalTime: '+9.085', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:33.942', totalTime: '+10.111', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-6', grid: 2, stops: 3, bestLap: '1:34.220', totalTime: '+5.500', penaltySeconds: 0, penaltyLabel: '⚠️ -5 поз. (Убийство Сашка)', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 2, stops: 3, bestLap: '1:34.220', totalTime: '+5.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-12', grid: 14, stops: 1, bestLap: '1:36.044', totalTime: '+10.676', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:36.445', totalTime: '+11.148', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 15, stops: 1, bestLap: '1:36.218', totalTime: '+11.571', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -194,7 +194,6 @@ export const DEFAULT_RACES = [
 ];
 
 export const DEFAULT_PENALTIES = [
-  { id: 'pen-1', driverId: 'drv-6', raceId: 'race-1', type: 'POSITIONS', value: 5, reason: 'Штраф -5 позиций (Убийство Сашка)', date: '2026-03-02' },
   { id: 'pen-2', driverId: 'drv-17', raceId: 'race-1', type: 'TIME', value: 3, reason: 'Track limits / penalty (x1)', date: '2026-03-02' },
   { id: 'pen-3', driverId: 'drv-1', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-4', driverId: 'drv-6', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },

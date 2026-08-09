@@ -50,25 +50,14 @@ export function getTournamentData() {
       });
     }
 
-    // Auto-update check: Always sync race-5 (Miami GP) into localStorage!
+    // Auto-update check: Always sync races from DEFAULT_RACES!
     if (parsed.races) {
-      const miamiRace = DEFAULT_RACES.find(r => r.id === 'race-5');
-      if (miamiRace) {
-        const idx = parsed.races.findIndex(r => r.id === 'race-5');
-        if (idx >= 0) {
-          parsed.races[idx] = miamiRace;
-        } else {
-          parsed.races.push(miamiRace);
-        }
-      }
+      parsed.races = DEFAULT_RACES;
     }
 
-    // Also sync penalties array if pen-6 is missing
+    // Clean up penalties - filter out pen-1
     if (parsed.penalties) {
-      const pen6 = DEFAULT_PENALTIES.find(p => p.id === 'pen-6');
-      if (pen6 && !parsed.penalties.some(p => p.id === 'pen-6')) {
-        parsed.penalties.push(pen6);
-      }
+      parsed.penalties = parsed.penalties.filter(p => p.id !== 'pen-1');
     }
 
     saveTournamentData(parsed);
