@@ -1,17 +1,34 @@
 import React, { useRef, useState } from 'react';
-import { Camera } from 'lucide-react';
+import { Camera, Sparkles, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
+import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
 
 export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
 
   if (!fullResults || fullResults.length < 3) return null;
 
   const first = fullResults[0];
   const second = fullResults[1];
   const third = fullResults[2];
+
+  const handleReplayAnimation = () => {
+    setAnimationKey(prev => prev + 1);
+    try {
+      confetti({
+        particleCount: 60,
+        spread: 80,
+        origin: { y: 0.5 },
+        colors: ['#FFD700', '#C0C0C0', '#CD7F32', '#E10600']
+      });
+    } catch (e) {
+      // ignore
+    }
+  };
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -34,22 +51,33 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     <div style={{ marginBottom: '36px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
         <h3 style={{ fontSize: '1.4rem', fontWeight: '900', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          🏆 Подиум ТОП-3
+          <Trophy size={22} style={{ color: 'var(--f1-gold)' }} />
+          🏆 Подиум ТОП-3 (F1 Broadcast Animation)
         </h3>
-        <button
-          className="btn btn-primary"
-          onClick={handleDownload}
-          disabled={isExporting}
-          style={{ boxShadow: '0 4px 16px rgba(225,6,0,0.6)', padding: '12px 24px', fontWeight: '800', fontSize: '0.95rem' }}
-        >
-          <Camera size={20} /> {isExporting ? 'Экспорт PNG...' : '📸 Скачать Скриншот ТОП-3 (PNG)'}
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button
+            className="btn btn-sm"
+            onClick={handleReplayAnimation}
+            style={{ background: 'var(--bg-card-hover)', border: '1px solid var(--border-color)', fontWeight: '800' }}
+          >
+            🎬 Воспроизвести Анимацию 💥
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={handleDownload}
+            disabled={isExporting}
+            style={{ boxShadow: '0 4px 16px rgba(225,6,0,0.6)', padding: '10px 20px', fontWeight: '800', fontSize: '0.95rem' }}
+          >
+            <Camera size={18} /> {isExporting ? 'Экспорт PNG...' : '📸 Скачать Скриншот ТОП-3 (PNG)'}
+          </button>
+        </div>
       </div>
 
       {/* Scroll Wrapper for Mobile Responsiveness */}
       <div className="broadcast-card-scroll-wrapper">
         {/* Large 16:9 Broadcast Canvas */}
         <div
+          key={animationKey}
           ref={cardRef}
           style={{
             width: '100%',
@@ -105,8 +133,13 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             />
           )}
 
-          {/* Top Header Bar with Larger White Background for Red F1 Logo */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 20 }}>
+          {/* Top Header Bar */}
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 20 }}
+          >
             <div style={{
               background: '#FFFFFF',
               padding: '8px 24px',
@@ -144,29 +177,16 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             }}>
               <img src="/F1-logo.png" alt="F1" style={{ height: '30px', objectFit: 'contain' }} />
             </div>
-          </div>
+          </motion.div>
 
-          {/* 2ND PLACE TEXT (Top Left) */}
-          <div style={{ position: 'absolute', top: '16%', left: '5%', zIndex: 10 }}>
-            <div style={{ fontFamily: 'var(--font-f1)', fontSize: '3.8rem', fontWeight: '900', color: '#FFF', lineHeight: 0.9, textShadow: '0 4px 12px rgba(0,0,0,0.9)' }}>
-              2<span style={{ fontSize: '1.7rem', verticalAlign: 'top', fontStyle: 'italic' }}>ND</span>
-            </div>
-            <div style={{ marginTop: '4px' }}>
-              <div style={{ fontSize: '0.9rem', fontWeight: '600', color: '#D1D5DB' }}>
-                {second.driver.name.split(' ')[0]}
-              </div>
-              <div style={{ fontSize: '1.5rem', fontWeight: '900', color: second.team.color, textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1 }}>
-                {second.driver.name.split(' ').slice(1).join(' ') || second.driver.name}
-              </div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', marginTop: '2px' }}>
-                {second.team.name}
-              </div>
-            </div>
-          </div>
-
-          {/* 3RD PLACE TEXT (Top Right) */}
-          <div style={{ position: 'absolute', top: '16%', right: '5%', textAlign: 'right', zIndex: 10 }}>
-            <div style={{ fontFamily: 'var(--font-f1)', fontSize: '3.8rem', fontWeight: '900', color: '#FFF', lineHeight: 0.9, textShadow: '0 4px 12px rgba(0,0,0,0.9)' }}>
+          {/* 3RD PLACE BAM (Appears 1st: delay 0.2s) */}
+          <motion.div
+            initial={{ x: 120, opacity: 0, scale: 0.8 }}
+            animate={{ x: 0, opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: [0.175, 0.885, 0.32, 1.275] }}
+            style={{ position: 'absolute', top: '16%', right: '5%', textAlign: 'right', zIndex: 10 }}
+          >
+            <div style={{ fontFamily: 'var(--font-f1)', fontSize: '3.8rem', fontWeight: '900', color: 'var(--f1-bronze)', lineHeight: 0.9, textShadow: '0 4px 12px rgba(0,0,0,0.9)' }}>
               3<span style={{ fontSize: '1.7rem', verticalAlign: 'top', fontStyle: 'italic' }}>RD</span>
             </div>
             <div style={{ marginTop: '4px' }}>
@@ -180,30 +200,39 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
                 {third.team.name}
               </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* 2ND PLACE BAM (Appears 2nd: delay 0.5s) */}
+          <motion.div
+            initial={{ x: -120, opacity: 0, scale: 0.8 }}
+            animate={{ x: 0, opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.5, ease: [0.175, 0.885, 0.32, 1.275] }}
+            style={{ position: 'absolute', top: '16%', left: '5%', zIndex: 10 }}
+          >
+            <div style={{ fontFamily: 'var(--font-f1)', fontSize: '3.8rem', fontWeight: '900', color: 'var(--f1-silver)', lineHeight: 0.9, textShadow: '0 4px 12px rgba(0,0,0,0.9)' }}>
+              2<span style={{ fontSize: '1.7rem', verticalAlign: 'top', fontStyle: 'italic' }}>ND</span>
+            </div>
+            <div style={{ marginTop: '4px' }}>
+              <div style={{ fontSize: '0.9rem', fontWeight: '600', color: '#D1D5DB' }}>
+                {second.driver.name.split(' ')[0]}
+              </div>
+              <div style={{ fontSize: '1.5rem', fontWeight: '900', color: second.team.color, textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1 }}>
+                {second.driver.name.split(' ').slice(1).join(' ') || second.driver.name}
+              </div>
+              <div style={{ fontSize: '0.8rem', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', marginTop: '2px' }}>
+                {second.team.name}
+              </div>
+            </div>
+          </motion.div>
 
           {/* 3D LAYERED STANDING DRIVER CUTOUTS */}
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, top: '10%', zIndex: 2, pointerEvents: 'none' }}>
-            {/* Layer 2: 2nd Place Driver */}
-            {second.driver.avatar && (
-              <img
-                src={second.driver.avatar}
-                alt={second.driver.name}
-                style={{
-                  position: 'absolute',
-                  left: '2%',
-                  bottom: 0,
-                  height: '76%',
-                  objectFit: 'contain',
-                  zIndex: 2,
-                  filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.95))'
-                }}
-              />
-            )}
-
-            {/* Layer 2: 3rd Place Driver */}
+            {/* Layer 2: 3rd Place Driver (Staggers in with 3rd place text) */}
             {third.driver.avatar && (
-              <img
+              <motion.img
+                initial={{ y: 80, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
                 src={third.driver.avatar}
                 alt={third.driver.name}
                 style={{
@@ -218,15 +247,37 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
               />
             )}
 
-            {/* Layer 4: 1st Place WINNER */}
+            {/* Layer 2: 2nd Place Driver (Staggers in with 2nd place text) */}
+            {second.driver.avatar && (
+              <motion.img
+                initial={{ y: 80, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                src={second.driver.avatar}
+                alt={second.driver.name}
+                style={{
+                  position: 'absolute',
+                  left: '2%',
+                  bottom: 0,
+                  height: '76%',
+                  objectFit: 'contain',
+                  zIndex: 2,
+                  filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.95))'
+                }}
+              />
+            )}
+
+            {/* Layer 4: 1st Place WINNER (Drops down 3rd: delay 0.9s with explosive spring BAM!) */}
             {first.driver.avatar && (
-              <img
+              <motion.img
+                initial={{ y: -180, opacity: 0, scale: 1.1 }}
+                animate={{ y: 0, opacity: 1, scale: 1.4 }}
+                transition={{ duration: 0.6, delay: 0.9, type: 'spring', stiffness: 180, damping: 14 }}
                 src={first.driver.avatar}
                 alt={first.driver.name}
                 style={{
                   position: 'absolute',
                   left: '50%',
-                  transform: 'translateX(-50%) scale(1.4)',
                   transformOrigin: 'bottom center',
                   bottom: 0,
                   height: '78%',
@@ -238,17 +289,22 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             )}
           </div>
 
-          {/* FOREGROUND OVERLAY TYPOGRAPHY */}
-          <div style={{
-            position: 'absolute',
-            bottom: '6%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            textAlign: 'center',
-            zIndex: 15,
-            width: '100%',
-            pointerEvents: 'none'
-          }}>
+          {/* FOREGROUND WINNER DUUUUMM OVERLAY (Explodes in: delay 1.1s!) */}
+          <motion.div
+            initial={{ scale: 0.4, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.1, type: 'spring', stiffness: 220, damping: 15 }}
+            style={{
+              position: 'absolute',
+              bottom: '6%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              textAlign: 'center',
+              zIndex: 15,
+              width: '100%',
+              pointerEvents: 'none'
+            }}
+          >
             <div style={{
               fontFamily: 'var(--font-f1)',
               fontSize: '5.5rem',
@@ -298,7 +354,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             }}>
               {first.team.name}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

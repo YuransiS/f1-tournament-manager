@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Layers } from 'lucide-react';
+import { Camera, Layers, Zap } from 'lucide-react';
 import { toPng } from 'html-to-image';
+import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
 
 export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, fullResults }) {
@@ -42,10 +43,10 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
           <h3 style={{ fontSize: '1.4rem', fontWeight: '900', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Layers size={22} style={{ color: 'var(--f1-red)' }} />
-            Таблица Результатов Заезда
+            Таблица Результатов Заезда (Broadcast TV Card)
           </h3>
 
-          {/* Page Switcher 1-10 / 11-20 (Relative to #1) */}
+          {/* Page Switcher 1-10 / 11-20 */}
           <div className="nav-tabs" style={{ background: 'rgba(255,255,255,0.05)', padding: '2px', borderRadius: '6px' }}>
             <button
               className={`nav-btn ${page === 1 ? 'active' : ''}`}
@@ -119,9 +120,8 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
             />
           )}
 
-          {/* Top Header Bar with Larger White F1 Logo Badges */}
+          {/* Top Header Bar */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', zIndex: 10 }}>
-            {/* Left Large White F1 Logo Badge */}
             <div style={{
               background: '#FFFFFF',
               padding: '8px 24px',
@@ -133,7 +133,6 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
               <img src="/F1-logo.png" alt="F1" style={{ height: '28px', objectFit: 'contain' }} />
             </div>
 
-            {/* Center Title */}
             <div style={{
               fontFamily: 'var(--font-f1)',
               fontSize: '1.4rem',
@@ -151,7 +150,6 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
               FORMULA 1 {raceTitle.toUpperCase()} 2026
             </div>
 
-            {/* Right Large White F1 Logo Badge */}
             <div style={{
               background: '#FFFFFF',
               padding: '8px 24px',
@@ -191,7 +189,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
             </div>
           </div>
 
-          {/* Main Content Layout: Table Left (65%) + Winner Standing Cutout Right (35%) */}
+          {/* Main Content Layout */}
           <div style={{ display: 'grid', gridTemplateColumns: '65% 35%', gap: '20px', flex: 1, zIndex: 10 }}>
             {/* Left Table Section */}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -214,7 +212,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                 <div style={{ textAlign: 'right' }}>PTS</div>
               </div>
 
-              {/* Table Rows */}
+              {/* Table Rows with Stagger Entrance */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '6px', flex: 1 }}>
                 {displayedResults.map((item, index) => {
                   const isWinnerRow = item.finishPos === 1;
@@ -223,8 +221,11 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                   const statusText = (item.status === 'DSQ' || item.totalTime === 'DSQ') ? 'DSQ' : (item.status === 'DNF' || item.totalTime === 'DNF') ? 'DNF' : item.totalTime;
 
                   return (
-                    <div
-                      key={`${item.driverId}_${index}`}
+                    <motion.div
+                      key={`${item.driverId}_${index}_${page}`}
+                      initial={{ opacity: 0, x: -30, skewX: -4 }}
+                      animate={{ opacity: 1, x: 0, skewX: 0 }}
+                      transition={{ duration: 0.35, delay: index * 0.04 }}
                       style={{
                         display: 'grid',
                         gridTemplateColumns: '50px 1.8fr 1.5fr 1fr 60px',
@@ -295,15 +296,14 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                       }}>
                         +{item.pts}
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
             </div>
 
-            {/* Right Winner Standing Cutout & High-Contrast Typography */}
+            {/* Right Winner Cutout */}
             <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
-              {/* Background Team Color Box Accent */}
               <div style={{
                 position: 'absolute',
                 top: '5%',
@@ -315,9 +315,11 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                 zIndex: 1
               }} />
 
-              {/* Winner Transparent PNG Cutout (Standing Taller & Higher) */}
               {winner.driver.avatar ? (
-                <img
+                <motion.img
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6 }}
                   src={winner.driver.avatar}
                   alt={winner.driver.name}
                   style={{
@@ -331,7 +333,6 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                 />
               ) : null}
 
-              {/* High-Contrast Readable Text Overlay on Torso / Bottom Right */}
               <div style={{ position: 'absolute', bottom: '18px', right: '12px', textAlign: 'right', zIndex: 10 }}>
                 <div style={{
                   fontFamily: 'var(--font-f1)',
@@ -375,7 +376,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
             </div>
           </div>
 
-          {/* Bottom Tag Heuer / Official Timekeeper Footer */}
+          {/* Bottom Footer */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.75rem', color: '#D1D5DB', fontWeight: '700' }}>
               <div style={{ background: '#FFF', padding: '4px 10px', borderRadius: '4px' }}>
