@@ -65,7 +65,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
     <div>
       {/* Race Selection Bar */}
       <div className="card" style={{ padding: '16px 20px', marginBottom: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflowX: 'auto', paddingBottom: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-muted)', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Flag size={16} style={{ color: 'var(--f1-red)' }} /> ЭТАПЫ ГРАН-ПРИ 2026:
           </span>
