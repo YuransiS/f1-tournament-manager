@@ -1,21 +1,21 @@
 import React from 'react';
 
-// Official, 100% transparent high-res PNG team logos without any white boxes or background pads!
+// Official, 100% transparent vector SVGs and BrandPalettes PNG logos without any white boxes or background pads!
 const TEAM_LOGO_MAP = {
   'red-bull': '/teams/red-bull.png',
-  'mercedes': '/teams/mercedes.png',
-  'ferrari': '/teams/ferrari.png',
-  'mclaren': '/teams/mclaren.png',
-  'aston-martin': '/teams/aston-martin.png',
-  'alpine': '/teams/alpine.png',
-  'williams': '/teams/williams.png',
-  'alphatauri': '/teams/alphatauri.png',
-  'alfa-romeo': '/teams/alfa-romeo.png',
-  'haas': '/teams/haas.png'
+  'mercedes': '/teams/mercedes.svg',
+  'ferrari': '/teams/ferrari.svg',
+  'mclaren': '/teams/mclaren.svg',
+  'aston-martin': '/teams/aston-martin.svg',
+  'alpine': '/teams/alpine.svg',
+  'williams': '/teams/williams.svg',
+  'alphatauri': '/teams/alphatauri.svg',
+  'alfa-romeo': '/teams/alfa-romeo.svg',
+  'haas': '/teams/haas.svg'
 };
 
 export default function TeamLogo({ teamId, style = {}, className = '', alt = '' }) {
-  const logoSrc = TEAM_LOGO_MAP[teamId] || `/teams/${teamId}.png`;
+  const logoSrc = TEAM_LOGO_MAP[teamId] || `/teams/${teamId}.svg`;
 
   return (
     <img
@@ -23,8 +23,8 @@ export default function TeamLogo({ teamId, style = {}, className = '', alt = '' 
       alt={alt || teamId}
       className={className}
       style={{
-        height: '28px',
-        maxWidth: '70px',
+        height: '32px',
+        maxWidth: '85px',
         objectFit: 'contain',
         display: 'inline-block',
         verticalAlign: 'middle',
@@ -33,6 +33,7 @@ export default function TeamLogo({ teamId, style = {}, className = '', alt = '' 
         ...style
       }}
       onError={(e) => {
+        // graceful fallback if missing
         e.target.style.display = 'none';
       }}
     />
