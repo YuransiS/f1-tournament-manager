@@ -82,7 +82,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
           ref={cardRef}
           style={{
             width: '100%',
-            minWidth: '920px',
+            minWidth: '940px',
             aspectRatio: '16 / 9',
             minHeight: '580px',
             background: '#13161F',
@@ -212,7 +212,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                 <div style={{ textAlign: 'right' }}>PTS</div>
               </div>
 
-              {/* Table Rows with Stagger Entrance */}
+              {/* Table Rows with Smooth Cinematic Stagger Entrance */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '6px', flex: 1 }}>
                 {displayedResults.map((item, index) => {
                   const isWinnerRow = item.finishPos === 1;
@@ -223,9 +223,9 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                   return (
                     <motion.div
                       key={`${item.driverId}_${index}_${page}`}
-                      initial={{ opacity: 0, x: -30, skewX: -4 }}
-                      animate={{ opacity: 1, x: 0, skewX: 0 }}
-                      transition={{ duration: 0.35, delay: index * 0.04 }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
                       style={{
                         display: 'grid',
                         gridTemplateColumns: '50px 1.8fr 1.5fr 1fr 60px',
@@ -317,17 +317,16 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
 
               {winner.driver.avatar ? (
                 <motion.img
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.6 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   src={winner.driver.avatar}
                   alt={winner.driver.name}
                   style={{
-                    height: '440px',
-                    maxHeight: '125%',
+                    height: '400px',
+                    maxHeight: '115%',
                     objectFit: 'contain',
                     zIndex: 3,
-                    transform: 'translateY(-10px)',
                     filter: 'drop-shadow(0 20px 35px rgba(0,0,0,0.95))'
                   }}
                 />
@@ -336,7 +335,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
               <div style={{ position: 'absolute', bottom: '18px', right: '12px', textAlign: 'right', zIndex: 10 }}>
                 <div style={{
                   fontFamily: 'var(--font-f1)',
-                  fontSize: '3.4rem',
+                  fontSize: '3.2rem',
                   fontWeight: '900',
                   fontStyle: 'italic',
                   color: '#FFFFFF',
@@ -349,7 +348,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
 
                 <div style={{
                   fontFamily: 'var(--font-f1)',
-                  fontSize: '2.4rem',
+                  fontSize: '2.2rem',
                   fontWeight: '900',
                   color: '#FF8000',
                   textTransform: 'uppercase',

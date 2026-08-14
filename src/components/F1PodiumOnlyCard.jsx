@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Sparkles, Trophy } from 'lucide-react';
+import { Camera, Sparkles, Trophy, Award } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -20,9 +20,9 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     setAnimationKey(prev => prev + 1);
     try {
       confetti({
-        particleCount: 60,
-        spread: 80,
-        origin: { y: 0.5 },
+        particleCount: 50,
+        spread: 70,
+        origin: { y: 0.4 },
         colors: ['#FFD700', '#C0C0C0', '#CD7F32', '#E10600']
       });
     } catch (e) {
@@ -36,7 +36,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     try {
       const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: true });
       const link = document.createElement('a');
-      link.download = `F1_${raceTitle.replace(/\s+/g, '_')}_Top3_Podium.png`;
+      link.download = `F1_${raceTitle.replace(/\s+/g, '_')}_Official_Podium.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -47,12 +47,16 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     }
   };
 
+  // Smooth cinematic ease (Luxury Broadcast TV style)
+  const luxuryTransition = { duration: 0.9, ease: [0.16, 1, 0.3, 1] };
+
   return (
     <div style={{ marginBottom: '36px' }}>
+      {/* Top Controls Bar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
         <h3 style={{ fontSize: '1.4rem', fontWeight: '900', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Trophy size={22} style={{ color: 'var(--f1-gold)' }} />
-          🏆 Подиум ТОП-3 (F1 Broadcast Animation)
+          🏆 Официальный Подиум ТОП-3 (F1 Broadcast TV)
         </h3>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button
@@ -60,7 +64,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             onClick={handleReplayAnimation}
             style={{ background: 'var(--bg-card-hover)', border: '1px solid var(--border-color)', fontWeight: '800' }}
           >
-            🎬 Воспроизвести Анимацию 💥
+            🎬 Запустить Broadcast Анимацию 💥
           </button>
           <button
             className="btn btn-primary"
@@ -73,60 +77,60 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
         </div>
       </div>
 
-      {/* Scroll Wrapper for Mobile Responsiveness */}
+      {/* Touch Scroll Container */}
       <div className="broadcast-card-scroll-wrapper">
-        {/* Large 16:9 Broadcast Canvas */}
+        {/* Main 16:9 F1 Broadcast TV Canvas */}
         <div
           key={animationKey}
           ref={cardRef}
           style={{
             width: '100%',
-            minWidth: '920px',
+            minWidth: '940px',
             aspectRatio: '16 / 9',
-            minHeight: '580px',
-            background: '#131620',
+            minHeight: '600px',
+            background: '#0B0D14',
             backgroundImage: `
-              linear-gradient(135deg, rgba(22, 26, 38, 0.98) 0%, rgba(10, 12, 18, 0.99) 100%),
-              repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 12px, transparent 12px, transparent 24px)
+              radial-gradient(circle at 50% 30%, rgba(30, 36, 54, 0.8) 0%, rgba(11, 13, 20, 0.98) 70%),
+              repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0, rgba(255,255,255,0.012) 10px, transparent 10px, transparent 20px)
             `,
             borderRadius: '16px',
-            border: '3px solid #282E40',
-            padding: '28px 36px',
+            border: '2px solid #282E40',
+            padding: '24px 32px',
             position: 'relative',
             overflow: 'hidden',
-            boxShadow: '0 30px 70px rgba(0,0,0,0.9)',
+            boxShadow: '0 30px 80px rgba(0,0,0,0.95)',
             display: 'flex',
             flexDirection: 'column',
             justify: 'space-between',
             color: '#FFF'
           }}
         >
-          {/* Background Red Ambient Glow behind Winner */}
+          {/* Subtle Ambient Golden Glow in Center for Winner */}
           <div style={{
             position: 'absolute',
-            top: '10%',
+            top: '0%',
             left: '50%',
             transform: 'translateX(-50%)',
-            width: '650px',
-            height: '650px',
-            background: 'radial-gradient(circle, rgba(225,6,0,0.22) 0%, transparent 70%)',
+            width: '500px',
+            height: '450px',
+            background: 'radial-gradient(circle, rgba(255,215,0,0.12) 0%, rgba(225,6,0,0.08) 50%, transparent 80%)',
             pointerEvents: 'none',
             zIndex: 1
           }} />
 
-          {/* Track Outline Silhouette Watermark (Subtle Background) */}
+          {/* Track Outline Silhouette Background Watermark */}
           {trackImage && (
             <img
               src={trackImage}
               alt="Track Layout"
               style={{
                 position: 'absolute',
-                top: '15%',
+                top: '12%',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 height: '65%',
-                opacity: 0.08,
-                filter: 'invert(1) drop-shadow(0 0 20px rgba(255,255,255,0.5))',
+                opacity: 0.07,
+                filter: 'invert(1)',
                 pointerEvents: 'none',
                 zIndex: 1
               }}
@@ -135,226 +139,262 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
 
           {/* Top Header Bar */}
           <motion.div
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 20 }}
-          >
-            <div style={{
-              background: '#FFFFFF',
-              padding: '8px 24px',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              boxShadow: '0 4px 18px rgba(255,255,255,0.4)'
-            }}>
-              <img src="/F1-logo.png" alt="F1" style={{ height: '30px', objectFit: 'contain' }} />
-            </div>
-
-            <div style={{
-              fontFamily: 'var(--font-f1)',
-              fontSize: '1.45rem',
-              fontWeight: '900',
-              fontStyle: 'italic',
-              color: '#FFF',
-              letterSpacing: '1.5px',
-              textTransform: 'uppercase',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px'
-            }}>
-              {trackImage && <img src={trackImage} alt="Track" style={{ height: '24px', filter: 'invert(1) opacity(0.8)' }} />}
-              FORMULA 1 • {raceTitle.toUpperCase()}
-            </div>
-
-            <div style={{
-              background: '#FFFFFF',
-              padding: '8px 24px',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              boxShadow: '0 4px 18px rgba(255,255,255,0.4)'
-            }}>
-              <img src="/F1-logo.png" alt="F1" style={{ height: '30px', objectFit: 'contain' }} />
-            </div>
-          </motion.div>
-
-          {/* 3RD PLACE BAM (Appears 1st: delay 0.2s) */}
-          <motion.div
-            initial={{ x: 120, opacity: 0, scale: 0.8 }}
-            animate={{ x: 0, opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.2, ease: [0.175, 0.885, 0.32, 1.275] }}
-            style={{ position: 'absolute', top: '16%', right: '5%', textAlign: 'right', zIndex: 10 }}
-          >
-            <div style={{ fontFamily: 'var(--font-f1)', fontSize: '3.8rem', fontWeight: '900', color: 'var(--f1-bronze)', lineHeight: 0.9, textShadow: '0 4px 12px rgba(0,0,0,0.9)' }}>
-              3<span style={{ fontSize: '1.7rem', verticalAlign: 'top', fontStyle: 'italic' }}>RD</span>
-            </div>
-            <div style={{ marginTop: '4px' }}>
-              <div style={{ fontSize: '0.9rem', fontWeight: '600', color: '#D1D5DB' }}>
-                {third.driver.name.split(' ')[0]}
-              </div>
-              <div style={{ fontSize: '1.5rem', fontWeight: '900', color: third.team.color, textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1 }}>
-                {third.driver.name.split(' ').slice(1).join(' ') || third.driver.name}
-              </div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', marginTop: '2px' }}>
-                {third.team.name}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* 2ND PLACE BAM (Appears 2nd: delay 0.5s) */}
-          <motion.div
-            initial={{ x: -120, opacity: 0, scale: 0.8 }}
-            animate={{ x: 0, opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.5, ease: [0.175, 0.885, 0.32, 1.275] }}
-            style={{ position: 'absolute', top: '16%', left: '5%', zIndex: 10 }}
-          >
-            <div style={{ fontFamily: 'var(--font-f1)', fontSize: '3.8rem', fontWeight: '900', color: 'var(--f1-silver)', lineHeight: 0.9, textShadow: '0 4px 12px rgba(0,0,0,0.9)' }}>
-              2<span style={{ fontSize: '1.7rem', verticalAlign: 'top', fontStyle: 'italic' }}>ND</span>
-            </div>
-            <div style={{ marginTop: '4px' }}>
-              <div style={{ fontSize: '0.9rem', fontWeight: '600', color: '#D1D5DB' }}>
-                {second.driver.name.split(' ')[0]}
-              </div>
-              <div style={{ fontSize: '1.5rem', fontWeight: '900', color: second.team.color, textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1 }}>
-                {second.driver.name.split(' ').slice(1).join(' ') || second.driver.name}
-              </div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '800', color: '#9CA3AF', textTransform: 'uppercase', marginTop: '2px' }}>
-                {second.team.name}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* 3D LAYERED STANDING DRIVER CUTOUTS */}
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, top: '10%', zIndex: 2, pointerEvents: 'none' }}>
-            {/* Layer 2: 3rd Place Driver (Staggers in with 3rd place text) */}
-            {third.driver.avatar && (
-              <motion.img
-                initial={{ y: 80, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                src={third.driver.avatar}
-                alt={third.driver.name}
-                style={{
-                  position: 'absolute',
-                  right: '2%',
-                  bottom: 0,
-                  height: '76%',
-                  objectFit: 'contain',
-                  zIndex: 2,
-                  filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.95))'
-                }}
-              />
-            )}
-
-            {/* Layer 2: 2nd Place Driver (Staggers in with 2nd place text) */}
-            {second.driver.avatar && (
-              <motion.img
-                initial={{ y: 80, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                src={second.driver.avatar}
-                alt={second.driver.name}
-                style={{
-                  position: 'absolute',
-                  left: '2%',
-                  bottom: 0,
-                  height: '76%',
-                  objectFit: 'contain',
-                  zIndex: 2,
-                  filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.95))'
-                }}
-              />
-            )}
-
-            {/* Layer 4: 1st Place WINNER (Drops down 3rd: delay 0.9s with explosive spring BAM!) */}
-            {first.driver.avatar && (
-              <motion.img
-                initial={{ y: -180, opacity: 0, scale: 1.1 }}
-                animate={{ y: 0, opacity: 1, scale: 1.4 }}
-                transition={{ duration: 0.6, delay: 0.9, type: 'spring', stiffness: 180, damping: 14 }}
-                src={first.driver.avatar}
-                alt={first.driver.name}
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  transformOrigin: 'bottom center',
-                  bottom: 0,
-                  height: '78%',
-                  objectFit: 'contain',
-                  zIndex: 5,
-                  filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.95))'
-                }}
-              />
-            )}
-          </div>
-
-          {/* FOREGROUND WINNER DUUUUMM OVERLAY (Explodes in: delay 1.1s!) */}
-          <motion.div
-            initial={{ scale: 0.4, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.1, type: 'spring', stiffness: 220, damping: 15 }}
+            initial={{ opacity: 0, y: -25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={luxuryTransition}
             style={{
-              position: 'absolute',
-              bottom: '6%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              textAlign: 'center',
-              zIndex: 15,
-              width: '100%',
-              pointerEvents: 'none'
+              display: 'flex',
+              justify: 'space-between',
+              alignItems: 'center',
+              zIndex: 20,
+              background: 'rgba(18, 22, 34, 0.65)',
+              backdropFilter: 'blur(10px)',
+              padding: '10px 20px',
+              borderRadius: '12px',
+              border: '1px solid rgba(255,255,255,0.08)',
+              marginBottom: '10px'
             }}
           >
-            <div style={{
-              fontFamily: 'var(--font-f1)',
-              fontSize: '5.5rem',
-              fontWeight: '900',
-              fontStyle: 'italic',
-              color: '#FFFFFF',
-              lineHeight: 0.85,
-              letterSpacing: '4px',
-              textShadow: '0 8px 30px rgba(0,0,0,0.95), 0 0 25px rgba(0,0,0,0.95)'
-            }}>
-              WINNER
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ background: '#FFF', padding: '6px 18px', borderRadius: '6px', display: 'flex', alignItems: 'center' }}>
+                <img src="/F1-logo.png" alt="F1" style={{ height: '22px', objectFit: 'contain' }} />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--f1-red)', textTransform: 'uppercase', fontWeight: '900', letterSpacing: '1px' }}>
+                  FORMULA 1 GRAND PRIX 2026
+                </div>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: '900', fontStyle: 'italic', color: '#FFF', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  {raceTitle}
+                </h2>
+              </div>
             </div>
 
-            <div style={{
-              fontFamily: 'cursive, sans-serif',
-              fontSize: '2rem',
-              color: '#FFD700',
-              marginTop: '-18px',
-              marginBottom: '-6px',
-              textShadow: '0 4px 12px rgba(0,0,0,0.95)',
-              fontWeight: '700'
-            }}>
-              {first.driver.name}
-            </div>
-
-            <div style={{
-              fontFamily: 'var(--font-f1)',
-              fontSize: '3rem',
-              fontWeight: '900',
-              color: first.team.accentColor || '#FF8000',
-              textTransform: 'uppercase',
-              lineHeight: 1,
-              textShadow: '0 6px 20px rgba(0,0,0,0.95)',
-              letterSpacing: '1px'
-            }}>
-              {first.driver.name.split(' ').pop()}
-            </div>
-
-            <div style={{
-              fontSize: '1.1rem',
-              fontWeight: '800',
-              color: '#FFF',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginTop: '2px',
-              textShadow: '0 2px 8px rgba(0,0,0,0.9)'
-            }}>
-              {first.team.name}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem', fontWeight: '800', color: '#FFD700', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              <Sparkles size={16} /> OFFICIAL TOP 3 PODIUM
             </div>
           </motion.div>
+
+          {/* Main 3-Column Podium Driver Showcase */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1fr', gap: '16px', alignItems: 'flex-end', flex: 1, position: 'relative', zIndex: 10, paddingBottom: '10px' }}>
+            
+            {/* --- 2ND PLACE (LEFT) --- */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ ...luxuryTransition, delay: 0.3 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                position: 'relative'
+              }}
+            >
+              {/* Driver Portrait Cutout */}
+              <div style={{ position: 'relative', height: '290px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                {second.driver.avatar ? (
+                  <img
+                    src={second.driver.avatar}
+                    alt={second.driver.name}
+                    style={{
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.9))'
+                    }}
+                  />
+                ) : (
+                  <div style={{ fontSize: '4rem', opacity: 0.5 }}>🏎️</div>
+                )}
+              </div>
+
+              {/* 2nd Place Pedestal Card */}
+              <div style={{
+                width: '100%',
+                background: 'linear-gradient(180deg, #1C2232 0%, #121622 100%)',
+                border: '2px solid var(--f1-silver)',
+                borderRadius: '12px 12px 0 0',
+                padding: '14px 10px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
+                borderBottom: '4px solid var(--f1-silver)'
+              }}>
+                <div style={{ fontFamily: 'var(--font-f1)', fontSize: '2rem', fontWeight: '900', color: 'var(--f1-silver)', lineHeight: 1 }}>
+                  2ND PLACE
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', margin: '6px 0 2px 0' }}>
+                  <FlagIcon countryCode={second.driver.country} style={{ width: '20px', height: '14px' }} />
+                  <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', fontStyle: 'italic' }}>
+                    {second.driver.name}
+                  </span>
+                </div>
+                <div style={{ fontSize: '0.78rem', color: second.team.color, fontWeight: '800', textTransform: 'uppercase' }}>
+                  {second.team.name}
+                </div>
+                <div style={{ marginTop: '6px', fontSize: '0.85rem', fontWeight: '900', color: 'var(--f1-silver)' }}>
+                  +18 PTS
+                </div>
+              </div>
+            </motion.div>
+
+            {/* --- 1ST PLACE WINNER (CENTER) --- */}
+            <motion.div
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ ...luxuryTransition, delay: 0.6 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                position: 'relative',
+                zIndex: 15
+              }}
+            >
+              {/* Winner Golden Badge */}
+              <div style={{
+                background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 100%)',
+                color: '#000',
+                padding: '6px 18px',
+                borderRadius: '20px',
+                fontWeight: '900',
+                fontSize: '0.85rem',
+                letterSpacing: '1px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                marginBottom: '8px',
+                boxShadow: '0 4px 20px rgba(255,215,0,0.6)'
+              }}>
+                <Trophy size={16} /> RACE WINNER
+              </div>
+
+              {/* Driver Portrait Cutout (Taller & Prominent) */}
+              <div style={{ position: 'relative', height: '330px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                {first.driver.avatar ? (
+                  <img
+                    src={first.driver.avatar}
+                    alt={first.driver.name}
+                    style={{
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(0 20px 35px rgba(255,215,0,0.3)) drop-shadow(0 15px 30px rgba(0,0,0,0.95))'
+                    }}
+                  />
+                ) : (
+                  <div style={{ fontSize: '5rem' }}>🏆</div>
+                )}
+              </div>
+
+              {/* 1st Place Golden Pedestal Card */}
+              <div style={{
+                width: '100%',
+                background: 'linear-gradient(180deg, #262112 0%, #15120A 100%)',
+                border: '2px solid #FFD700',
+                borderRadius: '12px 12px 0 0',
+                padding: '16px 12px',
+                boxShadow: '0 15px 40px rgba(255,215,0,0.25)',
+                borderBottom: '5px solid #FFD700'
+              }}>
+                <div style={{ fontFamily: 'var(--font-f1)', fontSize: '2.5rem', fontWeight: '900', color: '#FFD700', lineHeight: 1, letterSpacing: '1px' }}>
+                  WINNER
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', margin: '6px 0 2px 0' }}>
+                  <FlagIcon countryCode={first.driver.country} style={{ width: '22px', height: '15px' }} />
+                  <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', fontStyle: 'italic' }}>
+                    {first.driver.name}
+                  </span>
+                </div>
+                <div style={{ fontSize: '0.85rem', color: first.team.color, fontWeight: '800', textTransform: 'uppercase' }}>
+                  {first.team.name}
+                </div>
+                <div style={{ marginTop: '6px', fontSize: '1rem', fontWeight: '900', color: '#FFD700' }}>
+                  +{first.pts} PTS {first.isFastestLap ? '⚡ FL' : ''}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* --- 3RD PLACE (RIGHT) --- */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ ...luxuryTransition, delay: 0.1 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                position: 'relative'
+              }}
+            >
+              {/* Driver Portrait Cutout */}
+              <div style={{ position: 'relative', height: '270px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                {third.driver.avatar ? (
+                  <img
+                    src={third.driver.avatar}
+                    alt={third.driver.name}
+                    style={{
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.9))'
+                    }}
+                  />
+                ) : (
+                  <div style={{ fontSize: '4rem', opacity: 0.5 }}>🏎️</div>
+                )}
+              </div>
+
+              {/* 3rd Place Pedestal Card */}
+              <div style={{
+                width: '100%',
+                background: 'linear-gradient(180deg, #241D17 0%, #16120E 100%)',
+                border: '2px solid var(--f1-bronze)',
+                borderRadius: '12px 12px 0 0',
+                padding: '14px 10px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
+                borderBottom: '4px solid var(--f1-bronze)'
+              }}>
+                <div style={{ fontFamily: 'var(--font-f1)', fontSize: '2rem', fontWeight: '900', color: 'var(--f1-bronze)', lineHeight: 1 }}>
+                  3RD PLACE
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', margin: '6px 0 2px 0' }}>
+                  <FlagIcon countryCode={third.driver.country} style={{ width: '20px', height: '14px' }} />
+                  <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', fontStyle: 'italic' }}>
+                    {third.driver.name}
+                  </span>
+                </div>
+                <div style={{ fontSize: '0.78rem', color: third.team.color, fontWeight: '800', textTransform: 'uppercase' }}>
+                  {third.team.name}
+                </div>
+                <div style={{ marginTop: '6px', fontSize: '0.85rem', fontWeight: '900', color: 'var(--f1-bronze)' }}>
+                  +15 PTS
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Bottom Broadcast Footer */}
+          <div style={{
+            display: 'flex',
+            justify: 'space-between',
+            alignItems: 'center',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            paddingTop: '8px',
+            zIndex: 20
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '700' }}>
+              <div style={{ background: '#FFF', padding: '3px 8px', borderRadius: '4px' }}>
+                <img src="/F1-logo.png" alt="F1" style={{ height: '12px', objectFit: 'contain' }} />
+              </div>
+              <span>OFFICIAL F1 BROADCAST TIMING & PODIUM</span>
+            </div>
+
+            <div style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '600' }}>
+              SEASON 2026 • OFFICIAL STAGE PODIUM
+            </div>
+          </div>
         </div>
       </div>
     </div>
