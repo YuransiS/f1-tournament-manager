@@ -1,14 +1,14 @@
 export const DEFAULT_TEAMS = [
-  { id: 'alphatauri', name: 'AlphaTauri', color: '#00293B', accentColor: '#4E7C9B', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/alphatauri-logo.png' },
-  { id: 'aston-martin', name: 'Aston Martin', color: '#006F62', accentColor: '#00D2BE', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/aston-martin-logo.png' },
-  { id: 'williams', name: 'Williams Racing', color: '#00A0DE', accentColor: '#005AFF', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/williams-logo.png' },
-  { id: 'alpine', name: 'Alpine', color: '#0090FF', accentColor: '#FF87BC', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/alpine-logo.png' },
-  { id: 'mclaren', name: 'McLaren', color: '#FF8000', accentColor: '#FF9E1B', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/mclaren-logo.png' },
-  { id: 'haas', name: 'Haas', color: '#B6BABD', accentColor: '#E6002B', logo: '/teams/haas.svg' },
-  { id: 'alfa-romeo', name: 'Alfa Romeo KICK', color: '#900000', accentColor: '#C92D2D', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/alfa-romeo-logo.png' },
-  { id: 'mercedes', name: 'Mercedes-AMG Petronas', color: '#00A19B', accentColor: '#6CD3BF', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/mercedes-logo.png' },
-  { id: 'ferrari', name: 'Ferrari', color: '#E80020', accentColor: '#FFF200', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/ferrari-logo.png' },
-  { id: 'red-bull', name: 'Red Bull / Red Kangaroo', color: '#1E41FF', accentColor: '#FF0000', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/red-bull-racing-logo.png' }
+  { id: 'alphatauri', name: 'AlphaTauri', color: '#00293B', accentColor: '#4E7C9B', logo: '/teams/alphatauri.png' },
+  { id: 'aston-martin', name: 'Aston Martin', color: '#006F62', accentColor: '#00D2BE', logo: '/teams/aston-martin.png' },
+  { id: 'williams', name: 'Williams Racing', color: '#00A0DE', accentColor: '#005AFF', logo: '/teams/williams.png' },
+  { id: 'alpine', name: 'Alpine', color: '#0090FF', accentColor: '#FF87BC', logo: '/teams/alpine.png' },
+  { id: 'mclaren', name: 'McLaren', color: '#FF8000', accentColor: '#FF9E1B', logo: '/teams/mclaren.png' },
+  { id: 'haas', name: 'Haas', color: '#B6BABD', accentColor: '#E6002B', logo: '/teams/haas.png' },
+  { id: 'alfa-romeo', name: 'Alfa Romeo KICK', color: '#900000', accentColor: '#C92D2D', logo: '/teams/alfa-romeo.png' },
+  { id: 'mercedes', name: 'Mercedes-AMG Petronas', color: '#00A19B', accentColor: '#6CD3BF', logo: '/teams/mercedes.png' },
+  { id: 'ferrari', name: 'Ferrari', color: '#E80020', accentColor: '#FFF200', logo: '/teams/ferrari.png' },
+  { id: 'red-bull', name: 'Red Bull / Red Kangaroo', color: '#1E41FF', accentColor: '#FF0000', logo: '/teams/red-bull.png' }
 ];
 
 export const DEFAULT_DRIVERS = [
@@ -141,16 +141,16 @@ export const DEFAULT_RACES = [
     hasPressRelease: true,
     fastestLapDriverId: '',
     results: [
-      { driverId: 'drv-18', grid: 1, stops: 0, bestLap: '1:42.100', totalTime: '24:15.102', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P1 Verstappen (8 pts)
-      { driverId: 'drv-4', grid: 2, stops: 0, bestLap: '1:42.500', totalTime: '+1.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Albon (7 pts)
-      { driverId: 'drv-20', grid: 3, stops: 0, bestLap: '1:42.800', totalTime: '+3.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 Zhou (6 pts)
-      { driverId: 'drv-15', grid: 4, stops: 0, bestLap: '1:42.600', totalTime: '+4.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Perez (5 pts)
-      { driverId: 'drv-19', grid: 5, stops: 0, bestLap: '1:43.000', totalTime: '+6.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Piastri (4 pts)
-      { driverId: 'drv-9', grid: 6, stops: 0, bestLap: '1:43.100', totalTime: '+7.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P6 Bottas (3 pts)
-      { driverId: 'drv-8', grid: 7, stops: 0, bestLap: '1:43.300', totalTime: '+9.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Hulkenberg (2 pts)
-      { driverId: 'drv-5', grid: 8, stops: 0, bestLap: '1:43.400', totalTime: '+10.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Gasly (1 pt)
-      { driverId: 'drv-7', grid: 9, stops: 0, bestLap: '1:43.500', totalTime: '+11.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Norris
-      { driverId: 'drv-11', grid: 10, stops: 0, bestLap: '1:43.700', totalTime: '+12.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Gromov (PABV)
+      { driverId: 'drv-18', grid: 1, stops: 0, bestLap: '1:42.100', totalTime: '24:15.102', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 2, stops: 0, bestLap: '1:42.500', totalTime: '+1.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 3, stops: 0, bestLap: '1:42.800', totalTime: '+3.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-15', grid: 4, stops: 0, bestLap: '1:42.600', totalTime: '+4.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 5, stops: 0, bestLap: '1:43.000', totalTime: '+6.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 6, stops: 0, bestLap: '1:43.100', totalTime: '+7.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 7, stops: 0, bestLap: '1:43.300', totalTime: '+9.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 8, stops: 0, bestLap: '1:43.400', totalTime: '+10.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 9, stops: 0, bestLap: '1:43.500', totalTime: '+11.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 10, stops: 0, bestLap: '1:43.700', totalTime: '+12.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 11, stops: 0, bestLap: '1:43.800', totalTime: '+13.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 12, stops: 0, bestLap: '1:43.900', totalTime: '+14.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-16', grid: 13, stops: 0, bestLap: '1:44.000', totalTime: '+15.000', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
