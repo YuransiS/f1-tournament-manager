@@ -104,7 +104,7 @@ export default function StandingsView({ data, standings: propStandings, activeTa
                       <td>
                         <div className="team-cell" style={{ gap: '10px', alignItems: 'center' }}>
                           <span className="team-stripe" style={{ backgroundColor: item.team.color, height: '24px', width: '4px' }} />
-                          <TeamLogo teamId={item.team.id} style={{ height: '22px' }} />
+                          <TeamLogo teamId={item.team.id} size="sm" />
                           <span style={{ fontWeight: '600' }}>{item.team.name}</span>
                         </div>
                       </td>
@@ -166,7 +166,7 @@ export default function StandingsView({ data, standings: propStandings, activeTa
                       <td>
                         <div className="team-cell" style={{ gap: '16px', alignItems: 'center' }}>
                           <span className="team-stripe" style={{ backgroundColor: item.team.color, height: '38px', width: '5px' }} />
-                          <TeamLogo teamId={item.team.id} style={{ height: '34px', minWidth: '42px' }} />
+                          <TeamLogo teamId={item.team.id} size="md" />
                           <div>
                             <div style={{ fontWeight: '800', fontSize: '1.1rem', color: '#FFF' }}>{item.team.name}</div>
                           </div>
