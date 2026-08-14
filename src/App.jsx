@@ -73,6 +73,7 @@ export default function App() {
         {activeTab === 'standings' && (
           <StandingsView
             data={data}
+            standings={standings}
           />
         )}
 

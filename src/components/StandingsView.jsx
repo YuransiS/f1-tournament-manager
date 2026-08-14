@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Trophy, Award, Shield, User, Zap } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
 import F1TransfersShowcase from './F1TransfersShowcase';
+import { calculateStandings } from '../services/storage';
 
-export default function StandingsView({ standings, activeTab, onTabChange }) {
-  const { driverStandings, constructorStandings } = standings;
+export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange }) {
+  const [internalTab, setInternalTab] = useState('drivers');
+  const activeTab = propActiveTab || internalTab;
+  const handleTabChange = onTabChange || setInternalTab;
+
+  const standings = propStandings || (data ? calculateStandings(data) : { driverStandings: [], constructorStandings: [] });
+  const { driverStandings = [], constructorStandings = [] } = standings;
 
   return (
     <div>
@@ -20,14 +26,14 @@ export default function StandingsView({ standings, activeTab, onTabChange }) {
       <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
         <button
           className={`btn ${activeTab === 'drivers' ? 'btn-primary' : ''}`}
-          onClick={() => onTabChange('drivers')}
+          onClick={() => handleTabChange('drivers')}
           style={{ padding: '10px 24px', fontWeight: '800', fontSize: '0.95rem' }}
         >
           <User size={18} /> ЛИЧНЫЙ ЗАЧЁТ (DRIVERS)
         </button>
         <button
           className={`btn ${activeTab === 'constructors' ? 'btn-primary' : ''}`}
-          onClick={() => onTabChange('constructors')}
+          onClick={() => handleTabChange('constructors')}
           style={{ padding: '10px 24px', fontWeight: '800', fontSize: '0.95rem' }}
         >
           <Shield size={18} /> КУБОК КОНСТРУКТОРОВ (TEAMS)
