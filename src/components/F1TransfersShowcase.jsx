@@ -132,12 +132,27 @@ export default function F1TransfersShowcase() {
           boxShadow: '0 10px 30px rgba(0,0,0,0.6)'
         }}>
           <div style={{
-            fontSize: '3rem',
-            background: 'rgba(30,65,255,0.2)',
-            padding: '12px 18px',
-            borderRadius: '12px'
+            background: 'rgba(30,65,255,0.15)',
+            padding: '12px 16px',
+            borderRadius: '14px',
+            border: '1px solid rgba(30,65,255,0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '90px',
+            height: '90px',
+            flexShrink: 0
           }}>
-            🐂
+            <img
+              src="/teams/red-bull.png"
+              alt="Red Bull Racing"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.8))'
+              }}
+            />
           </div>
           <div>
             <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '800', textTransform: 'uppercase' }}>

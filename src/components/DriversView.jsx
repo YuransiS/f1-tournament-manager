@@ -67,23 +67,36 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
                 justifyContent: 'center',
                 overflow: 'hidden'
               }}>
-                {/* Clean Team Logo on Background (No bounding boxes/podkladki) */}
+                {/* Perfectly Centered & Uniform Background Team Watermark */}
                 {team.logo && (
-                  <img
-                    src={team.logo}
-                    alt=""
-                    style={{
-                      position: 'absolute',
-                      right: '0',
-                      top: '10px',
-                      height: '140px',
-                      opacity: 0.12,
-                      mixBlendMode: 'screen',
-                      filter: 'contrast(1.5) brightness(1.2)',
-                      pointerEvents: 'none',
-                      zIndex: 1
-                    }}
-                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '36%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '82%',
+                    height: '140px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'none',
+                    zIndex: 1
+                  }}>
+                    <img
+                      src={team.logo}
+                      alt=""
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        width: 'auto',
+                        height: 'auto',
+                        objectFit: 'contain',
+                        opacity: 0.22,
+                        mixBlendMode: 'screen',
+                        filter: 'contrast(1.4) brightness(1.3) drop-shadow(0 0 20px rgba(255,255,255,0.06))'
+                      }}
+                    />
+                  </div>
                 )}
 
                 {/* Standing Driver Portrait */}
