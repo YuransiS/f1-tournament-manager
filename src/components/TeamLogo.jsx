@@ -1,21 +1,21 @@
 import React from 'react';
 
-// Official, 100% transparent vector SVGs and BrandPalettes PNG logos without any white boxes or background pads!
+// Exact high-resolution, transparent PNG & vector SVG logos provided by user
 const TEAM_LOGO_MAP = {
   'red-bull': '/teams/red-bull.png',
   'mercedes': '/teams/mercedes.svg',
-  'ferrari': '/teams/ferrari.svg',
+  'ferrari': '/teams/ferrari.png',
   'mclaren': '/teams/mclaren.svg',
-  'aston-martin': '/teams/aston-martin.svg',
+  'aston-martin': '/teams/aston-martin.png',
   'alpine': '/teams/alpine.svg',
-  'williams': '/teams/williams.svg',
-  'alphatauri': '/teams/alphatauri.svg',
-  'alfa-romeo': '/teams/alfa-romeo.svg',
-  'haas': '/teams/haas.svg'
+  'williams': '/teams/williams.png',
+  'alphatauri': '/teams/alphatauri.png',
+  'alfa-romeo': '/teams/alfa-romeo.png',
+  'haas': '/teams/haas.png'
 };
 
 export default function TeamLogo({ teamId, style = {}, className = '', alt = '' }) {
-  const logoSrc = TEAM_LOGO_MAP[teamId] || `/teams/${teamId}.svg`;
+  const logoSrc = TEAM_LOGO_MAP[teamId] || `/teams/${teamId}.png`;
 
   return (
     <img
@@ -23,18 +23,20 @@ export default function TeamLogo({ teamId, style = {}, className = '', alt = '' 
       alt={alt || teamId}
       className={className}
       style={{
-        height: '32px',
-        maxWidth: '85px',
+        height: '36px',
+        maxWidth: '80px',
         objectFit: 'contain',
         display: 'inline-block',
         verticalAlign: 'middle',
         background: 'transparent',
-        filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.6))',
+        filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.65))',
         ...style
       }}
       onError={(e) => {
-        // graceful fallback if missing
-        e.target.style.display = 'none';
+        // Fallback to SVG if PNG fails
+        if (e.target.src.endsWith('.png')) {
+          e.target.src = `/teams/${teamId}.svg`;
+        }
       }}
     />
   );

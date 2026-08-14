@@ -1,13 +1,13 @@
 export const DEFAULT_TEAMS = [
-  { id: 'alphatauri', name: 'AlphaTauri', color: '#00293B', accentColor: '#4E7C9B', logo: '/teams/alphatauri.svg' },
-  { id: 'aston-martin', name: 'Aston Martin', color: '#006F62', accentColor: '#00D2BE', logo: '/teams/aston-martin.svg' },
-  { id: 'williams', name: 'Williams Racing', color: '#00A0DE', accentColor: '#005AFF', logo: '/teams/williams.svg' },
+  { id: 'alphatauri', name: 'AlphaTauri', color: '#00293B', accentColor: '#4E7C9B', logo: '/teams/alphatauri.png' },
+  { id: 'aston-martin', name: 'Aston Martin', color: '#006F62', accentColor: '#00D2BE', logo: '/teams/aston-martin.png' },
+  { id: 'williams', name: 'Williams Racing', color: '#00A0DE', accentColor: '#005AFF', logo: '/teams/williams.png' },
   { id: 'alpine', name: 'Alpine', color: '#0090FF', accentColor: '#FF87BC', logo: '/teams/alpine.svg' },
   { id: 'mclaren', name: 'McLaren', color: '#FF8000', accentColor: '#FF9E1B', logo: '/teams/mclaren.svg' },
-  { id: 'haas', name: 'Haas', color: '#B6BABD', accentColor: '#E6002B', logo: '/teams/haas.svg' },
-  { id: 'alfa-romeo', name: 'Alfa Romeo KICK', color: '#900000', accentColor: '#C92D2D', logo: '/teams/alfa-romeo.svg' },
+  { id: 'haas', name: 'Haas', color: '#B6BABD', accentColor: '#E6002B', logo: '/teams/haas.png' },
+  { id: 'alfa-romeo', name: 'Alfa Romeo KICK', color: '#900000', accentColor: '#C92D2D', logo: '/teams/alfa-romeo.png' },
   { id: 'mercedes', name: 'Mercedes-AMG Petronas', color: '#00A19B', accentColor: '#6CD3BF', logo: '/teams/mercedes.svg' },
-  { id: 'ferrari', name: 'Ferrari', color: '#E80020', accentColor: '#FFF200', logo: '/teams/ferrari.svg' },
+  { id: 'ferrari', name: 'Ferrari', color: '#E80020', accentColor: '#FFF200', logo: '/teams/ferrari.png' },
   { id: 'red-bull', name: 'Red Bull / Red Kangaroo', color: '#1E41FF', accentColor: '#FF0000', logo: '/teams/red-bull.png' }
 ];
 
