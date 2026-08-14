@@ -1,10 +1,24 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Award, Star, Check } from 'lucide-react';
+import { Camera, Star } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
 
-export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId }) {
+// Real F1 Track Action Photos for Right Side Background
+const REAL_TRACK_PHOTOS = {
+  'race-1': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop', // Bahrain night race
+  'race-2': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1200&auto=format&fit=crop', // Jeddah street circuit
+  'race-3': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop', // Australia park
+  'race-4': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1200&auto=format&fit=crop', // Baku city
+  'race-5': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop', // Miami stadium
+  'race-6': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1200&auto=format&fit=crop', // Imola historic track
+  'race-7': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop', // Monaco harbor
+  'race-8': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1200&auto=format&fit=crop'  // Spain Barcelona Catalunya
+};
+
+const DEFAULT_TRACK_PHOTO = 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop';
+
+export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -13,7 +27,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   const [selectedDriverId, setSelectedDriverId] = useState(defaultDriverId || bestGainDriver.driverId);
 
   const selectedResult = fullResults.find(r => r.driverId === selectedDriverId) || bestGainDriver;
-  const { driver, team, finishPos, gridPos, posDiff } = selectedResult;
+  const { driver, team, posDiff } = selectedResult;
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -32,7 +46,12 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     }
   };
 
+  const trackPhoto = REAL_TRACK_PHOTOS[activeRaceId] || DEFAULT_TRACK_PHOTO;
   const luxuryEase = [0.16, 1, 0.3, 1];
+
+  // Map team colors for vibrant gradient
+  const teamPrimaryColor = team.color || '#E10600';
+  const teamAccentColor = team.accentColor || teamPrimaryColor;
 
   return (
     <div style={{ marginBottom: '36px' }}>
@@ -76,63 +95,95 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
         </div>
       </div>
 
-      {/* Target Canvas matching Official F1 TV Graphic */}
+      {/* Target 16:9 Canvas matching Official F1 TV Poster (Lando Norris Imola style) */}
       <div className="broadcast-card-scroll-wrapper">
         <motion.div
           key={selectedDriverId}
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.0, ease: luxuryEase }}
           ref={cardRef}
           style={{
             width: '100%',
-            minWidth: '940px',
+            minWidth: '960px',
             aspectRatio: '16 / 9',
-            minHeight: '560px',
+            minHeight: '580px',
             background: '#0B0D13',
             borderRadius: '16px',
             border: '2px solid #282E40',
             position: 'relative',
             overflow: 'hidden',
             boxShadow: '0 30px 80px rgba(0,0,0,0.95)',
-            display: 'grid',
-            gridTemplateColumns: '50% 50%',
             color: '#FFF'
           }}
         >
-          {/* Left Panel: Team Vibrant Gradient Backdrop */}
+          {/* Layer 1: Right Side Real Track Photo (55% width) */}
           <div style={{
-            background: `linear-gradient(135deg, ${team.color} 0%, ${team.accentColor || team.color} 100%)`,
-            padding: '36px 44px',
-            display: 'flex',
-            flexDirection: 'column',
-            justify: 'space-between',
-            position: 'relative',
-            zIndex: 2,
-            clipPath: 'polygon(0 0, 100% 0, 85% 100%, 0 100%)',
-            marginRight: '-10%'
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            width: '58%',
+            overflow: 'hidden',
+            zIndex: 1
           }}>
-            {/* Halftone / Speed Diagonal Pattern Overlay */}
+            <img
+              src={trackPhoto}
+              alt="F1 Track Action"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                filter: 'brightness(0.85) contrast(1.15) sepia(0.15)',
+                transform: 'scale(1.05)'
+              }}
+            />
+
+            {/* Dark Vignette Gradient on Right Edge */}
             <div style={{
               position: 'absolute',
               inset: 0,
-              backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,0,0,0.08) 0, rgba(0,0,0,0.08) 8px, transparent 8px, transparent 16px)',
+              background: 'linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.6) 100%)'
+            }} />
+          </div>
+
+          {/* Layer 2: Left Side Team Gradient Panel (45% width with Diagonal Slant Slash) */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            width: '48%',
+            background: `linear-gradient(135deg, ${teamPrimaryColor} 0%, ${teamAccentColor} 100%)`,
+            clipPath: 'polygon(0 0, 100% 0, 84% 100%, 0 100%)',
+            zIndex: 2,
+            padding: '36px 42px',
+            display: 'flex',
+            flexDirection: 'column',
+            justify: 'space-between',
+            boxShadow: '10px 0 30px rgba(0,0,0,0.5)'
+          }}>
+            {/* Diagonal Speed Lines / Halftone Overlay */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,0,0,0.06) 0, rgba(0,0,0,0.06) 10px, transparent 10px, transparent 20px)',
               pointerEvents: 'none'
             }} />
 
-            {/* Top Left F1 Logo & DRIVER OF THE DAY Banner */}
+            {/* TOP LEFT: F1 LOGO & DRIVER OF THE DAY HEADER */}
             <div style={{ position: 'relative', zIndex: 10 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
                 <img src="/F1-logo.png" alt="F1" style={{ height: '36px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
               </div>
 
               <div style={{
                 fontFamily: 'var(--font-f1)',
-                fontSize: '3.6rem',
+                fontSize: '3.8rem',
                 fontWeight: '900',
                 fontStyle: 'italic',
                 color: '#FFFFFF',
-                lineHeight: 0.88,
+                lineHeight: 0.86,
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
                 textShadow: '0 4px 18px rgba(0,0,0,0.4)'
@@ -143,113 +194,89 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
               </div>
             </div>
 
-            {/* Bottom Left Team Logo + Driver Name + Circuit Badge */}
+            {/* BOTTOM LEFT: TEAM BADGE + DRIVER NAME + CIRCUIT LOCATION */}
             <div style={{ position: 'relative', zIndex: 10 }}>
-              {/* Team Name / Logo Badge */}
+              {/* Team Logo / Badge */}
+              {team.logo && (
+                <div style={{ marginBottom: '6px' }}>
+                  <img src={team.logo} alt={team.name} style={{ height: '26px', objectFit: 'contain', filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))' }} />
+                </div>
+              )}
+
+              {/* Team Name */}
               <div style={{
-                fontSize: '1.1rem',
-                fontWeight: '900',
+                fontSize: '0.95rem',
+                fontWeight: '800',
                 color: 'rgba(255,255,255,0.9)',
                 textTransform: 'uppercase',
-                letterSpacing: '2px',
-                marginBottom: '4px'
+                letterSpacing: '1.5px',
+                marginBottom: '2px'
               }}>
                 {team.name}
               </div>
 
-              {/* Driver Big Name */}
+              {/* Driver Name */}
               <div style={{
                 fontFamily: 'var(--font-f1)',
-                fontSize: '2.6rem',
+                fontSize: '2.8rem',
                 fontWeight: '900',
                 fontStyle: 'italic',
                 color: '#FFFFFF',
                 lineHeight: 0.95,
                 textTransform: 'uppercase',
                 letterSpacing: '1.5px',
-                textShadow: '0 4px 16px rgba(0,0,0,0.5)'
+                textShadow: '0 4px 16px rgba(0,0,0,0.6)'
               }}>
                 {driver.name}
               </div>
 
-              {/* Flag + Track Badge */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '14px' }}>
-                <FlagIcon countryCode={driver.country} style={{ width: '26px', height: '18px', borderRadius: '2px', boxShadow: '0 2px 8px rgba(0,0,0,0.4)' }} />
-                <span style={{ fontSize: '1rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+              {/* Country Flag + Location */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '12px' }}>
+                <FlagIcon countryCode={driver.country} style={{ width: '26px', height: '18px', borderRadius: '3px', boxShadow: '0 2px 8px rgba(0,0,0,0.4)' }} />
+                <span style={{ fontSize: '1rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', letterSpacing: '2px' }}>
                   {raceTitle.replace(/Grand Prix/i, '').trim().toUpperCase()}
                 </span>
                 {posDiff > 0 && (
                   <span style={{ background: '#10B981', color: '#FFF', padding: '3px 10px', borderRadius: '12px', fontSize: '0.78rem', fontWeight: '900' }}>
-                    ▲ +{posDiff} POS GAINED
+                    ▲ +{posDiff} POS
                   </span>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Right Panel: Track Atmosphere / Action Background */}
-          <div style={{
-            position: 'relative',
-            background: '#0F121C',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justify: 'center'
-          }}>
-            {/* Background Track Map Silhouette */}
-            {trackImage && (
-              <img
-                src={trackImage}
-                alt="Track"
-                style={{
-                  position: 'absolute',
-                  width: '90%',
-                  height: '80%',
-                  opacity: 0.12,
-                  filter: 'invert(1)',
-                  pointerEvents: 'none',
-                  zIndex: 1
-                }}
-              />
-            )}
-
-            {/* Subtle Gradient Glow */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: `radial-gradient(circle at 60% 50%, ${team.color}40 0%, rgba(11,13,19,0.95) 75%)`,
-              zIndex: 2
-            }} />
-          </div>
-
-          {/* Center Overlay: Standing Driver Cutout */}
+          {/* Layer 3: CENTER STANDING DRIVER PORTRAIT (Overlapping both halves perfectly!) */}
           <div style={{
             position: 'absolute',
-            inset: 0,
+            left: '52%',
+            bottom: 0,
+            transform: 'translateX(-50%)',
+            height: '92%',
+            zIndex: 10,
+            pointerEvents: 'none',
             display: 'flex',
             justify: 'center',
-            alignItems: 'flex-end',
-            zIndex: 5,
-            pointerEvents: 'none'
+            alignItems: 'flex-end'
           }}>
             {driver.avatar ? (
               <motion.img
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.2, ease: luxuryEase }}
+                initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.9, ease: luxuryEase }}
                 src={driver.avatar}
                 alt={driver.name}
                 style={{
-                  height: '470px',
-                  maxHeight: '115%',
+                  height: '100%',
+                  maxHeight: '520px',
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.95))'
                 }}
               />
             ) : (
-              <div style={{ fontSize: '6rem', marginBottom: '80px' }}>🏎️</div>
+              <div style={{ fontSize: '6rem', marginBottom: '60px' }}>🏎️</div>
             )}
           </div>
+
         </motion.div>
       </div>
     </div>

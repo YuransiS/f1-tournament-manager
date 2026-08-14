@@ -189,6 +189,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
           trackImage={trackImage}
           fullResults={fullResults}
           defaultDriverId={activeRace.fastestLapDriverId || fullResults[0].driverId}
+          activeRaceId={activeRace.id}
         />
       ) : (
         <>
@@ -198,6 +199,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
             trackImage={trackImage}
             fullResults={fullResults}
             defaultDriverId={activeRace.fastestLapDriverId || fullResults[0].driverId}
+            activeRaceId={activeRace.id}
           />
 
           {/* 1:1 F1 Broadcast Split Result TV Cards (Top 10 / 11-20) */}
