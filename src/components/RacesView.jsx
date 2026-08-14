@@ -12,7 +12,8 @@ const TRACK_LAYOUTS = {
   'race-3': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Australia_Circuit.png',
   'race-4': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Baku_Circuit.png',
   'race-5': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Miami_Circuit.png',
-  'race-6': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Emilia_Romagna_Circuit.png'
+  'race-6': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Emilia_Romagna_Circuit.png',
+  'race-7': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monoco_Circuit.png'
 };
 
 export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints }) {
@@ -208,14 +209,13 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
                     <th style={{ textAlign: 'center' }}>СТАРТ</th>
                     <th style={{ textAlign: 'center' }}>ПИТ-СТОПЫ</th>
                     <th style={{ textAlign: 'center' }}>ЛУЧШИЙ КРУГ</th>
-                    <th style={{ textAlign: 'right' }}>ВРЕМЯ / О ТСТАВАНИЕ</th>
+                    <th style={{ textAlign: 'right' }}>ВРЕМЯ / ОТСТАВАНИЕ</th>
                     <th style={{ textAlign: 'right', paddingRight: '20px' }}>ОЧКИ</th>
                   </tr>
                 </thead>
                 <tbody>
                   {fullResults.map((item) => {
                     const isPlayer = !item.driver.isAi;
-                    const isWinner = item.finishPos === 1;
 
                     return (
                       <tr key={item.driverId} className={isPlayer ? 'real-player-row' : ''}>

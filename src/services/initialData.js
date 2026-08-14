@@ -222,6 +222,36 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:19.208', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P19 Alexsandr GROMOV (DNF)
       { driverId: 'drv-8', grid: 16, stops: 0, bestLap: '1:24.970', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' } // P20 Nico HULKENBERG (DNF)
     ]
+  },
+  {
+    id: 'race-7',
+    title: 'Monaco Grand Prix',
+    subtitle: 'CIRCUIT DE MONACO - RACE 7',
+    date: '2026-05-24',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6', // Mykola YAREMA (1:13.881)
+    results: [
+      { driverId: 'drv-6', grid: 2, stops: 2, bestLap: '1:13.881', totalTime: '46:58.120', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // P1 Mykola YAREMA (25 pts + 1 FL = 26 pts)
+      { driverId: 'drv-4', grid: 3, stops: 1, bestLap: '1:15.956', totalTime: '+40.717', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Alexander ALBON (18 pts)
+      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:15.984', totalTime: '+1:01.212', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 Logan SARGEANT (15 pts)
+      { driverId: 'drv-7', grid: 5, stops: 1, bestLap: '1:16.182', totalTime: '+1:08.336', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Lando NORRIS (12 pts)
+      { driverId: 'drv-22', grid: 10, stops: 1, bestLap: '1:15.890', totalTime: '+1:09.061', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Yuki TSUNODA (10 pts)
+      { driverId: 'drv-1', grid: 8, stops: 1, bestLap: '1:15.057', totalTime: '+1:10.500', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // P6 Yurii ZAKHARCHUK (8 pts)
+      { driverId: 'drv-2', grid: 9, stops: 1, bestLap: '1:16.177', totalTime: '+1:11.714', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Fernando ALONSO (6 pts)
+      { driverId: 'drv-19', grid: 6, stops: 1, bestLap: '1:16.122', totalTime: '+1:13.167', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Oscar PIASTRI (4 pts)
+      { driverId: 'drv-13', grid: 11, stops: 1, bestLap: '1:16.433', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Esteban OCON (2 pts)
+      { driverId: 'drv-16', grid: 14, stops: 1, bestLap: '1:16.060', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Charles LECLERC (1 pt)
+      { driverId: 'drv-8', grid: 12, stops: 1, bestLap: '1:16.890', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P11 Nico HULKENBERG
+      { driverId: 'drv-21', grid: 19, stops: 1, bestLap: '1:16.892', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P12 Daniel RICCIARDO
+      { driverId: 'drv-10', grid: 17, stops: 1, bestLap: '1:16.900', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P13 Lance STROLL
+      { driverId: 'drv-5', grid: 18, stops: 1, bestLap: '1:16.424', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P14 Pierre GASLY
+      { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:14.145', totalTime: '+1 Lap', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // P15 Alexsandr GROMOV (PABV - P15)
+      { driverId: 'drv-14', grid: 20, stops: 1, bestLap: '1:16.413', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P16 Carlos SAINZ
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:16.456', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P17 Kevin MAGNUSSEN
+      { driverId: 'drv-9', grid: 4, stops: 1, bestLap: '1:16.036', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P18 Valtteri BOTTAS (DNF)
+      { driverId: 'drv-20', grid: 13, stops: 1, bestLap: '1:16.280', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P19 ZHOU Guanyu (DNF)
+      { driverId: 'drv-17', grid: 16, stops: 1, bestLap: '1:16.939', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' } // P20 Denys KOVALENKO (DNF)
+    ]
   }
 ];
 
