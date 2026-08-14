@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <!-- Alfa Romeo Circle Badge -->
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#900000" stroke-width="8" />
+  <rect x="76" y="25" width="8" height="90" fill="#900000" />
+  <rect x="35" y="66" width="90" height="8" fill="#900000" />
+  <!-- Biscione Snake -->
+  <path d="M100 45 C115 55, 95 68, 110 80 C120 90, 100 110, 115 120" fill="none" stroke="#009246" stroke-width="8" stroke-linecap="round" />
+  <circle cx="106" cy="42" r="6" fill="#E10600" />
+  <text x="80" y="148" fill="#FFFFFF" font-family="'Century Gothic', sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="2">ALFA ROMEO</text>
+</svg>

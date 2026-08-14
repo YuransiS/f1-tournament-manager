@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140" width="240" height="140">
+  <!-- AlphaTauri Ring & Stylized 'A' -->
+  <circle cx="120" cy="70" r="55" fill="none" stroke="#4E7C9B" stroke-width="8" />
+  <path d="M120 25 L75 115 H100 L120 78 L140 115 H165 Z" fill="#FFFFFF" />
+  <polygon points="100,50 120,24 140,50 120,60" fill="#4E7C9B" />
+  <text x="120" y="132" fill="#FFFFFF" font-family="'Century Gothic', sans-serif" font-size="14" font-weight="900" text-anchor="middle" letter-spacing="4">ALPHATAURI</text>
+</svg>

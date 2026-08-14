@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+  <!-- Williams Chevron W -->
+  <path d="M20 20 L65 100 L108 42 L152 100 L198 20 H168 L142 74 L120 34 L98 74 L72 20 Z" fill="#00A0DE" />
+  <polygon points="120,48 136,80 104,80" fill="#005AFF" />
+  <text x="120" y="112" fill="#FFFFFF" font-family="'Titillium Web', 'Arial Black', sans-serif" font-size="16" font-weight="900" font-style="italic" text-anchor="middle" letter-spacing="3">WILLIAMS</text>
+</svg>

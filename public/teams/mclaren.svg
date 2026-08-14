@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">
+  <!-- McLaren Papaya Speedmark Chevron -->
+  <path d="M15 55 C65 25, 140 12, 215 18 C175 28, 115 45, 60 62 C40 68, 20 64, 15 55 Z" fill="#FF8000" />
+  <path d="M100 32 C135 22, 180 18, 222 22 C190 32, 145 44, 110 52 Z" fill="#FF1801" opacity="0.9" />
+  <!-- McLaren Typography -->
+  <text x="15" y="70" fill="#FFFFFF" font-family="'Titillium Web', 'Arial Black', sans-serif" font-size="22" font-weight="900" font-style="italic" letter-spacing="2">MCLAREN</text>
+</svg>

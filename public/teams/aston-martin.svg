@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100">
+  <!-- Aston Martin Wings -->
+  <path d="M20 50 C55 22, 120 22, 150 46 C180 22, 245 22, 280 50 C245 56, 190 40, 150 66 C110 40, 55 56, 20 50 Z" fill="#006F62" stroke="#00D2BE" stroke-width="3" />
+  <path d="M45 46 C80 32, 125 32, 150 48 C175 32, 220 32, 255 46" fill="none" stroke="#00D2BE" stroke-width="2" />
+  <!-- Center Plaque -->
+  <rect x="100" y="40" width="100" height="26" rx="4" fill="#00352F" stroke="#00D2BE" stroke-width="2" />
+  <text x="150" y="58" fill="#FFFFFF" font-family="'Century Gothic', 'Arial', sans-serif" font-size="11" font-weight="900" text-anchor="middle" letter-spacing="1.5">ASTON MARTIN</text>
+</svg>
