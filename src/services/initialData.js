@@ -46,7 +46,7 @@ export const DEFAULT_RACES = [
     subtitle: 'BAHRAIN INTERNATIONAL CIRCUIT - RACE 1',
     date: '2026-03-02',
     status: 'completed',
-    fastestLapDriverId: 'drv-11', // Alexsandr GROMOV (1:33.942)
+    fastestLapDriverId: 'drv-11',
     results: [
       { driverId: 'drv-1', grid: 8, stops: 1, bestLap: '1:34.565', totalTime: '50:18.047', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-2', grid: 3, stops: 1, bestLap: '1:35.044', totalTime: '+1.116', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -76,7 +76,7 @@ export const DEFAULT_RACES = [
     subtitle: 'JEDDAH CORNICHE CIRCUIT - RACE 2',
     date: '2026-03-09',
     status: 'completed',
-    fastestLapDriverId: 'drv-1', // Yurii ZAKHARCHUK (1:31.976)
+    fastestLapDriverId: 'drv-1',
     results: [
       { driverId: 'drv-1', grid: 1, stops: 2, bestLap: '1:31.976', totalTime: '50:02.104', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' },
       { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:33.930', totalTime: '+1.845', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -106,7 +106,7 @@ export const DEFAULT_RACES = [
     subtitle: 'ALBERT PARK CIRCUIT - RACE 3',
     date: '2026-03-16',
     status: 'completed',
-    fastestLapDriverId: 'drv-1', // Yurii ZAKHARCHUK (1:21.421)
+    fastestLapDriverId: 'drv-1',
     results: [
       { driverId: 'drv-1', grid: 2, stops: 1, bestLap: '1:21.421', totalTime: '40:49.466', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:22.703', totalTime: '+10.309', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -168,29 +168,43 @@ export const DEFAULT_RACES = [
     subtitle: 'MIAMI INTERNATIONAL AUTODROME - RACE 5',
     date: '2026-05-03',
     status: 'completed',
-    fastestLapDriverId: 'drv-1', // Yurii ZAKHARCHUK (1:32.243)
+    fastestLapDriverId: 'drv-1',
     hasPenaltyAnnouncement: true,
+    penaltyData: {
+      offenderName: 'Carlos SAINZ',
+      offenderCar: 'Car #55 • Ferrari',
+      victimName: 'Alexsandr GROMOV (PABV)',
+      victimCar: 'Car #63 • Mercedes-AMG Petronas',
+      penaltyText: '+10 SEC TIME PENALTY',
+      penaltyValue: '+10 SECONDS',
+      docNo: 'DEC-2026-MIA-55',
+      circuitName: 'MIAMI INTERNATIONAL AUTODROME',
+      headline: 'ШТРАФ +10 СЕКУНД ДЛЯ CARLOS SAINZ (#55 FERRARI)',
+      description: 'Стюарды изучили видеозаписи с онборд-камер, данные GPS и телеметрии. Было установлено, что болид #55 (Carlos Sainz) совершил агрессивный и нескоординированный маневр обгона, вызвав фатальный контакт с болидом #63 (Alexsandr GROMOV / PABV).',
+      consequences: '💥 Последствия инцидента: Болид Сашка получил несовместимые с продолжением гонки повреждения (Terminal Damage) и сошел с дистанции.',
+      outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +10 секунд к финальному времени гонки. Карлос Сайнс перемещается с 6-го места на 17-е место.'
+    },
     results: [
-      { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:32.323', totalTime: '48:03.537', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Mykola YAREMA (WINNER - 25 pts)
-      { driverId: 'drv-18', grid: 4, stops: 1, bestLap: '1:33.366', totalTime: '+2.141', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Verstappen (18 pts)
-      { driverId: 'drv-15', grid: 5, stops: 1, bestLap: '1:33.491', totalTime: '+2.189', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Perez (15 pts)
-      { driverId: 'drv-1', grid: 2, stops: 2, bestLap: '1:32.243', totalTime: '+2.515', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // Yurii ZAKHARCHUK (12 pts + 1 FL = 13 pts)
-      { driverId: 'drv-7', grid: 10, stops: 1, bestLap: '1:33.456', totalTime: '+2.515', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Norris (10 pts)
-      { driverId: 'drv-16', grid: 6, stops: 1, bestLap: '1:34.120', totalTime: '+5.615', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Leclerc (8 pts)
-      { driverId: 'drv-9', grid: 12, stops: 1, bestLap: '1:33.820', totalTime: '+6.059', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Bottas (6 pts)
-      { driverId: 'drv-5', grid: 9, stops: 1, bestLap: '1:34.740', totalTime: '+7.017', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Gasly (4 pts)
-      { driverId: 'drv-2', grid: 14, stops: 1, bestLap: '1:34.039', totalTime: '+7.386', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Alonso (2 pts)
-      { driverId: 'drv-12', grid: 16, stops: 1, bestLap: '1:33.737', totalTime: '+8.169', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Magnussen (1 pt)
-      { driverId: 'drv-19', grid: 11, stops: 1, bestLap: '1:34.259', totalTime: '+8.702', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Piastri
-      { driverId: 'drv-4', grid: 18, stops: 1, bestLap: '1:33.968', totalTime: '+10.165', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Albon
-      { driverId: 'drv-20', grid: 13, stops: 1, bestLap: '1:34.058', totalTime: '+11.249', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Zhou
-      { driverId: 'drv-10', grid: 15, stops: 1, bestLap: '1:34.337', totalTime: '+11.994', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Stroll
-      { driverId: 'drv-8', grid: 17, stops: 1, bestLap: '1:33.920', totalTime: '+12.394', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Hulkenberg
-      { driverId: 'drv-14', grid: 7, stops: 1, bestLap: '1:34.285', totalTime: '+13.941', penaltySeconds: 10, penaltyLabel: '⚠️ +10 sec (Убийство Сашка)', status: 'FINISHED' }, // Carlos SAINZ (+10s penalty)
-      { driverId: 'drv-17', grid: 20, stops: 1, bestLap: '1:33.802', totalTime: '+15.926', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Denys KOVALENKO
-      { driverId: 'drv-13', grid: 8, stops: 1, bestLap: '1:34.119', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // Ocon
-      { driverId: 'drv-3', grid: 19, stops: 1, bestLap: '1:33.994', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // Sargeant
-      { driverId: 'drv-11', grid: 3, stops: 1, bestLap: '1:32.956', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '💥 Terminal Damage (Crash w/ Sainz)', status: 'DNF' } // Alexsandr GROMOV (PABV)
+      { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:32.323', totalTime: '48:03.537', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-18', grid: 4, stops: 1, bestLap: '1:33.366', totalTime: '+2.141', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-15', grid: 5, stops: 1, bestLap: '1:33.491', totalTime: '+2.189', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 2, stops: 2, bestLap: '1:32.243', totalTime: '+2.515', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 10, stops: 1, bestLap: '1:33.456', totalTime: '+2.515', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 6, stops: 1, bestLap: '1:34.120', totalTime: '+5.615', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 12, stops: 1, bestLap: '1:33.820', totalTime: '+6.059', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 9, stops: 1, bestLap: '1:34.740', totalTime: '+7.017', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 14, stops: 1, bestLap: '1:34.039', totalTime: '+7.386', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 16, stops: 1, bestLap: '1:33.737', totalTime: '+8.169', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 11, stops: 1, bestLap: '1:34.259', totalTime: '+8.702', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 18, stops: 1, bestLap: '1:33.968', totalTime: '+10.165', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 13, stops: 1, bestLap: '1:34.058', totalTime: '+11.249', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 15, stops: 1, bestLap: '1:34.337', totalTime: '+11.994', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 17, stops: 1, bestLap: '1:33.920', totalTime: '+12.394', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 7, stops: 1, bestLap: '1:34.285', totalTime: '+13.941', penaltySeconds: 10, penaltyLabel: '⚠️ +10 sec (Убийство Сашка)', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 20, stops: 1, bestLap: '1:33.802', totalTime: '+15.926', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 8, stops: 1, bestLap: '1:34.119', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 19, stops: 1, bestLap: '1:33.994', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' },
+      { driverId: 'drv-11', grid: 3, stops: 1, bestLap: '1:32.956', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '💥 Terminal Damage (Crash w/ Sainz)', status: 'DNF' }
     ]
   },
   {
@@ -199,28 +213,28 @@ export const DEFAULT_RACES = [
     subtitle: 'AUTODROMO ENZO E DINO FERRARI (IMOLA) - RACE 6',
     date: '2026-05-17',
     status: 'completed',
-    fastestLapDriverId: 'drv-6', // Mykola YAREMA (1:17.915)
+    fastestLapDriverId: 'drv-6',
     results: [
-      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:17.915', totalTime: '47:48.650', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P1 Mykola YAREMA (25 pts + 1 FL = 26 pts)
-      { driverId: 'drv-1', grid: 3, stops: 4, bestLap: '1:20.283', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Yurii ZAKHARCHUK (18 pts)
-      { driverId: 'drv-20', grid: 18, stops: 1, bestLap: '1:24.252', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 ZHOU Guanyu (15 pts)
-      { driverId: 'drv-21', grid: 9, stops: 1, bestLap: '1:24.436', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Daniel RICCIARDO (12 pts)
-      { driverId: 'drv-10', grid: 20, stops: 1, bestLap: '1:24.862', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Lance STROLL (10 pts)
-      { driverId: 'drv-7', grid: 12, stops: 1, bestLap: '1:24.733', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P6 Lando NORRIS (8 pts)
-      { driverId: 'drv-4', grid: 10, stops: 1, bestLap: '1:24.257', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Alexander ALBON (6 pts)
-      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:24.385', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Fernando ALONSO (4 pts)
-      { driverId: 'drv-16', grid: 6, stops: 1, bestLap: '1:24.371', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Charles LECLERC (2 pts)
-      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:24.416', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Logan SARGEANT (1 pt)
-      { driverId: 'drv-19', grid: 13, stops: 1, bestLap: '1:24.550', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P11 Oscar PIASTRI
-      { driverId: 'drv-5', grid: 11, stops: 1, bestLap: '1:24.654', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P12 Pierre GASLY
-      { driverId: 'drv-14', grid: 15, stops: 1, bestLap: '1:24.558', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P13 Carlos SAINZ
-      { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:24.926', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P14 Esteban OCON
-      { driverId: 'drv-22', grid: 5, stops: 1, bestLap: '1:23.916', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P15 Yuki TSUNODA
-      { driverId: 'drv-12', grid: 14, stops: 1, bestLap: '1:24.665', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P16 Kevin MAGNUSSEN
-      { driverId: 'drv-17', grid: 4, stops: 1, bestLap: '1:22.471', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P17 Denys KOVALENKO (DNF)
-      { driverId: 'drv-9', grid: 17, stops: 1, bestLap: '1:24.905', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P18 Valtteri BOTTAS (DNF)
-      { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:19.208', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P19 Alexsandr GROMOV (DNF)
-      { driverId: 'drv-8', grid: 16, stops: 0, bestLap: '1:24.970', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' } // P20 Nico HULKENBERG (DNF)
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:17.915', totalTime: '47:48.650', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 3, stops: 4, bestLap: '1:20.283', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 18, stops: 1, bestLap: '1:24.252', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 9, stops: 1, bestLap: '1:24.436', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 20, stops: 1, bestLap: '1:24.862', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 12, stops: 1, bestLap: '1:24.733', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 10, stops: 1, bestLap: '1:24.257', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:24.385', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 6, stops: 1, bestLap: '1:24.371', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:24.416', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 13, stops: 1, bestLap: '1:24.550', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 11, stops: 1, bestLap: '1:24.654', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 15, stops: 1, bestLap: '1:24.558', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:24.926', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 5, stops: 1, bestLap: '1:23.916', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 14, stops: 1, bestLap: '1:24.665', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 4, stops: 1, bestLap: '1:22.471', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' },
+      { driverId: 'drv-9', grid: 17, stops: 1, bestLap: '1:24.905', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' },
+      { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:19.208', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' },
+      { driverId: 'drv-8', grid: 16, stops: 0, bestLap: '1:24.970', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
   },
   {
@@ -229,28 +243,73 @@ export const DEFAULT_RACES = [
     subtitle: 'CIRCUIT DE MONACO - RACE 7',
     date: '2026-05-24',
     status: 'completed',
-    fastestLapDriverId: 'drv-6', // Mykola YAREMA (1:13.881)
+    fastestLapDriverId: 'drv-6',
     results: [
-      { driverId: 'drv-6', grid: 2, stops: 2, bestLap: '1:13.881', totalTime: '46:58.120', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // P1 Mykola YAREMA (25 pts + 1 FL = 26 pts)
-      { driverId: 'drv-4', grid: 3, stops: 1, bestLap: '1:15.956', totalTime: '+40.717', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Alexander ALBON (18 pts)
-      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:15.984', totalTime: '+1:01.212', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 Logan SARGEANT (15 pts)
-      { driverId: 'drv-7', grid: 5, stops: 1, bestLap: '1:16.182', totalTime: '+1:08.336', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Lando NORRIS (12 pts)
-      { driverId: 'drv-22', grid: 10, stops: 1, bestLap: '1:15.890', totalTime: '+1:09.061', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Yuki TSUNODA (10 pts)
-      { driverId: 'drv-1', grid: 8, stops: 1, bestLap: '1:15.057', totalTime: '+1:10.500', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // P6 Yurii ZAKHARCHUK (8 pts)
-      { driverId: 'drv-2', grid: 9, stops: 1, bestLap: '1:16.177', totalTime: '+1:11.714', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Fernando ALONSO (6 pts)
-      { driverId: 'drv-19', grid: 6, stops: 1, bestLap: '1:16.122', totalTime: '+1:13.167', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Oscar PIASTRI (4 pts)
-      { driverId: 'drv-13', grid: 11, stops: 1, bestLap: '1:16.433', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Esteban OCON (2 pts)
-      { driverId: 'drv-16', grid: 14, stops: 1, bestLap: '1:16.060', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Charles LECLERC (1 pt)
-      { driverId: 'drv-8', grid: 12, stops: 1, bestLap: '1:16.890', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P11 Nico HULKENBERG
-      { driverId: 'drv-21', grid: 19, stops: 1, bestLap: '1:16.892', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P12 Daniel RICCIARDO
-      { driverId: 'drv-10', grid: 17, stops: 1, bestLap: '1:16.900', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P13 Lance STROLL
-      { driverId: 'drv-5', grid: 18, stops: 1, bestLap: '1:16.424', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P14 Pierre GASLY
-      { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:14.145', totalTime: '+1 Lap', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' }, // P15 Alexsandr GROMOV (PABV - P15)
-      { driverId: 'drv-14', grid: 20, stops: 1, bestLap: '1:16.413', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P16 Carlos SAINZ
-      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:16.456', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P17 Kevin MAGNUSSEN
-      { driverId: 'drv-9', grid: 4, stops: 1, bestLap: '1:16.036', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P18 Valtteri BOTTAS (DNF)
-      { driverId: 'drv-20', grid: 13, stops: 1, bestLap: '1:16.280', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }, // P19 ZHOU Guanyu (DNF)
-      { driverId: 'drv-17', grid: 16, stops: 1, bestLap: '1:16.939', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' } // P20 Denys KOVALENKO (DNF)
+      { driverId: 'drv-6', grid: 2, stops: 2, bestLap: '1:13.881', totalTime: '46:58.120', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 3, stops: 1, bestLap: '1:15.956', totalTime: '+40.717', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:15.984', totalTime: '+1:01.212', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 5, stops: 1, bestLap: '1:16.182', totalTime: '+1:08.336', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 10, stops: 1, bestLap: '1:15.890', totalTime: '+1:09.061', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 8, stops: 1, bestLap: '1:15.057', totalTime: '+1:10.500', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 9, stops: 1, bestLap: '1:16.177', totalTime: '+1:11.714', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 6, stops: 1, bestLap: '1:16.122', totalTime: '+1:13.167', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 11, stops: 1, bestLap: '1:16.433', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 14, stops: 1, bestLap: '1:16.060', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 12, stops: 1, bestLap: '1:16.890', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 19, stops: 1, bestLap: '1:16.892', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 17, stops: 1, bestLap: '1:16.900', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 18, stops: 1, bestLap: '1:16.424', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:14.145', totalTime: '+1 Lap', penaltySeconds: 3, penaltyLabel: 'x1 (+3 secs.)', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 20, stops: 1, bestLap: '1:16.413', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:16.456', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 4, stops: 1, bestLap: '1:16.036', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' },
+      { driverId: 'drv-20', grid: 13, stops: 1, bestLap: '1:16.280', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' },
+      { driverId: 'drv-17', grid: 16, stops: 1, bestLap: '1:16.939', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
+    ]
+  },
+  {
+    id: 'race-8',
+    title: 'Spanish Grand Prix',
+    subtitle: 'CIRCUIT DE BARCELONA-CATALUNYA - RACE 8',
+    date: '2026-05-31',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6', // Mykola YAREMA (1:14.360)
+    hasPenaltyAnnouncement: true,
+    penaltyData: {
+      offenderName: 'Yuki TSUNODA',
+      offenderCar: 'Car #22 • AlphaTauri',
+      victimName: 'Yurii ZAKHARCHUK (imnot4777)',
+      victimCar: 'Car #44 • Mercedes-AMG Petronas',
+      penaltyText: '+20 SEC TIME PENALTY',
+      penaltyValue: '+20 SECONDS',
+      docNo: 'DEC-2026-ESP-22',
+      circuitName: 'CIRCUIT DE BARCELONA-CATALUNYA',
+      headline: 'ШТРАФ +20 СЕКУНД ДЛЯ YUKI TSUNODA (#22 ALPHATAURI)',
+      description: 'Стюарды изучили записи онборд-камер и телеметрии. Было установлено, что болид #22 (Yuki Tsunoda) совершил агрессивный маневр атаки, развернув болид #44 (Yurii ZAKHARCHUK / imnot4777) в защитный барьер.',
+      consequences: '💥 Последствия инцидента: Юрий Захарчук был отброшен в стену и потерял позиции, а сам Юки Цунода сломал подвеску/колесо своей машины и сошёл с дистанции (DNF).',
+      outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +20 секунд к итоговому результату за опасное вождение и разворот соперника.'
+    },
+    results: [
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:14.360', totalTime: '44:54.808', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P1 Mykola YAREMA (25 pts + 1 FL = 26 pts)
+      { driverId: 'drv-17', grid: 2, stops: 1, bestLap: '1:15.702', totalTime: '+10.063', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Denys KOVALENKO (18 pts) - Red Bull 1-2! 🥈
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:17.167', totalTime: '+20.827', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 Fernando ALONSO (15 pts) 🥉
+      { driverId: 'drv-4', grid: 6, stops: 1, bestLap: '1:17.156', totalTime: '+21.402', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Alexander ALBON (12 pts)
+      { driverId: 'drv-19', grid: 9, stops: 1, bestLap: '1:18.063', totalTime: '+23.528', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Oscar PIASTRI (10 pts)
+      { driverId: 'drv-9', grid: 10, stops: 1, bestLap: '1:16.847', totalTime: '+24.005', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P6 Valtteri BOTTAS (8 pts)
+      { driverId: 'drv-7', grid: 17, stops: 1, bestLap: '1:17.409', totalTime: '+24.419', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Lando NORRIS (6 pts)
+      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:17.953', totalTime: '+25.260', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Logan SARGEANT (4 pts)
+      { driverId: 'drv-14', grid: 14, stops: 1, bestLap: '1:18.068', totalTime: '+25.998', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Carlos SAINZ (2 pts)
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:17.975', totalTime: '+31.253', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Charles LECLERC (1 pt)
+      { driverId: 'drv-12', grid: 13, stops: 1, bestLap: '1:17.944', totalTime: '+31.818', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P11 Kevin MAGNUSSEN
+      { driverId: 'drv-5', grid: 15, stops: 1, bestLap: '1:17.164', totalTime: '+32.881', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P12 Pierre GASLY
+      { driverId: 'drv-13', grid: 12, stops: 1, bestLap: '1:17.682', totalTime: '+34.192', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P13 Esteban OCON
+      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:17.601', totalTime: '+34.504', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P14 Daniel RICCIARDO
+      { driverId: 'drv-8', grid: 20, stops: 1, bestLap: '1:17.416', totalTime: '+35.267', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P15 Nico HULKENBERG
+      { driverId: 'drv-20', grid: 19, stops: 1, bestLap: '1:18.050', totalTime: '+35.617', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P16 ZHOU Guanyu
+      { driverId: 'drv-11', grid: 3, stops: 2, bestLap: '1:16.322', totalTime: '+36.835', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P17 Alexsandr GROMOV (PABV)
+      { driverId: 'drv-1', grid: 11, stops: 2, bestLap: '1:16.812', totalTime: '+42.675', penaltySeconds: 0, penaltyLabel: '💥 Развёрнут Tsunoda в стену', status: 'FINISHED' }, // P18 Yurii ZAKHARCHUK
+      { driverId: 'drv-22', grid: 4, stops: 1, bestLap: '1:17.379', totalTime: 'DNF', penaltySeconds: 20, penaltyLabel: '⚠️ +20 sec (Выбил Юру в стену)', status: 'DNF' }, // P19 Yuki TSUNODA (DNF)
+      { driverId: 'drv-10', grid: 16, stops: 0, bestLap: '1:19.139', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' } // P20 Lance STROLL (DNF)
     ]
   }
 ];
@@ -260,7 +319,8 @@ export const DEFAULT_PENALTIES = [
   { id: 'pen-3', driverId: 'drv-1', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-4', driverId: 'drv-6', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-5', driverId: 'drv-16', raceId: 'race-3', type: 'TIME', value: 5, reason: 'Track limits warning x1 (+5 secs.)', date: '2026-03-16' },
-  { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr GROMOV (Terminal Damage)', date: '2026-05-03' }
+  { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr GROMOV (Terminal Damage)', date: '2026-05-03' },
+  { id: 'pen-7', driverId: 'drv-22', raceId: 'race-8', type: 'TIME', value: 20, reason: 'Штраф +20 сек за столкновение, разворот Юрия Захарчука в стену и повреждение своего колеса (DNF)', date: '2026-05-31' }
 ];
 
 export const BREAKING_TRANSFERS = [

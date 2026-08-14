@@ -1,8 +1,25 @@
 import React, { useRef, useState } from 'react';
-import { Camera, AlertTriangle, ShieldAlert, Scale, CheckCircle2 } from 'lucide-react';
+import { Camera, AlertTriangle, ShieldAlert, Scale } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
-export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
+export default function F1PenaltyAnnouncement({
+  raceTitle = 'Spanish Grand Prix',
+  trackImage,
+  penaltyData = {
+    offenderName: 'Yuki TSUNODA',
+    offenderCar: 'Car #22 • AlphaTauri',
+    victimName: 'Yurii ZAKHARCHUK (imnot4777)',
+    victimCar: 'Car #44 • Mercedes-AMG Petronas',
+    penaltyText: '+20 SEC TIME PENALTY',
+    penaltyValue: '+20 SECONDS',
+    docNo: 'DEC-2026-ESP-22',
+    circuitName: 'CIRCUIT DE BARCELONA-CATALUNYA',
+    headline: 'ШТРАФ +20 СЕКУНД ДЛЯ YUKI TSUNODA (#22 ALPHATAURI)',
+    description: 'Стюарды изучили записи онборд-камер и телеметрии. Было установлено, что болид #22 (Yuki Tsunoda) совершил опасный и агрессивный маневр обгона, в результате которого развернул болид #44 (Yurii ZAKHARCHUK / imnot4777) в защитный барьер.',
+    consequences: '💥 Последствия инцидента: Болид Юрия Захарчука был отброшен в стену и потерял позиции, а сам Юки Цунода сломал подвеску/колесо своей машины и сошёл с дистанции (DNF).',
+    outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +20 секунд к финальному результату за выбивание соперника и опасный маневр на трассе.'
+  }
+}) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -12,12 +29,12 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
     try {
       const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: true });
       const link = document.createElement('a');
-      link.download = `FIA_Official_Penalty_Carlos_Sainz_10s_${raceTitle.replace(/\s+/g, '_')}.png`;
+      link.download = `FIA_Official_Penalty_${penaltyData.offenderName.replace(/\s+/g, '_')}_${raceTitle.replace(/\s+/g, '_')}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error('Failed to export penalty announcement:', err);
-      alert('Ошибка экспорта документа о штрафе Сайнса!');
+      alert('Ошибка экспорта документа о штрафе!');
     } finally {
       setIsExporting(false);
     }
@@ -32,7 +49,7 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
             ⚠️ OFFICIAL STEWARDS DECISION
           </span>
           <h3 style={{ fontSize: '1.4rem', fontWeight: '900', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
-            Официальный Анонс Штрафа ФИА (Carlos SAINZ)
+            Официальное Решение Стюардов ФИА ({penaltyData.offenderName})
           </h3>
         </div>
 
@@ -93,7 +110,7 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
           top: '40%',
           left: '50%',
           transform: 'translate(-50%, -50%) rotate(-12deg)',
-          fontSize: '5.5rem',
+          fontSize: '4.8rem',
           fontWeight: '900',
           fontFamily: 'var(--font-f1)',
           color: 'rgba(239, 68, 68, 0.16)',
@@ -106,7 +123,7 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
           zIndex: 2,
           whiteSpace: 'nowrap'
         }}>
-          +10 SEC TIME PENALTY
+          {penaltyData.penaltyText}
         </div>
 
         {/* Header Section */}
@@ -127,8 +144,8 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
           </div>
 
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '700' }}>DOCUMENT NO: DEC-2026-MIA-55</div>
-            <div style={{ fontSize: '0.85rem', color: '#FFF', fontWeight: '800' }}>MIAMI INTERNATIONAL AUTODROME</div>
+            <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '700' }}>DOCUMENT NO: {penaltyData.docNo}</div>
+            <div style={{ fontSize: '0.85rem', color: '#FFF', fontWeight: '800' }}>{penaltyData.circuitName}</div>
           </div>
         </div>
 
@@ -146,14 +163,14 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
             </div>
             <h1 style={{
               fontFamily: 'var(--font-f1)',
-              fontSize: '2.2rem',
+              fontSize: '2rem',
               fontWeight: '900',
               fontStyle: 'italic',
               margin: 0,
               color: '#FFF',
               letterSpacing: '1px'
             }}>
-              ШТРАФ +10 СЕКУНД ДЛЯ CARLOS SAINZ (#55 FERRARI)
+              {penaltyData.headline}
             </h1>
           </div>
 
@@ -161,15 +178,15 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px', marginBottom: '20px' }}>
             <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', padding: '16px 20px', borderRadius: '10px' }}>
               <div style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '700', textTransform: 'uppercase' }}>Нарушитель (Offender)</div>
-              <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#E80020', marginTop: '2px' }}>
-                Carlos SAINZ <span style={{ color: '#FFF', fontSize: '0.9rem' }}>(Car #55 • Ferrari)</span>
+              <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#EF4444', marginTop: '2px' }}>
+                {penaltyData.offenderName} <span style={{ color: '#FFF', fontSize: '0.88rem' }}>({penaltyData.offenderCar})</span>
               </div>
             </div>
 
             <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', padding: '16px 20px', borderRadius: '10px' }}>
               <div style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '700', textTransform: 'uppercase' }}>Пострадавшая сторона (Victim)</div>
               <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#00A19B', marginTop: '2px' }}>
-                Alexsandr GROMOV (PABV) <span style={{ color: '#FFF', fontSize: '0.9rem' }}>(Car #63 • Mercedes)</span>
+                {penaltyData.victimName} <span style={{ color: '#FFF', fontSize: '0.88rem' }}>({penaltyData.victimCar})</span>
               </div>
             </div>
           </div>
@@ -188,13 +205,13 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
               <AlertTriangle size={18} style={{ color: '#FFD700' }} /> Обоснование решения Международных Стюардов ФИА:
             </div>
             <p style={{ margin: 0 }}>
-              Стюарды изучили видеозаписи с онборд-камер, данные GPS и телеметрии. Было установлено, что болид #55 (Carlos Sainz) совершил агрессивный и нескоординированный маневр обгона, вызвав фатальный контакт с болидом #63 (Alexsandr GROMOV / PABV).
+              {penaltyData.description}
             </p>
             <p style={{ margin: '10px 0 0 0', color: '#F87171', fontWeight: '600' }}>
-              💥 <strong>Последствия инцидента:</strong> Болид Артёма/Сашка получил несовместимые с продолжением гонки повреждения (<em>Terminal Damage</em>) и сошел с дистанции. Вся вина за инцидент возложена на Карлоса Сайнса.
+              {penaltyData.consequences}
             </p>
             <div style={{ marginTop: '12px', padding: '10px 14px', background: 'rgba(239,68,68,0.15)', borderRadius: '6px', fontSize: '0.9rem', color: '#FFF', fontWeight: '800' }}>
-              ⚖️ <strong>ИТОГОВЫЙ ШТРАФ:</strong> +10 секунд к финальному времени гонки. Карлос Сайнс перемещается с 6-го места на 17-е место (0 очков).
+              {penaltyData.outcome}
             </div>
           </div>
         </div>
@@ -216,7 +233,7 @@ export default function F1PenaltyAnnouncement({ raceTitle, trackImage }) {
             letterSpacing: '1px',
             boxShadow: '0 4px 15px rgba(239,68,68,0.5)'
           }}>
-            PENALTY APPLIED: +10 SECONDS
+            PENALTY APPLIED: {penaltyData.penaltyValue}
           </div>
         </div>
       </div>

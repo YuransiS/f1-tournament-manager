@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Flag, Award, AlertCircle, FileText, Zap, ShieldAlert, Trophy } from 'lucide-react';
+import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy } from 'lucide-react';
 import { calculateRacePoints } from '../services/storage';
 import F1PodiumOnlyCard from './F1PodiumOnlyCard';
 import F1BroadcastSplitResultCard from './F1BroadcastSplitResultCard';
@@ -13,7 +13,8 @@ const TRACK_LAYOUTS = {
   'race-4': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Baku_Circuit.png',
   'race-5': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Miami_Circuit.png',
   'race-6': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Emilia_Romagna_Circuit.png',
-  'race-7': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monoco_Circuit.png'
+  'race-7': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monoco_Circuit.png',
+  'race-8': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Spain_Circuit.png'
 };
 
 export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints }) {
@@ -173,7 +174,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
       {isCancelled && viewMode === 'press-release' ? (
         <F1CancelledPressRelease raceTitle={activeRace.title} circuitSubtitle={activeRace.subtitle} />
       ) : hasPenaltyNotice && viewMode === 'penalty-notice' ? (
-        <F1PenaltyAnnouncement />
+        <F1PenaltyAnnouncement raceTitle={activeRace.title} trackImage={trackImage} penaltyData={activeRace.penaltyData} />
       ) : (
         <>
           {/* 1:1 F1 Broadcast Split Result TV Cards (Top 10 / 11-20) */}
