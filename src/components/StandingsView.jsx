@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Trophy, Shield, User, Filter, Calendar } from 'lucide-react';
+import { Trophy, Shield, User, Filter } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
+import F1TransfersShowcase from './F1TransfersShowcase';
 import { calculateStandings } from '../services/storage';
 
 export default function StandingsView({ data }) {
   const [subTab, setSubTab] = useState('drivers'); // 'drivers' | 'constructors'
   const [selectedRaceCutoff, setSelectedRaceCutoff] = useState('all'); // 'all' or raceId e.g. 'race-2'
+  const [showTransfersBanner, setShowTransfersBanner] = useState(true);
 
   const races = data?.races || [];
 
@@ -40,6 +42,9 @@ export default function StandingsView({ data }) {
 
   return (
     <div>
+      {/* Official Breaking Transfers Announcements Banner */}
+      {showTransfersBanner && <F1TransfersShowcase />}
+
       {/* Top Filter Bar for Race Standings Snapshot */}
       <div className="card" style={{ padding: '16px 24px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

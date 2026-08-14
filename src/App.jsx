@@ -4,6 +4,7 @@ import WinnerBanner from './components/WinnerBanner';
 import StandingsView from './components/StandingsView';
 import RacesView from './components/RacesView';
 import DriversView from './components/DriversView';
+import F1TransfersShowcase from './components/F1TransfersShowcase';
 
 import {
   getTournamentData,
@@ -16,7 +17,7 @@ function getTabFromUrl() {
   const path = window.location.pathname.toLowerCase().replace(/^\//, '');
   const hash = window.location.hash.toLowerCase().replace(/^#/, '');
 
-  const validTabs = ['standings', 'races', 'drivers'];
+  const validTabs = ['standings', 'transfers', 'races', 'drivers'];
 
   if (validTabs.includes(path)) return path;
   if (validTabs.includes(hash)) return hash;
@@ -73,6 +74,10 @@ export default function App() {
           <StandingsView
             data={data}
           />
+        )}
+
+        {activeTab === 'transfers' && (
+          <F1TransfersShowcase />
         )}
 
         {activeTab === 'races' && (

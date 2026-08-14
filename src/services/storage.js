@@ -4,7 +4,8 @@ import {
   DEFAULT_RACES,
   DEFAULT_PENALTIES,
   DEFAULT_POINTS_MAP,
-  SPRINT_POINTS_MAP
+  SPRINT_POINTS_MAP,
+  BREAKING_TRANSFERS
 } from './initialData';
 
 const STORAGE_KEY = 'f1_tournament_data_v1';
@@ -19,7 +20,8 @@ export function getTournamentData() {
         races: DEFAULT_RACES,
         penalties: DEFAULT_PENALTIES,
         pointsMap: DEFAULT_POINTS_MAP,
-        fastestLapPoints: 1
+        fastestLapPoints: 1,
+        transfers: BREAKING_TRANSFERS
       };
       saveTournamentData(initial);
       return initial;
@@ -30,17 +32,18 @@ export function getTournamentData() {
     if (parsed.teams) {
       parsed.teams = parsed.teams.map(t => {
         const def = DEFAULT_TEAMS.find(dt => dt.id === t.id);
-        return def ? { ...t, logo: def.logo || t.logo } : t;
+        return def ? { ...t, name: def.name || t.name, logo: def.logo || t.logo } : t;
       });
     }
 
-    // Sync updated driver names and avatars (.png)
+    // Sync updated drivers & their new team transfers!
     if (parsed.drivers) {
       parsed.drivers = parsed.drivers.map(d => {
         const def = DEFAULT_DRIVERS.find(dd => dd.id === d.id);
         if (def) {
           return {
             ...d,
+            teamId: def.teamId, // Update teamId to reflect transfers!
             name: def.name || d.name,
             country: d.id === 'drv-1' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' ? 'UA' : d.country,
             avatar: def.avatar || d.avatar
@@ -60,6 +63,8 @@ export function getTournamentData() {
       parsed.penalties = parsed.penalties.filter(p => p.id !== 'pen-1');
     }
 
+    parsed.transfers = BREAKING_TRANSFERS;
+
     saveTournamentData(parsed);
     return parsed;
   } catch (err) {
@@ -70,7 +75,8 @@ export function getTournamentData() {
       races: DEFAULT_RACES,
       penalties: DEFAULT_PENALTIES,
       pointsMap: DEFAULT_POINTS_MAP,
-      fastestLapPoints: 1
+      fastestLapPoints: 1,
+      transfers: BREAKING_TRANSFERS
     };
   }
 }
@@ -90,7 +96,8 @@ export function resetToDefaultData() {
     races: DEFAULT_RACES,
     penalties: DEFAULT_PENALTIES,
     pointsMap: DEFAULT_POINTS_MAP,
-    fastestLapPoints: 1
+    fastestLapPoints: 1,
+    transfers: BREAKING_TRANSFERS
   };
   saveTournamentData(initial);
   return initial;

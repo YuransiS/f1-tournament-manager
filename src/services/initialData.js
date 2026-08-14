@@ -8,16 +8,16 @@ export const DEFAULT_TEAMS = [
   { id: 'alfa-romeo', name: 'Alfa Romeo KICK', color: '#900000', accentColor: '#C92D2D', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/alfa-romeo-logo.png' },
   { id: 'mercedes', name: 'Mercedes-AMG Petronas', color: '#00A19B', accentColor: '#6CD3BF', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/mercedes-logo.png' },
   { id: 'ferrari', name: 'Ferrari', color: '#E80020', accentColor: '#FFF200', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/ferrari-logo.png' },
-  { id: 'red-bull', name: 'Red Bull', color: '#1E41FF', accentColor: '#FF0000', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/red-bull-racing-logo.png' }
+  { id: 'red-bull', name: 'Red Bull / Red Kangaroo', color: '#1E41FF', accentColor: '#FF0000', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/red-bull-racing-logo.png' }
 ];
 
 export const DEFAULT_DRIVERS = [
-  { id: 'drv-1', name: 'Yurii ZAKHARCHUK', country: 'UA', flag: '🇺🇦', teamId: 'alphatauri', isAi: false, avatar: '/portraits/yura.png' },
+  { id: 'drv-1', name: 'Yurii ZAKHARCHUK', country: 'UA', flag: '🇺🇦', teamId: 'mercedes', isAi: false, avatar: '/portraits/yura.png' },
   { id: 'drv-2', name: 'Fernando ALONSO', country: 'ES', flag: '🇪🇸', teamId: 'aston-martin', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png' },
   { id: 'drv-3', name: 'Logan SARGEANT', country: 'US', flag: '🇺🇸', teamId: 'williams', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png' },
   { id: 'drv-4', name: 'Alexander ALBON', country: 'TH', flag: '🇹🇭', teamId: 'williams', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png' },
   { id: 'drv-5', name: 'Pierre GASLY', country: 'FR', flag: '🇫🇷', teamId: 'alpine', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png' },
-  { id: 'drv-6', name: 'Mykola YAREMA', country: 'UA', flag: '🇺🇦', teamId: 'alphatauri', isAi: false, avatar: '/portraits/kolya.png' },
+  { id: 'drv-6', name: 'Mykola YAREMA', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/kolya.png' },
   { id: 'drv-7', name: 'Lando NORRIS', country: 'GB', flag: '🇬🇧', teamId: 'mclaren', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png' },
   { id: 'drv-8', name: 'Nico HULKENBERG', country: 'DE', flag: '🇩🇪', teamId: 'haas', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png' },
   { id: 'drv-9', name: 'Valtteri BOTTAS', country: 'FI', flag: '🇫🇮', teamId: 'alfa-romeo', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png' },
@@ -26,10 +26,10 @@ export const DEFAULT_DRIVERS = [
   { id: 'drv-12', name: 'Kevin MAGNUSSEN', country: 'DK', flag: '🇩🇰', teamId: 'haas', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png' },
   { id: 'drv-13', name: 'Esteban OCON', country: 'FR', flag: '🇫🇷', teamId: 'alpine', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png' },
   { id: 'drv-14', name: 'Carlos SAINZ', country: 'ES', flag: '🇪🇸', teamId: 'ferrari', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png' },
-  { id: 'drv-15', name: 'Sergio PÉREZ', country: 'MX', flag: '🇲🇽', teamId: 'red-bull', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png' },
+  { id: 'drv-15', name: 'Sergio PÉREZ', country: 'MX', flag: '🇲🇽', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png' },
   { id: 'drv-16', name: 'Charles LECLERC', country: 'MC', flag: '🇲🇨', teamId: 'ferrari', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png' },
-  { id: 'drv-17', name: 'Denys KOVALENKO', country: 'UA', flag: '🇺🇦', teamId: 'mercedes', isAi: false, avatar: '/portraits/denya.png' },
-  { id: 'drv-18', name: 'Max VERSTAPPEN', country: 'NL', flag: '🇳🇱', teamId: 'red-bull', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png' },
+  { id: 'drv-17', name: 'Denys KOVALENKO', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/denya.png' },
+  { id: 'drv-18', name: 'Max VERSTAPPEN', country: 'NL', flag: '🇳🇱', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png' },
   { id: 'drv-19', name: 'Oscar PIASTRI', country: 'AU', flag: '🇦🇺', teamId: 'mclaren', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png' },
   { id: 'drv-20', name: 'ZHOU Guanyu', country: 'CN', flag: '🇨🇳', teamId: 'alfa-romeo', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Zhou_Guanyu/guazho01.png' }
 ];
@@ -199,4 +199,51 @@ export const DEFAULT_PENALTIES = [
   { id: 'pen-4', driverId: 'drv-6', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-5', driverId: 'drv-16', raceId: 'race-3', type: 'TIME', value: 5, reason: 'Track limits warning x1 (+5 secs.)', date: '2026-03-16' },
   { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr GROMOV (Terminal Damage)', date: '2026-05-03' }
+];
+
+export const BREAKING_TRANSFERS = [
+  {
+    id: 'tr-1',
+    driverName: 'Олександр Громов (PABV)',
+    type: 'EXTENDED',
+    title: 'Олександр Громов залишається в AL-Mercedes',
+    subtitle: 'Mercedes-AMG Petronas F1 Team продлевает контракт с Александром Громовым',
+    image: '/announcements/gromov_mercedes.png',
+    fromTeam: 'Mercedes-AMG Petronas',
+    toTeam: 'Mercedes-AMG Petronas',
+    badgeText: 'REMAINS IN MERCEDES'
+  },
+  {
+    id: 'tr-2',
+    driverName: 'Денис Коваленко (ProstoDenya)',
+    type: 'TRANSFERRED',
+    title: 'Денис Коваленко офіційно переходить из Mercedes в Red Kangaroo',
+    subtitle: 'Денис Коваленко переходит в команду Red Bull Racing со всеми набранными очками',
+    image: '/announcements/kovalenko_redbull.png',
+    fromTeam: 'Mercedes-AMG Petronas',
+    toTeam: 'Red Bull Racing',
+    badgeText: 'JOINED RED BULL'
+  },
+  {
+    id: 'tr-3',
+    driverName: 'Микола Ярема (kolyacoolguy)',
+    type: 'TRANSFERRED',
+    title: 'Микола Ярема офіційно переходить из AlphaTauri в Red Kangaroo',
+    subtitle: 'Лидер Гран-при Майами Микола Ярема переходит из AlphaTauri в Red Bull Racing',
+    image: '/announcements/yarema_redbull.png',
+    fromTeam: 'AlphaTauri',
+    toTeam: 'Red Bull Racing',
+    badgeText: 'JOINED RED BULL'
+  },
+  {
+    id: 'tr-4',
+    driverName: 'Юрий Захарчук (imnot4777)',
+    type: 'TRANSFERRED',
+    title: 'Юрий Захарчук официально переходит из AlphaTauri в Mercedes F1 Team',
+    subtitle: 'Лидер личного зачёта Юрий Захарчук подписывает контракт с Mercedes-AMG Petronas',
+    image: '/announcements/zakharchuk_mercedes.png',
+    fromTeam: 'AlphaTauri',
+    toTeam: 'Mercedes-AMG Petronas',
+    badgeText: 'JOINED MERCEDES'
+  }
 ];

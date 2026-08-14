@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, Flag, Users, Download } from 'lucide-react';
+import { Trophy, Flag, Users, Download, Zap } from 'lucide-react';
 
 export default function Header({ activeTab, setActiveTab, onExportData }) {
   return (
@@ -31,6 +31,15 @@ export default function Header({ activeTab, setActiveTab, onExportData }) {
         >
           <Trophy size={18} />
           Турнирная Таблица
+        </button>
+
+        <button
+          className={`nav-btn ${activeTab === 'transfers' ? 'active' : ''}`}
+          onClick={() => setActiveTab('transfers')}
+          style={{ border: activeTab === 'transfers' ? '1px solid #E10600' : 'none' }}
+        >
+          <Zap size={18} style={{ color: activeTab === 'transfers' ? '#FFF' : '#EF4444' }} />
+          ⚡ Трансферы
         </button>
 
         <button
