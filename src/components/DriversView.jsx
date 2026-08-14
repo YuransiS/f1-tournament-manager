@@ -4,8 +4,21 @@ import FlagIcon from './FlagIcon';
 
 export default function DriversView({ drivers, teams, standings, penalties }) {
   const standingsMap = {};
-  standings.driverStandings.forEach(s => {
-    standingsMap[s.driver.id] = s;
+  standings.driverStandings.forEach((s, idx) => {
+    standingsMap[s.driver.id] = { ...s, rank: idx + 1 };
+  });
+
+  // Sort drivers by points descending (then wins, then podiums)
+  const sortedDrivers = [...drivers].sort((a, b) => {
+    const statsA = standingsMap[a.id]?.totalPoints || 0;
+    const statsB = standingsMap[b.id]?.totalPoints || 0;
+    if (statsB !== statsA) return statsB - statsA;
+    const winsA = standingsMap[a.id]?.wins || 0;
+    const winsB = standingsMap[b.id]?.wins || 0;
+    if (winsB !== winsA) return winsB - winsA;
+    const podA = standingsMap[a.id]?.podiums || 0;
+    const podB = standingsMap[b.id]?.podiums || 0;
+    return podB - podA;
   });
 
   return (
@@ -16,14 +29,14 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
           F1 DRIVER SPOTLIGHT • РЕЕСТР ПИЛОТОВ
         </h2>
         <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-          Всего пилотов: {drivers.length} ({drivers.filter(d => !d.isAi).length} реальных игроков)
+          Всего пилотов: {drivers.length} ({drivers.filter(d => !d.isAi).length} реальных игроков) • Сортировка по очкам (P1 - P{drivers.length})
         </span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
-        {drivers.map(driver => {
+        {sortedDrivers.map(driver => {
           const team = teams.find(t => t.id === driver.teamId) || { name: 'Без команды', color: '#666' };
-          const stats = standingsMap[driver.id] || { totalPoints: 0, wins: 0, podiums: 0, fastestLaps: 0 };
+          const stats = standingsMap[driver.id] || { totalPoints: 0, wins: 0, podiums: 0, fastestLaps: 0, rank: '-' };
           const driverPenalties = penalties.filter(p => p.driverId === driver.id);
           const isPlayer = !driver.isAi;
 
@@ -59,88 +72,118 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
                     src={driver.avatar}
                     alt={driver.name}
                     style={{
-                      height: '230px',
-                      maxHeight: '100%',
+                      height: '100%',
+                      maxHeight: '230px',
                       objectFit: 'contain',
-                      filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.8))',
-                      maskImage: 'linear-gradient(to top, transparent 0%, black 15%)',
-                      WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)'
+                      zIndex: 2,
+                      filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.8))'
                     }}
                   />
                 ) : (
-                  <div style={{ fontSize: '6rem' }}>🏎️</div>
+                  <div style={{ fontSize: '4rem', marginBottom: '20px', zIndex: 2 }}>🏎️</div>
                 )}
 
-                {/* Player Tag */}
-                <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
-                  {isPlayer ? (
-                    <span className="player-badge" style={{ fontSize: '0.75rem', padding: '4px 10px' }}>🎮 Игрок</span>
-                  ) : (
-                    <span className="ai-badge" style={{ fontSize: '0.75rem', padding: '4px 10px' }}>🤖 AI</span>
-                  )}
+                {/* Team watermark icon */}
+                {team.logo && (
+                  <img
+                    src={team.logo}
+                    alt=""
+                    style={{
+                      position: 'absolute',
+                      right: '-10px',
+                      top: '10px',
+                      height: '80px',
+                      opacity: 0.15,
+                      filter: 'grayscale(1)',
+                      zIndex: 1
+                    }}
+                  />
+                )}
+
+                {/* Rank Badge */}
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  background: stats.rank === 1 ? '#FFD700' : stats.rank === 2 ? '#C0C0C0' : stats.rank === 3 ? '#CD7F32' : 'rgba(0,0,0,0.6)',
+                  color: stats.rank <= 3 ? '#000' : '#FFF',
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  fontWeight: '900',
+                  fontSize: '0.85rem',
+                  zIndex: 3,
+                  boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
+                }}>
+                  P{stats.rank}
                 </div>
 
-                {/* Country Flag */}
-                <div style={{ position: 'absolute', top: '12px', left: '12px' }}>
-                  <FlagIcon countryCode={driver.country} style={{ width: '28px', height: '18px' }} />
-                </div>
+                {/* Player Badge */}
+                {isPlayer && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    background: '#0284C7',
+                    color: '#FFF',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontWeight: '800',
+                    fontSize: '0.75rem',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    zIndex: 3,
+                    boxShadow: '0 4px 10px rgba(2, 132, 199, 0.4)'
+                  }}>
+                    PLAYER
+                  </div>
+                )}
               </div>
 
               {/* Driver Details Body */}
               <div style={{ padding: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                  <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#FFF', letterSpacing: '0.5px' }}>
-                      {driver.name}
-                    </h3>
-                    <div style={{ fontSize: '0.85rem', color: team.color, fontWeight: '700', textTransform: 'uppercase' }}>
-                      {team.name}
-                    </div>
-                  </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <FlagIcon countryCode={driver.country} style={{ width: '20px', height: '14px', borderRadius: '2px' }} />
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '600' }}>
+                    {driver.country}
+                  </span>
+                </div>
 
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', uppercase: 'true' }}>ОЧКИ</div>
-                    <div className="pts-badge" style={{ fontSize: '1.1rem', padding: '2px 10px' }}>
-                      {stats.totalPoints}
-                    </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '6px', color: '#FFF' }}>
+                  {driver.name}
+                </h3>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                  <span className="team-stripe" style={{ backgroundColor: team.color, width: '12px', height: '12px' }} />
+                  <span style={{ fontSize: '0.85rem', color: team.color, fontWeight: '700' }}>
+                    {team.name}
+                  </span>
+                </div>
+
+                {/* Driver Stats Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Очки</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: '900', color: 'var(--f1-gold)' }}>{stats.totalPoints}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Победы</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#FFF' }}>{stats.wins}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Подиумы</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#FFF' }}>{stats.podiums}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Быстрые круги</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#FFF' }}>{stats.fastestLaps}</div>
                   </div>
                 </div>
 
-                {/* Stats Row */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr 1fr',
-                  gap: '8px',
-                  background: 'rgba(0,0,0,0.3)',
-                  padding: '12px 8px',
-                  borderRadius: '8px',
-                  textAlign: 'center',
-                  marginTop: '16px'
-                }}>
-                  <div>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>ПОБЕДЫ</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: '800', color: stats.wins > 0 ? '#FFD700' : 'var(--text-main)' }}>
-                      {stats.wins}
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>ПОДИУМЫ</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: '800', color: '#FFF' }}>
-                      {stats.podiums}
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>БЫСТР. КРУГИ</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--purple-lap)' }}>
-                      {stats.fastestLaps}
-                    </div>
-                  </div>
-                </div>
-
+                {/* Penalties Notice */}
                 {driverPenalties.length > 0 && (
-                  <div style={{ marginTop: '12px', fontSize: '0.75rem', color: '#EF4444', background: 'rgba(239, 68, 68, 0.1)', padding: '8px 10px', borderRadius: '6px' }}>
-                    <AlertOctagon size={12} style={{ display: 'inline', marginRight: '6px' }} />
-                    Штрафы: {driverPenalties.map(p => `${p.reason} (${p.type === 'TIME' ? `+${p.value}s` : `-${p.value} очков`})`).join(', ')}
+                  <div style={{ marginTop: '12px', fontSize: '0.8rem', color: '#EF4444', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <AlertOctagon size={14} />
+                    <span>Штрафов: {driverPenalties.length}</span>
                   </div>
                 )}
               </div>

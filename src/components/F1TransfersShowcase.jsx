@@ -26,7 +26,7 @@ export default function F1TransfersShowcase() {
       {/* Champion Banner Header */}
       <div style={{
         display: 'flex',
-        justify: 'space-between',
+        justifyContent: 'space-between',
         alignItems: 'center',
         borderBottom: '2px solid rgba(255, 215, 0, 0.4)',
         paddingBottom: '16px',
@@ -42,7 +42,7 @@ export default function F1TransfersShowcase() {
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
-            justify: 'center',
+            justifyContent: 'center',
             boxShadow: '0 4px 18px rgba(255, 215, 0, 0.6)'
           }}>
             <Crown size={28} />
@@ -147,10 +147,10 @@ export default function F1TransfersShowcase() {
               Red Bull Racing
             </div>
             <div style={{ fontSize: '0.85rem', color: '#93C5FD', fontWeight: '700', marginTop: '2px' }}>
-              Ярема (121) + Коваленко (37)
+              Ярема (121) + Коваленко (30)
             </div>
             <div style={{ marginTop: '8px', display: 'inline-block', background: '#1E41FF', color: '#FFF', padding: '4px 12px', borderRadius: '12px', fontWeight: '900', fontSize: '0.95rem' }}>
-              158 PTS (P1 LEADER)
+              151 PTS (P1 LEADER)
             </div>
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function F1TransfersShowcase() {
             </div>
             <div style={{ fontSize: '0.88rem', color: '#FFF', display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <div>• <strong>Микола ЯРЕМА</strong> (kolyacoolguy) <span style={{ color: '#FFD700', fontSize: '0.75rem', fontWeight: '900' }}>[👑 P1 Leader • 121 pts]</span></div>
-              <div>• <strong>Денис КОВАЛЕНКО</strong> (ProstoDenya) <span style={{ color: '#60A5FA', fontSize: '0.75rem' }}>[🥈 P2 Spain • 37 pts]</span></div>
+              <div>• <strong>Денис КОВАЛЕНКО</strong> (ProstoDenya) <span style={{ color: '#60A5FA', fontSize: '0.75rem' }}>[🥈 P2 Spain • 30 pts]</span></div>
             </div>
           </div>
 
@@ -332,7 +332,7 @@ export default function F1TransfersShowcase() {
                 height: '36px',
                 display: 'flex',
                 alignItems: 'center',
-                justify: 'center',
+                justifyContent: 'center',
                 cursor: 'pointer',
                 zIndex: 10
               }}
