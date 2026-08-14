@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Star } from 'lucide-react';
+import { Camera, Star, Vote, CheckCircle2, TrendingUp } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
@@ -23,6 +23,33 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   // Auto-select driver with highest position gains (or winner if equal)
   const bestGainDriver = [...fullResults].sort((a, b) => b.posDiff - a.posDiff)[0] || fullResults[0];
   const [selectedDriverId, setSelectedDriverId] = useState(defaultDriverId || bestGainDriver.driverId);
+
+  // Voting state (mock initial vote weights)
+  const [userVotedId, setUserVotedId] = useState(null);
+  const [votes, setVotes] = useState(() => {
+    const initial = {};
+    fullResults.forEach((r, idx) => {
+      // Give realistic vote counts
+      if (r.driverId === 'drv-6') initial[r.driverId] = 412; // Mykola Yarema
+      else if (r.driverId === 'drv-1') initial[r.driverId] = 238; // Yurii Zakharchuk
+      else if (r.driverId === 'drv-17') initial[r.driverId] = 184; // Denys Kovalenko
+      else if (r.driverId === 'drv-11') initial[r.driverId] = 96;  // Sashko Gromov
+      else initial[r.driverId] = Math.max(12, 65 - idx * 4);
+    });
+    return initial;
+  });
+
+  const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
+
+  const handleVote = (driverId) => {
+    if (userVotedId === driverId) return;
+    setVotes(prev => ({
+      ...prev,
+      [driverId]: (prev[driverId] || 0) + 1
+    }));
+    setUserVotedId(driverId);
+    setSelectedDriverId(driverId);
+  };
 
   const selectedResult = fullResults.find(r => r.driverId === selectedDriverId) || bestGainDriver;
   const { driver, team, posDiff } = selectedResult;
@@ -59,7 +86,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   return (
     <div style={{ marginBottom: '36px' }}>
       {/* Control Header & Driver Selector */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '12px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <span className="badge badge-gold" style={{ padding: '6px 14px', fontSize: '0.85rem', fontWeight: '900', letterSpacing: '1px' }}>
             🌟 OFFICIAL F1 FAN VOTE
@@ -72,7 +99,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
           {/* Driver Selector dropdown */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: '700', color: '#9CA3AF' }}>
-            <span>Выбрать пилота:</span>
+            <span>Предпоказ карточки:</span>
             <select
               value={selectedDriverId}
               onChange={(e) => setSelectedDriverId(e.target.value)}
@@ -98,8 +125,8 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
         </div>
       </div>
 
-      {/* Target 16:9 Canvas matching Official F1 TV Poster (Lando Norris China template) */}
-      <div className="broadcast-card-scroll-wrapper">
+      {/* Target 16:9 Canvas matching Official F1 TV Poster */}
+      <div className="broadcast-card-scroll-wrapper" style={{ marginBottom: '24px' }}>
         <motion.div
           key={selectedDriverId}
           initial={{ opacity: 0, scale: 0.97 }}
@@ -108,9 +135,9 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
           ref={cardRef}
           style={{
             width: '100%',
-            minWidth: '960px',
+            minWidth: '980px',
             aspectRatio: '16 / 9',
-            minHeight: '580px',
+            minHeight: '600px',
             background: '#07090E',
             borderRadius: '24px',
             border: '3px solid #282E40',
@@ -125,8 +152,8 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             position: 'absolute',
             inset: 0,
             background: `
-              radial-gradient(circle at 80% 20%, ${teamPrimaryColor}DD 0%, rgba(10,12,18,0.98) 70%),
-              linear-gradient(135deg, ${teamPrimaryColor}AA 0%, ${teamAccentColor}BB 100%),
+              radial-gradient(circle at 82% 25%, ${teamPrimaryColor}EE 0%, rgba(8,10,16,0.98) 70%),
+              linear-gradient(135deg, ${teamPrimaryColor}CC 0%, ${teamAccentColor}DD 100%),
               repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 14px, transparent 14px, transparent 28px)
             `,
             mixBlendMode: 'normal',
@@ -140,11 +167,11 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
               alt="Track Layout"
               style={{
                 position: 'absolute',
-                top: '5%',
+                top: '2%',
                 right: '2%',
-                height: '85%',
-                opacity: 0.14,
-                filter: 'invert(1) drop-shadow(0 0 25px rgba(255,255,255,0.3))',
+                height: '90%',
+                opacity: 0.16,
+                filter: 'invert(1) drop-shadow(0 0 30px rgba(255,255,255,0.35))',
                 pointerEvents: 'none',
                 zIndex: 2
               }}
@@ -171,7 +198,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                 alt={driver.name}
                 style={{
                   height: '100%',
-                  maxHeight: '550px',
+                  maxHeight: '560px',
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 25px 45px rgba(0,0,0,0.95))'
                 }}
@@ -181,14 +208,14 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             )}
           </div>
 
-          {/* Layer 3: Right Side Content (F1 Logo + DRIVER OF THE DAY + Track Host Flag + Driver Name) */}
+          {/* Layer 3: Right Side Content (HUGE 3X F1 Logo + HUGE DRIVER OF THE DAY + Track Host Flag + Driver Name) */}
           <div style={{
             position: 'absolute',
             top: 0,
             right: 0,
             bottom: 0,
-            width: '54%',
-            padding: '40px 48px',
+            width: '56%',
+            padding: '36px 44px',
             display: 'flex',
             flexDirection: 'column',
             justify: 'space-between',
@@ -196,23 +223,31 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             textAlign: 'right',
             zIndex: 10
           }}>
-            {/* Top Right: Official F1 Logo */}
+            {/* Top Right: OFFICIAL F1 LOGO (3X BIGGER!) */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <img src="/F1-logo.png" alt="F1" style={{ height: '42px', objectFit: 'contain', filter: 'brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }} />
+              <img
+                src="/F1-logo.png"
+                alt="F1"
+                style={{
+                  height: '110px', // 3X BIGGER as requested!
+                  objectFit: 'contain',
+                  filter: 'brightness(0) invert(1) drop-shadow(0 6px 20px rgba(0,0,0,0.6))'
+                }}
+              />
             </div>
 
-            {/* Middle Right: GIANT "DRIVER OF THE DAY" TYPOGRAPHY */}
+            {/* Middle Right: HUGE "DRIVER OF THE DAY" TYPOGRAPHY (Race Sport Bold Style) */}
             <div style={{ margin: 'auto 0' }}>
               <div style={{
                 fontFamily: 'var(--font-f1)',
-                fontSize: '4.2rem',
+                fontSize: '5.2rem', // INCREASED SIZE!
                 fontWeight: '900',
                 fontStyle: 'italic',
                 color: '#FFFFFF',
-                lineHeight: 0.84,
-                letterSpacing: '2px',
+                lineHeight: 0.82,
+                letterSpacing: '3px',
                 textTransform: 'uppercase',
-                textShadow: '0 6px 25px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.6)'
+                textShadow: '0 8px 30px rgba(0,0,0,0.85), 0 0 15px rgba(0,0,0,0.7)'
               }}>
                 DRIVER<br />
                 OF THE<br />
@@ -223,21 +258,21 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px',
-                marginTop: '20px',
-                background: 'rgba(0,0,0,0.55)',
-                border: '1px solid rgba(255,255,255,0.15)',
-                padding: '8px 18px',
-                borderRadius: '8px',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.6)'
+                gap: '12px',
+                marginTop: '22px',
+                background: 'rgba(0,0,0,0.6)',
+                border: '1.5px solid rgba(255,255,255,0.2)',
+                padding: '10px 22px',
+                borderRadius: '10px',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.7)'
               }}>
-                <FlagIcon countryCode={hostCountry.code} style={{ width: '28px', height: '19px', borderRadius: '3px', boxShadow: '0 2px 8px rgba(0,0,0,0.6)' }} />
-                <span style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'var(--font-f1)' }}>
+                <FlagIcon countryCode={hostCountry.code} style={{ width: '32px', height: '22px', borderRadius: '4px', boxShadow: '0 2px 10px rgba(0,0,0,0.6)' }} />
+                <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'var(--font-f1)' }}>
                   {hostCountry.name}
                 </span>
                 {posDiff > 0 && (
-                  <span style={{ background: '#10B981', color: '#FFF', padding: '3px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '900' }}>
+                  <span style={{ background: '#10B981', color: '#FFF', padding: '4px 10px', borderRadius: '6px', fontSize: '0.85rem', fontWeight: '900' }}>
                     ▲ +{posDiff} POS
                   </span>
                 )}
@@ -249,14 +284,14 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
               {/* Team Logo / Badge */}
               {team.logo && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '6px' }}>
-                  <img src={team.logo} alt={team.name} style={{ height: '32px', objectFit: 'contain', filter: 'brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.6))' }} />
+                  <img src={team.logo} alt={team.name} style={{ height: '36px', objectFit: 'contain', filter: 'brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.6))' }} />
                 </div>
               )}
 
               {/* Driver Full Name */}
               <div style={{
                 fontFamily: 'var(--font-f1)',
-                fontSize: '3rem',
+                fontSize: '3.2rem',
                 fontWeight: '900',
                 fontStyle: 'italic',
                 color: '#FFFFFF',
@@ -269,7 +304,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
               </div>
 
               <div style={{
-                fontSize: '0.95rem',
+                fontSize: '1rem',
                 fontWeight: '800',
                 color: 'rgba(255,255,255,0.95)',
                 textTransform: 'uppercase',
@@ -282,6 +317,98 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
           </div>
 
         </motion.div>
+      </div>
+
+      {/* --- INTERACTIVE FAN VOTING WIDGET --- */}
+      <div className="card" style={{
+        background: 'linear-gradient(135deg, #131622 0%, #1A1E2E 100%)',
+        border: '2px solid #FFD700',
+        borderRadius: '16px',
+        padding: '24px',
+        boxShadow: '0 12px 35px rgba(255, 215, 0, 0.15)'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '10px' }}>
+          <div>
+            <div style={{ fontSize: '0.75rem', color: '#FFD700', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
+              OFFICIAL F1 FAN POLL
+            </div>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#FFF', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+              <Vote size={22} style={{ color: '#FFD700' }} />
+              🗳️ Голосование Фанатов за Driver of the Day ({raceTitle})
+            </h3>
+          </div>
+
+          <div style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: '700' }}>
+            Всего голосов: <strong style={{ color: '#FFD700' }}>{totalVotes}</strong>
+          </div>
+        </div>
+
+        {/* Voting Drivers Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
+          {fullResults.slice(0, 8).map(r => {
+            const voteCount = votes[r.driverId] || 0;
+            const percentage = totalVotes > 0 ? ((voteCount / totalVotes) * 100).toFixed(1) : 0;
+            const isVoted = userVotedId === r.driverId;
+
+            return (
+              <div
+                key={r.driverId}
+                onClick={() => handleVote(r.driverId)}
+                style={{
+                  background: isVoted ? 'rgba(255, 215, 0, 0.12)' : 'rgba(255,255,255,0.03)',
+                  border: isVoted ? '2px solid #FFD700' : '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: '12px',
+                  padding: '14px 16px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                {/* Vote Progress Fill Bar */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  width: `${percentage}%`,
+                  background: isVoted ? 'rgba(255, 215, 0, 0.25)' : `${r.team.color}33`,
+                  transition: 'width 0.4s ease',
+                  zIndex: 1
+                }} />
+
+                <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {r.driver.avatar && (
+                      <img
+                        src={r.driver.avatar}
+                        alt={r.driver.name}
+                        style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border-color)' }}
+                      />
+                    )}
+                    <div>
+                      <div style={{ fontWeight: '800', color: '#FFF', fontSize: '0.95rem' }}>
+                        {r.driver.name} {isVoted && <CheckCircle2 size={16} style={{ color: '#FFD700', display: 'inline', marginLeft: '4px' }} />}
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: r.team.color, fontWeight: '700' }}>
+                        {r.team.name} • P{r.finishPos} {r.posDiff > 0 ? `[▲+${r.posDiff}]` : ''}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '1.1rem', fontWeight: '900', color: isVoted ? '#FFD700' : '#FFF' }}>
+                      {percentage}%
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: '#9CA3AF' }}>
+                      {voteCount} голосов
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

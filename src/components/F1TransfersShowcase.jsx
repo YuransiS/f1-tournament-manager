@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Zap, ShieldCheck, ArrowRight, X } from 'lucide-react';
+import { Zap, ShieldCheck, ArrowRight, X, Trophy, Crown, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { BREAKING_TRANSFERS } from '../services/initialData';
 
@@ -15,64 +15,156 @@ export default function F1TransfersShowcase() {
       transition={{ duration: 1.0, ease: luxuryEase }}
       className="card"
       style={{
-        background: 'linear-gradient(135deg, #131622 0%, #1A1E2E 100%)',
-        border: '2px solid #E10600',
+        background: 'linear-gradient(135deg, #18150A 0%, #0F121C 100%)',
+        border: '2px solid #FFD700',
         borderRadius: '16px',
         padding: '24px',
         marginBottom: '32px',
-        boxShadow: '0 12px 35px rgba(225, 6, 0, 0.2)'
+        boxShadow: '0 12px 35px rgba(255, 215, 0, 0.25)'
       }}
     >
-      {/* Title Header */}
+      {/* Champion Banner Header */}
       <div style={{
         display: 'flex',
         justify: 'space-between',
         alignItems: 'center',
-        borderBottom: '2px solid rgba(225, 6, 0, 0.4)',
+        borderBottom: '2px solid rgba(255, 215, 0, 0.4)',
         paddingBottom: '16px',
         marginBottom: '20px',
         flexWrap: 'wrap',
         gap: '12px'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{
-            background: 'var(--f1-red)',
-            color: '#FFF',
-            padding: '8px',
-            borderRadius: '8px',
+            background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+            color: '#000',
+            padding: '10px',
+            borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
-            justify: 'center'
+            justify: 'center',
+            boxShadow: '0 4px 18px rgba(255, 215, 0, 0.6)'
           }}>
-            <Zap size={24} />
+            <Crown size={28} />
           </div>
           <div>
-            <div style={{ fontSize: '0.75rem', color: '#EF4444', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
-              OFFICIAL FIA ANNOUNCEMENTS
+            <div style={{ fontSize: '0.78rem', color: '#FFD700', fontWeight: '900', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
+              ⚡ OFFICIAL FIA CHAMPIONSHIP BULLETIN
             </div>
-            <h2 style={{ fontSize: '1.6rem', fontWeight: '900', fontStyle: 'italic', color: '#FFF' }}>
-              ⚡ BREAKING: ГРОМКИЕ ТРАНСФЕРЫ И ПРОДЛЕНИЯ КОНТРАКТОВ
+            <h2 style={{ fontSize: '1.7rem', fontWeight: '900', fontStyle: 'italic', color: '#FFF', letterSpacing: '0.5px' }}>
+              🏆 СМЕНА ЛИДЕРА: МИКОЛА ЯРЕМА — НОВЫЙ ЛИДЕР ЧЕМПИОНАТА 2026!
             </h2>
           </div>
         </div>
 
         <div style={{
-          background: 'rgba(255,255,255,0.06)',
-          padding: '6px 14px',
+          background: 'rgba(255,215,0,0.15)',
+          border: '1px solid rgba(255,215,0,0.4)',
+          padding: '8px 16px',
           borderRadius: '20px',
-          border: '1px solid rgba(255,255,255,0.1)',
-          fontSize: '0.85rem',
-          fontWeight: '700',
-          color: '#9CA3AF'
+          fontSize: '0.9rem',
+          fontWeight: '800',
+          color: '#FFD700',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
         }}>
-          Очки пилотов полностью переходят в новые команды!
+          <Flame size={18} /> 3 ПОБЕДЫ ПОДРЯД (МАЙАМИ • ИМОЛА • ИСПАНИЯ)
         </div>
       </div>
 
-      {/* Grid of 4 Official Breaking Transfer Posters with Slow Luxury Entrance */}
+      {/* Main Leader Spotlight Banner */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '20px',
+        marginBottom: '24px',
+        alignItems: 'center'
+      }}>
+        {/* Left Champion Card */}
+        <div style={{
+          background: 'linear-gradient(135deg, #241E0F 0%, #121522 100%)',
+          borderRadius: '14px',
+          border: '2px solid #FFD700',
+          padding: '20px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.6)'
+        }}>
+          <img
+            src="/portraits/kolya.png"
+            alt="Mykola Yarema"
+            style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              border: '3px solid #FFD700',
+              boxShadow: '0 6px 20px rgba(255,215,0,0.4)'
+            }}
+          />
+          <div>
+            <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '800', textTransform: 'uppercase' }}>
+              ЛИЧНЫЙ ЗАЧЁТ ПИЛОТОВ
+            </div>
+            <div style={{ fontSize: '1.4rem', fontWeight: '900', color: '#FFF', fontStyle: 'italic', textTransform: 'uppercase' }}>
+              Mykola YAREMA 🇺🇦
+            </div>
+            <div style={{ fontSize: '0.85rem', color: '#60A5FA', fontWeight: '800', textTransform: 'uppercase', marginTop: '2px' }}>
+              Red Bull Racing / Red Kangaroo
+            </div>
+            <div style={{ marginTop: '8px', display: 'inline-block', background: '#FFD700', color: '#000', padding: '4px 12px', borderRadius: '12px', fontWeight: '900', fontSize: '0.95rem' }}>
+              121 PTS (P1 LEADER)
+            </div>
+          </div>
+        </div>
+
+        {/* Right Constructors Spotlight */}
+        <div style={{
+          background: 'linear-gradient(135deg, #12192E 0%, #0F121C 100%)',
+          borderRadius: '14px',
+          border: '2px solid #1E41FF',
+          padding: '20px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.6)'
+        }}>
+          <div style={{
+            fontSize: '3rem',
+            background: 'rgba(30,65,255,0.2)',
+            padding: '12px 18px',
+            borderRadius: '12px'
+          }}>
+            🐂
+          </div>
+          <div>
+            <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '800', textTransform: 'uppercase' }}>
+              КУБОК КОНСТРУКТОРОВ
+            </div>
+            <div style={{ fontSize: '1.4rem', fontWeight: '900', color: '#FFF', fontStyle: 'italic', textTransform: 'uppercase' }}>
+              Red Bull Racing
+            </div>
+            <div style={{ fontSize: '0.85rem', color: '#93C5FD', fontWeight: '700', marginTop: '2px' }}>
+              Ярема (121) + Коваленко (37)
+            </div>
+            <div style={{ marginTop: '8px', display: 'inline-block', background: '#1E41FF', color: '#FFF', padding: '4px 12px', borderRadius: '12px', fontWeight: '900', fontSize: '0.95rem' }}>
+              158 PTS (P1 LEADER)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Grid of Official Announcements & Transfers Posters */}
+      <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#FFF', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Zap size={18} style={{ color: 'var(--f1-red)' }} />
+        Официальные постеры сезонов и переходов:
+      </h3>
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
         gap: '20px',
         marginBottom: '24px'
       }}>
@@ -81,7 +173,7 @@ export default function F1TransfersShowcase() {
             key={tr.id}
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1.0, delay: index * 0.3, ease: luxuryEase }}
+            transition={{ duration: 1.0, delay: index * 0.2, ease: luxuryEase }}
             onClick={() => setSelectedImage(tr)}
             style={{
               background: '#0B0D14',
@@ -139,7 +231,7 @@ export default function F1TransfersShowcase() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.0, delay: 1.3, ease: luxuryEase }}
+        transition={{ duration: 1.0, delay: 0.8, ease: luxuryEase }}
         style={{
           background: 'rgba(0,0,0,0.35)',
           border: '1px solid rgba(255,255,255,0.08)',
@@ -157,6 +249,22 @@ export default function F1TransfersShowcase() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: '16px'
         }}>
+          {/* Red Bull */}
+          <div style={{
+            background: 'rgba(30, 65, 255, 0.12)',
+            borderLeft: '4px solid #1E41FF',
+            padding: '12px 16px',
+            borderRadius: '8px'
+          }}>
+            <div style={{ fontWeight: '900', color: '#60A5FA', fontSize: '1rem', textTransform: 'uppercase', marginBottom: '6px' }}>
+              🐂 Red Bull Racing / Red Kangaroo (Лидер КК)
+            </div>
+            <div style={{ fontSize: '0.88rem', color: '#FFF', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div>• <strong>Микола ЯРЕМА</strong> (kolyacoolguy) <span style={{ color: '#FFD700', fontSize: '0.75rem', fontWeight: '900' }}>[👑 P1 Leader • 121 pts]</span></div>
+              <div>• <strong>Денис КОВАЛЕНКО</strong> (ProstoDenya) <span style={{ color: '#60A5FA', fontSize: '0.75rem' }}>[🥈 P2 Spain • 37 pts]</span></div>
+            </div>
+          </div>
+
           {/* Mercedes */}
           <div style={{
             background: 'rgba(0, 161, 155, 0.08)',
@@ -168,24 +276,8 @@ export default function F1TransfersShowcase() {
               🏎️ Mercedes-AMG Petronas F1 Team
             </div>
             <div style={{ fontSize: '0.88rem', color: '#FFF', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div>• <strong>Юрий ЗАХАРЧУК</strong> (imnot4777) <span style={{ color: '#38BDF8', fontSize: '0.75rem' }}>[Трансфер из AlphaTauri]</span></div>
-              <div>• <strong>Александр ГРОМОВ</strong> (PABV) <span style={{ color: '#10B981', fontSize: '0.75rem' }}>[Продление контракта]</span></div>
-            </div>
-          </div>
-
-          {/* Red Bull */}
-          <div style={{
-            background: 'rgba(30, 65, 255, 0.08)',
-            borderLeft: '4px solid #1E41FF',
-            padding: '12px 16px',
-            borderRadius: '8px'
-          }}>
-            <div style={{ fontWeight: '900', color: '#60A5FA', fontSize: '1rem', textTransform: 'uppercase', marginBottom: '6px' }}>
-              🐂 Red Bull Racing / Red Kangaroo
-            </div>
-            <div style={{ fontSize: '0.88rem', color: '#FFF', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div>• <strong>Микола ЯРЕМА</strong> (kolyacoolguy) <span style={{ color: '#38BDF8', fontSize: '0.75rem' }}>[Трансфер из AlphaTauri]</span></div>
-              <div>• <strong>Денис КОВАЛЕНКО</strong> (ProstoDenya) <span style={{ color: '#38BDF8', fontSize: '0.75rem' }}>[Трансфер из Mercedes]</span></div>
+              <div>• <strong>Юрий ЗАХАРЧУК</strong> (imnot4777) <span style={{ color: '#38BDF8', fontSize: '0.75rem' }}>[P2 Leader • 116 pts]</span></div>
+              <div>• <strong>Александр ГРОМОВ</strong> (PABV) <span style={{ color: '#10B981', fontSize: '0.75rem' }}>[Продление контракта • 1 pt]</span></div>
             </div>
           </div>
 
