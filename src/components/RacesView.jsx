@@ -11,7 +11,8 @@ const TRACK_LAYOUTS = {
   'race-2': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Saudi_Arabia_Circuit.png',
   'race-3': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Australia_Circuit.png',
   'race-4': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Baku_Circuit.png',
-  'race-5': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Miami_Circuit.png'
+  'race-5': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Miami_Circuit.png',
+  'race-6': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Emilia_Romagna_Circuit.png'
 };
 
 export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints }) {
@@ -25,7 +26,6 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
       <div className="card" style={{ textAlign: 'center', padding: '40px' }}>
         <AlertCircle size={32} style={{ color: 'var(--f1-red)', marginBottom: '12px' }} />
         <h3>Заезды пока не добавлены</h3>
-        <p style={{ color: 'var(--text-muted)' }}>Перейдите в /ADMIN панель, чтобы добавить первый Гран-при!</p>
       </div>
     );
   }
@@ -59,139 +59,226 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
 
   return (
     <div>
-      {/* Grand Prix Selector Header */}
-      <div className="card" style={{ padding: '18px 24px', marginBottom: '28px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <div>
-            <div style={{ fontSize: '0.75rem', color: isCancelled ? '#EF4444' : 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              {isCancelled ? (
-                <>🚨 ОСНОВНАЯ ГОНКА ОТМЕНЕНА (OFFICIALLY CANCELLED)</>
-              ) : activeRace.isSprint ? (
-                <>⚡ СПРИНТ-ЗАЕЗД (SPRINT RACE)</>
-              ) : (
-                <>ОФИЦИАЛЬНЫЕ РЕЗУЛЬТАТЫ ЭТАПА</>
-              )}
-            </div>
-            <h2 style={{ fontSize: '1.8rem', fontWeight: '900', fontStyle: 'italic', margin: '4px 0', color: isCancelled ? '#F87171' : 'inherit' }}>
-              {activeRace.title} {isCancelled && '(ОТМЕНА)'}
-            </h2>
-            <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-              {activeRace.subtitle} • {activeRace.date}
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            {/* View Mode Switcher for Cancelled or Penalty Announced Races */}
-            {isCancelled ? (
-              <div className="nav-tabs" style={{ background: 'rgba(255,255,255,0.06)', padding: '3px', borderRadius: '8px' }}>
-                <button
-                  className={`nav-btn ${viewMode === 'press-release' ? 'active' : ''}`}
-                  onClick={() => setViewMode('press-release')}
-                  style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px' }}
-                >
-                  <FileText size={16} /> Пресс-релиз ФИА
-                </button>
-                <button
-                  className={`nav-btn ${viewMode === 'sprint-results' ? 'active' : ''}`}
-                  onClick={() => setViewMode('sprint-results')}
-                  style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px' }}
-                >
-                  <Zap size={16} style={{ color: '#F59E0B' }} /> Результаты Спринта
-                </button>
-              </div>
-            ) : hasPenaltyNotice ? (
-              <div className="nav-tabs" style={{ background: 'rgba(255,255,255,0.06)', padding: '3px', borderRadius: '8px' }}>
-                <button
-                  className={`nav-btn ${viewMode === 'main-results' || viewMode === 'press-release' ? 'active' : ''}`}
-                  onClick={() => setViewMode('main-results')}
-                  style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px' }}
-                >
-                  <Trophy size={16} style={{ color: '#FFD700' }} /> Таблица Гонки
-                </button>
-                <button
-                  className={`nav-btn ${viewMode === 'penalty-notice' ? 'active' : ''}`}
-                  onClick={() => setViewMode('penalty-notice')}
-                  style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px' }}
-                >
-                  <ShieldAlert size={16} style={{ color: '#EF4444' }} /> ⚠️ Анонс Штрафа (Sainz +10s)
-                </button>
-              </div>
-            ) : null}
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <label style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '600' }}>Выбор этапа:</label>
-              <select
-                className="form-control"
-                style={{ width: 'auto', minWidth: '260px', fontWeight: '700' }}
-                value={selectedRaceId}
-                onChange={e => {
-                  setSelectedRaceId(e.target.value);
-                  const selected = races.find(r => r.id === e.target.value);
-                  if (selected?.isCancelled || selected?.status === 'cancelled') {
-                    setViewMode('press-release');
-                  } else {
-                    setViewMode('main-results');
-                  }
+      {/* Race Selection Bar */}
+      <div className="card" style={{ padding: '16px 20px', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', overflowX: 'auto', paddingBottom: '4px' }}>
+          <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-muted)', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Flag size={16} style={{ color: 'var(--f1-red)' }} /> ЭТАПЫ ГРАН-ПРИ 2026:
+          </span>
+          {races.map((r, index) => {
+            const isSelected = r.id === activeRace.id;
+            const isRaceCancelled = r.status === 'cancelled' || r.isCancelled;
+            return (
+              <button
+                key={r.id}
+                className={`btn btn-sm ${isSelected ? 'btn-primary' : ''}`}
+                onClick={() => {
+                  setSelectedRaceId(r.id);
+                  setViewMode(isRaceCancelled ? 'press-release' : 'main-results');
+                }}
+                style={{
+                  whiteSpace: 'nowrap',
+                  fontWeight: '700',
+                  borderRadius: '20px',
+                  padding: '6px 14px',
+                  background: isSelected ? 'var(--f1-red)' : isRaceCancelled ? 'rgba(239, 68, 68, 0.15)' : 'var(--bg-card-hover)',
+                  border: isSelected ? 'none' : isRaceCancelled ? '1px solid #EF4444' : '1px solid var(--border-color)',
+                  color: isSelected ? '#FFF' : isRaceCancelled ? '#EF4444' : 'var(--text-muted)'
                 }}
               >
-                {races.map(r => (
-                  <option key={r.id} value={r.id}>
-                    {r.title} {r.isCancelled || r.status === 'cancelled' ? '🚨 (Отменён)' : ''} ({r.date})
-                  </option>
-                ))}
-              </select>
+                ГП {index + 1}: {r.title.split(' ')[0]} {isRaceCancelled ? '🚫' : ''}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Active Race Header Summary Card */}
+      <div className="card" style={{
+        background: 'linear-gradient(135deg, #161A26 0%, #0F121C 100%)',
+        borderLeft: isCancelled ? '6px solid #EF4444' : '6px solid var(--f1-red)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {trackImage && (
+          <img
+            src={trackImage}
+            alt="Track map"
+            style={{
+              position: 'absolute',
+              right: '-40px',
+              top: '-30px',
+              height: '240px',
+              opacity: 0.1,
+              pointerEvents: 'none',
+              filter: 'invert(1)'
+            }}
+          />
+        )}
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+              <span className="player-badge" style={{ background: isCancelled ? '#EF4444' : 'var(--f1-red)', padding: '4px 10px', fontSize: '0.75rem' }}>
+                {isCancelled ? 'ОТМЕНЁННЫЙ ЭТАП' : activeRace.isSprint ? 'СПРИНТ ЭТАП' : 'ОФИЦИАЛЬНЫЙ ЭТАП'}
+              </span>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <Calendar size={14} /> {activeRace.date}
+              </span>
             </div>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '1px' }}>
+              {activeRace.title}
+            </h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '2px' }}>
+              {activeRace.subtitle}
+            </p>
+          </div>
+
+          {/* Mode Switcher Buttons */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            {isCancelled ? (
+              <button
+                className={`btn btn-sm ${viewMode === 'press-release' ? 'btn-primary' : ''}`}
+                onClick={() => setViewMode('press-release')}
+                style={{ padding: '8px 16px', fontWeight: '700' }}
+              >
+                <FileText size={16} /> Пресс-Релиз ФИА (Отмена)
+              </button>
+            ) : (
+              <>
+                <button
+                  className={`btn btn-sm ${viewMode === 'main-results' ? 'btn-primary' : ''}`}
+                  onClick={() => setViewMode('main-results')}
+                  style={{ padding: '8px 16px', fontWeight: '700' }}
+                >
+                  <Trophy size={16} /> Результаты Гонки
+                </button>
+                {hasPenaltyNotice && (
+                  <button
+                    className={`btn btn-sm ${viewMode === 'penalty-notice' ? 'btn-primary' : ''}`}
+                    onClick={() => setViewMode('penalty-notice')}
+                    style={{ background: viewMode === 'penalty-notice' ? '#B91C1C' : 'rgba(239, 68, 68, 0.15)', color: '#FFF', border: '1px solid #EF4444', padding: '8px 16px', fontWeight: '700' }}
+                  >
+                    <ShieldAlert size={16} /> Решение Стюардов (Штраф)
+                  </button>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Main View Mode Switcher Rendering */}
       {isCancelled && viewMode === 'press-release' ? (
-        <F1CancelledPressRelease raceTitle={activeRace.title} trackImage={trackImage} />
+        <F1CancelledPressRelease raceTitle={activeRace.title} circuitSubtitle={activeRace.subtitle} />
       ) : hasPenaltyNotice && viewMode === 'penalty-notice' ? (
-        <F1PenaltyAnnouncement raceTitle={activeRace.title} trackImage={trackImage} />
+        <F1PenaltyAnnouncement />
       ) : (
         <>
-          {/* If there's an official penalty decision, show a notification banner above results */}
-          {hasPenaltyNotice && (
-            <div style={{
-              background: 'linear-gradient(90deg, rgba(239,68,68,0.2) 0%, rgba(239,68,68,0.05) 100%)',
-              borderLeft: '5px solid #EF4444',
-              borderRadius: '8px',
-              padding: '14px 20px',
-              marginBottom: '24px',
-              display: 'flex',
-              justify: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '12px'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <ShieldAlert size={24} style={{ color: '#EF4444' }} />
-                <div>
-                  <div style={{ fontWeight: '900', color: '#FFF', fontSize: '0.95rem' }}>
-                    🚨 ОФИЦИАЛЬНОЕ РЕШЕНИЕ СТЮАРДОВ ФИА
-                  </div>
-                  <div style={{ fontSize: '0.85rem', color: '#D1D5DB' }}>
-                    Carlos SAINZ получил штраф <strong>+10 секунд</strong> за столкновение и уничтожение болида Alexsandr GROMOV (PABV) • <em>Terminal Damage</em>.
-                  </div>
-                </div>
-              </div>
-              <button
-                className="btn btn-secondary"
-                onClick={() => setViewMode('penalty-notice')}
-                style={{ padding: '6px 16px', fontSize: '0.8rem', fontWeight: '800', border: '1px solid #EF4444', color: '#EF4444' }}
-              >
-                📄 Посмотреть Документ ФИА
-              </button>
+          {/* 1:1 F1 Broadcast Split Result TV Cards (Top 10 / 11-20) */}
+          <F1BroadcastSplitResultCard
+            raceTitle={activeRace.title}
+            trackImage={trackImage}
+            fullResults={fullResults}
+          />
+
+          {/* 16:9 F1 Podium Card (Top 3) */}
+          <F1PodiumOnlyCard
+            raceTitle={activeRace.title}
+            trackImage={trackImage}
+            fullResults={fullResults}
+          />
+
+          {/* Full Interactive Table */}
+          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Award size={18} style={{ color: 'var(--f1-gold)' }} />
+                ПОЛНЫЙ ИТОГОВЫЙ ПРОТОКОЛ {activeRace.title.toUpperCase()}
+              </h3>
             </div>
-          )}
 
-          {/* BLOCK 1: Top 3 Podium Showcase Card FIRST! */}
-          <F1PodiumOnlyCard raceTitle={activeRace.title} trackImage={trackImage} fullResults={fullResults} />
+            <div className="f1-table-wrapper">
+              <table className="f1-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: '50px', textAlign: 'center' }}>ПОЗ</th>
+                    <th>ПИЛОТ</th>
+                    <th>КОМАНДА</th>
+                    <th style={{ textAlign: 'center' }}>СТАРТ</th>
+                    <th style={{ textAlign: 'center' }}>ПИТ-СТОПЫ</th>
+                    <th style={{ textAlign: 'center' }}>ЛУЧШИЙ КРУГ</th>
+                    <th style={{ textAlign: 'right' }}>ВРЕМЯ / О ТСТАВАНИЕ</th>
+                    <th style={{ textAlign: 'right', paddingRight: '20px' }}>ОЧКИ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {fullResults.map((item) => {
+                    const isPlayer = !item.driver.isAi;
+                    const isWinner = item.finishPos === 1;
 
-          {/* BLOCK 2: Complete Race Results Table Card SECOND! */}
-          <F1BroadcastSplitResultCard raceTitle={activeRace.title} trackImage={trackImage} fullResults={fullResults} />
+                    return (
+                      <tr key={item.driverId} className={isPlayer ? 'real-player-row' : ''}>
+                        <td className={`pos-cell pos-${item.finishPos}`} style={{ textAlign: 'center', fontWeight: '900' }}>
+                          {item.finishPos === 1 ? '🥇' : item.finishPos === 2 ? '🥈' : item.finishPos === 3 ? '🥉' : item.finishPos}
+                        </td>
+                        <td>
+                          <div className="driver-cell">
+                            {item.driver.avatar && (
+                              <img
+                                src={item.driver.avatar}
+                                alt={item.driver.name}
+                                style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
+                              />
+                            )}
+                            <div className="driver-name">
+                              <span style={{ fontWeight: '700' }}>{item.driver.name}</span>
+                              {isPlayer && <span className="player-badge">Player</span>}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="team-cell">
+                            <span className="team-stripe" style={{ backgroundColor: item.team.color }} />
+                            {item.team.name}
+                          </div>
+                        </td>
+                        <td style={{ textAlign: 'center', fontWeight: '600' }}>
+                          {item.gridPos}
+                          {item.posDiff > 0 ? (
+                            <span className="grid-change grid-up">▲+{item.posDiff}</span>
+                          ) : item.posDiff < 0 ? (
+                            <span className="grid-change grid-down">▼{item.posDiff}</span>
+                          ) : (
+                            <span className="grid-change grid-same">=</span>
+                          )}
+                        </td>
+                        <td style={{ textAlign: 'center', fontWeight: '600' }}>{item.stops}</td>
+                        <td style={{ textAlign: 'center' }}>
+                          <span className={item.isFastestLap ? 'fastest-lap-tag' : ''} style={{ fontFamily: 'monospace', fontWeight: '700' }}>
+                            {item.bestLap} {item.isFastestLap ? '⚡ FL' : ''}
+                          </span>
+                        </td>
+                        <td style={{ textAlign: 'right', fontFamily: 'monospace', fontWeight: '700', color: item.status === 'DNF' ? '#EF4444' : '#FFF' }}>
+                          {item.status === 'DNF' ? 'DNF' : item.totalTime}
+                          {item.penaltyLabel && (
+                            <div style={{ marginTop: '2px' }}>
+                              <span className="penalty-tag">{item.penaltyLabel}</span>
+                            </div>
+                          )}
+                        </td>
+                        <td style={{ textAlign: 'right', paddingRight: '20px' }}>
+                          <span className={`pts-badge ${item.pts === 0 ? 'zero' : ''}`}>
+                            +{item.pts}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </>
       )}
     </div>
