@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy } from 'lucide-react';
+import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star } from 'lucide-react';
 import { calculateRacePoints } from '../services/storage';
 import F1PodiumOnlyCard from './F1PodiumOnlyCard';
 import F1BroadcastSplitResultCard from './F1BroadcastSplitResultCard';
 import F1CancelledPressRelease from './F1CancelledPressRelease';
 import F1PenaltyAnnouncement from './F1PenaltyAnnouncement';
+import F1DriverOfTheDayCard from './F1DriverOfTheDayCard';
 
 const TRACK_LAYOUTS = {
   'race-1': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Bahrain_Circuit.png',
@@ -19,7 +20,7 @@ const TRACK_LAYOUTS = {
 
 export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints }) {
   const [selectedRaceId, setSelectedRaceId] = useState(races[races.length - 1]?.id || races[0]?.id || '');
-  const [viewMode, setViewMode] = useState('main-results'); // 'press-release', 'sprint-results', 'main-results', 'penalty-notice'
+  const [viewMode, setViewMode] = useState('main-results'); // 'press-release', 'main-results', 'penalty-notice', 'dotd'
 
   const activeRace = races.find(r => r.id === selectedRaceId) || races[races.length - 1] || races[0];
 
@@ -155,6 +156,13 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
                 >
                   <Trophy size={16} /> Результаты Гонки
                 </button>
+                <button
+                  className={`btn btn-sm ${viewMode === 'dotd' ? 'btn-primary' : ''}`}
+                  onClick={() => setViewMode('dotd')}
+                  style={{ background: viewMode === 'dotd' ? 'linear-gradient(90deg, #FFD700 0%, #FFA500 100%)' : 'var(--bg-card-hover)', color: viewMode === 'dotd' ? '#000' : '#FFF', padding: '8px 16px', fontWeight: '800' }}
+                >
+                  <Star size={16} /> Driver of the Day 🌟
+                </button>
                 {hasPenaltyNotice && (
                   <button
                     className={`btn btn-sm ${viewMode === 'penalty-notice' ? 'btn-primary' : ''}`}
@@ -175,8 +183,23 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
         <F1CancelledPressRelease raceTitle={activeRace.title} circuitSubtitle={activeRace.subtitle} />
       ) : hasPenaltyNotice && viewMode === 'penalty-notice' ? (
         <F1PenaltyAnnouncement raceTitle={activeRace.title} trackImage={trackImage} penaltyData={activeRace.penaltyData} />
+      ) : viewMode === 'dotd' ? (
+        <F1DriverOfTheDayCard
+          raceTitle={activeRace.title}
+          trackImage={trackImage}
+          fullResults={fullResults}
+          defaultDriverId={activeRace.fastestLapDriverId || fullResults[0].driverId}
+        />
       ) : (
         <>
+          {/* Driver of the Day Spotlight Card at top of results */}
+          <F1DriverOfTheDayCard
+            raceTitle={activeRace.title}
+            trackImage={trackImage}
+            fullResults={fullResults}
+            defaultDriverId={activeRace.fastestLapDriverId || fullResults[0].driverId}
+          />
+
           {/* 1:1 F1 Broadcast Split Result TV Cards (Top 10 / 11-20) */}
           <F1BroadcastSplitResultCard
             raceTitle={activeRace.title}
