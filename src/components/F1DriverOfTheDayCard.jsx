@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Camera, Star, Vote, CheckCircle2 } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Camera, Star, Vote, CheckCircle2, RefreshCw } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
@@ -32,38 +32,86 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
 
-  // Auto-select driver with highest position gains (or winner if equal)
-  const bestGainDriver = [...fullResults].sort((a, b) => b.posDiff - a.posDiff)[0] || fullResults[0];
-  const [selectedDriverId, setSelectedDriverId] = useState(defaultDriverId || bestGainDriver.driverId);
-
-  // Voting state
+  // 1. Get or create persistent device vote weight (between 942 and 1459 votes)
+  const [deviceVoteWeight, setDeviceVoteWeight] = useState(1150);
   const [userVotedId, setUserVotedId] = useState(null);
-  const [votes, setVotes] = useState(() => {
-    const initial = {};
-    fullResults.forEach((r, idx) => {
-      if (r.driverId === 'drv-6') initial[r.driverId] = 412; // Mykola Yarema
-      else if (r.driverId === 'drv-1') initial[r.driverId] = 238; // Yurii Zakharchuk
-      else if (r.driverId === 'drv-17') initial[r.driverId] = 184; // Denys Kovalenko
-      else if (r.driverId === 'drv-11') initial[r.driverId] = 96;  // Sashko Gromov
-      else initial[r.driverId] = Math.max(12, 65 - idx * 4);
-    });
-    return initial;
-  });
+  const [votes, setVotes] = useState({});
 
-  const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
+  useEffect(() => {
+    if (!activeRaceId) return;
 
+    // Retrieve or generate device vote weight for this race (942 to 1459)
+    const weightKey = `f1_dotd_vote_weight_${activeRaceId}`;
+    let savedWeight = localStorage.getItem(weightKey);
+    if (!savedWeight) {
+      savedWeight = Math.floor(Math.random() * (1459 - 942 + 1)) + 942;
+      localStorage.setItem(weightKey, savedWeight.toString());
+    }
+    const parsedWeight = parseInt(savedWeight, 10);
+    setDeviceVoteWeight(parsedWeight);
+
+    // Retrieve user's voted driver for this race on this device
+    const votedDriverKey = `f1_dotd_voted_driver_${activeRaceId}`;
+    const savedVotedDriver = localStorage.getItem(votedDriverKey);
+    setUserVotedId(savedVotedDriver || null);
+
+    // Retrieve or initialize community votes for this race
+    const votesKey = `f1_dotd_votes_pool_${activeRaceId}`;
+    let savedVotes = null;
+    try {
+      savedVotes = JSON.parse(localStorage.getItem(votesKey));
+    } catch (e) {
+      savedVotes = null;
+    }
+
+    if (!savedVotes) {
+      // Create realistic baseline votes pool
+      savedVotes = {};
+      fullResults.forEach((r, idx) => {
+        if (r.driverId === 'drv-6') savedVotes[r.driverId] = 4850; // Mykola Yarema
+        else if (r.driverId === 'drv-1') savedVotes[r.driverId] = 3420; // Yurii Zakharchuk
+        else if (r.driverId === 'drv-17') savedVotes[r.driverId] = 2780; // Denys Kovalenko
+        else if (r.driverId === 'drv-11') savedVotes[r.driverId] = 1640; // Sashko Gromov
+        else savedVotes[r.driverId] = Math.max(350, 2100 - idx * 140);
+      });
+      localStorage.setItem(votesKey, JSON.stringify(savedVotes));
+    }
+
+    setVotes(savedVotes);
+  }, [activeRaceId, fullResults]);
+
+  // Handle Voting: 1 vote per device, adds deviceVoteWeight (942-1459), vote can be changed without changing weight
   const handleVote = (driverId) => {
     if (userVotedId === driverId) return;
-    setVotes(prev => ({
-      ...prev,
-      [driverId]: (prev[driverId] || 0) + 1
-    }));
+
+    const votesKey = `f1_dotd_votes_pool_${activeRaceId}`;
+    const votedDriverKey = `f1_dotd_voted_driver_${activeRaceId}`;
+
+    setVotes(prev => {
+      const updated = { ...prev };
+      // Remove weight from previous choice if user is changing vote
+      if (userVotedId && updated[userVotedId]) {
+        updated[userVotedId] = Math.max(0, updated[userVotedId] - deviceVoteWeight);
+      }
+      // Add weight to new choice
+      updated[driverId] = (updated[driverId] || 0) + deviceVoteWeight;
+      localStorage.setItem(votesKey, JSON.stringify(updated));
+      return updated;
+    });
+
     setUserVotedId(driverId);
     setSelectedDriverId(driverId);
+    localStorage.setItem(votedDriverKey, driverId);
   };
+
+  // Auto-select driver with highest votes or position gains
+  const bestGainDriver = [...fullResults].sort((a, b) => (votes[b.driverId] || 0) - (votes[a.driverId] || 0))[0] || fullResults[0];
+  const [selectedDriverId, setSelectedDriverId] = useState(defaultDriverId || bestGainDriver.driverId);
 
   const selectedResult = fullResults.find(r => r.driverId === selectedDriverId) || bestGainDriver;
   const { driver, team, posDiff } = selectedResult;
+
+  const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
 
   // Race host country info
   const hostCountry = RACE_COUNTRY_MAP[activeRaceId] || {
@@ -160,7 +208,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             color: '#FFF'
           }}
         >
-          {/* Layer 1: Full-Screen User Uploaded Track Photo Background */}
+          {/* Layer 1: Full-Screen Real Track Photo Background */}
           <img
             src={trackPhoto}
             alt="Real Race Track"
@@ -332,7 +380,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
         </motion.div>
       </div>
 
-      {/* --- INTERACTIVE FAN VOTING WIDGET --- */}
+      {/* --- INTERACTIVE FAN VOTING WIDGET (1 VOTE PER DEVICE: 942-1459 VOTES) --- */}
       <div className="card" style={{
         background: 'linear-gradient(135deg, #131622 0%, #1A1E2E 100%)',
         border: '2px solid #FFD700',
@@ -343,7 +391,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '10px' }}>
           <div>
             <div style={{ fontSize: '0.75rem', color: '#FFD700', fontWeight: '900', letterSpacing: '1px', textTransform: 'uppercase' }}>
-              OFFICIAL F1 FAN POLL
+              OFFICIAL F1 FAN POLL • 1 ГОЛОС С УСТРОЙСТВА
             </div>
             <h3 style={{ fontSize: '1.4rem', fontWeight: '900', color: '#FFF', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
               <Vote size={22} style={{ color: '#FFD700' }} />
@@ -351,14 +399,62 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             </h3>
           </div>
 
-          <div style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: '700' }}>
-            Всего голосов: <strong style={{ color: '#FFD700' }}>{totalVotes}</strong>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: '700' }}>
+              Всего голосов: <strong style={{ color: '#FFD700' }}>{totalVotes.toLocaleString('ru-RU')}</strong>
+            </div>
+            <div style={{ fontSize: '0.75rem', color: '#38BDF8', fontWeight: '800' }}>
+              Ваш голос приносит: <strong>+{deviceVoteWeight} голосов</strong>
+            </div>
           </div>
         </div>
 
+        {/* User Vote Status Notification */}
+        {userVotedId ? (
+          <div style={{
+            background: 'rgba(16, 185, 129, 0.15)',
+            border: '1px solid #10B981',
+            borderRadius: '8px',
+            padding: '10px 16px',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '8px',
+            fontSize: '0.88rem',
+            color: '#FFF'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <CheckCircle2 size={18} style={{ color: '#10B981' }} />
+              <span>
+                Ваш голос учтён: <strong>+{deviceVoteWeight} голосов</strong> отдано за{' '}
+                <strong style={{ color: '#FFD700' }}>
+                  {fullResults.find(r => r.driverId === userVotedId)?.driver.name || 'Пилота'}
+                </strong>!
+              </span>
+            </div>
+            <span style={{ fontSize: '0.78rem', color: '#9CA3AF' }}>
+              Вы можете переключить голос на другого пилота (вес голоса сохранится)
+            </span>
+          </div>
+        ) : (
+          <div style={{
+            background: 'rgba(255, 215, 0, 0.1)',
+            border: '1px dashed #FFD700',
+            borderRadius: '8px',
+            padding: '10px 16px',
+            marginBottom: '16px',
+            fontSize: '0.88rem',
+            color: '#E5E7EB'
+          }}>
+            👉 Выберите пилота ниже, чтобы отдать свой голос с этого устройства (+{deviceVoteWeight} голосов в общий зачёт)!
+          </div>
+        )}
+
         {/* Voting Drivers Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
-          {fullResults.slice(0, 8).map(r => {
+          {fullResults.slice(0, 10).map(r => {
             const voteCount = votes[r.driverId] || 0;
             const percentage = totalVotes > 0 ? ((voteCount / totalVotes) * 100).toFixed(1) : 0;
             const isVoted = userVotedId === r.driverId;
@@ -396,7 +492,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                       <img
                         src={r.driver.avatar}
                         alt={r.driver.name}
-                        style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border-color)' }}
+                        style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: isVoted ? '2px solid #FFD700' : '1px solid var(--border-color)' }}
                       />
                     )}
                     <div>
@@ -414,7 +510,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                       {percentage}%
                     </div>
                     <div style={{ fontSize: '0.72rem', color: '#9CA3AF' }}>
-                      {voteCount} голосов
+                      {voteCount.toLocaleString('ru-RU')} голосов
                     </div>
                   </div>
                 </div>

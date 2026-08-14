@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star } from 'lucide-react';
+import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star, Zap } from 'lucide-react';
 import { calculateRacePoints } from '../services/storage';
 import F1PodiumOnlyCard from './F1PodiumOnlyCard';
 import F1BroadcastSplitResultCard from './F1BroadcastSplitResultCard';
@@ -35,6 +35,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
 
   const isCancelled = activeRace.status === 'cancelled' || activeRace.isCancelled;
   const hasPenaltyNotice = activeRace.hasPenaltyAnnouncement;
+  const hasPressRelease = activeRace.hasPressRelease || isCancelled;
 
   // Map drivers to results
   const fullResults = activeRace.results.map((res, idx) => {
@@ -71,25 +72,27 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
           {races.map((r, index) => {
             const isSelected = r.id === activeRace.id;
             const isRaceCancelled = r.status === 'cancelled' || r.isCancelled;
+            const isSprint = r.isSprint;
+
             return (
               <button
                 key={r.id}
                 className={`btn btn-sm ${isSelected ? 'btn-primary' : ''}`}
                 onClick={() => {
                   setSelectedRaceId(r.id);
-                  setViewMode(isRaceCancelled ? 'press-release' : 'main-results');
+                  setViewMode('main-results');
                 }}
                 style={{
                   whiteSpace: 'nowrap',
                   fontWeight: '700',
                   borderRadius: '20px',
                   padding: '6px 14px',
-                  background: isSelected ? 'var(--f1-red)' : isRaceCancelled ? 'rgba(239, 68, 68, 0.15)' : 'var(--bg-card-hover)',
-                  border: isSelected ? 'none' : isRaceCancelled ? '1px solid #EF4444' : '1px solid var(--border-color)',
-                  color: isSelected ? '#FFF' : isRaceCancelled ? '#EF4444' : 'var(--text-muted)'
+                  background: isSelected ? 'var(--f1-red)' : isSprint ? 'rgba(0, 160, 222, 0.15)' : isRaceCancelled ? 'rgba(239, 68, 68, 0.15)' : 'var(--bg-card-hover)',
+                  border: isSelected ? 'none' : isSprint ? '1px solid #00A0DE' : isRaceCancelled ? '1px solid #EF4444' : '1px solid var(--border-color)',
+                  color: isSelected ? '#FFF' : isSprint ? '#38BDF8' : isRaceCancelled ? '#EF4444' : 'var(--text-muted)'
                 }}
               >
-                ГП {index + 1}: {r.title.split(' ')[0]} {isRaceCancelled ? '🚫' : ''}
+                ГП {index + 1}: {r.title.split(' ')[0]} {isSprint ? '⚡ (Спринт)' : isRaceCancelled ? '🚫' : ''}
               </button>
             );
           })}
@@ -99,7 +102,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
       {/* Active Race Header Summary Card */}
       <div className="card" style={{
         background: 'linear-gradient(135deg, #161A26 0%, #0F121C 100%)',
-        borderLeft: isCancelled ? '6px solid #EF4444' : '6px solid var(--f1-red)',
+        borderLeft: isCancelled ? '6px solid #EF4444' : activeRace.isSprint ? '6px solid #00A0DE' : '6px solid var(--f1-red)',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -122,8 +125,8 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-              <span className="player-badge" style={{ background: isCancelled ? '#EF4444' : 'var(--f1-red)', padding: '4px 10px', fontSize: '0.75rem' }}>
-                {isCancelled ? 'ОТМЕНЁННЫЙ ЭТАП' : activeRace.isSprint ? 'СПРИНТ ЭТАП' : 'ОФИЦИАЛЬНЫЙ ЭТАП'}
+              <span className="player-badge" style={{ background: activeRace.isSprint ? '#00A0DE' : isCancelled ? '#EF4444' : 'var(--f1-red)', padding: '4px 10px', fontSize: '0.75rem' }}>
+                {activeRace.isSprint ? '⚡ СПРИНТ ЗАЕЗД (SPRINT RACE)' : isCancelled ? 'ОТМЕНЁННЫЙ ЭТАП' : 'ОФИЦИАЛЬНЫЙ ЭТАП'}
               </span>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <Calendar size={14} /> {activeRace.date}
@@ -139,47 +142,44 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
 
           {/* Mode Switcher Buttons */}
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            {isCancelled ? (
+            <button
+              className={`btn btn-sm ${viewMode === 'main-results' ? 'btn-primary' : ''}`}
+              onClick={() => setViewMode('main-results')}
+              style={{ padding: '8px 16px', fontWeight: '700' }}
+            >
+              <Trophy size={16} /> {activeRace.isSprint ? 'Результаты Спринта ⚡' : 'Результаты Гонки'}
+            </button>
+            <button
+              className={`btn btn-sm ${viewMode === 'dotd' ? 'btn-primary' : ''}`}
+              onClick={() => setViewMode('dotd')}
+              style={{ background: viewMode === 'dotd' ? 'linear-gradient(90deg, #FFD700 0%, #FFA500 100%)' : 'var(--bg-card-hover)', color: viewMode === 'dotd' ? '#000' : '#FFF', padding: '8px 16px', fontWeight: '800' }}
+            >
+              <Star size={16} /> Driver of the Day 🌟
+            </button>
+            {hasPenaltyNotice && (
+              <button
+                className={`btn btn-sm ${viewMode === 'penalty-notice' ? 'btn-primary' : ''}`}
+                onClick={() => setViewMode('penalty-notice')}
+                style={{ background: viewMode === 'penalty-notice' ? '#B91C1C' : 'rgba(239, 68, 68, 0.15)', color: '#FFF', border: '1px solid #EF4444', padding: '8px 16px', fontWeight: '700' }}
+              >
+                <ShieldAlert size={16} /> Решение Стюардов (Штраф)
+              </button>
+            )}
+            {hasPressRelease && (
               <button
                 className={`btn btn-sm ${viewMode === 'press-release' ? 'btn-primary' : ''}`}
                 onClick={() => setViewMode('press-release')}
-                style={{ padding: '8px 16px', fontWeight: '700' }}
+                style={{ background: viewMode === 'press-release' ? '#B91C1C' : 'rgba(239, 68, 68, 0.15)', color: '#FFF', border: '1px solid #EF4444', padding: '8px 16px', fontWeight: '700' }}
               >
-                <FileText size={16} /> Пресс-Релиз ФИА (Отмена)
+                <FileText size={16} /> Пресс-Релиз ФИА (Отмена GP)
               </button>
-            ) : (
-              <>
-                <button
-                  className={`btn btn-sm ${viewMode === 'main-results' ? 'btn-primary' : ''}`}
-                  onClick={() => setViewMode('main-results')}
-                  style={{ padding: '8px 16px', fontWeight: '700' }}
-                >
-                  <Trophy size={16} /> Результаты Гонки
-                </button>
-                <button
-                  className={`btn btn-sm ${viewMode === 'dotd' ? 'btn-primary' : ''}`}
-                  onClick={() => setViewMode('dotd')}
-                  style={{ background: viewMode === 'dotd' ? 'linear-gradient(90deg, #FFD700 0%, #FFA500 100%)' : 'var(--bg-card-hover)', color: viewMode === 'dotd' ? '#000' : '#FFF', padding: '8px 16px', fontWeight: '800' }}
-                >
-                  <Star size={16} /> Driver of the Day 🌟
-                </button>
-                {hasPenaltyNotice && (
-                  <button
-                    className={`btn btn-sm ${viewMode === 'penalty-notice' ? 'btn-primary' : ''}`}
-                    onClick={() => setViewMode('penalty-notice')}
-                    style={{ background: viewMode === 'penalty-notice' ? '#B91C1C' : 'rgba(239, 68, 68, 0.15)', color: '#FFF', border: '1px solid #EF4444', padding: '8px 16px', fontWeight: '700' }}
-                  >
-                    <ShieldAlert size={16} /> Решение Стюардов (Штраф)
-                  </button>
-                )}
-              </>
             )}
           </div>
         </div>
       </div>
 
       {/* Main View Mode Switcher Rendering */}
-      {isCancelled && viewMode === 'press-release' ? (
+      {viewMode === 'press-release' ? (
         <F1CancelledPressRelease raceTitle={activeRace.title} circuitSubtitle={activeRace.subtitle} />
       ) : hasPenaltyNotice && viewMode === 'penalty-notice' ? (
         <F1PenaltyAnnouncement raceTitle={activeRace.title} trackImage={trackImage} penaltyData={activeRace.penaltyData} />
@@ -221,7 +221,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Award size={18} style={{ color: 'var(--f1-gold)' }} />
-                ПОЛНЫЙ ИТОГОВЫЙ ПРОТОКОЛ {activeRace.title.toUpperCase()}
+                ПОЛНЫЙ ИТОГОВЫЙ ПРОТОКОЛ {activeRace.title.toUpperCase()} {activeRace.isSprint ? '(СПРИНТ)' : ''}
               </h3>
             </div>
 

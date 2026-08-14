@@ -132,24 +132,25 @@ export const DEFAULT_RACES = [
   },
   {
     id: 'race-4',
-    title: 'Azerbaijan Grand Prix',
-    subtitle: 'BAKU CITY CIRCUIT - CANCELLED GRAND PRIX',
+    title: 'Azerbaijan Grand Prix (Sprint)',
+    subtitle: 'BAKU CITY CIRCUIT - SPRINT RACE 4',
     date: '2026-03-23',
-    status: 'cancelled',
-    isCancelled: true,
+    status: 'completed',
     isSprint: true,
+    isCancelled: false,
+    hasPressRelease: true,
     fastestLapDriverId: '',
     results: [
-      { driverId: 'drv-18', grid: 1, stops: 0, bestLap: '1:42.100', totalTime: '24:15.102', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-4', grid: 2, stops: 0, bestLap: '1:42.500', totalTime: '+1.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-20', grid: 3, stops: 0, bestLap: '1:42.800', totalTime: '+3.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-15', grid: 4, stops: 0, bestLap: '1:42.600', totalTime: '+4.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-19', grid: 5, stops: 0, bestLap: '1:43.000', totalTime: '+6.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-9', grid: 6, stops: 0, bestLap: '1:43.100', totalTime: '+7.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-8', grid: 7, stops: 0, bestLap: '1:43.300', totalTime: '+9.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-5', grid: 8, stops: 0, bestLap: '1:43.400', totalTime: '+10.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-7', grid: 9, stops: 0, bestLap: '1:43.500', totalTime: '+11.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-11', grid: 10, stops: 0, bestLap: '1:43.700', totalTime: '+12.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-18', grid: 1, stops: 0, bestLap: '1:42.100', totalTime: '24:15.102', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P1 Verstappen (8 pts)
+      { driverId: 'drv-4', grid: 2, stops: 0, bestLap: '1:42.500', totalTime: '+1.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Albon (7 pts)
+      { driverId: 'drv-20', grid: 3, stops: 0, bestLap: '1:42.800', totalTime: '+3.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 Zhou (6 pts)
+      { driverId: 'drv-15', grid: 4, stops: 0, bestLap: '1:42.600', totalTime: '+4.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Perez (5 pts)
+      { driverId: 'drv-19', grid: 5, stops: 0, bestLap: '1:43.000', totalTime: '+6.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Piastri (4 pts)
+      { driverId: 'drv-9', grid: 6, stops: 0, bestLap: '1:43.100', totalTime: '+7.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P6 Bottas (3 pts)
+      { driverId: 'drv-8', grid: 7, stops: 0, bestLap: '1:43.300', totalTime: '+9.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Hulkenberg (2 pts)
+      { driverId: 'drv-5', grid: 8, stops: 0, bestLap: '1:43.400', totalTime: '+10.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Gasly (1 pt)
+      { driverId: 'drv-7', grid: 9, stops: 0, bestLap: '1:43.500', totalTime: '+11.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Norris
+      { driverId: 'drv-11', grid: 10, stops: 0, bestLap: '1:43.700', totalTime: '+12.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Gromov (PABV)
       { driverId: 'drv-13', grid: 11, stops: 0, bestLap: '1:43.800', totalTime: '+13.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 12, stops: 0, bestLap: '1:43.900', totalTime: '+14.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-16', grid: 13, stops: 0, bestLap: '1:44.000', totalTime: '+15.000', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -273,7 +274,7 @@ export const DEFAULT_RACES = [
     subtitle: 'CIRCUIT DE BARCELONA-CATALUNYA - RACE 8',
     date: '2026-05-31',
     status: 'completed',
-    fastestLapDriverId: 'drv-6', // Mykola YAREMA (1:14.360)
+    fastestLapDriverId: 'drv-6',
     hasPenaltyAnnouncement: true,
     penaltyData: {
       offenderName: 'Yuki TSUNODA',
@@ -290,26 +291,26 @@ export const DEFAULT_RACES = [
       outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +20 секунд к итоговому результату за опасное вождение и разворот соперника.'
     },
     results: [
-      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:14.360', totalTime: '44:54.808', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P1 Mykola YAREMA (25 pts + 1 FL = 26 pts)
-      { driverId: 'drv-17', grid: 2, stops: 1, bestLap: '1:15.702', totalTime: '+10.063', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P2 Denys KOVALENKO (18 pts) - Red Bull 1-2! 🥈
-      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:17.167', totalTime: '+20.827', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P3 Fernando ALONSO (15 pts) 🥉
-      { driverId: 'drv-4', grid: 6, stops: 1, bestLap: '1:17.156', totalTime: '+21.402', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P4 Alexander ALBON (12 pts)
-      { driverId: 'drv-19', grid: 9, stops: 1, bestLap: '1:18.063', totalTime: '+23.528', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P5 Oscar PIASTRI (10 pts)
-      { driverId: 'drv-9', grid: 10, stops: 1, bestLap: '1:16.847', totalTime: '+24.005', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P6 Valtteri BOTTAS (8 pts)
-      { driverId: 'drv-7', grid: 17, stops: 1, bestLap: '1:17.409', totalTime: '+24.419', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P7 Lando NORRIS (6 pts)
-      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:17.953', totalTime: '+25.260', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P8 Logan SARGEANT (4 pts)
-      { driverId: 'drv-14', grid: 14, stops: 1, bestLap: '1:18.068', totalTime: '+25.998', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P9 Carlos SAINZ (2 pts)
-      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:17.975', totalTime: '+31.253', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P10 Charles LECLERC (1 pt)
-      { driverId: 'drv-12', grid: 13, stops: 1, bestLap: '1:17.944', totalTime: '+31.818', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P11 Kevin MAGNUSSEN
-      { driverId: 'drv-5', grid: 15, stops: 1, bestLap: '1:17.164', totalTime: '+32.881', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P12 Pierre GASLY
-      { driverId: 'drv-13', grid: 12, stops: 1, bestLap: '1:17.682', totalTime: '+34.192', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P13 Esteban OCON
-      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:17.601', totalTime: '+34.504', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P14 Daniel RICCIARDO
-      { driverId: 'drv-8', grid: 20, stops: 1, bestLap: '1:17.416', totalTime: '+35.267', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P15 Nico HULKENBERG
-      { driverId: 'drv-20', grid: 19, stops: 1, bestLap: '1:18.050', totalTime: '+35.617', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P16 ZHOU Guanyu
-      { driverId: 'drv-11', grid: 3, stops: 2, bestLap: '1:16.322', totalTime: '+36.835', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }, // P17 Alexsandr GROMOV (PABV)
-      { driverId: 'drv-1', grid: 11, stops: 2, bestLap: '1:16.812', totalTime: '+42.675', penaltySeconds: 0, penaltyLabel: '💥 Развёрнут Tsunoda в стену', status: 'FINISHED' }, // P18 Yurii ZAKHARCHUK
-      { driverId: 'drv-22', grid: 4, stops: 1, bestLap: '1:17.379', totalTime: 'DNF', penaltySeconds: 20, penaltyLabel: '⚠️ +20 sec (Выбил Юру в стену)', status: 'DNF' }, // P19 Yuki TSUNODA (DNF)
-      { driverId: 'drv-10', grid: 16, stops: 0, bestLap: '1:19.139', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' } // P20 Lance STROLL (DNF)
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:14.360', totalTime: '44:54.808', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 2, stops: 1, bestLap: '1:15.702', totalTime: '+10.063', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:17.167', totalTime: '+20.827', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 6, stops: 1, bestLap: '1:17.156', totalTime: '+21.402', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 9, stops: 1, bestLap: '1:18.063', totalTime: '+23.528', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 10, stops: 1, bestLap: '1:16.847', totalTime: '+24.005', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 17, stops: 1, bestLap: '1:17.409', totalTime: '+24.419', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 7, stops: 1, bestLap: '1:17.953', totalTime: '+25.260', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 14, stops: 1, bestLap: '1:18.068', totalTime: '+25.998', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:17.975', totalTime: '+31.253', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 13, stops: 1, bestLap: '1:17.944', totalTime: '+31.818', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 15, stops: 1, bestLap: '1:17.164', totalTime: '+32.881', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 12, stops: 1, bestLap: '1:17.682', totalTime: '+34.192', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:17.601', totalTime: '+34.504', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 20, stops: 1, bestLap: '1:17.416', totalTime: '+35.267', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 19, stops: 1, bestLap: '1:18.050', totalTime: '+35.617', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 3, stops: 2, bestLap: '1:16.322', totalTime: '+36.835', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 11, stops: 2, bestLap: '1:16.812', totalTime: '+42.675', penaltySeconds: 0, penaltyLabel: '💥 Развёрнут Tsunoda в стену', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 4, stops: 1, bestLap: '1:17.379', totalTime: 'DNF', penaltySeconds: 20, penaltyLabel: '⚠️ +20 sec (Выбил Юру в стену)', status: 'DNF' },
+      { driverId: 'drv-10', grid: 16, stops: 0, bestLap: '1:19.139', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
   }
 ];
