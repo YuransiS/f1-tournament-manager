@@ -4,19 +4,17 @@ import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
 
-// High-res real race track / grandstand photos for backgrounds
-const REAL_TRACK_PHOTOS = {
-  'race-1': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1400&auto=format&fit=crop', // Bahrain
-  'race-2': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1400&auto=format&fit=crop', // Jeddah
-  'race-3': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1400&auto=format&fit=crop', // Melbourne
-  'race-4': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1400&auto=format&fit=crop', // Baku
-  'race-5': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1400&auto=format&fit=crop', // Miami
-  'race-6': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1400&auto=format&fit=crop', // Imola
-  'race-7': 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1400&auto=format&fit=crop', // Monaco
-  'race-8': 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1400&auto=format&fit=crop'  // Spain
+// Host country mapping for each Grand Prix stage
+const RACE_COUNTRY_MAP = {
+  'race-1': { code: 'BH', name: 'BAHRAIN' },
+  'race-2': { code: 'SA', name: 'SAUDI ARABIA' },
+  'race-3': { code: 'AU', name: 'AUSTRALIA' },
+  'race-4': { code: 'AZ', name: 'AZERBAIJAN' },
+  'race-5': { code: 'US', name: 'MIAMI • USA' },
+  'race-6': { code: 'IT', name: 'IMOLA • ITALY' },
+  'race-7': { code: 'MC', name: 'MONACO' },
+  'race-8': { code: 'ES', name: 'SPAIN' }
 };
-
-const DEFAULT_TRACK_PHOTO = 'https://images.unsplash.com/photo-1541348263662-e08266f92f0a?q=80&w=1400&auto=format&fit=crop';
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
   const cardRef = useRef(null);
@@ -29,13 +27,19 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   const selectedResult = fullResults.find(r => r.driverId === selectedDriverId) || bestGainDriver;
   const { driver, team, posDiff } = selectedResult;
 
+  // Race host country info
+  const hostCountry = RACE_COUNTRY_MAP[activeRaceId] || {
+    code: 'ES',
+    name: raceTitle.replace(/Grand Prix/i, '').trim().toUpperCase()
+  };
+
   const handleDownload = async () => {
     if (!cardRef.current) return;
     setIsExporting(true);
     try {
       const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: true });
       const link = document.createElement('a');
-      link.download = `F1_Driver_Of_The_Day_${driver.name.replace(/\s+/g, '_')}_${raceTitle.replace(/\s+/g, '_')}.png`;
+      link.download = `F1_Driver_Of_The_Day_${driver.name.replace(/\s+/g, '_')}_${hostCountry.name}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -46,7 +50,6 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     }
   };
 
-  const trackPhoto = REAL_TRACK_PHOTOS[activeRaceId] || DEFAULT_TRACK_PHOTO;
   const luxuryEase = [0.16, 1, 0.3, 1];
 
   // Team vibrant colors
@@ -108,7 +111,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             minWidth: '960px',
             aspectRatio: '16 / 9',
             minHeight: '580px',
-            background: '#0B0D13',
+            background: '#07090E',
             borderRadius: '24px',
             border: '3px solid #282E40',
             position: 'relative',
@@ -117,41 +120,41 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             color: '#FFF'
           }}
         >
-          {/* Layer 1: Full-screen Real Race Track / Grandstands Photo Background */}
-          <img
-            src={trackPhoto}
-            alt="Real Race Track Background"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              filter: 'brightness(0.7) contrast(1.2)'
-            }}
-          />
-
-          {/* Layer 2: Team Color Gradient Tint Overlay (Matches official orange/team tint) */}
+          {/* Layer 1: Team Tinted Background Canvas with Circuit Silhouette & Speed Grids */}
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: `linear-gradient(135deg, ${teamPrimaryColor}CC 0%, ${teamAccentColor}E6 100%)`,
-            mixBlendMode: 'multiply',
-            zIndex: 2
+            background: `
+              radial-gradient(circle at 80% 20%, ${teamPrimaryColor}DD 0%, rgba(10,12,18,0.98) 70%),
+              linear-gradient(135deg, ${teamPrimaryColor}AA 0%, ${teamAccentColor}BB 100%),
+              repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 14px, transparent 14px, transparent 28px)
+            `,
+            mixBlendMode: 'normal',
+            zIndex: 1
           }} />
 
-          {/* Layer 2.5: Additional Team Color Light Gradient for Warm Broadcast Look */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: `radial-gradient(circle at 75% 30%, ${teamPrimaryColor}99 0%, transparent 70%)`,
-            zIndex: 3
-          }} />
+          {/* Layer 1.5: Track Outline Silhouette Background Watermark */}
+          {trackImage && (
+            <img
+              src={trackImage}
+              alt="Track Layout"
+              style={{
+                position: 'absolute',
+                top: '5%',
+                right: '2%',
+                height: '85%',
+                opacity: 0.14,
+                filter: 'invert(1) drop-shadow(0 0 25px rgba(255,255,255,0.3))',
+                pointerEvents: 'none',
+                zIndex: 2
+              }}
+            />
+          )}
 
-          {/* Layer 3: Left Side Standing Driver Portrait Cutout */}
+          {/* Layer 2: Left Side Standing Driver Portrait Cutout */}
           <div style={{
             position: 'absolute',
-            left: '5%',
+            left: '4%',
             bottom: 0,
             height: '96%',
             zIndex: 5,
@@ -170,7 +173,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                   height: '100%',
                   maxHeight: '550px',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 25px 40px rgba(0,0,0,0.95))'
+                  filter: 'drop-shadow(0 25px 45px rgba(0,0,0,0.95))'
                 }}
               />
             ) : (
@@ -178,13 +181,13 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             )}
           </div>
 
-          {/* Layer 4: Right Side Content (F1 Logo + DRIVER OF THE DAY + Flag + Driver Name) */}
+          {/* Layer 3: Right Side Content (F1 Logo + DRIVER OF THE DAY + Track Host Flag + Driver Name) */}
           <div style={{
             position: 'absolute',
             top: 0,
             right: 0,
             bottom: 0,
-            width: '52%',
+            width: '54%',
             padding: '40px 48px',
             display: 'flex',
             flexDirection: 'column',
@@ -209,21 +212,32 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                 lineHeight: 0.84,
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
-                textShadow: '0 6px 25px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.5)'
+                textShadow: '0 6px 25px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.6)'
               }}>
                 DRIVER<br />
                 OF THE<br />
                 DAY
               </div>
 
-              {/* Sub-row: Flag Icon + GP Location Name */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginTop: '20px', background: 'rgba(0,0,0,0.35)', padding: '6px 16px', borderRadius: '6px', backdropFilter: 'blur(4px)' }}>
-                <FlagIcon countryCode={driver.country} style={{ width: '26px', height: '18px', borderRadius: '3px', boxShadow: '0 2px 8px rgba(0,0,0,0.6)' }} />
-                <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'var(--font-f1)' }}>
-                  {raceTitle.replace(/Grand Prix/i, '').trim().toUpperCase()}
+              {/* Sub-row: HOST RACE COUNTRY FLAG + GP LOCATION NAME */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                marginTop: '20px',
+                background: 'rgba(0,0,0,0.55)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                padding: '8px 18px',
+                borderRadius: '8px',
+                backdropFilter: 'blur(8px)',
+                boxShadow: '0 6px 20px rgba(0,0,0,0.6)'
+              }}>
+                <FlagIcon countryCode={hostCountry.code} style={{ width: '28px', height: '19px', borderRadius: '3px', boxShadow: '0 2px 8px rgba(0,0,0,0.6)' }} />
+                <span style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', letterSpacing: '2px', fontFamily: 'var(--font-f1)' }}>
+                  {hostCountry.name}
                 </span>
                 {posDiff > 0 && (
-                  <span style={{ background: '#10B981', color: '#FFF', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '900' }}>
+                  <span style={{ background: '#10B981', color: '#FFF', padding: '3px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '900' }}>
                     ▲ +{posDiff} POS
                   </span>
                 )}
