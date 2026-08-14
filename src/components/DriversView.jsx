@@ -57,16 +57,36 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
               {/* Top Livery Accent Bar */}
               <div style={{ height: '6px', backgroundColor: team.color }} />
 
-              {/* Large Portrait Showcase Header */}
+              {/* Large Portrait Showcase Header with clean blend logo background */}
               <div style={{
                 position: 'relative',
                 height: '240px',
-                background: `radial-gradient(circle at 50% 30%, ${team.color}40 0%, transparent 80%)`,
+                background: `radial-gradient(circle at 50% 30%, ${team.color}35 0%, transparent 85%)`,
                 display: 'flex',
                 alignItems: 'flex-end',
                 justifyContent: 'center',
                 overflow: 'hidden'
               }}>
+                {/* Clean Team Logo on Background (No bounding boxes/podkladki) */}
+                {team.logo && (
+                  <img
+                    src={team.logo}
+                    alt=""
+                    style={{
+                      position: 'absolute',
+                      right: '0',
+                      top: '10px',
+                      height: '140px',
+                      opacity: 0.12,
+                      mixBlendMode: 'screen',
+                      filter: 'contrast(1.5) brightness(1.2)',
+                      pointerEvents: 'none',
+                      zIndex: 1
+                    }}
+                  />
+                )}
+
+                {/* Standing Driver Portrait */}
                 {driver.avatar ? (
                   <img
                     src={driver.avatar}
@@ -76,28 +96,11 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
                       maxHeight: '230px',
                       objectFit: 'contain',
                       zIndex: 2,
-                      filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.8))'
+                      filter: 'drop-shadow(0 12px 20px rgba(0,0,0,0.85))'
                     }}
                   />
                 ) : (
                   <div style={{ fontSize: '4rem', marginBottom: '20px', zIndex: 2 }}>🏎️</div>
-                )}
-
-                {/* Team watermark icon */}
-                {team.logo && (
-                  <img
-                    src={team.logo}
-                    alt=""
-                    style={{
-                      position: 'absolute',
-                      right: '-10px',
-                      top: '10px',
-                      height: '80px',
-                      opacity: 0.15,
-                      filter: 'grayscale(1)',
-                      zIndex: 1
-                    }}
-                  />
                 )}
 
                 {/* Rank Badge */}
