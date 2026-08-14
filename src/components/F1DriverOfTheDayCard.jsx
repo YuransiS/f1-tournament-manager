@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Star, Vote, CheckCircle2, TrendingUp } from 'lucide-react';
+import { Camera, Star, Vote, CheckCircle2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
@@ -16,6 +16,18 @@ const RACE_COUNTRY_MAP = {
   'race-8': { code: 'ES', name: 'SPAIN' }
 };
 
+// High-res track background photos uploaded by user
+const REAL_TRACK_PHOTOS = {
+  'race-5': '/tracks/miami.jpg',
+  'race-6': '/tracks/imola.jpg',
+  'race-7': '/tracks/monaco.jpg',
+  'race-8': '/tracks/spain.jpg',
+  'race-1': '/tracks/spain.jpg',
+  'race-2': '/tracks/monaco.jpg',
+  'race-3': '/tracks/imola.jpg',
+  'race-4': '/tracks/miami.jpg'
+};
+
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
@@ -24,12 +36,11 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   const bestGainDriver = [...fullResults].sort((a, b) => b.posDiff - a.posDiff)[0] || fullResults[0];
   const [selectedDriverId, setSelectedDriverId] = useState(defaultDriverId || bestGainDriver.driverId);
 
-  // Voting state (mock initial vote weights)
+  // Voting state
   const [userVotedId, setUserVotedId] = useState(null);
   const [votes, setVotes] = useState(() => {
     const initial = {};
     fullResults.forEach((r, idx) => {
-      // Give realistic vote counts
       if (r.driverId === 'drv-6') initial[r.driverId] = 412; // Mykola Yarema
       else if (r.driverId === 'drv-1') initial[r.driverId] = 238; // Yurii Zakharchuk
       else if (r.driverId === 'drv-17') initial[r.driverId] = 184; // Denys Kovalenko
@@ -59,6 +70,8 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     code: 'ES',
     name: raceTitle.replace(/Grand Prix/i, '').trim().toUpperCase()
   };
+
+  const trackPhoto = REAL_TRACK_PHOTOS[activeRaceId] || '/tracks/spain.jpg';
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -147,38 +160,38 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             color: '#FFF'
           }}
         >
-          {/* Layer 1: Team Tinted Background Canvas with Circuit Silhouette & Speed Grids */}
+          {/* Layer 1: Full-Screen User Uploaded Track Photo Background */}
+          <img
+            src={trackPhoto}
+            alt="Real Race Track"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              filter: 'brightness(0.75) contrast(1.15)'
+            }}
+          />
+
+          {/* Layer 2: Team Color Gradient Overlay (Multiplied over real track photo) */}
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: `
-              radial-gradient(circle at 82% 25%, ${teamPrimaryColor}EE 0%, rgba(8,10,16,0.98) 70%),
-              linear-gradient(135deg, ${teamPrimaryColor}CC 0%, ${teamAccentColor}DD 100%),
-              repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 14px, transparent 14px, transparent 28px)
-            `,
-            mixBlendMode: 'normal',
-            zIndex: 1
+            background: `linear-gradient(135deg, ${teamPrimaryColor}DD 0%, ${teamAccentColor}F0 100%)`,
+            mixBlendMode: 'multiply',
+            zIndex: 2
           }} />
 
-          {/* Layer 1.5: Track Outline Silhouette Background Watermark */}
-          {trackImage && (
-            <img
-              src={trackImage}
-              alt="Track Layout"
-              style={{
-                position: 'absolute',
-                top: '2%',
-                right: '2%',
-                height: '90%',
-                opacity: 0.16,
-                filter: 'invert(1) drop-shadow(0 0 30px rgba(255,255,255,0.35))',
-                pointerEvents: 'none',
-                zIndex: 2
-              }}
-            />
-          )}
+          {/* Layer 2.5: Additional Glow for Warm Broadcast Feel */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: `radial-gradient(circle at 80% 25%, ${teamPrimaryColor}AA 0%, transparent 70%)`,
+            zIndex: 3
+          }} />
 
-          {/* Layer 2: Left Side Standing Driver Portrait Cutout */}
+          {/* Layer 3: Left Side Standing Driver Portrait Cutout */}
           <div style={{
             position: 'absolute',
             left: '4%',
@@ -208,7 +221,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             )}
           </div>
 
-          {/* Layer 3: Right Side Content (HUGE 3X F1 Logo + HUGE DRIVER OF THE DAY + Track Host Flag + Driver Name) */}
+          {/* Layer 4: Right Side Content (3X BIGGER F1 Logo + RACE SPORT BOLD DRIVER OF THE DAY + Track Host Flag + Driver Name) */}
           <div style={{
             position: 'absolute',
             top: 0,
@@ -229,7 +242,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                 src="/F1-logo.png"
                 alt="F1"
                 style={{
-                  height: '110px', // 3X BIGGER as requested!
+                  height: '110px',
                   objectFit: 'contain',
                   filter: 'brightness(0) invert(1) drop-shadow(0 6px 20px rgba(0,0,0,0.6))'
                 }}
@@ -240,7 +253,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
             <div style={{ margin: 'auto 0' }}>
               <div style={{
                 fontFamily: 'var(--font-f1)',
-                fontSize: '5.2rem', // INCREASED SIZE!
+                fontSize: '5.2rem',
                 fontWeight: '900',
                 fontStyle: 'italic',
                 color: '#FFFFFF',
