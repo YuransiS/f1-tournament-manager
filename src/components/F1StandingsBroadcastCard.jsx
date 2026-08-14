@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Camera, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
+import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
 
 export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabel = 'ТЕКУЩИЙ ЗАЧЕТ' }) {
@@ -10,6 +11,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
   if (!driverStandings || driverStandings.length === 0) return null;
 
   const leader = driverStandings[0];
+  const luxuryEase = [0.16, 1, 0.3, 1];
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -48,7 +50,10 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
       {/* Touch Scroll Container for Mobile Responsiveness */}
       <div className="broadcast-card-scroll-wrapper">
         {/* Target Container for PNG Export */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, ease: luxuryEase }}
           ref={cardRef}
           style={{
             background: '#0B0D13',
@@ -102,22 +107,27 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
             </div>
           </div>
 
-          {/* Layout: Wider Left Leader Portrait Box + Right Full Standings Table */}
+          {/* Layout: Left Leader Spotlight Box + Right Full Standings Table */}
           <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '24px', alignItems: 'stretch' }}>
-            {/* Left Championship Leader Spotlight (Wider & Larger Photo!) */}
-            <div style={{
-              background: 'linear-gradient(180deg, #181C28 0%, #0F121B 100%)',
-              borderRadius: '14px',
-              border: '2px solid rgba(255,215,0,0.4)',
-              padding: '24px 20px',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
-              position: 'relative',
-              overflow: 'hidden',
-              boxShadow: '0 15px 35px rgba(0,0,0,0.6)'
-            }}>
+            {/* Left Championship Leader Spotlight */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.0, delay: 0.3, ease: luxuryEase }}
+              style={{
+                background: 'linear-gradient(180deg, #181C28 0%, #0F121B 100%)',
+                borderRadius: '14px',
+                border: '2px solid rgba(255,215,0,0.4)',
+                padding: '24px 20px',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justify: 'space-between',
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.6)'
+              }}
+            >
               <div>
                 <div style={{
                   background: 'rgba(255, 215, 0, 0.15)',
@@ -134,7 +144,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                   🏆 CHAMPIONSHIP LEADER
                 </div>
 
-                {/* Leader Photo (Scaled Larger) */}
+                {/* Leader Photo */}
                 <div style={{ position: 'relative', height: '260px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end', margin: '14px 0' }}>
                   {leader.driver.avatar ? (
                     <img
@@ -179,7 +189,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                 <FlagIcon countryCode={leader.driver.country} style={{ width: '26px', height: '17px' }} />
                 <span>{leader.totalPoints} POINTS</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Standings Table */}
             <div className="card" style={{ padding: 0, overflow: 'hidden', background: '#0F1117', border: '1px solid var(--border-color)', marginBottom: 0 }}>
@@ -201,7 +211,13 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                       const pos = index + 1;
                       const isPlayer = !item.driver.isAi;
                       return (
-                        <tr key={item.driver.id} className={isPlayer ? 'real-player-row' : ''}>
+                        <motion.tr
+                          key={item.driver.id}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.3 + index * 0.05, ease: luxuryEase }}
+                          className={isPlayer ? 'real-player-row' : ''}
+                        >
                           <td className={`pos-cell pos-${pos}`}>
                             {pos}
                           </td>
@@ -241,7 +257,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                               {item.totalPoints}
                             </span>
                           </td>
-                        </tr>
+                        </motion.tr>
                       );
                     })}
                   </tbody>
@@ -249,7 +265,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

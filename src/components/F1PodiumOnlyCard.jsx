@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Sparkles, Trophy, Award } from 'lucide-react';
+import { Camera, Sparkles, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
 
 export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults }) {
@@ -18,16 +17,6 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
 
   const handleReplayAnimation = () => {
     setAnimationKey(prev => prev + 1);
-    try {
-      confetti({
-        particleCount: 50,
-        spread: 70,
-        origin: { y: 0.4 },
-        colors: ['#FFD700', '#C0C0C0', '#CD7F32', '#E10600']
-      });
-    } catch (e) {
-      // ignore
-    }
   };
 
   const handleDownload = async () => {
@@ -47,8 +36,8 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     }
   };
 
-  // Smooth cinematic ease (Luxury Broadcast TV style)
-  const luxuryTransition = { duration: 0.9, ease: [0.16, 1, 0.3, 1] };
+  // Ultra-luxurious 6-second cinematic timing (Official F1 TV style)
+  const luxuryEase = [0.16, 1, 0.3, 1];
 
   return (
     <div style={{ marginBottom: '36px' }}>
@@ -56,7 +45,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
         <h3 style={{ fontSize: '1.4rem', fontWeight: '900', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Trophy size={22} style={{ color: 'var(--f1-gold)' }} />
-          🏆 Официальный Подиум ТОП-3 (F1 Broadcast TV)
+          🏆 Официальный Подиум ТОП-3 (6-Секундная TV Анимация)
         </h3>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button
@@ -64,7 +53,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             onClick={handleReplayAnimation}
             style={{ background: 'var(--bg-card-hover)', border: '1px solid var(--border-color)', fontWeight: '800' }}
           >
-            🎬 Запустить Broadcast Анимацию 💥
+            🎬 Воспроизвести 6-Сек. Анимацию ⏱️
           </button>
           <button
             className="btn btn-primary"
@@ -137,11 +126,11 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             />
           )}
 
-          {/* Top Header Bar */}
+          {/* Phase 1: Header Bar (0.0s - 1.2s) */}
           <motion.div
             initial={{ opacity: 0, y: -25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={luxuryTransition}
+            transition={{ duration: 1.2, ease: luxuryEase }}
             style={{
               display: 'flex',
               justify: 'space-between',
@@ -174,14 +163,14 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
             </div>
           </motion.div>
 
-          {/* Main 3-Column Podium Driver Showcase */}
+          {/* Main 3-Column Podium Showcase */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1fr', gap: '16px', alignItems: 'flex-end', flex: 1, position: 'relative', zIndex: 10, paddingBottom: '10px' }}>
             
-            {/* --- 2ND PLACE (LEFT) --- */}
+            {/* --- 2ND PLACE (LEFT) - Phase 3 (2.6s - 4.0s) --- */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ ...luxuryTransition, delay: 0.3 }}
+              initial={{ opacity: 0, x: -60, y: 20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 1.4, delay: 2.6, ease: luxuryEase }}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -236,11 +225,11 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
               </div>
             </motion.div>
 
-            {/* --- 1ST PLACE WINNER (CENTER) --- */}
+            {/* --- 1ST PLACE WINNER (CENTER) - Phase 4 (4.0s - 5.6s) --- */}
             <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              initial={{ opacity: 0, y: 60, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ ...luxuryTransition, delay: 0.6 }}
+              transition={{ duration: 1.6, delay: 4.0, ease: luxuryEase }}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -314,11 +303,11 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
               </div>
             </motion.div>
 
-            {/* --- 3RD PLACE (RIGHT) --- */}
+            {/* --- 3RD PLACE (RIGHT) - Phase 2 (1.2s - 2.6s) --- */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ ...luxuryTransition, delay: 0.1 }}
+              initial={{ opacity: 0, x: 60, y: 20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 1.4, delay: 1.2, ease: luxuryEase }}
               style={{
                 display: 'flex',
                 flexDirection: 'column',

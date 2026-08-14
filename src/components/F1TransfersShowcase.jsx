@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import { Zap, ShieldCheck, ArrowRight, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { BREAKING_TRANSFERS } from '../services/initialData';
 
 export default function F1TransfersShowcase() {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const luxuryEase = [0.16, 1, 0.3, 1];
+
   return (
-    <div className="card" style={{
-      background: 'linear-gradient(135deg, #131622 0%, #1A1E2E 100%)',
-      border: '2px solid #E10600',
-      borderRadius: '16px',
-      padding: '24px',
-      marginBottom: '32px',
-      boxShadow: '0 12px 35px rgba(225, 6, 0, 0.2)'
-    }}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.0, ease: luxuryEase }}
+      className="card"
+      style={{
+        background: 'linear-gradient(135deg, #131622 0%, #1A1E2E 100%)',
+        border: '2px solid #E10600',
+        borderRadius: '16px',
+        padding: '24px',
+        marginBottom: '32px',
+        boxShadow: '0 12px 35px rgba(225, 6, 0, 0.2)'
+      }}
+    >
       {/* Title Header */}
       <div style={{
         display: 'flex',
@@ -60,16 +69,19 @@ export default function F1TransfersShowcase() {
         </div>
       </div>
 
-      {/* Grid of 4 Official Breaking Transfer Posters */}
+      {/* Grid of 4 Official Breaking Transfer Posters with Slow Luxury Entrance */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
         gap: '20px',
         marginBottom: '24px'
       }}>
-        {BREAKING_TRANSFERS.map((tr) => (
-          <div
+        {BREAKING_TRANSFERS.map((tr, index) => (
+          <motion.div
             key={tr.id}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1.0, delay: index * 0.3, ease: luxuryEase }}
             onClick={() => setSelectedImage(tr)}
             style={{
               background: '#0B0D14',
@@ -77,20 +89,11 @@ export default function F1TransfersShowcase() {
               border: '1px solid var(--border-color)',
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'all 0.25s ease',
+              transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
               position: 'relative',
               boxShadow: '0 6px 20px rgba(0,0,0,0.5)'
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.borderColor = 'var(--f1-red)';
-              e.currentTarget.style.boxShadow = '0 12px 30px rgba(225,6,0,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.borderColor = 'var(--border-color)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.5)';
-            }}
+            whileHover={{ y: -6, borderColor: '#E10600', boxShadow: '0 15px 35px rgba(225,6,0,0.35)' }}
           >
             {/* Card Image */}
             <div style={{ position: 'relative', width: '100%', aspectRatio: '4/5', overflow: 'hidden' }}>
@@ -128,17 +131,22 @@ export default function F1TransfersShowcase() {
                 <strong style={{ color: '#FFF' }}>{tr.toTeam}</strong>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Summary Box: New Team Lineups */}
-      <div style={{
-        background: 'rgba(0,0,0,0.35)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: '12px',
-        padding: '18px 20px'
-      }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.0, delay: 1.3, ease: luxuryEase }}
+        style={{
+          background: 'rgba(0,0,0,0.35)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '12px',
+          padding: '18px 20px'
+        }}
+      >
         <h3 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#FFD700', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <ShieldCheck size={20} />
           ОФИЦИАЛЬНЫЙ СОСТАВ КОМАНД ПОСЛЕ ТРАНСФЕРНОГО ОКНА 2026:
@@ -192,12 +200,12 @@ export default function F1TransfersShowcase() {
               🚀 AlphaTauri (Новый состав AI)
             </div>
             <div style={{ fontSize: '0.88rem', color: '#9CA3AF', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div>• <strong>Max VERSTAPPEN</strong> <span style={{ fontSize: '0.75rem' }}>[Переход из Red Bull]</span></div>
-              <div>• <strong>Sergio PÉREZ</strong> <span style={{ fontSize: '0.75rem' }}>[Переход из Red Bull]</span></div>
+              <div>• <strong>Daniel RICCIARDO / Yuki TSUNODA</strong> <span style={{ fontSize: '0.75rem' }}>[Состав 2026]</span></div>
+              <div>• <strong>Max VERSTAPPEN / Sergio PÉREZ</strong> <span style={{ fontSize: '0.75rem' }}>[Переход из Red Bull]</span></div>
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Modal Preview for Clicked Card */}
       {selectedImage && (
@@ -256,6 +264,6 @@ export default function F1TransfersShowcase() {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
