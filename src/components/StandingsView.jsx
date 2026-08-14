@@ -1,111 +1,139 @@
-import React, { useState } from 'react';
-import { Trophy, Shield, User, Filter } from 'lucide-react';
+import React from 'react';
+import { Trophy, Award, Shield, User, Zap } from 'lucide-react';
 import FlagIcon from './FlagIcon';
+import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
 import F1TransfersShowcase from './F1TransfersShowcase';
-import { calculateStandings } from '../services/storage';
 
-export default function StandingsView({ data }) {
-  const [subTab, setSubTab] = useState('drivers'); // 'drivers' | 'constructors'
-  const [selectedRaceCutoff, setSelectedRaceCutoff] = useState('all'); // 'all' or raceId e.g. 'race-2'
-  const [showTransfersBanner, setShowTransfersBanner] = useState(true);
-
-  const races = data?.races || [];
-
-  // Filter races up to selected cutoff race
-  let activeRaces = races;
-  let activePenalties = data?.penalties || [];
-  let filterLabel = 'Итоговый текущий зачет (Все 5 этапов)';
-
-  if (selectedRaceCutoff !== 'all') {
-    const cutoffIndex = races.findIndex(r => r.id === selectedRaceCutoff);
-    if (cutoffIndex >= 0) {
-      activeRaces = races.slice(0, cutoffIndex + 1);
-      const targetRace = races[cutoffIndex];
-      filterLabel = `После ГП ${cutoffIndex + 1}: ${targetRace.title}`;
-
-      // Filter penalties up to that race date
-      if (targetRace.date) {
-        activePenalties = (data?.penalties || []).filter(p => !p.date || p.date <= targetRace.date);
-      }
-    }
-  }
-
-  // Calculate dynamic standings for filtered races
-  const filteredData = {
-    ...data,
-    races: activeRaces,
-    penalties: activePenalties
-  };
-
-  const { driverStandings, constructorStandings } = calculateStandings(filteredData);
+export default function StandingsView({ standings, activeTab, onTabChange }) {
+  const { driverStandings, constructorStandings } = standings;
 
   return (
     <div>
-      {/* Official Breaking Transfers Announcements Banner */}
-      {showTransfersBanner && <F1TransfersShowcase />}
+      {/* 1. Breaking Transfers Showcase Card on Home Tab */}
+      <F1TransfersShowcase />
 
-      {/* Top Filter Bar for Race Standings Snapshot */}
-      <div className="card" style={{ padding: '16px 24px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div className="nav-tabs" style={{ background: 'transparent', padding: 0 }}>
-            <button
-              className={`nav-btn ${subTab === 'drivers' ? 'active' : ''}`}
-              onClick={() => setSubTab('drivers')}
-              style={{ padding: '8px 20px', fontSize: '0.95rem', fontWeight: '800' }}
-            >
-              <User size={18} /> Зачёт Пилотов
-            </button>
-            <button
-              className={`nav-btn ${subTab === 'constructors' ? 'active' : ''}`}
-              onClick={() => setSubTab('constructors')}
-              style={{ padding: '8px 20px', fontSize: '0.95rem', fontWeight: '800' }}
-            >
-              <Shield size={18} /> Зачёт Команд
-            </button>
-          </div>
-        </div>
+      {/* 2. Broadcast TV 16:9 Standings Graphic Card */}
+      <F1StandingsBroadcastCard standings={standings} activeTab={activeTab} />
 
-        {/* Race Filter Selector */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--f1-gold)', fontWeight: '800', fontSize: '0.9rem' }}>
-            <Filter size={16} /> Фильтр зачета по гонкам:
-          </div>
-          <select
-            className="form-control"
-            style={{ width: 'auto', minWidth: '280px', fontWeight: '800', border: '1px solid var(--f1-red)' }}
-            value={selectedRaceCutoff}
-            onChange={e => setSelectedRaceCutoff(e.target.value)}
-          >
-            <option value="all">🏆 Все проведенные этапы (Текущий итоговый зачет)</option>
-            {races.map((r, idx) => (
-              <option key={r.id} value={r.id}>
-                🏁 После ГП {idx + 1}: {r.title} ({r.date})
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* Sub navigation for Drivers vs Constructors */}
+      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+        <button
+          className={`btn ${activeTab === 'drivers' ? 'btn-primary' : ''}`}
+          onClick={() => onTabChange('drivers')}
+          style={{ padding: '10px 24px', fontWeight: '800', fontSize: '0.95rem' }}
+        >
+          <User size={18} /> ЛИЧНЫЙ ЗАЧЁТ (DRIVERS)
+        </button>
+        <button
+          className={`btn ${activeTab === 'constructors' ? 'btn-primary' : ''}`}
+          onClick={() => onTabChange('constructors')}
+          style={{ padding: '10px 24px', fontWeight: '800', fontSize: '0.95rem' }}
+        >
+          <Shield size={18} /> КУБОК КОНСТРУКТОРОВ (TEAMS)
+        </button>
       </div>
 
-      {subTab === 'drivers' ? (
-        /* Single Drivers Championship Leaderboard Card with Export */
-        <F1StandingsBroadcastCard driverStandings={driverStandings} subtitleLabel={filterLabel} />
-      ) : (
-        /* Constructors Championship Table with Official Team Logos */
+      {activeTab === 'drivers' ? (
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-          <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: 'linear-gradient(90deg, #161922 0%, #1F2432 100%)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '1px' }}>
-                FORMULA 1 2026 • {filterLabel.toUpperCase()}
+              <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                FORMULA 1 2026 • ИТОГОВЫЙ ТЕКУЩИЙ ЗАЧЕТ
               </div>
-              <h2 style={{ fontSize: '1.6rem', fontWeight: '900', fontStyle: 'italic', color: '#FFF' }}>
-                КУБОК КОНСТРУКТОРОВ (Constructors Championship)
-              </h2>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '0.5px' }}>
+                ЛИЧНЫЙ ЗАЧЕТ ПИЛОТОВ (DRIVERS CHAMPIONSHIP)
+              </h3>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.85rem', color: 'var(--f1-gold)', fontWeight: '800' }}>
-                ЛИДЕР: {constructorStandings[0]?.team.name} ({constructorStandings[0]?.totalPoints} PTS)
+            <div style={{ fontSize: '0.85rem', color: 'var(--f1-gold)', fontWeight: '700' }}>
+              ЛИДЕР: {driverStandings[0]?.driver.name} ({driverStandings[0]?.totalPoints} PTS)
+            </div>
+          </div>
+
+          <div className="f1-table-wrapper">
+            <table className="f1-table">
+              <thead>
+                <tr>
+                  <th style={{ width: '60px', textAlign: 'center' }}>ПОЗ</th>
+                  <th>ПИЛОТ</th>
+                  <th>КОМАНДА</th>
+                  <th style={{ textAlign: 'center' }}>ПОБЕДЫ</th>
+                  <th style={{ textAlign: 'center' }}>ПОДИУМЫ</th>
+                  <th style={{ textAlign: 'center' }}>ЛУЧШИЕ КРУГИ</th>
+                  <th style={{ textAlign: 'right', paddingRight: '24px' }}>СУММА ОЧКОВ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {driverStandings.map((item, index) => {
+                  const pos = index + 1;
+                  const isPlayer = !item.driver.isAi;
+
+                  return (
+                    <tr key={item.driver.id} className={isPlayer ? 'real-player-row' : ''}>
+                      <td className={`pos-cell pos-${pos}`} style={{ textAlign: 'center', fontWeight: '900', fontSize: '1.1rem' }}>
+                        {pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos}
+                      </td>
+                      <td>
+                        <div className="driver-cell">
+                          {item.driver.avatar ? (
+                            <img
+                              src={item.driver.avatar}
+                              alt={item.driver.name}
+                              style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: isPlayer ? '2px solid #0284C7' : '1px solid var(--border-color)' }}
+                            />
+                          ) : (
+                            <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
+                              🏎️
+                            </div>
+                          )}
+                          <div>
+                            <div className="driver-name" style={{ fontSize: '1.05rem', fontWeight: '800' }}>
+                              <FlagIcon countryCode={item.driver.country} style={{ marginRight: '6px' }} />
+                              {item.driver.name}
+                              {isPlayer && <span className="player-badge">Player</span>}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="team-cell" style={{ gap: '10px', alignItems: 'center' }}>
+                          <span className="team-stripe" style={{ backgroundColor: item.team.color, height: '24px', width: '4px' }} />
+                          <TeamLogo teamId={item.team.id} style={{ height: '22px' }} />
+                          <span style={{ fontWeight: '600' }}>{item.team.name}</span>
+                        </div>
+                      </td>
+                      <td style={{ textAlign: 'center', fontWeight: '800', fontSize: '1rem', color: item.wins > 0 ? '#FFD700' : 'var(--text-dark)' }}>
+                        {item.wins}
+                      </td>
+                      <td style={{ textAlign: 'center', fontWeight: '700', fontSize: '1rem' }}>{item.podiums}</td>
+                      <td style={{ textAlign: 'center', fontWeight: '700', fontSize: '1rem', color: item.fastestLaps > 0 ? '#A855F7' : 'inherit' }}>
+                        {item.fastestLaps}
+                      </td>
+                      <td style={{ textAlign: 'right', paddingRight: '24px' }}>
+                        <span className={`pts-badge ${item.totalPoints === 0 ? 'zero' : ''}`} style={{ fontSize: '1.1rem', padding: '6px 14px' }}>
+                          {item.totalPoints}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : (
+        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+          <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                FORMULA 1 2026 • ИТОГОВЫЙ ТЕКУЩИЙ ЗАЧЕТ
               </div>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '0.5px' }}>
+                КУБОК КОНСТРУКТОРОВ (CONSTRUCTORS CHAMPIONSHIP)
+              </h3>
+            </div>
+            <div style={{ fontSize: '0.85rem', color: 'var(--f1-gold)', fontWeight: '700' }}>
+              ЛИДЕР: {constructorStandings[0]?.team.name} ({constructorStandings[0]?.totalPoints} PTS)
             </div>
           </div>
 
@@ -130,17 +158,11 @@ export default function StandingsView({ data }) {
                         {pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos}
                       </td>
                       <td>
-                        <div className="team-cell" style={{ gap: '14px' }}>
-                          <span className="team-stripe" style={{ backgroundColor: item.team.color, height: '36px', width: '5px' }} />
-                          {item.team.logo && (
-                            <img
-                              src={item.team.logo}
-                              alt={item.team.name}
-                              style={{ height: '24px', maxWidth: '36px', objectFit: 'contain', filter: 'brightness(1.1)' }}
-                            />
-                          )}
+                        <div className="team-cell" style={{ gap: '16px', alignItems: 'center' }}>
+                          <span className="team-stripe" style={{ backgroundColor: item.team.color, height: '38px', width: '5px' }} />
+                          <TeamLogo teamId={item.team.id} style={{ height: '34px', minWidth: '42px' }} />
                           <div>
-                            <div style={{ fontWeight: '800', fontSize: '1.05rem', color: '#FFF' }}>{item.team.name}</div>
+                            <div style={{ fontWeight: '800', fontSize: '1.1rem', color: '#FFF' }}>{item.team.name}</div>
                           </div>
                         </div>
                       </td>

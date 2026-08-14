@@ -4,7 +4,7 @@ export const DEFAULT_TEAMS = [
   { id: 'williams', name: 'Williams Racing', color: '#00A0DE', accentColor: '#005AFF', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/williams-logo.png' },
   { id: 'alpine', name: 'Alpine', color: '#0090FF', accentColor: '#FF87BC', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/alpine-logo.png' },
   { id: 'mclaren', name: 'McLaren', color: '#FF8000', accentColor: '#FF9E1B', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/mclaren-logo.png' },
-  { id: 'haas', name: 'Haas', color: '#B6BABD', accentColor: '#E6002B', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/haas-logo.png' },
+  { id: 'haas', name: 'Haas', color: '#B6BABD', accentColor: '#E6002B', logo: '/teams/haas.svg' },
   { id: 'alfa-romeo', name: 'Alfa Romeo KICK', color: '#900000', accentColor: '#C92D2D', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/alfa-romeo-logo.png' },
   { id: 'mercedes', name: 'Mercedes-AMG Petronas', color: '#00A19B', accentColor: '#6CD3BF', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/mercedes-logo.png' },
   { id: 'ferrari', name: 'Ferrari', color: '#E80020', accentColor: '#FFF200', logo: 'https://media.formula1.com/content/dam/fom-website/teams/2023/ferrari-logo.png' },

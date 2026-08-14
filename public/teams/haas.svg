@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100">
+  <!-- Red Haas Circle with White H -->
+  <circle cx="50" cy="50" r="44" fill="#E6002B" />
+  <path d="M32 26 h14 v20 h22 v-20 h14 v48 h-14 v-18 h-22 v18 h-14 z" fill="#FFFFFF" />
+  <!-- HAAS Text -->
+  <text x="110" y="66" fill="#FFFFFF" font-family="'Titillium Web', 'Arial Black', sans-serif" font-size="46" font-weight="900" letter-spacing="4">HAAS</text>
+</svg>
