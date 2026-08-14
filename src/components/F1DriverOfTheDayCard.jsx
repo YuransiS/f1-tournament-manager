@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Camera, Star, Vote, CheckCircle2, RefreshCw } from 'lucide-react';
+import { Camera, Star, Vote, CheckCircle2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
@@ -16,16 +16,16 @@ const RACE_COUNTRY_MAP = {
   'race-8': { code: 'ES', name: 'SPAIN' }
 };
 
-// High-res track background photos uploaded by user
+// High-res real track background photos uploaded by user
 const REAL_TRACK_PHOTOS = {
+  'race-1': '/tracks/bahrain.jpg',
+  'race-2': '/tracks/jeddah.png',
+  'race-3': '/tracks/australia.jpg',
+  'race-4': '/tracks/miami.jpg',
   'race-5': '/tracks/miami.jpg',
   'race-6': '/tracks/imola.jpg',
   'race-7': '/tracks/monaco.jpg',
-  'race-8': '/tracks/spain.jpg',
-  'race-1': '/tracks/spain.jpg',
-  'race-2': '/tracks/monaco.jpg',
-  'race-3': '/tracks/imola.jpg',
-  'race-4': '/tracks/miami.jpg'
+  'race-8': '/tracks/spain.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
