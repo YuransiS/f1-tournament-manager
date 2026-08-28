@@ -342,6 +342,67 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-10', grid: 19, stops: 3, bestLap: '1:14.889', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 17, stops: 0, bestLap: '1:16.680', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-10-sprint',
+    title: 'Austrian Grand Prix (Sprint)',
+    subtitle: 'RED BULL RING (SPIELBERG) - SPRINT RACE 10',
+    date: '2026-06-27',
+    status: 'completed',
+    isSprint: true,
+    fastestLapDriverId: '',
+    results: [
+      { driverId: 'drv-11', grid: 2, stops: 0, bestLap: '1:07.563', totalTime: '13:43.938', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 3, stops: 0, bestLap: '1:07.887', totalTime: '+17.150', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 4, stops: 0, bestLap: '1:09.430', totalTime: '+20.840', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 9, stops: 0, bestLap: '1:09.399', totalTime: '+21.658', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 8, stops: 0, bestLap: '1:09.249', totalTime: '+22.196', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 7, stops: 0, bestLap: '1:09.322', totalTime: '+23.298', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 10, stops: 0, bestLap: '1:09.401', totalTime: '+23.827', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 12, stops: 0, bestLap: '1:09.657', totalTime: '+25.960', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 6, stops: 0, bestLap: '1:09.550', totalTime: '+26.409', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 14, stops: 0, bestLap: '1:09.249', totalTime: '+26.836', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 15, stops: 0, bestLap: '1:09.263', totalTime: '+27.209', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 16, stops: 0, bestLap: '1:09.613', totalTime: '+27.502', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 0, bestLap: '1:09.388', totalTime: '+27.867', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 13, stops: 0, bestLap: '1:09.668', totalTime: '+28.623', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 17, stops: 0, bestLap: '1:09.770', totalTime: '+29.806', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 19, stops: 0, bestLap: '1:09.986', totalTime: '+34.173', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 18, stops: 0, bestLap: '1:09.962', totalTime: '+34.458', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 5, stops: 1, bestLap: '1:08.524', totalTime: '+46.157', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:08.626', totalTime: '+50.158', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 20, stops: 0, bestLap: '1:07.845', totalTime: '+1:12.000', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
+    ]
+  },
+  {
+    id: 'race-10',
+    title: 'Austrian Grand Prix',
+    subtitle: 'RED BULL RING (SPIELBERG) - RACE 10',
+    date: '2026-06-28',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    results: [
+      { driverId: 'drv-11', grid: 1, stops: 1, bestLap: '1:07.240', totalTime: '42:18.520', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 2, stops: 1, bestLap: '1:07.610', totalTime: '+2.140', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 4, stops: 1, bestLap: '1:08.390', totalTime: '+8.450', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 3, stops: 1, bestLap: '1:08.430', totalTime: '+11.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 19, stops: 1, bestLap: '1:07.820', totalTime: '+14.650', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 20, stops: 2, bestLap: '1:06.940', totalTime: '+18.910', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 7, stops: 1, bestLap: '1:08.920', totalTime: '+24.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 13, stops: 1, bestLap: '1:08.890', totalTime: '+27.450', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 10, stops: 1, bestLap: '1:08.950', totalTime: '+30.120', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 6, stops: 1, bestLap: '1:08.870', totalTime: '+32.840', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:08.990', totalTime: '+34.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 8, stops: 1, bestLap: '1:09.120', totalTime: '+36.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:09.340', totalTime: '+40.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 18, stops: 1, bestLap: '1:09.150', totalTime: '+42.600', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 11, stops: 1, bestLap: '1:09.400', totalTime: '+45.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 17, stops: 1, bestLap: '1:09.550', totalTime: '+48.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 12, stops: 1, bestLap: '1:09.600', totalTime: '+51.300', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 9, stops: 2, bestLap: '1:09.220', totalTime: '+55.700', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 14, stops: 1, bestLap: '1:09.650', totalTime: '+58.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 16, stops: 2, bestLap: '1:09.800', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
+    ]
   }
 ];
 

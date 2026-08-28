@@ -115,7 +115,7 @@ export default function F1TransfersShowcase() {
               Red Bull Racing / Red Kangaroo
             </div>
             <div style={{ marginTop: '8px', display: 'inline-block', background: '#FFD700', color: '#000', padding: '4px 12px', borderRadius: '12px', fontWeight: '900', fontSize: '0.95rem' }}>
-              147 PTS (P1 LEADER)
+              156 PTS (P1 LEADER)
             </div>
           </div>
         </div>
@@ -162,10 +162,10 @@ export default function F1TransfersShowcase() {
               Red Bull Racing
             </div>
             <div style={{ fontSize: '0.85rem', color: '#93C5FD', fontWeight: '700', marginTop: '2px' }}>
-              Ярема (147) + Коваленко (42)
+              Ярема (156) + Коваленко (67)
             </div>
             <div style={{ marginTop: '8px', display: 'inline-block', background: '#1E41FF', color: '#FFF', padding: '4px 12px', borderRadius: '12px', fontWeight: '900', fontSize: '0.95rem' }}>
-              189 PTS (P1 LEADER)
+              223 PTS (P1 LEADER)
             </div>
           </div>
         </div>

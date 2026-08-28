@@ -42,6 +42,15 @@ export default function FlagIcon({ countryCode = 'UA', style = {} }) {
         </svg>
       );
 
+    case 'AT': // Austria 🇦🇹
+      return (
+        <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="160" fill="#ED2939" />
+          <rect y="160" width="640" height="160" fill="#FFFFFF" />
+          <rect y="320" width="640" height="160" fill="#ED2939" />
+        </svg>
+      );
+
     case 'SA': // Saudi Arabia 🇸🇦
       return (
         <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
