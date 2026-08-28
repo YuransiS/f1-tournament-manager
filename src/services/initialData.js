@@ -312,6 +312,36 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-22', grid: 4, stops: 1, bestLap: '1:17.379', totalTime: 'DNF', penaltySeconds: 20, penaltyLabel: '⚠️ +20 sec (Выбил Юру в стену)', status: 'DNF' },
       { driverId: 'drv-10', grid: 16, stops: 0, bestLap: '1:19.139', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-9',
+    title: 'Canadian Grand Prix',
+    subtitle: 'CIRCUIT GILLES VILLENEUVE (MONTREAL) - RACE 9',
+    date: '2026-06-07',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    results: [
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:13.545', totalTime: '44:54.901', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:14.605', totalTime: '+0.269', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 3, stops: 1, bestLap: '1:14.280', totalTime: '+3.867', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 4, stops: 1, bestLap: '1:14.610', totalTime: '+5.241', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 6, stops: 1, bestLap: '1:15.040', totalTime: '+9.006', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:15.214', totalTime: '+12.582', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 12, stops: 1, bestLap: '1:15.398', totalTime: '+20.731', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 7, stops: 1, bestLap: '1:15.503', totalTime: '+21.793', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 9, stops: 1, bestLap: '1:15.026', totalTime: '+22.421', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 14, stops: 1, bestLap: '1:15.111', totalTime: '+23.679', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 10, stops: 1, bestLap: '1:15.253', totalTime: '+25.720', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 18, stops: 1, bestLap: '1:15.446', totalTime: '+29.929', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 8, stops: 2, bestLap: '1:14.789', totalTime: '+30.934', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 13, stops: 1, bestLap: '1:15.343', totalTime: '+31.859', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 16, stops: 1, bestLap: '1:15.669', totalTime: '+33.085', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 15, stops: 1, bestLap: '1:15.598', totalTime: '+33.156', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 11, stops: 1, bestLap: '1:15.204', totalTime: '+44.801', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 20, stops: 1, bestLap: '1:15.204', totalTime: '+56.813', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 19, stops: 3, bestLap: '1:14.889', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 17, stops: 0, bestLap: '1:16.680', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
+    ]
   }
 ];
 

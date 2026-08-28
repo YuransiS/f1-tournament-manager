@@ -13,7 +13,8 @@ const RACE_COUNTRY_MAP = {
   'race-5': { code: 'US', name: 'MIAMI • USA' },
   'race-6': { code: 'IT', name: 'IMOLA • ITALY' },
   'race-7': { code: 'MC', name: 'MONACO' },
-  'race-8': { code: 'ES', name: 'SPAIN' }
+  'race-8': { code: 'ES', name: 'SPAIN' },
+  'race-9': { code: 'CA', name: 'CANADA' }
 };
 
 // High-res real track background photos uploaded by user
@@ -25,7 +26,8 @@ const REAL_TRACK_PHOTOS = {
   'race-5': '/tracks/miami.jpg',
   'race-6': '/tracks/imola.jpg',
   'race-7': '/tracks/monaco.jpg',
-  'race-8': '/tracks/spain.jpg'
+  'race-8': '/tracks/spain.jpg',
+  'race-9': '/tracks/canada.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
