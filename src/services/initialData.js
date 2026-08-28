@@ -403,6 +403,36 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-14', grid: 14, stops: 1, bestLap: '1:09.650', totalTime: '+58.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-10', grid: 16, stops: 2, bestLap: '1:09.800', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
     ]
+  },
+  {
+    id: 'race-11',
+    title: 'British Grand Prix',
+    subtitle: 'SILVERSTONE CIRCUIT - RACE 11',
+    date: '2026-07-05',
+    status: 'completed',
+    fastestLapDriverId: 'drv-11',
+    results: [
+      { driverId: 'drv-11', grid: 1, stops: 1, bestLap: '1:30.202', totalTime: '40:27.418', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 3, stops: 1, bestLap: '1:31.096', totalTime: '+6.573', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:30.566', totalTime: '+14.877', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:32.324', totalTime: '+36.780', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 6, stops: 1, bestLap: '1:32.522', totalTime: '+45.255', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 8, stops: 1, bestLap: '1:32.325', totalTime: '+45.550', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 19, stops: 1, bestLap: '1:31.831', totalTime: '+45.873', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 7, stops: 1, bestLap: '1:32.517', totalTime: '+47.063', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 1, bestLap: '1:32.067', totalTime: '+47.349', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:31.833', totalTime: '+47.973', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 9, stops: 1, bestLap: '1:31.768', totalTime: '+48.373', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 20, stops: 1, bestLap: '1:32.123', totalTime: '+48.941', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 13, stops: 1, bestLap: '1:32.035', totalTime: '+49.158', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:32.376', totalTime: '+50.939', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 12, stops: 1, bestLap: '1:32.377', totalTime: '+51.976', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 1, bestLap: '1:32.183', totalTime: '+52.109', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 14, stops: 1, bestLap: '1:32.517', totalTime: '+54.664', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 17, stops: 1, bestLap: '1:32.454', totalTime: '+1:02.259', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 4, stops: 1, bestLap: '1:32.630', totalTime: '+2:21.643', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:32.101', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
+    ]
   }
 ];
 

@@ -16,7 +16,8 @@ const RACE_COUNTRY_MAP = {
   'race-8': { code: 'ES', name: 'SPAIN' },
   'race-9': { code: 'CA', name: 'CANADA' },
   'race-10-sprint': { code: 'AT', name: 'AUSTRIA (SPRINT)' },
-  'race-10': { code: 'AT', name: 'AUSTRIA' }
+  'race-10': { code: 'AT', name: 'AUSTRIA' },
+  'race-11': { code: 'GB', name: 'GREAT BRITAIN' }
 };
 
 // High-res real track background photos uploaded by user
@@ -31,7 +32,8 @@ const REAL_TRACK_PHOTOS = {
   'race-8': '/tracks/spain.jpg',
   'race-9': '/tracks/canada.jpg',
   'race-10-sprint': '/tracks/austria.jpg',
-  'race-10': '/tracks/austria.jpg'
+  'race-10': '/tracks/austria.jpg',
+  'race-11': '/tracks/silverstone.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
