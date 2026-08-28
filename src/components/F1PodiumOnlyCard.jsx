@@ -1,12 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Sparkles, Trophy } from 'lucide-react';
-import { toPng } from 'html-to-image';
+import { Camera, Sparkles, Trophy, Film, Loader2 } from 'lucide-react';
+import { toPng, toCanvas } from 'html-to-image';
+import { GIFEncoder, quantize, applyPalette } from 'gifenc';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
 
 export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [isRecordingGif, setIsRecordingGif] = useState(false);
+  const [gifProgress, setGifProgress] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
 
   if (!fullResults || fullResults.length < 3) return null;
@@ -19,11 +22,11 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     setAnimationKey(prev => prev + 1);
   };
 
-  const handleDownload = async () => {
+  const handleDownloadPng = async () => {
     if (!cardRef.current) return;
     setIsExporting(true);
     try {
-      const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: true });
+      const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: false });
       const link = document.createElement('a');
       link.download = `F1_${raceTitle.replace(/\s+/g, '_')}_Official_Podium.png`;
       link.href = dataUrl;
@@ -36,7 +39,70 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
     }
   };
 
-  // Ultra-luxurious 6-second cinematic timing (Official F1 TV style)
+  const handleExportGif = async () => {
+    if (!cardRef.current || isRecordingGif) return;
+    setIsRecordingGif(true);
+    setGifProgress(0);
+
+    try {
+      // Restart animation from 0
+      setAnimationKey(prev => prev + 1);
+      await new Promise(r => setTimeout(r, 120));
+
+      const encoder = GIFEncoder();
+      const fps = 8;
+      const totalSeconds = 5.4;
+      const totalFrames = Math.floor(fps * totalSeconds);
+      const frameInterval = 1000 / fps;
+
+      const targetWidth = 640;
+      const targetHeight = 360;
+
+      for (let i = 0; i < totalFrames; i++) {
+        if (!cardRef.current) break;
+
+        const canvas = await toCanvas(cardRef.current, {
+          width: targetWidth,
+          height: targetHeight,
+          pixelRatio: 1,
+          cacheBust: false
+        });
+
+        const ctx = canvas.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, targetWidth, targetHeight);
+        const palette = quantize(imgData.data, 128);
+        const index = applyPalette(imgData.data, palette);
+
+        encoder.writeFrame(index, targetWidth, targetHeight, {
+          palette,
+          delay: frameInterval,
+          transparent: false
+        });
+
+        setGifProgress(Math.round(((i + 1) / totalFrames) * 100));
+        await new Promise(r => setTimeout(r, frameInterval));
+      }
+
+      encoder.finish();
+      const rawBytes = encoder.bytesView();
+      const blob = new Blob([rawBytes], { type: 'image/gif' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.download = `F1_${raceTitle.replace(/\s+/g, '_')}_Podium.gif`;
+      link.href = url;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to export GIF:', err);
+      alert('Не удалось сформировать GIF. Попробуйте еще раз.');
+    } finally {
+      setIsRecordingGif(false);
+      setGifProgress(0);
+    }
+  };
+
+  // Ultra-luxurious cinematic timing (Official F1 TV style)
   const luxuryEase = [0.16, 1, 0.3, 1];
 
   return (
@@ -45,23 +111,53 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
         <h3 style={{ fontSize: '1.4rem', fontWeight: '900', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Trophy size={22} style={{ color: 'var(--f1-gold)' }} />
-          🏆 Официальный Подиум ТОП-3 (6-Секундная TV Анимация)
+          🏆 Официальный Подиум ТОП-3 (F1 TV Broadcast)
         </h3>
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           <button
             className="btn btn-sm"
             onClick={handleReplayAnimation}
+            disabled={isRecordingGif}
             style={{ background: 'var(--bg-card-hover)', border: '1px solid var(--border-color)', fontWeight: '800' }}
           >
-            🎬 Воспроизвести 6-Сек. Анимацию ⏱️
+            🎬 Повтор Анимации
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={handleExportGif}
+            disabled={isRecordingGif || isExporting}
+            style={{
+              background: isRecordingGif ? 'rgba(255,215,0,0.2)' : 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
+              border: '1.5px solid #FFD700',
+              color: '#FFD700',
+              boxShadow: '0 4px 16px rgba(255,215,0,0.3)',
+              padding: '10px 18px',
+              fontWeight: '900',
+              fontSize: '0.95rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            {isRecordingGif ? (
+              <>
+                <Loader2 size={18} className="spin" />
+                <span>Запись GIF {gifProgress}%...</span>
+              </>
+            ) : (
+              <>
+                <Film size={18} />
+                <span>🎥 Скачать GIF Анимацию</span>
+              </>
+            )}
           </button>
           <button
             className="btn btn-primary"
-            onClick={handleDownload}
-            disabled={isExporting}
+            onClick={handleDownloadPng}
+            disabled={isExporting || isRecordingGif}
             style={{ boxShadow: '0 4px 16px rgba(225,6,0,0.6)', padding: '10px 20px', fontWeight: '800', fontSize: '0.95rem' }}
           >
-            <Camera size={18} /> {isExporting ? 'Экспорт PNG...' : '📸 Скачать Скриншот ТОП-3 (PNG)'}
+            <Camera size={18} /> {isExporting ? 'Экспорт PNG...' : '📸 Скачать Скриншот (PNG)'}
           </button>
         </div>
       </div>
