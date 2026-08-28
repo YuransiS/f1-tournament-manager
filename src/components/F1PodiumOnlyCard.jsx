@@ -220,7 +220,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
                   {second.team.name}
                 </div>
                 <div style={{ marginTop: '6px', fontSize: '0.85rem', fontWeight: '900', color: 'var(--f1-silver)' }}>
-                  +18 PTS
+                  +{second.pts} PTS {second.isFastestLap ? '⚡ FL' : ''}
                 </div>
               </div>
             </motion.div>
@@ -254,7 +254,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
                 marginBottom: '8px',
                 boxShadow: '0 4px 20px rgba(255,215,0,0.6)'
               }}>
-                <Trophy size={16} /> RACE WINNER
+                <Trophy size={16} /> {raceTitle && raceTitle.toLowerCase().includes('sprint') ? 'SPRINT WINNER' : 'RACE WINNER'}
               </div>
 
               {/* Driver Portrait Cutout (Taller & Prominent) */}
@@ -357,7 +357,7 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
                   {third.team.name}
                 </div>
                 <div style={{ marginTop: '6px', fontSize: '0.85rem', fontWeight: '900', color: 'var(--f1-bronze)' }}>
-                  +15 PTS
+                  +{third.pts} PTS {third.isFastestLap ? '⚡ FL' : ''}
                 </div>
               </div>
             </motion.div>
