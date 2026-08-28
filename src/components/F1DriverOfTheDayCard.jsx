@@ -31,7 +31,7 @@ const REAL_TRACK_PHOTOS = {
   'race-7': '/tracks/monaco.jpg',
   'race-8': '/tracks/spain.jpg',
   'race-9': '/tracks/canada.jpg',
-  'race-10-sprint': '/tracks/austria.jpg',
+  'race-10-sprint': '/tracks/austria-sprint.jpg',
   'race-10': '/tracks/austria.jpg',
   'race-11': '/tracks/silverstone.jpg'
 };
