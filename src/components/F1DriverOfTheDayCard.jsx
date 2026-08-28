@@ -121,14 +121,30 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     if (!cardRef.current) return;
     setIsExporting(true);
     try {
-      const dataUrl = await toPng(cardRef.current, { quality: 0.98, cacheBust: true });
+      const dataUrl = await toPng(cardRef.current, {
+        quality: 0.98,
+        cacheBust: false,
+        pixelRatio: 2
+      });
       const link = document.createElement('a');
       link.download = `F1_Driver_Of_The_Day_${driver.name.replace(/\s+/g, '_')}_${hostCountry.name}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error('Failed to export Driver of the Day card:', err);
-      alert('Ошибка экспорта карточки Гоночного Дня!');
+      console.warn('High-res export failed, attempting standard resolution:', err);
+      try {
+        const fallbackUrl = await toPng(cardRef.current, {
+          quality: 0.92,
+          cacheBust: false
+        });
+        const link = document.createElement('a');
+        link.download = `F1_Driver_Of_The_Day_${driver.name.replace(/\s+/g, '_')}_${hostCountry.name}.png`;
+        link.href = fallbackUrl;
+        link.click();
+      } catch (fallbackErr) {
+        console.error('Failed to export Driver of the Day card:', fallbackErr);
+        alert('Ошибка экспорта карточки Гоночного Дня! Попробуйте еще раз или обновите страницу.');
+      }
     } finally {
       setIsExporting(false);
     }
@@ -189,6 +205,9 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
           <img
             src={trackPhoto}
             alt="Real Race Track"
+            onError={(e) => {
+              e.currentTarget.src = '/tracks/spain.jpg';
+            }}
             style={{
               position: 'absolute',
               inset: 0,
