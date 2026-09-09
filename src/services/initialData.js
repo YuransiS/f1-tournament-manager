@@ -14,7 +14,7 @@ export const DEFAULT_TEAMS = [
 export const DEFAULT_DRIVERS = [
   { id: 'drv-1', name: 'Yurii ZAKHARCHUK', country: 'UA', flag: '🇺🇦', teamId: 'mercedes', isAi: false, avatar: '/portraits/yura.png' },
   { id: 'drv-2', name: 'Fernando ALONSO', country: 'ES', flag: '🇪🇸', teamId: 'aston-martin', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png' },
-  { id: 'drv-3', name: 'MARK (не Уэббер)', country: 'UA', flag: '🇺🇦', teamId: 'williams', isAi: false, avatar: '/portraits/mark.png' },
+  { id: 'drv-3', name: 'Logan SARGEANT', country: 'US', flag: '🇺🇸', teamId: 'williams', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png' },
   { id: 'drv-4', name: 'Alexander ALBON', country: 'TH', flag: '🇹🇭', teamId: 'williams', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png' },
   { id: 'drv-5', name: 'Pierre GASLY', country: 'FR', flag: '🇫🇷', teamId: 'alpine', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png' },
   { id: 'drv-6', name: 'Mykola YAREMA', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/kolya.png' },
