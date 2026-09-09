@@ -3,7 +3,7 @@ import { Trophy, Award, Shield, User, Zap } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
-import F1TransfersShowcase from './F1TransfersShowcase';
+import F1WilliamsMercedesAnnouncement from './F1WilliamsMercedesAnnouncement';
 import { calculateStandings } from '../services/storage';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange }) {
@@ -16,8 +16,8 @@ export default function StandingsView({ data, standings: propStandings, activeTa
 
   return (
     <div>
-      {/* 1. Breaking Transfers Showcase Card on Home Tab */}
-      <F1TransfersShowcase />
+      {/* 1. Official Williams-Mercedes Sale Breaking Announcement */}
+      <F1WilliamsMercedesAnnouncement />
 
       {/* 2. Broadcast TV 16:9 Standings Graphic Card */}
       <F1StandingsBroadcastCard standings={standings} activeTab={activeTab} />

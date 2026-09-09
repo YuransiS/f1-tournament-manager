@@ -34,15 +34,6 @@ export default function Header({ activeTab, setActiveTab, onExportData }) {
         </button>
 
         <button
-          className={`nav-btn ${activeTab === 'transfers' ? 'active' : ''}`}
-          onClick={() => setActiveTab('transfers')}
-          style={{ border: activeTab === 'transfers' ? '1px solid #E10600' : 'none' }}
-        >
-          <Zap size={18} style={{ color: activeTab === 'transfers' ? '#FFF' : '#EF4444' }} />
-          ⚡ Трансферы
-        </button>
-
-        <button
           className={`nav-btn ${activeTab === 'races' ? 'active' : ''}`}
           onClick={() => setActiveTab('races')}
         >
