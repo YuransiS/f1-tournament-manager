@@ -42,45 +42,76 @@ export default function F1PodiumOnlyCard({ raceTitle, trackImage, fullResults })
   const handleExportGif = async () => {
     if (!cardRef.current || isRecordingGif) return;
     setIsRecordingGif(true);
-    setGifProgress(0);
+    setGifProgress(5);
 
     try {
-      // Restart animation from 0
+      const node = cardRef.current;
+      const rect = node.getBoundingClientRect();
+      const naturalWidth = Math.max(node.scrollWidth, node.offsetWidth, Math.round(rect.width), 960);
+      const naturalHeight = Math.max(node.scrollHeight, node.offsetHeight, Math.round(rect.height), 540);
+
+      // Proportionally scaled target GIF dimensions (16:9 crisp standard)
+      const targetWidth = 720;
+      const targetHeight = Math.round((naturalHeight / naturalWidth) * targetWidth);
+
+      const targetCanvas = document.createElement('canvas');
+      targetCanvas.width = targetWidth;
+      targetCanvas.height = targetHeight;
+      const targetCtx = targetCanvas.getContext('2d', { willReadFrequently: true });
+
+      // Restart animation from beginning
       setAnimationKey(prev => prev + 1);
-      await new Promise(r => setTimeout(r, 120));
+      
+      // Short delay to allow React & Framer Motion to reset initial state
+      await new Promise(r => setTimeout(r, 80));
 
       const encoder = GIFEncoder();
-      const fps = 8;
-      const totalSeconds = 5.4;
-      const totalFrames = Math.floor(fps * totalSeconds);
-      const frameInterval = 1000 / fps;
-
-      const targetWidth = 640;
-      const targetHeight = 360;
+      
+      // Capture 16 evenly spaced cinematic keyframes across the 5.6s animation sequence
+      const totalFrames = 16;
+      const totalDurationMs = 5600;
+      const intervalMs = Math.round(totalDurationMs / totalFrames); // ~350ms
+      const playbackDelayMs = 180; // Smooth ~5.5 FPS playback in GIF
 
       for (let i = 0; i < totalFrames; i++) {
         if (!cardRef.current) break;
 
-        const canvas = await toCanvas(cardRef.current, {
-          width: targetWidth,
-          height: targetHeight,
+        const frameStartTime = Date.now();
+
+        // 1. Capture FULL element at natural resolution (ZERO cropping)
+        const fullCanvas = await toCanvas(node, {
+          width: naturalWidth,
+          height: naturalHeight,
           pixelRatio: 1,
           cacheBust: false
         });
 
-        const ctx = canvas.getContext('2d');
-        const imgData = ctx.getImageData(0, 0, targetWidth, targetHeight);
+        // 2. Scale into target canvas with high quality smoothing
+        targetCtx.imageSmoothingEnabled = true;
+        targetCtx.imageSmoothingQuality = 'high';
+        targetCtx.clearRect(0, 0, targetWidth, targetHeight);
+        targetCtx.drawImage(fullCanvas, 0, 0, fullCanvas.width, fullCanvas.height, 0, 0, targetWidth, targetHeight);
+
+        // 3. Quantize pixels to palette
+        const imgData = targetCtx.getImageData(0, 0, targetWidth, targetHeight);
         const palette = quantize(imgData.data, 128);
         const index = applyPalette(imgData.data, palette);
 
+        // Final finished podium frame stays for 2.5 seconds before looping!
+        const frameDelay = (i === totalFrames - 1) ? 2500 : playbackDelayMs;
+
         encoder.writeFrame(index, targetWidth, targetHeight, {
           palette,
-          delay: frameInterval,
+          delay: frameDelay,
           transparent: false
         });
 
         setGifProgress(Math.round(((i + 1) / totalFrames) * 100));
-        await new Promise(r => setTimeout(r, frameInterval));
+
+        // Sleep remaining time of the interval
+        const elapsed = Date.now() - frameStartTime;
+        const waitTime = Math.max(20, intervalMs - elapsed);
+        await new Promise(r => setTimeout(r, waitTime));
       }
 
       encoder.finish();
