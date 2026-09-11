@@ -225,6 +225,24 @@ export default function FlagIcon({ countryCode = 'UA', style = {} }) {
         </svg>
       );
 
+    case 'HU': // Hungary 🇭🇺
+      return (
+        <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="160" fill="#CE2939" />
+          <rect y="160" width="640" height="160" fill="#FFFFFF" />
+          <rect y="320" width="640" height="160" fill="#477050" />
+        </svg>
+      );
+
+    case 'BE': // Belgium 🇧🇪
+      return (
+        <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="213.3" height="480" fill="#000000" />
+          <rect x="213.3" width="213.4" height="480" fill="#FFD700" />
+          <rect x="426.7" width="213.3" height="480" fill="#ED2939" />
+        </svg>
+      );
+
     default: // Default fallback (Ukraine 🇺🇦)
       return (
         <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">

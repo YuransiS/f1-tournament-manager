@@ -17,7 +17,9 @@ const RACE_COUNTRY_MAP = {
   'race-9': { code: 'CA', name: 'CANADA' },
   'race-10-sprint': { code: 'AT', name: 'AUSTRIA (SPRINT)' },
   'race-10': { code: 'AT', name: 'AUSTRIA' },
-  'race-11': { code: 'GB', name: 'GREAT BRITAIN' }
+  'race-11': { code: 'GB', name: 'GREAT BRITAIN' },
+  'race-12': { code: 'HU', name: 'HUNGARY' },
+  'race-13': { code: 'BE', name: 'BELGIUM' }
 };
 
 // High-res real track background photos uploaded by user
@@ -33,7 +35,9 @@ const REAL_TRACK_PHOTOS = {
   'race-9': '/tracks/canada.jpg',
   'race-10-sprint': '/tracks/austria-sprint.jpg',
   'race-10': '/tracks/austria.jpg',
-  'race-11': '/tracks/silverstone.jpg'
+  'race-11': '/tracks/silverstone.jpg',
+  'race-12': '/tracks/hungary.jpg',
+  'race-13': '/tracks/spa.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
@@ -110,12 +114,23 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
   const { driver, team, posDiff } = selectedResult;
 
   // Race host country info
-  const hostCountry = RACE_COUNTRY_MAP[activeRaceId] || {
-    code: 'ES',
-    name: raceTitle.replace(/Grand Prix/i, '').trim().toUpperCase()
+  const inferCountryCode = (title) => {
+    const t = (title || '').toLowerCase();
+    if (t.includes('hungar')) return { code: 'HU', name: 'HUNGARY' };
+    if (t.includes('belgi') || t.includes('spa')) return { code: 'BE', name: 'BELGIUM' };
+    if (t.includes('brit') || t.includes('silverstone')) return { code: 'GB', name: 'GREAT BRITAIN' };
+    if (t.includes('austr')) return { code: 'AT', name: 'AUSTRIA' };
+    if (t.includes('spain') || t.includes('spanish')) return { code: 'ES', name: 'SPAIN' };
+    if (t.includes('ital') || t.includes('imola') || t.includes('monza')) return { code: 'IT', name: 'ITALY' };
+    return {
+      code: 'HU',
+      name: (title || '').replace(/Grand Prix/i, '').trim().toUpperCase()
+    };
   };
 
-  const trackPhoto = REAL_TRACK_PHOTOS[activeRaceId] || '/tracks/spain.jpg';
+  const hostCountry = RACE_COUNTRY_MAP[activeRaceId] || inferCountryCode(raceTitle);
+
+  const trackPhoto = REAL_TRACK_PHOTOS[activeRaceId] || '/tracks/hungary.jpg';
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
