@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import WinnerBanner from './components/WinnerBanner';
 import StandingsView from './components/StandingsView';
+import ChartsView from './components/ChartsView';
 import RacesView from './components/RacesView';
 import DriversView from './components/DriversView';
 
@@ -16,7 +17,7 @@ function getTabFromUrl() {
   const path = window.location.pathname.toLowerCase().replace(/^\//, '');
   const hash = window.location.hash.toLowerCase().replace(/^#/, '');
 
-  const validTabs = ['standings', 'races', 'drivers'];
+  const validTabs = ['standings', 'charts', 'races', 'drivers'];
 
   if (validTabs.includes(path)) return path;
   if (validTabs.includes(hash)) return hash;
@@ -73,6 +74,13 @@ export default function App() {
           <StandingsView
             data={data}
             standings={standings}
+            onNavigateTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'charts' && (
+          <ChartsView
+            data={data}
           />
         )}
 

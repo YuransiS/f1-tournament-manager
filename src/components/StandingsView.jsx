@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import { Trophy, Award, Shield, User, Zap } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Shield, User, TrendingUp } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
 import F1WilliamsMercedesAnnouncement from './F1WilliamsMercedesAnnouncement';
-import { calculateStandings } from '../services/storage';
+import F1PointsProgressionChart from './F1PointsProgressionChart';
+import { calculateStandings, calculatePointsProgression } from '../services/storage';
 
-export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange }) {
+export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
   const [internalTab, setInternalTab] = useState('drivers');
+  const [showInlineChart, setShowInlineChart] = useState(false);
   const activeTab = propActiveTab || internalTab;
   const handleTabChange = onTabChange || setInternalTab;
 
   const standings = propStandings || (data ? calculateStandings(data) : { driverStandings: [], constructorStandings: [] });
   const { driverStandings = [], constructorStandings = [] } = standings;
+
+  const progressionData = useMemo(() => {
+    return data ? calculatePointsProgression(data) : null;
+  }, [data]);
 
   return (
     <div>
@@ -21,6 +27,72 @@ export default function StandingsView({ data, standings: propStandings, activeTa
 
       {/* 2. Broadcast TV 16:9 Standings Graphic Card */}
       <F1StandingsBroadcastCard standings={standings} activeTab={activeTab} />
+
+      {/* 2.5 Quick Chart Progression Teaser / Embed */}
+      <div className="card" style={{
+        padding: '16px 20px',
+        marginBottom: '24px',
+        background: 'linear-gradient(90deg, #131722 0%, #1A2030 100%)',
+        border: '1px solid #262B3A',
+        borderRadius: '12px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '14px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{
+            width: '42px',
+            height: '42px',
+            borderRadius: '10px',
+            background: 'rgba(225,6,0,0.15)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--f1-red)',
+            border: '1px solid rgba(225,6,0,0.3)'
+          }}>
+            <TrendingUp size={22} />
+          </div>
+          <div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--f1-gold)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
+              ТЕЛЕМЕТРИЯ И АНАЛИТИКА • СЕЗОН 2026
+            </div>
+            <div style={{ fontSize: '1.05rem', fontWeight: '900', color: '#FFF' }}>
+              Гонка чартов: Динамика роста очков от 0 до текущего Гран-при
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#9CA3AF' }}>
+              10 пилотов и Кубок конструкторов стартуют с 0. Накопительные траектории с каждого этапа.
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button
+            className={`btn btn-sm ${showInlineChart ? 'btn-primary' : ''}`}
+            onClick={() => setShowInlineChart(!showInlineChart)}
+            style={{ fontWeight: '700', padding: '8px 16px' }}
+          >
+            {showInlineChart ? 'Свернуть график ✕' : '📊 Показать график здесь'}
+          </button>
+          {onNavigateTab && (
+            <button
+              className="btn btn-sm"
+              onClick={() => onNavigateTab('charts')}
+              style={{ fontWeight: '700', padding: '8px 16px', background: '#0B0D12', border: '1px solid var(--border-color)' }}
+            >
+              Вся аналитика во вкладке →
+            </button>
+          )}
+        </div>
+      </div>
+
+      {showInlineChart && progressionData && (
+        <div style={{ marginBottom: '24px' }}>
+          <F1PointsProgressionChart progressionData={progressionData} defaultMode={activeTab === 'constructors' ? 'constructors' : 'drivers'} />
+        </div>
+      )}
 
       {/* Sub navigation for Drivers vs Constructors */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>

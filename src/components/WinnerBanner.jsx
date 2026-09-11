@@ -5,13 +5,13 @@ import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
 
 export default function WinnerBanner({ driverStandings, races }) {
-  if (!driverStandings || driverStandings.length === 0) return null;
-
-  const leader = driverStandings[0];
+  const leader = driverStandings && driverStandings.length > 0 ? driverStandings[0] : null;
+  const leaderId = leader?.driver?.id;
   const lastRace = races && races.length > 0 ? races[races.length - 1] : null;
 
   // Trigger celebration confetti on mount
   useEffect(() => {
+    if (!leaderId) return;
     try {
       confetti({
         particleCount: 45,
@@ -19,10 +19,12 @@ export default function WinnerBanner({ driverStandings, races }) {
         origin: { y: 0.15 },
         colors: ['#E10600', '#FFD700', '#00A19B', '#FFFFFF']
       });
-    } catch (e) {
+    } catch {
       // ignore
     }
-  }, [leader.driver.id]);
+  }, [leaderId]);
+
+  if (!leader) return null;
 
   return (
     <motion.div

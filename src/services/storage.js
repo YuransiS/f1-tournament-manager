@@ -228,3 +228,203 @@ export function calculateStandings(data) {
     constructorStandings
   };
 }
+
+export function calculatePointsProgression(data) {
+  const { drivers = [], teams = [], races = [], penalties = [], pointsMap = DEFAULT_POINTS_MAP, fastestLapPoints = 1 } = data;
+
+  // Filter completed/finished races
+  const completedRaces = races.filter(race => {
+    if (race.status === 'cancelled' && !race.isSprint) return false;
+    return race.status === 'completed' || race.status === 'FINISHED' || race.status === 'cancelled';
+  });
+
+  const getShortTitle = (title, isSprint) => {
+    if (isSprint) return 'Баку Спринт';
+    if (title.includes('Bahrain')) return 'Бахрейн';
+    if (title.includes('Saudi')) return 'Джидда';
+    if (title.includes('Australian') || title.includes('Australia')) return 'Мельбурн';
+    if (title.includes('Azerbaijan')) return 'Баку';
+    if (title.includes('Miami')) return 'Майами';
+    if (title.includes('Emilia') || title.includes('Imola')) return 'Имола';
+    if (title.includes('Monaco')) return 'Монако';
+    if (title.includes('Spanish') || title.includes('Spain')) return 'Испания';
+    if (title.includes('Canadian') || title.includes('Canada')) return 'Монреаль';
+    if (title.includes('Austrian') || title.includes('Austria')) return 'Австрия';
+    if (title.includes('British') || title.includes('Silverstone')) return 'Сильверстоун';
+    return title.replace('Grand Prix', 'GP').trim();
+  };
+
+  // Build stages: Stage 0 is Start at 0 points
+  const stages = [
+    {
+      id: 'stage-0',
+      stageIndex: 0,
+      title: 'Старт сезона 2026',
+      shortTitle: 'СТАРТ',
+      code: 'START',
+      date: '',
+      isSprint: false
+    }
+  ];
+
+  completedRaces.forEach((race, idx) => {
+    stages.push({
+      id: race.id,
+      stageIndex: idx + 1,
+      title: race.title,
+      subtitle: race.subtitle,
+      shortTitle: getShortTitle(race.title, race.isSprint),
+      code: `GP ${idx + 1}`,
+      date: race.date,
+      isSprint: Boolean(race.isSprint)
+    });
+  });
+
+  // Track progression for all drivers
+  const driverTrackers = {};
+  drivers.forEach(d => {
+    const team = teams.find(t => t.id === d.teamId) || { id: 'unknown', name: 'Unknown Team', color: '#888' };
+    driverTrackers[d.id] = {
+      driver: d,
+      team,
+      cumulative: 0,
+      pointsHistory: [0], // At stage 0 = 0 points
+      cumulativeHistory: [0],
+      raceResults: [{ pos: null, pts: 0, isFastestLap: false, status: 'START' }]
+    };
+  });
+
+  // Track progression for all teams
+  const teamTrackers = {};
+  teams.forEach(t => {
+    teamTrackers[t.id] = {
+      team: t,
+      cumulative: 0,
+      pointsHistory: [0],
+      cumulativeHistory: [0],
+      racePointsList: [0]
+    };
+  });
+
+  // Step through each completed race
+  completedRaces.forEach((race, rIdx) => {
+    const currentRaceTeamPts = {};
+    teams.forEach(t => { currentRaceTeamPts[t.id] = 0; });
+
+    // Calculate points for this race for each driver
+    const driverRacePts = {};
+    drivers.forEach(d => { driverRacePts[d.id] = { pts: 0, pos: null, isFastestLap: false, status: 'DNS' }; });
+
+    race.results.forEach((res, pIdx) => {
+      if (!driverTrackers[res.driverId]) return;
+      if (res.status === 'DNF') {
+        driverRacePts[res.driverId] = { pts: 0, pos: 'DNF', isFastestLap: false, status: 'DNF' };
+        return;
+      }
+      const position = pIdx + 1;
+      const isFastestLap = !race.isSprint && race.fastestLapDriverId === res.driverId;
+      const pts = calculateRacePoints(position, isFastestLap, pointsMap, fastestLapPoints, race.isSprint);
+      driverRacePts[res.driverId] = { pts, pos: position, isFastestLap, status: 'FINISHED' };
+    });
+
+    // Update cumulative for drivers
+    drivers.forEach(d => {
+      const tracker = driverTrackers[d.id];
+      const res = driverRacePts[d.id];
+      tracker.cumulative += res.pts;
+      tracker.pointsHistory.push(res.pts);
+      tracker.cumulativeHistory.push(tracker.cumulative);
+      tracker.raceResults.push(res);
+
+      // Add to team points
+      currentRaceTeamPts[d.teamId] = (currentRaceTeamPts[d.teamId] || 0) + res.pts;
+    });
+
+    // Update cumulative for teams
+    teams.forEach(t => {
+      const tracker = teamTrackers[t.id];
+      const pts = currentRaceTeamPts[t.id] || 0;
+      tracker.cumulative += pts;
+      tracker.pointsHistory.push(pts);
+      tracker.cumulativeHistory.push(tracker.cumulative);
+      tracker.racePointsList.push(pts);
+    });
+  });
+
+  // Apply penalties to driver cumulative points if needed
+  (penalties || []).forEach(p => {
+    if (p.type === 'POINTS' && driverTrackers[p.driverId]) {
+      const deduction = Number(p.value || 0);
+      const tracker = driverTrackers[p.driverId];
+      tracker.cumulative = Math.max(0, tracker.cumulative - deduction);
+      if (tracker.cumulativeHistory.length > 0) {
+        const lastIdx = tracker.cumulativeHistory.length - 1;
+        tracker.cumulativeHistory[lastIdx] = tracker.cumulative;
+      }
+    }
+  });
+
+  // Sort drivers by final total points descending
+  const driverSeries = Object.values(driverTrackers).sort((a, b) => b.cumulative - a.cumulative);
+  driverSeries.forEach((item, index) => {
+    item.currentRank = index + 1;
+  });
+
+  // Sort teams by final total points descending
+  const constructorSeries = Object.values(teamTrackers).sort((a, b) => b.cumulative - a.cumulative);
+  constructorSeries.forEach((item, index) => {
+    item.currentRank = index + 1;
+  });
+
+  // Track who was leading at each stage
+  const leaderHistoryDrivers = stages.map((stg, stgIdx) => {
+    if (stgIdx === 0) return { stageIndex: 0, driver: null, team: null, points: 0 };
+    let leader = null;
+    let maxPts = -1;
+    driverSeries.forEach(ds => {
+      const pts = ds.cumulativeHistory[stgIdx] || 0;
+      if (pts > maxPts) {
+        maxPts = pts;
+        leader = ds;
+      }
+    });
+    return {
+      stageIndex: stgIdx,
+      driver: leader ? leader.driver : null,
+      team: leader ? leader.team : null,
+      points: maxPts
+    };
+  });
+
+  const leaderHistoryConstructors = stages.map((stg, stgIdx) => {
+    if (stgIdx === 0) return { stageIndex: 0, team: null, points: 0 };
+    let leaderTeam = null;
+    let maxPts = -1;
+    constructorSeries.forEach(cs => {
+      const pts = cs.cumulativeHistory[stgIdx] || 0;
+      if (pts > maxPts) {
+        maxPts = pts;
+        leaderTeam = cs;
+      }
+    });
+    return {
+      stageIndex: stgIdx,
+      team: leaderTeam ? leaderTeam.team : null,
+      points: maxPts
+    };
+  });
+
+  const maxDriverPoints = Math.max(...driverSeries.map(d => d.cumulative), 25);
+  const maxConstructorPoints = Math.max(...constructorSeries.map(c => c.cumulative), 50);
+
+  return {
+    stages,
+    driverSeries,
+    constructorSeries,
+    maxDriverPoints,
+    maxConstructorPoints,
+    leaderHistoryDrivers,
+    leaderHistoryConstructors
+  };
+}
+
