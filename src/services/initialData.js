@@ -433,6 +433,36 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-1', grid: 4, stops: 1, bestLap: '1:32.630', totalTime: '+2:21.643', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:32.101', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-12',
+    title: 'Hungarian Grand Prix',
+    subtitle: 'HUNGARORING - RACE 12',
+    date: '2026-07-19',
+    status: 'completed',
+    fastestLapDriverId: 'drv-17',
+    results: [
+      { driverId: 'drv-17', grid: 3, stops: 2, bestLap: '1:19.961', totalTime: '50:00.416', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:20.668', totalTime: '+15.180', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 4, stops: 2, bestLap: '1:20.857', totalTime: '+29.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 2, stops: 2, bestLap: '1:20.769', totalTime: '+31.890', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 2, bestLap: '1:22.823', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 7, stops: 2, bestLap: '1:23.239', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 11, stops: 2, bestLap: '1:23.050', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 9, stops: 2, bestLap: '1:23.000', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 10, stops: 2, bestLap: '1:23.979', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 5, stops: 2, bestLap: '1:22.897', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 14, stops: 2, bestLap: '1:23.522', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 12, stops: 3, bestLap: '1:23.481', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 6, stops: 3, bestLap: '1:23.458', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 17, stops: 3, bestLap: '1:23.726', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 15, stops: 2, bestLap: '1:24.000', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 16, stops: 2, bestLap: '1:24.100', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 18, stops: 2, bestLap: '1:24.200', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 19, stops: 2, bestLap: '1:24.300', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 20, stops: 2, bestLap: '1:24.400', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 13, stops: 2, bestLap: '1:24.500', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
+    ]
   }
 ];
 
