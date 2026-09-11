@@ -463,6 +463,38 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-3', grid: 20, stops: 2, bestLap: '1:24.400', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-21', grid: 13, stops: 2, bestLap: '1:24.500', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
     ]
+  },
+  {
+    id: 'race-13',
+    title: 'Belgian Grand Prix (Sprint)',
+    subtitle: 'CIRCUIT DE SPA-FRANCORCHAMPS - SPRINT RACE 13',
+    date: '2026-07-25',
+    status: 'completed',
+    isSprint: true,
+    fastestLapDriverId: '',
+    incidentNote: '🎳 Инцидент в Т1 La Source: Саша Громов (PABV) поздно затормозил и растолкал пелотон ("кеглировал почти всех"), но продолжил заезд и финишировал 7-м.',
+    results: [
+      { driverId: 'drv-1', grid: 1, stops: 0, bestLap: '1:48.100', totalTime: '23:45.120', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 2, stops: 0, bestLap: '1:48.350', totalTime: '+1.420', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 3, stops: 0, bestLap: '1:48.800', totalTime: '+3.150', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 4, stops: 0, bestLap: '1:48.950', totalTime: '+4.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 5, stops: 0, bestLap: '1:48.500', totalTime: '+5.600', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 6, stops: 0, bestLap: '1:49.200', totalTime: '+8.300', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 7, stops: 0, bestLap: '1:49.100', totalTime: '+10.400', penaltySeconds: 0, penaltyLabel: '🎳 Кеглирование Т1 La Source', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 8, stops: 0, bestLap: '1:49.400', totalTime: '+11.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 9, stops: 0, bestLap: '1:49.900', totalTime: '+14.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 10, stops: 0, bestLap: '1:50.100', totalTime: '+16.500', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 11, stops: 0, bestLap: '1:50.300', totalTime: '+18.100', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 12, stops: 0, bestLap: '1:50.400', totalTime: '+19.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 13, stops: 0, bestLap: '1:50.600', totalTime: '+21.400', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 14, stops: 0, bestLap: '1:50.800', totalTime: '+23.000', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 15, stops: 0, bestLap: '1:51.000', totalTime: '+25.200', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 16, stops: 0, bestLap: '1:51.300', totalTime: '+27.600', penaltySeconds: 0, penaltyLabel: '💥 Жертва Т1', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 17, stops: 0, bestLap: '1:51.500', totalTime: '+29.400', penaltySeconds: 0, penaltyLabel: '💥 Жертва Т1', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 18, stops: 0, bestLap: '1:51.800', totalTime: '+31.900', penaltySeconds: 0, penaltyLabel: '💥 Жертва Т1', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 19, stops: 0, bestLap: '1:52.000', totalTime: '+33.500', penaltySeconds: 0, penaltyLabel: '💥 Жертва Т1', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 20, stops: 0, bestLap: '1:52.500', totalTime: '+38.000', penaltySeconds: 0, penaltyLabel: '💥 Жертва Т1', status: 'FINISHED' }
+    ]
   }
 ];
 

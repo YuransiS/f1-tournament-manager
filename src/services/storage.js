@@ -239,20 +239,20 @@ export function calculatePointsProgression(data) {
   });
 
   const getShortTitle = (title, isSprint) => {
-    if (isSprint) return 'Баку Спринт';
+    if (title.includes('Azerbaijan') || title.includes('Baku')) return isSprint ? 'Баку Спринт' : 'Баку';
+    if (title.includes('Belgian') || title.includes('Belgium') || title.includes('Spa')) return isSprint ? 'Спа Спринт' : 'Спа';
+    if (title.includes('Austrian') || title.includes('Austria')) return isSprint ? 'Австрия Спринт' : 'Австрия';
     if (title.includes('Bahrain')) return 'Бахрейн';
     if (title.includes('Saudi')) return 'Джидда';
     if (title.includes('Australian') || title.includes('Australia')) return 'Мельбурн';
-    if (title.includes('Azerbaijan')) return 'Баку';
     if (title.includes('Miami')) return 'Майами';
     if (title.includes('Emilia') || title.includes('Imola')) return 'Имола';
     if (title.includes('Monaco')) return 'Монако';
     if (title.includes('Spanish') || title.includes('Spain')) return 'Испания';
     if (title.includes('Canadian') || title.includes('Canada')) return 'Монреаль';
-    if (title.includes('Austrian') || title.includes('Austria')) return 'Австрия';
     if (title.includes('British') || title.includes('Silverstone')) return 'Сильверстоун';
     if (title.includes('Hungarian') || title.includes('Hungary')) return 'Венгрия';
-    return title.replace('Grand Prix', 'GP').trim();
+    return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 
   // Build stages: Stage 0 is Start at 0 points
