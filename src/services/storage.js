@@ -252,6 +252,7 @@ export function calculatePointsProgression(data) {
     if (title.includes('Canadian') || title.includes('Canada')) return 'Монреаль';
     if (title.includes('British') || title.includes('Silverstone')) return 'Сильверстоун';
     if (title.includes('Hungarian') || title.includes('Hungary')) return 'Венгрия';
+    if (title.includes('Dutch') || title.includes('Zandvoort') || title.includes('Netherlands')) return 'Зандворт';
     return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 

@@ -525,6 +525,37 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-17', grid: 4, stops: 3, bestLap: '1:47.397', totalTime: '+1:38.298', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-2', grid: 13, stops: 1, bestLap: '1:50.235', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-15',
+    title: 'Dutch Grand Prix',
+    subtitle: 'CIRCUIT ZANDVOORT - RACE 15',
+    date: '2026-08-30',
+    status: 'completed',
+    fastestLapDriverId: 'drv-1',
+    incidentNote: '💥 Инцидент Юрия Захарчука: ехал 3-м, в результате ошибки пилота допустил контакт с задним крылом Дениса Коваленко, развернулся и провёл 3 пит-стопа (у остальных 1 пит). Показал быстрейший круг гонки (1:12.100), но финишировал 16-м.',
+    results: [
+      { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:12.858', totalTime: '45:38.677', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 3, stops: 1, bestLap: '1:12.909', totalTime: '+9.579', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 7, stops: 1, bestLap: '1:14.696', totalTime: '+19.355', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:14.381', totalTime: '+19.448', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:14.286', totalTime: '+23.064', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 1, bestLap: '1:14.190', totalTime: '+25.340', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 12, stops: 1, bestLap: '1:14.061', totalTime: '+29.285', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:13.313', totalTime: '+29.539', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 9, stops: 1, bestLap: '1:14.536', totalTime: '+30.260', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 17, stops: 1, bestLap: '1:14.512', totalTime: '+35.777', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 8, stops: 1, bestLap: '1:14.540', totalTime: '+36.113', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 1, bestLap: '1:14.711', totalTime: '+37.084', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 19, stops: 1, bestLap: '1:14.550', totalTime: '+37.245', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:14.774', totalTime: '+41.302', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 13, stops: 2, bestLap: '1:14.112', totalTime: '+42.484', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 4, stops: 3, bestLap: '1:12.100', totalTime: '+44.008', penaltySeconds: 0, penaltyLabel: '💥 Разворот / 3 пит-стопа', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 20, stops: 1, bestLap: '1:14.487', totalTime: '+44.271', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 6, stops: 1, bestLap: '1:14.780', totalTime: '+45.156', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 14, stops: 1, bestLap: '1:15.248', totalTime: '+47.168', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:16.006', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
+    ]
   }
 ];
 
