@@ -588,6 +588,37 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-7', grid: 19, stops: 1, bestLap: '1:23.900', totalTime: '+41.223', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-3', grid: 20, stops: 1, bestLap: '1:24.100', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Авария: вызов Safety Car', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-17',
+    title: 'Singapore Grand Prix',
+    subtitle: 'MARINA BAY STREET CIRCUIT - RACE 17',
+    date: '2026-09-20',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    incidentNote: '🇸🇬 Ночная буря в Сингапуре (Marina Bay): Гонка отметилась двумя выездами Safety Car! Дуэт Mercedes-AMG Юрий Захарчук (KillerplautzeGer) и Сашко Громов (PABV) оформили триумфальный победный дубль 1-2! Кевин Магнуссен сенсационно принес Haas подиум (P3), а Вадим Манштейн снова в топ-4 за Red Bull. Микола Ярема установил быстрейший круг (1:33.298), но из-за инцидентов и 5 пит-стопов финишировал 17-м (+3 сек. штраф). Марк (ugeto47, Williams), Ландо Норрис и Даниэль Риккардо сошли (DNF).',
+    results: [
+      { driverId: 'drv-1', grid: 1, stops: 2, bestLap: '1:34.645', totalTime: '54:14.590', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes!', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 3, stops: 1, bestLap: '1:35.763', totalTime: '+3.039', penaltySeconds: 0, penaltyLabel: '🥈 Дубль Mercedes 1-2!', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:38.379', totalTime: '+7.848', penaltySeconds: 0, penaltyLabel: '🥉 Сенсационный подиум Haas!', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 6, stops: 2, bestLap: '1:35.935', totalTime: '+8.631', penaltySeconds: 0, penaltyLabel: '⚡ Топ-4 в Сингапуре!', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 7, stops: 1, bestLap: '1:38.919', totalTime: '+9.299', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 8, stops: 2, bestLap: '1:37.834', totalTime: '+10.794', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 17, stops: 1, bestLap: '1:38.452', totalTime: '+11.787', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:38.076', totalTime: '+11.838', penaltySeconds: 5, penaltyLabel: '⚠️ Штраф +5 сек (Track limits)', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 9, stops: 2, bestLap: '1:37.900', totalTime: '+16.600', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 1, bestLap: '1:38.796', totalTime: '+17.010', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 12, stops: 1, bestLap: '1:38.988', totalTime: '+17.696', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 11, stops: 1, bestLap: '1:38.965', totalTime: '+22.427', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 4, stops: 1, bestLap: '1:37.604', totalTime: '+22.754', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 13, stops: 1, bestLap: '1:37.851', totalTime: '+23.464', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 19, stops: 2, bestLap: '1:35.726', totalTime: '+28.613', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 14, stops: 1, bestLap: '1:39.203', totalTime: '+33.420', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 2, stops: 5, bestLap: '1:33.298', totalTime: '+33.420', penaltySeconds: 3, penaltyLabel: '⏱️ FL (1:33.298) • Штраф +3 сек • 5 питов', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 20, stops: 2, bestLap: '1:38.984', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF) / 2 Safety Cars', status: 'DNF' },
+      { driverId: 'drv-7', grid: 10, stops: 0, bestLap: '1:38.945', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-21', grid: 18, stops: 0, bestLap: '1:38.820', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
   }
 ];
 

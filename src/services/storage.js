@@ -260,6 +260,7 @@ export function calculatePointsProgression(data) {
     if (title.includes('Hungarian') || title.includes('Hungary')) return 'Венгрия';
     if (title.includes('Dutch') || title.includes('Zandvoort') || title.includes('Netherlands')) return 'Зандворт';
     if (title.includes('Italian') || title.includes('Monza')) return 'Монца';
+    if (title.includes('Singapore') || title.includes('Marina Bay')) return 'Сингапур';
     return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 
