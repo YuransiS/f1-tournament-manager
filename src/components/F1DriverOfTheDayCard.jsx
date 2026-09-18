@@ -47,7 +47,7 @@ const REAL_TRACK_PHOTOS = {
   'race-15': '/tracks/zandvoort.jpg',
   'race-16': '/tracks/monza.jpg',
   'race-17': '/tracks/singapore.jpg',
-  'race-18': '/tracks/silverstone.jpg'
+  'race-18': '/tracks/suzuka.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
