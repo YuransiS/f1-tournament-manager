@@ -129,14 +129,36 @@ export default function F1MonzaEmergencyAnnouncement() {
                 </span>
                 <TeamLogo teamId="red-bull" size="sm" />
               </div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', marginBottom: '10px' }}>
-                Заміна пілота: Вадим Манштейн у боліді #17
-              </h3>
-              <p style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: '1.55', margin: 0 }}>
-                Перед стартом вікенду в Монці лідер заліку <strong>Денис Коваленко</strong> відчув гостре нездужання та за рекомендацією медичної делегації FIA був відсторонений від участі в гонці для відновлення.
-              </p>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: 'radial-gradient(circle, rgba(30,65,255,0.3) 0%, rgba(10,14,24,0.9) 100%)',
+                  border: '1px solid #1E41FF',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <img
+                    src="/portraits/manstein.png"
+                    alt="Vadim Manstein"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+                <div style={{ flex: 1, minWidth: '200px' }}>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', margin: '0 0 6px 0' }}>
+                    Заміна пілота: Вадим Манштейн у боліді #17
+                  </h3>
+                  <p style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: '1.55', margin: 0 }}>
+                    Перед стартом вікенду в Монці лідер заліку <strong>Денис Коваленко</strong> відчув гостре нездужання та за рекомендацією медичної делегації FIA був відсторонений від участі в гонці для відновлення.
+                  </p>
+                </div>
+              </div>
               <div style={{
-                marginTop: '12px',
+                marginTop: '14px',
                 padding: '10px 14px',
                 background: 'rgba(0,0,0,0.4)',
                 borderRadius: '8px',
@@ -144,7 +166,7 @@ export default function F1MonzaEmergencyAnnouncement() {
                 fontSize: '0.82rem',
                 color: '#E2E8F0'
               }}>
-                🥉 <strong>Сенсаційний подиум:</strong> Вадим «Еріх» Манштейн сів за кермо болида Red Bull без підготовки та провів грандіозну гонку, фінішувавши на 3-му місці та принісши команді 15 очок!
+                🥉 <strong>Сенсаційний подіум:</strong> Вадим «Еріх» Манштейн сів за кермо боліда Red Bull та фінішував на 3-му місці, принісши собі та Red Bull 15 очок в особистий залік та Кубок конструкторів!
               </div>
             </div>
           </div>
