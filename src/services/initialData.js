@@ -619,6 +619,37 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-7', grid: 10, stops: 0, bestLap: '1:38.945', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-21', grid: 18, stops: 0, bestLap: '1:38.820', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-18',
+    title: 'Japanese Grand Prix',
+    subtitle: 'SUZUKA INTERNATIONAL RACING COURSE - RACE 18',
+    date: '2026-09-27',
+    status: 'completed',
+    fastestLapDriverId: 'drv-1',
+    incidentNote: '🇯🇵 Легендарная Сузука: Микола Ярема (kolyacoolguy, Red Bull) одерживает убедительную победу со 2-го места на старте! Юрий Захарчук (KillerplautzeGer, Mercedes) финиширует 2-м и забирает бонусный балл за быстрейший круг (1:31.288). Алекс Албон приносит подиум Williams (P3), а Сашко Громов (PABV) стартовал с поула, но откатился на 11-е место после двух пит-стопов. Вадим Манштейн (Red Bull) сошёл на старте из-за повреждений (DNF).',
+    results: [
+      { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:31.875', totalTime: '42:29.534', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull!', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 4, stops: 1, bestLap: '1:31.288', totalTime: '+15.061', penaltySeconds: 0, penaltyLabel: '⏱️ P2 + Fastest Lap (1:31.288)', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 5, stops: 1, bestLap: '1:33.467', totalTime: '+27.977', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Williams!', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:33.126', totalTime: '+34.991', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 7, stops: 1, bestLap: '1:33.588', totalTime: '+35.344', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 6, stops: 1, bestLap: '1:34.288', totalTime: '+44.991', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 12, stops: 1, bestLap: '1:34.254', totalTime: '+45.403', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 14, stops: 1, bestLap: '1:34.226', totalTime: '+45.936', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:34.309', totalTime: '+46.349', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 9, stops: 1, bestLap: '1:34.153', totalTime: '+46.801', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:32.010', totalTime: '+49.008', penaltySeconds: 0, penaltyLabel: '🏁 Старт с поула / 2 пит-стопа', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 16, stops: 1, bestLap: '1:33.761', totalTime: '+49.215', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 18, stops: 1, bestLap: '1:34.057', totalTime: '+51.976', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 20, stops: 1, bestLap: '1:34.016', totalTime: '+52.329', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:33.856', totalTime: '+52.879', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 19, stops: 1, bestLap: '1:33.814', totalTime: '+53.255', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 17, stops: 2, bestLap: '1:32.915', totalTime: '+54.360', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 13, stops: 1, bestLap: '1:33.604', totalTime: '+58.348', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 11, stops: 2, bestLap: '1:32.797', totalTime: '+58.535', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 3, stops: 0, bestLap: '1:33.791', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход на старте (DNF)', status: 'DNF' }
+    ]
   }
 ];
 
