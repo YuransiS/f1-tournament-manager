@@ -44,9 +44,9 @@ const REAL_TRACK_PHOTOS = {
   'race-12': '/tracks/hungary.jpg',
   'race-13': '/tracks/spa.jpg',
   'race-14': '/tracks/spa.jpg',
-  'race-15': '/tracks/spa.jpg',
-  'race-16': '/tracks/imola.jpg',
-  'race-17': '/tracks/jeddah.png',
+  'race-15': '/tracks/zandvoort.jpg',
+  'race-16': '/tracks/monza.jpg',
+  'race-17': '/tracks/singapore.jpg',
   'race-18': '/tracks/silverstone.jpg'
 };
 
