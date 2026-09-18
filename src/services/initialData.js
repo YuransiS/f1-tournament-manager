@@ -627,19 +627,34 @@ export const DEFAULT_RACES = [
     date: '2026-09-27',
     status: 'completed',
     fastestLapDriverId: 'drv-1',
-    incidentNote: '🇯🇵 Легендарная Сузука: Микола Ярема (kolyacoolguy, Red Bull) одерживает убедительную победу со 2-го места на старте! Юрий Захарчук (KillerplautzeGer, Mercedes) финиширует 2-м и забирает бонусный балл за быстрейший круг (1:31.288). Алекс Албон приносит подиум Williams (P3), а Сашко Громов (PABV) стартовал с поула, но откатился на 11-е место после двух пит-стопов. Вадим Манштейн (Red Bull) сошёл на старте из-за повреждений (DNF).',
+    hasPenaltyAnnouncement: true,
+    penaltyData: {
+      offenderName: 'Fernando ALONSO',
+      offenderCar: 'Car #14 • Aston Martin',
+      victimName: 'Alexsandr GROMOV (PABV)',
+      victimCar: 'Car #63 • Mercedes-AMG Petronas',
+      penaltyText: '+10 SEC TIME PENALTY',
+      penaltyValue: '+10 SECONDS',
+      docNo: 'DEC-2026-JPN-14',
+      circuitName: 'SUZUKA INTERNATIONAL RACING COURSE',
+      headline: 'ШТРАФ +10 СЕКУНД ДЛЯ FERNANDO ALONSO (#14 ASTON MARTIN)',
+      description: 'Стюарды изучили записи онборд-камер и телеметрии на 16-м круге Гран-при Японии. Было установлено, что болид #14 (Fernando ALONSO) допустил грубый контакт и выбил болид #63 (Alexsandr GROMOV / PABV), стартовавшего с поула.',
+      consequences: '💥 Последствия инцидента: Сашко Громов получил серьезные повреждения болида, был вынужден совершить внеплановый второй пит-стоп и откатился за пределы очковой зоны на 11-е место.',
+      outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +10 секунд к финальному времени гонки (падение с P4 на P7, потеря очков в пользу Leclerc, Tsunoda и Bottas).'
+    },
+    incidentNote: '🇯🇵 Легендарная Сузука: Микола Ярема (kolyacoolguy, Red Bull) одерживает убедительную победу со 2-го места на старте! Юрий Захарчук (KillerplautzeGer, Mercedes) финиширует 2-м и забирает бонусный балл за быстрейший круг (1:31.288). Алекс Албон приносит подиум Williams (P3). Фернандо Алонсо получил штраф +10 секунд от стюардов FIA за столкновение и уничтожение гонки Сашка Громова (PABV) на 16-м круге (Алонсо опустился с P4 на P7, а Сашко из-за повреждений и лишнего пит-стопа финишировал 11-м). Вадим Манштейн (Red Bull) сошёл на старте из-за повреждений (DNF).',
     results: [
       { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:31.875', totalTime: '42:29.534', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull!', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 4, stops: 1, bestLap: '1:31.288', totalTime: '+15.061', penaltySeconds: 0, penaltyLabel: '⏱️ P2 + Fastest Lap (1:31.288)', status: 'FINISHED' },
       { driverId: 'drv-4', grid: 5, stops: 1, bestLap: '1:33.467', totalTime: '+27.977', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Williams!', status: 'FINISHED' },
-      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:33.126', totalTime: '+34.991', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-16', grid: 7, stops: 1, bestLap: '1:33.588', totalTime: '+35.344', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-22', grid: 6, stops: 1, bestLap: '1:34.288', totalTime: '+44.991', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-9', grid: 12, stops: 1, bestLap: '1:34.254', totalTime: '+45.403', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:33.126', totalTime: '+44.991', penaltySeconds: 10, penaltyLabel: '⚠️ Штраф +10 сек (Убил Сашка на 16 круге)', status: 'FINISHED' },
       { driverId: 'drv-7', grid: 14, stops: 1, bestLap: '1:34.226', totalTime: '+45.936', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:34.309', totalTime: '+46.349', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-8', grid: 9, stops: 1, bestLap: '1:34.153', totalTime: '+46.801', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:32.010', totalTime: '+49.008', penaltySeconds: 0, penaltyLabel: '🏁 Старт с поула / 2 пит-стопа', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 1, stops: 2, bestLap: '1:32.010', totalTime: '+49.008', penaltySeconds: 0, penaltyLabel: '🏁 Старт с поула / Выбит Алонсо на 16 круге', status: 'FINISHED' },
       { driverId: 'drv-21', grid: 16, stops: 1, bestLap: '1:33.761', totalTime: '+49.215', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 18, stops: 1, bestLap: '1:34.057', totalTime: '+51.976', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-5', grid: 20, stops: 1, bestLap: '1:34.016', totalTime: '+52.329', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -659,7 +674,8 @@ export const DEFAULT_PENALTIES = [
   { id: 'pen-4', driverId: 'drv-6', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-5', driverId: 'drv-16', raceId: 'race-3', type: 'TIME', value: 5, reason: 'Track limits warning x1 (+5 secs.)', date: '2026-03-16' },
   { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr GROMOV (Terminal Damage)', date: '2026-05-03' },
-  { id: 'pen-7', driverId: 'drv-22', raceId: 'race-8', type: 'TIME', value: 20, reason: 'Штраф +20 сек за столкновение, разворот Юрия Захарчука в стену и повреждение своего колеса (DNF)', date: '2026-05-31' }
+  { id: 'pen-7', driverId: 'drv-22', raceId: 'race-8', type: 'TIME', value: 20, reason: 'Штраф +20 сек за столкновение, разворот Юрия Захарчука в стену и повреждение своего колеса (DNF)', date: '2026-05-31' },
+  { id: 'pen-8', driverId: 'drv-2', raceId: 'race-18', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и выбивание Сашка Громова (PABV) на 16-м круге Сузуки', date: '2026-09-27' }
 ];
 
 export const BREAKING_TRANSFERS = [

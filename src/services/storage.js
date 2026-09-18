@@ -64,10 +64,8 @@ export function getTournamentData() {
       parsed.races = DEFAULT_RACES;
     }
 
-    // Clean up penalties - filter out pen-1
-    if (parsed.penalties) {
-      parsed.penalties = parsed.penalties.filter(p => p.id !== 'pen-1');
-    }
+    // Auto-update check: Always sync penalties from DEFAULT_PENALTIES!
+    parsed.penalties = DEFAULT_PENALTIES;
 
     parsed.transfers = BREAKING_TRANSFERS;
 
