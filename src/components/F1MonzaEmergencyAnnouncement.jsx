@@ -171,7 +171,64 @@ export default function F1MonzaEmergencyAnnouncement() {
             </div>
           </div>
 
-          {/* Box 2: Official FIA Stewards Verdict */}
+          {/* Box 2: Mark Safety Car Crash Incident */}
+          <div style={{
+            background: 'rgba(0, 160, 222, 0.08)',
+            border: '1px solid rgba(0, 160, 222, 0.4)',
+            borderLeft: '4px solid #00A0DE',
+            borderRadius: '12px',
+            padding: '18px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                <span style={{ fontSize: '0.75rem', color: '#38BDF8', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  🚨 INCIDENT REPORT • WILLIAMS
+                </span>
+                <TeamLogo teamId="williams" size="sm" />
+              </div>
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                <div style={{
+                  width: '68px',
+                  height: '68px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: 'radial-gradient(circle, rgba(0,160,222,0.3) 0%, rgba(10,14,24,0.9) 100%)',
+                  border: '1px solid #00A0DE',
+                  flexShrink: 0
+                }}>
+                  <img
+                    src="/portraits/mark.png"
+                    alt="Mark"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: '900', color: '#FFF', margin: '0 0 6px 0' }}>
+                    Марк розбив Williams: виїзд Safety Car
+                  </h3>
+                  <p style={{ fontSize: '0.84rem', color: '#94A3B8', lineHeight: '1.5', margin: 0 }}>
+                    Пілот Williams <strong>Марк</strong> не впорався з керуванням на швидкісній ділянці Монци, врізався у відбійник і оформив сход з дистанції (DNF).
+                  </p>
+                </div>
+              </div>
+              <div style={{
+                marginTop: '14px',
+                padding: '10px 14px',
+                background: 'rgba(0,0,0,0.4)',
+                borderRadius: '8px',
+                border: '1px dashed #00A0DE',
+                fontSize: '0.82rem',
+                color: '#BAE6FD'
+              }}>
+                🏎️💨 <strong>Нейтралізація гонки:</strong> Аварія викликала появу <strong>Safety Car (Бернд Майлендер)</strong>, що збило весь пелотон і призвело до скандального рестарту з багом гри.
+              </div>
+            </div>
+          </div>
+
+          {/* Box 3: Official FIA Stewards Verdict */}
           <div style={{
             background: 'rgba(225, 6, 0, 0.08)',
             border: '1px solid rgba(225, 6, 0, 0.4)',
@@ -193,7 +250,7 @@ export default function F1MonzaEmergencyAnnouncement() {
                 Анулювання системної DSQ Юрія Захарчука
               </h3>
               <p style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: '1.55', margin: 0 }}>
-                Під час рестарту внаслідок збою мережевого коду F1 23 боліду <strong>Юрія Захарчука (KillerplautzeGer)</strong> було безпідставно виписано технічну дискваліфікацію (DSQ).
+                Під час рестарту після аварії Марка внаслідок збою мережевого коду F1 23 боліду <strong>Юрія Захарчука (KillerplautzeGer)</strong> було безпідставно виписано технічну дискваліфікацію (DSQ).
               </p>
               <div style={{
                 marginTop: '12px',

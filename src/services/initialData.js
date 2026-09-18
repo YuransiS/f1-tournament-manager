@@ -14,7 +14,7 @@ export const DEFAULT_TEAMS = [
 export const DEFAULT_DRIVERS = [
   { id: 'drv-1', name: 'Yurii ZAKHARCHUK', country: 'UA', flag: '🇺🇦', teamId: 'mercedes', isAi: false, avatar: '/portraits/yura.png' },
   { id: 'drv-2', name: 'Fernando ALONSO', country: 'ES', flag: '🇪🇸', teamId: 'aston-martin', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png' },
-  { id: 'drv-3', name: 'Logan SARGEANT', country: 'US', flag: '🇺🇸', teamId: 'williams', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png' },
+  { id: 'drv-3', name: 'MARK', country: 'UA', flag: '🇺🇦', teamId: 'williams', isAi: false, avatar: '/portraits/mark.png' },
   { id: 'drv-4', name: 'Alexander ALBON', country: 'TH', flag: '🇹🇭', teamId: 'williams', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png' },
   { id: 'drv-5', name: 'Pierre GASLY', country: 'FR', flag: '🇫🇷', teamId: 'alpine', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png' },
   { id: 'drv-6', name: 'Mykola YAREMA', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/kolya.png' },
@@ -565,7 +565,7 @@ export const DEFAULT_RACES = [
     date: '2026-09-06',
     status: 'completed',
     fastestLapDriverId: 'drv-6',
-    incidentNote: '⚡ Храм скорости (Монца): Денис Коваленко заболел перед этапом, в болид Red Bull сел резервный пилот Вадим Манштейн (erich_manstein) и сенсационно финишировал 3-м на подиуме! Во время рестарта игра выдала ошибочный DSQ Юрию Захарчуку — дирекция FIA отменила баг и утвердила финиш Юрия на 2-м месте. Микола Ярема одержал победу и установил Fastest Lap.',
+    incidentNote: '⚡ Храм скорости (Монца): Денис Коваленко заболел перед этапом, в болид Red Bull сел резервный пилот Вадим Манштейн (erich_manstein) и сенсационно финишировал 3-м на подиуме! Марк (Williams) попал в аварию и сошёл, вызвав машину безопасности (Safety Car). Во время рестарта игра выдала ошибочный DSQ Юрию Захарчуку — дирекция FIA отменила баг и утвердила финиш Юрия на 2-м месте. Микола Ярема одержал победу и установил Fastest Lap.',
     results: [
       { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:21.042', totalTime: '42:15.340', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 2, stops: 1, bestLap: '1:21.310', totalTime: '+3.418', penaltySeconds: 0, penaltyLabel: '⚖️ Вердикт FIA: 2-е место (отмена бага игры)', status: 'FINISHED' },
@@ -586,7 +586,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-19', grid: 17, stops: 1, bestLap: '1:23.600', totalTime: '+36.544', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-9', grid: 18, stops: 1, bestLap: '1:23.800', totalTime: '+41.009', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-7', grid: 19, stops: 1, bestLap: '1:23.900', totalTime: '+41.223', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-3', grid: 20, stops: 1, bestLap: '1:24.100', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
+      { driverId: 'drv-3', grid: 20, stops: 1, bestLap: '1:24.100', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Авария: вызов Safety Car', status: 'DNF' }
     ]
   }
 ];

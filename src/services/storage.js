@@ -50,7 +50,8 @@ export function getTournamentData() {
             ...d,
             teamId: def.teamId, // Update teamId to reflect transfers!
             name: def.name || d.name,
-            country: d.id === 'drv-1' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' || d.id === 'drv-23' ? 'UA' : d.country,
+            country: d.id === 'drv-1' || d.id === 'drv-3' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' || d.id === 'drv-23' ? 'UA' : d.country,
+            isAi: def.isAi !== undefined ? def.isAi : d.isAi,
             avatar: def.avatar || d.avatar
           };
         }
