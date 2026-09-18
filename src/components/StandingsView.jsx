@@ -3,6 +3,7 @@ import { Shield, User, TrendingUp } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
+import F1MonzaEmergencyAnnouncement from './F1MonzaEmergencyAnnouncement';
 import F1WilliamsMercedesAnnouncement from './F1WilliamsMercedesAnnouncement';
 import F1PointsProgressionChart from './F1PointsProgressionChart';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
@@ -22,6 +23,9 @@ export default function StandingsView({ data, standings: propStandings, activeTa
 
   return (
     <div>
+      {/* 0. Monza GP Breaking: Denys Illness & Vadim Manstein Debut Podium */}
+      <F1MonzaEmergencyAnnouncement />
+
       {/* 1. Official Williams-Mercedes Sale Breaking Announcement */}
       <F1WilliamsMercedesAnnouncement />
 

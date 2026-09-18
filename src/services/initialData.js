@@ -33,7 +33,8 @@ export const DEFAULT_DRIVERS = [
   { id: 'drv-19', name: 'Oscar PIASTRI', country: 'AU', flag: '🇦🇺', teamId: 'mclaren', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png' },
   { id: 'drv-20', name: 'ZHOU Guanyu', country: 'CN', flag: '🇨🇳', teamId: 'alfa-romeo', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Zhou_Guanyu/guazho01.png' },
   { id: 'drv-21', name: 'Daniel RICCIARDO', country: 'AU', flag: '🇦🇺', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png' },
-  { id: 'drv-22', name: 'Yuki TSUNODA', country: 'JP', flag: '🇯🇵', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png' }
+  { id: 'drv-22', name: 'Yuki TSUNODA', country: 'JP', flag: '🇯🇵', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png' },
+  { id: 'drv-23', name: 'Vadim MANSTEIN', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/manstein.png' }
 ];
 
 export const DEFAULT_POINTS_MAP = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
@@ -556,6 +557,37 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-10', grid: 14, stops: 1, bestLap: '1:15.248', totalTime: '+47.168', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:16.006', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-16',
+    title: 'Italian Grand Prix',
+    subtitle: 'AUTODROMO NAZIONALE MONZA - RACE 16',
+    date: '2026-09-06',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    incidentNote: '⚡ Храм скорости (Монца): Денис Коваленко заболел перед этапом, в болид Red Bull сел резервный пилот Вадим Манштейн (erich_manstein) и сенсационно финишировал 3-м на подиуме! Во время рестарта игра выдала ошибочный DSQ Юрию Захарчуку — дирекция FIA отменила баг и утвердила финиш Юрия на 2-м месте. Микола Ярема одержал победу и установил Fastest Lap.',
+    results: [
+      { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:21.042', totalTime: '42:15.340', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 2, stops: 1, bestLap: '1:21.310', totalTime: '+3.418', penaltySeconds: 0, penaltyLabel: '⚖️ Вердикт FIA: 2-е место (отмена бага игры)', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 3, stops: 1, bestLap: '1:21.550', totalTime: '+8.920', penaltySeconds: 0, penaltyLabel: '🥉 Подиум в дебюте за Red Bull!', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 4, stops: 1, bestLap: '1:22.100', totalTime: '+16.623', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:22.050', totalTime: '+16.838', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 6, stops: 1, bestLap: '1:22.400', totalTime: '+19.574', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 7, stops: 1, bestLap: '1:22.250', totalTime: '+22.427', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:22.500', totalTime: '+22.479', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 9, stops: 1, bestLap: '1:22.700', totalTime: '+22.562', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 10, stops: 1, bestLap: '1:22.800', totalTime: '+22.596', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 11, stops: 1, bestLap: '1:23.100', totalTime: '+25.313', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 12, stops: 1, bestLap: '1:23.200', totalTime: '+28.315', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 13, stops: 1, bestLap: '1:23.150', totalTime: '+28.332', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 14, stops: 1, bestLap: '1:23.350', totalTime: '+31.086', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 15, stops: 1, bestLap: '1:23.400', totalTime: '+33.793', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 16, stops: 1, bestLap: '1:23.500', totalTime: '+34.458', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 17, stops: 1, bestLap: '1:23.600', totalTime: '+36.544', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 18, stops: 1, bestLap: '1:23.800', totalTime: '+41.009', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 19, stops: 1, bestLap: '1:23.900', totalTime: '+41.223', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-3', grid: 20, stops: 1, bestLap: '1:24.100', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '', status: 'DNF' }
+    ]
   }
 ];
 
@@ -612,5 +644,16 @@ export const BREAKING_TRANSFERS = [
     fromTeam: 'AlphaTauri',
     toTeam: 'Mercedes-AMG Petronas',
     badgeText: 'JOINED MERCEDES'
+  },
+  {
+    id: 'tr-5',
+    driverName: 'Вадим Манштейн (erich_manstein)',
+    type: 'RESERVE',
+    title: 'Екстрена заміна: Вадим Манштейн замінює хворого Дениса Коваленка в Монці',
+    subtitle: 'Денис Коваленко захворів напередодні Гран-прі Італії. Резервний пілот Red Bull Вадим Манштейн блискуче провів заїзд і піднявся на подіум (P3) у Храмі Швидкості!',
+    image: '/announcements/manstein_redbull.png',
+    fromTeam: 'Red Bull Racing (Reserve)',
+    toTeam: 'Red Bull Racing',
+    badgeText: 'RESERVE DEBUT PODIUM'
   }
 ];

@@ -38,6 +38,11 @@ export function getTournamentData() {
 
     // Sync updated drivers & their new team transfers!
     if (parsed.drivers) {
+      DEFAULT_DRIVERS.forEach(def => {
+        if (!parsed.drivers.some(d => d.id === def.id)) {
+          parsed.drivers.push(def);
+        }
+      });
       parsed.drivers = parsed.drivers.map(d => {
         const def = DEFAULT_DRIVERS.find(dd => dd.id === d.id);
         if (def) {
@@ -45,7 +50,7 @@ export function getTournamentData() {
             ...d,
             teamId: def.teamId, // Update teamId to reflect transfers!
             name: def.name || d.name,
-            country: d.id === 'drv-1' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' ? 'UA' : d.country,
+            country: d.id === 'drv-1' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' || d.id === 'drv-23' ? 'UA' : d.country,
             avatar: def.avatar || d.avatar
           };
         }
@@ -253,6 +258,7 @@ export function calculatePointsProgression(data) {
     if (title.includes('British') || title.includes('Silverstone')) return 'Сильверстоун';
     if (title.includes('Hungarian') || title.includes('Hungary')) return 'Венгрия';
     if (title.includes('Dutch') || title.includes('Zandvoort') || title.includes('Netherlands')) return 'Зандворт';
+    if (title.includes('Italian') || title.includes('Monza')) return 'Монца';
     return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 
