@@ -56,7 +56,20 @@ export default function Header({ activeTab, setActiveTab, onExportData }) {
           <Users size={18} />
           Пилоты
         </button>
+
+        <button
+          className={`nav-btn ${activeTab === 'starting-grid' ? 'active' : ''}`}
+          onClick={() => setActiveTab('starting-grid')}
+          style={{
+            borderColor: activeTab === 'starting-grid' ? '#E10600' : undefined,
+            background: activeTab === 'starting-grid' ? 'rgba(225, 6, 0, 0.15)' : undefined
+          }}
+        >
+          <Zap size={18} color="#E10600" />
+          Starting Grid
+        </button>
       </nav>
+
 
       <div style={{ display: 'flex', gap: '8px' }}>
         <button

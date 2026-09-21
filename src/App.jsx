@@ -5,6 +5,7 @@ import StandingsView from './components/StandingsView';
 import ChartsView from './components/ChartsView';
 import RacesView from './components/RacesView';
 import DriversView from './components/DriversView';
+import StartingGridView from './components/StartingGridView';
 
 import {
   getTournamentData,
@@ -17,7 +18,7 @@ function getTabFromUrl() {
   const path = window.location.pathname.toLowerCase().replace(/^\//, '');
   const hash = window.location.hash.toLowerCase().replace(/^#/, '');
 
-  const validTabs = ['standings', 'charts', 'races', 'drivers'];
+  const validTabs = ['standings', 'charts', 'races', 'drivers', 'starting-grid'];
 
   if (validTabs.includes(path)) return path;
   if (validTabs.includes(hash)) return hash;
@@ -101,6 +102,10 @@ export default function App() {
             standings={standings}
             penalties={data.penalties}
           />
+        )}
+
+        {activeTab === 'starting-grid' && (
+          <StartingGridView />
         )}
       </main>
     </div>
