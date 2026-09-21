@@ -105,8 +105,9 @@ export default function App() {
         )}
 
         {activeTab === 'starting-grid' && (
-          <StartingGridView />
+          <StartingGridView data={data} />
         )}
+
       </main>
     </div>
   );

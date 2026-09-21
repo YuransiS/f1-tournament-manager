@@ -20,8 +20,8 @@
 - `src/components/RacesView.jsx`: Complete list of Grand Prix events (including Race 16 Monza, Race 17 Singapore & Race 18 Suzuka), sprint races, penalty notes, track layouts, and race result breakdowns.
 - `src/components/DriversView.jsx`: Driver profiles, stats (wins, podiums, fastest laps), penalties, and team assignments.
 - `src/components/F1StandingsBroadcastCard.jsx`: TV broadcast 16:9 graphic card with exportable snapshot view.
-- `src/components/F1StartingGrid.tsx`: Standalone interactive F1 Starting Grid component conforming to F1 TV broadcast specifications: 50vw split screen, animated paired slides (4.5s cycle), Framer Motion 3D character pop, signature overlay in Caveat, bold display numbers, team watermark & vertical banner, and central staggered starting grid position ladder.
-- `src/components/StartingGridView.jsx`: Interactive view integrating the starting grid widget with preset switching (F1 2026 20-pilot grid vs tournament grid), cycle speed controls, and keyboard shortcuts.
+- `src/components/F1StartingGrid.tsx`: Standalone interactive F1 Starting Grid component conforming to F1 TV broadcast specifications: 50vw split screen, animated paired slides (faster 2.8s cycle), Framer Motion 3D character pop with standardized taller avatar viewports, signature overlay in Caveat, outer driver numbers, F1 brand logo header with track name subtitle, and central staggered starting grid position ladder.
+- `src/components/StartingGridView.jsx`: Interactive view integrating the starting grid widget with real race data filtering from tournament history (`data.races`), Grand Prix selector dropdown, and interval speed controls.
 - `src/data/mockStartingGrid.ts`: Pre-populated starting grid datasets for official F1 2026 grid and tournament championship grid.
 - `src/components/TeamLogo.jsx` & `FlagIcon.jsx`: Reusable SVG and asset helpers for F1 team branding and nationality flags.
 

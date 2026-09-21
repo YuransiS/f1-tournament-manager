@@ -26,7 +26,7 @@ export interface GridPilot {
 export interface F1StartingGridProps {
   pilots: GridPilot[];
   eventTitle?: string;
-  sessionSubtitle?: string;
+  trackName?: string;
   cycleIntervalMs?: number;
   autoPlay?: boolean;
   onClose?: () => void;
@@ -46,7 +46,7 @@ const DriverAvatarFallback: React.FC<{ pilot: GridPilot; isRight?: boolean }> = 
     <div className="w-full h-full flex items-end justify-center relative select-none pointer-events-none pb-2">
       <svg
         viewBox="0 0 400 620"
-        className={`w-full max-h-[78vh] object-contain drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)] ${
+        className={`w-full max-h-full object-contain drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)] ${
           isRight ? 'scale-x-[-1]' : ''
         }`}
       >
@@ -67,21 +67,16 @@ const DriverAvatarFallback: React.FC<{ pilot: GridPilot; isRight?: boolean }> = 
           </linearGradient>
         </defs>
 
-        {/* Torso / Racing Suit */}
         <path
           d="M90,620 C90,490 120,410 150,370 C130,335 120,300 120,250 C120,165 160,115 200,115 C240,115 280,165 280,250 C280,300 270,335 250,370 C280,410 310,490 310,620 Z"
           fill={`url(#suitGrad-${pilot.id})`}
         />
-        {/* Suit shoulder and collar stripes */}
         <path d="M125,400 L150,370 L170,415 L145,445 Z" fill={`url(#accentGrad-${pilot.id})`} opacity="0.9" />
         <path d="M275,400 L250,370 L230,415 L255,445 Z" fill={`url(#accentGrad-${pilot.id})`} opacity="0.9" />
         <rect x="175" y="325" width="50" height="295" rx="3" fill="#000000" opacity="0.25" />
 
-        {/* F1 Helmet */}
         <ellipse cx="200" cy="210" rx="64" ry="78" fill="#1b202a" stroke={pilot.team.secondaryColor} strokeWidth="3.5" />
-        {/* Helmet Top Aero Stripe */}
         <path d="M185,135 Q200,130 215,135 L218,175 Q200,172 182,175 Z" fill={pilot.team.secondaryColor} opacity="0.8" />
-        {/* Iridescent Visor */}
         <path
           d="M146,200 Q200,185 254,200 Q244,232 200,238 Q156,232 146,200 Z"
           fill={`url(#visorGrad-${pilot.id})`}
@@ -91,7 +86,6 @@ const DriverAvatarFallback: React.FC<{ pilot: GridPilot; isRight?: boolean }> = 
         />
         <ellipse cx="195" cy="204" rx="20" ry="3" fill="#ffffff" opacity="0.5" />
 
-        {/* Driver number embossed on chest */}
         <text
           x="200"
           y="490"
@@ -111,9 +105,9 @@ const DriverAvatarFallback: React.FC<{ pilot: GridPilot; isRight?: boolean }> = 
 
 export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   pilots = [],
-  eventTitle = "FORMULA 1 GRAN PREMIO D'ITALIA 2026",
-  sessionSubtitle = "STARTING GRID • PROVISIONAL CLASSIFICATION",
-  cycleIntervalMs = 3000,
+  eventTitle = "ITALIAN GRAND PRIX",
+  trackName = "AUTODROMO NAZIONALE MONZA",
+  cycleIntervalMs = 2800,
   autoPlay = true,
   onClose,
   className = ""
@@ -163,6 +157,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     }
   }, []);
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
@@ -214,12 +209,10 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   if (!leftPilot) {
     return (
       <div className="flex items-center justify-center h-full min-h-[500px] bg-neutral-950 text-white font-mono">
-        No pilots available for starting grid.
+        No pilots available for this starting grid.
       </div>
     );
   }
-
-  const currentRowNumber = activePairIndex + 1;
 
   return (
     <div
@@ -230,28 +223,26 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       }}
     >
       {/* ========================================================================= */}
-      {/* TOP BROADCAST HEADER (Section В) */}
+      {/* TOP BROADCAST HEADER */}
       {/* ========================================================================= */}
-      <header className="relative z-30 w-full px-5 py-3.5 flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-black/95 via-black/75 to-transparent backdrop-blur-md">
-        {/* Left: Official F1 Event Branding */}
+      <header className="relative z-30 w-full px-5 py-3 flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-black/95 via-black/80 to-transparent backdrop-blur-md">
+        {/* Left: Official F1 Branding & Grand Prix title */}
         <div className="flex items-center gap-3.5">
-          <div className="px-3 py-1 bg-[#E10600] rounded-sm shadow-[0_0_16px_rgba(225,6,0,0.6)]">
-            <span className="font-black italic tracking-tighter text-base sm:text-lg leading-none text-white font-['Titillium_Web']">
-              F1
-            </span>
-          </div>
+          <img
+            src="/F1-logo.png"
+            alt="F1"
+            className="h-7 sm:h-8 object-contain filter drop-shadow-[0_0_12px_rgba(225,6,0,0.85)]"
+          />
 
           <div className="flex flex-col">
-            <h1 className="text-xs sm:text-sm md:text-base font-black tracking-wider uppercase text-white drop-shadow-md">
-              {eventTitle}
+            <h1 className="text-xs sm:text-sm md:text-base font-black tracking-wider uppercase text-white drop-shadow-md font-['Titillium_Web']">
+              TOURNAMENT CHAMPIONSHIP 2026 • {eventTitle}
             </h1>
-            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-widest text-neutral-400 uppercase">
-              <span className="text-[#E10600] font-black">●</span>
-              <span>{sessionSubtitle}</span>
-              <span className="text-white/30">•</span>
-              <span className="text-amber-400 font-bold">
-                ROW {currentRowNumber} OF {totalPairs}
-              </span>
+            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold tracking-widest text-neutral-300 uppercase">
+              <span className="text-[#E10600]">●</span>
+              <span>{trackName}</span>
+              <span className="text-white/40">•</span>
+              <span className="text-amber-400 font-black tracking-wider">STARTING GRID</span>
             </div>
           </div>
         </div>
@@ -279,7 +270,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           <div className="flex items-center bg-white/10 rounded border border-white/20 overflow-hidden">
             <button
               onClick={handlePrev}
-              title="Previous Row (Left Arrow)"
+              title="Previous Row"
               className="p-1.5 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-3.5 h-3.5 text-white" />
@@ -287,7 +278,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             <div className="w-[1px] h-3.5 bg-white/20" />
             <button
               onClick={handleNext}
-              title="Next Row (Right Arrow)"
+              title="Next Row"
               className="p-1.5 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-3.5 h-3.5 text-white" />
@@ -296,7 +287,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
           <button
             onClick={toggleFullscreen}
-            title="Toggle Fullscreen (F)"
+            title="Toggle Fullscreen"
             className="p-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded border border-white/20 transition-all cursor-pointer"
           >
             {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
@@ -305,7 +296,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           {onClose && (
             <button
               onClick={onClose}
-              title="Close (Esc)"
+              title="Close"
               className="px-2 py-1 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded border border-red-500/50 transition-all cursor-pointer ml-1"
             >
               ✕
@@ -315,7 +306,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       </header>
 
       {/* ========================================================================= */}
-      {/* MAIN SPLIT-SCREEN CARDS (Section А) */}
+      {/* MAIN SPLIT-SCREEN CARDS */}
       {/* ========================================================================= */}
       <div className="relative flex-1 w-full h-full flex overflow-hidden">
         <AnimatePresence mode="wait">
@@ -383,24 +374,26 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 </span>
               </div>
 
-              {/* Pilot Avatar / 3D Cutout Layer */}
+              {/* Pilot Avatar Standardized Box (TALL & STANDARDIZED) */}
               <motion.div
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 25, opacity: 0 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 bottom-0 flex items-end justify-center z-15 pointer-events-none"
+                className="absolute inset-0 flex items-end justify-center z-15 pointer-events-none"
               >
-                {!imgErrors[leftPilot.id] && leftPilot.avatarUrl ? (
-                  <img
-                    src={leftPilot.avatarUrl}
-                    alt={leftPilot.nickname}
-                    onError={() => handleImageError(leftPilot.id)}
-                    className="max-h-[78vh] w-auto max-w-[82%] object-contain object-bottom drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
-                  />
-                ) : (
-                  <DriverAvatarFallback pilot={leftPilot} isRight={false} />
-                )}
+                <div className="w-[85%] max-w-[500px] h-[88%] lg:h-[92%] flex items-end justify-center overflow-visible pb-1">
+                  {!imgErrors[leftPilot.id] && leftPilot.avatarUrl ? (
+                    <img
+                      src={leftPilot.avatarUrl}
+                      alt={leftPilot.nickname}
+                      onError={() => handleImageError(leftPilot.id)}
+                      className="max-h-full max-w-full object-contain object-bottom filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
+                    />
+                  ) : (
+                    <DriverAvatarFallback pilot={leftPilot} isRight={false} />
+                  )}
+                </div>
               </motion.div>
 
               {/* Top info: Position & Country Flag (OUTER LEFT ONLY) */}
@@ -408,7 +401,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 initial={{ x: -40, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.35, delay: 0.05 }}
-                className="relative z-20 pt-6 pl-10 lg:pl-14 flex items-center gap-3.5"
+                className="relative z-20 pt-5 pl-10 lg:pl-14 flex items-center gap-3.5"
               >
                 <span
                   className="text-5xl sm:text-6xl lg:text-7xl font-black italic tracking-tighter leading-none text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
@@ -559,24 +552,26 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     </span>
                   </div>
 
-                  {/* Pilot Avatar / 3D Cutout Layer */}
+                  {/* Pilot Avatar Standardized Box (TALL & STANDARDIZED) */}
                   <motion.div
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 25, opacity: 0 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-0 bottom-0 flex items-end justify-center z-15 pointer-events-none"
+                    className="absolute inset-0 flex items-end justify-center z-15 pointer-events-none"
                   >
-                    {!imgErrors[rightPilot.id] && rightPilot.avatarUrl ? (
-                      <img
-                        src={rightPilot.avatarUrl}
-                        alt={rightPilot.nickname}
-                        onError={() => handleImageError(rightPilot.id)}
-                        className="max-h-[78vh] w-auto max-w-[82%] object-contain object-bottom drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
-                      />
-                    ) : (
-                      <DriverAvatarFallback pilot={rightPilot} isRight={true} />
-                    )}
+                    <div className="w-[85%] max-w-[500px] h-[88%] lg:h-[92%] flex items-end justify-center overflow-visible pb-1">
+                      {!imgErrors[rightPilot.id] && rightPilot.avatarUrl ? (
+                        <img
+                          src={rightPilot.avatarUrl}
+                          alt={rightPilot.nickname}
+                          onError={() => handleImageError(rightPilot.id)}
+                          className="max-h-full max-w-full object-contain object-bottom filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
+                        />
+                      ) : (
+                        <DriverAvatarFallback pilot={rightPilot} isRight={true} />
+                      )}
+                    </div>
                   </motion.div>
 
                   {/* Top info: Position & Country Flag (OUTER RIGHT ONLY) */}
@@ -584,7 +579,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     initial={{ x: 40, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.35, delay: 0.05 }}
-                    className="relative z-20 pt-6 pr-10 lg:pr-14 flex items-center gap-3.5 flex-row-reverse"
+                    className="relative z-20 pt-5 pr-10 lg:pr-14 flex items-center gap-3.5 flex-row-reverse"
                   >
                     <span
                       className="text-5xl sm:text-6xl lg:text-7xl font-black italic tracking-tighter leading-none text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
@@ -680,7 +675,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         </AnimatePresence>
 
         {/* ========================================================================= */}
-        {/* CENTRAL STARTING GRID LADDER / POSITION TOWER (Section Б) */}
+        {/* CENTRAL STARTING GRID LADDER / POSITION TOWER */}
         {/* ========================================================================= */}
         <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-40 w-[114px] sm:w-[122px] pointer-events-none flex flex-col items-center">
           {/* Ladder Header Badge */}
