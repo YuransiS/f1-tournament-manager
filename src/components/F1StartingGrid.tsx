@@ -10,6 +10,9 @@ export interface GridPilot {
   nickname: string;
   driverNumber: number;
   avatarUrl: string;
+  avatarScale?: number;
+  avatarOffsetY?: number;
+  avatarOffsetX?: number;
   countryFlagUrl?: string; // e.g. "NL", "IT", "GB", "UA"
   lapTimeOrDelta: string; // "1:21.083" or "+0.055"
   team: {
@@ -22,6 +25,7 @@ export interface GridPilot {
     backgroundPatternUrl?: string;
   };
 }
+
 
 export interface F1StartingGridProps {
   pilots: GridPilot[];
@@ -390,7 +394,9 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                       onError={() => handleImageError(leftPilot.id)}
                       className="max-h-[92%] w-auto max-w-[95%] object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)]"
                       style={{
-                        transform: 'scale(1.28)',
+                        transform: `translate(${leftPilot.avatarOffsetX ?? 0}px, ${leftPilot.avatarOffsetY ?? (leftPilot.avatarUrl?.includes('yura') ? 10 : 0)}px) scale(${
+                          (leftPilot.avatarScale ?? (leftPilot.avatarUrl?.includes('yura') ? 1.58 : 1.0)) * 1.28
+                        })`,
                         transformOrigin: 'bottom center'
                       }}
                     />
@@ -572,7 +578,9 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                           onError={() => handleImageError(rightPilot.id)}
                           className="max-h-[92%] w-auto max-w-[95%] object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)]"
                           style={{
-                            transform: 'scale(1.28)',
+                            transform: `translate(${rightPilot.avatarOffsetX ?? 0}px, ${rightPilot.avatarOffsetY ?? (rightPilot.avatarUrl?.includes('yura') ? 10 : 0)}px) scale(${
+                              (rightPilot.avatarScale ?? (rightPilot.avatarUrl?.includes('yura') ? 1.58 : 1.0)) * 1.28
+                            })`,
                             transformOrigin: 'bottom center'
                           }}
                         />

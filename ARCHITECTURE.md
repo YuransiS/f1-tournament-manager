@@ -62,6 +62,9 @@ export interface GridPilot {
   nickname: string;
   driverNumber: number;
   avatarUrl: string;
+  avatarScale?: number;
+  avatarOffsetY?: number;
+  avatarOffsetX?: number;
   countryFlagUrl?: string;
   lapTimeOrDelta: string;
   team: {

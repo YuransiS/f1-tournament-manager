@@ -37,6 +37,20 @@ const DRIVER_NUMBER_MAP: Record<string, number> = {
   'drv-23': 99   // Vadim MANSTEIN
 };
 
+// Avatar scale and vertical offset calibration for unified visual head-size
+const DRIVER_AVATAR_CALIBRATION: Record<
+  string,
+  { scale: number; offsetY?: number; offsetX?: number }
+> = {
+  'drv-1': { scale: 1.58, offsetY: 10 },    // Yurii ZAKHARCHUK (calibrated to perfectly match Yarema and TV broadcast eye-line)
+  'drv-3': { scale: 1.25, offsetY: 0 },     // MARK
+  'drv-4': { scale: 1.15, offsetY: 0 },     // Alexander ALBON
+  'drv-6': { scale: 1.0, offsetY: 0 },      // Mykola YAREMA (reference standard)
+  'drv-11': { scale: 1.2, offsetY: 0 },     // Alexsandr GROMOV
+  'drv-17': { scale: 1.15, offsetY: 0 },    // Denys KOVALENKO
+  'drv-23': { scale: 1.22, offsetY: 0 },    // Vadim MANSTEIN
+};
+
 export default function StartingGridView({ data }: StartingGridViewProps) {
   const races = useMemo(() => data?.races || [], [data]);
   const drivers = useMemo(() => data?.drivers || [], [data]);
@@ -101,6 +115,8 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         }
       }
 
+      const calibration = (driver?.id && DRIVER_AVATAR_CALIBRATION[driver.id]) || { scale: 1.0, offsetY: 0 };
+
       return {
         id: `grid-${res.driverId}`,
         position: res.grid,
@@ -108,6 +124,8 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         nickname: surname.toUpperCase(),
         driverNumber: DRIVER_NUMBER_MAP[driver?.id] || res.grid,
         avatarUrl: driver?.avatar || '',
+        avatarScale: calibration.scale,
+        avatarOffsetY: calibration.offsetY,
         countryFlagUrl: driver?.country || 'UA',
         lapTimeOrDelta: timingDisplay,
         team: {
