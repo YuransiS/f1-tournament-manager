@@ -378,27 +378,21 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 </span>
               </div>
 
-              {/* Pilot Avatar Standardized Box (SCALED UP & HEROIC) */}
+              {/* Pilot Avatar Standardized Fixed Bounding Box (Identical dimensions, uniform fill, zero scale hacks) */}
               <motion.div
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 30, opacity: 0 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-x-0 bottom-0 top-[10%] flex items-end justify-center z-15 pointer-events-none"
+                exit={{ y: 20, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-x-0 bottom-0 flex items-end justify-center z-15 pointer-events-none"
               >
-                <div className="relative w-full max-w-[720px] h-full flex items-end justify-center overflow-visible">
+                <div className="relative w-[90%] max-w-[620px] h-[82vh] max-h-[780px] flex items-end justify-center overflow-hidden">
                   {!imgErrors[leftPilot.id] && leftPilot.avatarUrl ? (
                     <img
                       src={leftPilot.avatarUrl}
                       alt={leftPilot.nickname}
                       onError={() => handleImageError(leftPilot.id)}
-                      className="max-h-[92%] w-auto max-w-[95%] object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)]"
-                      style={{
-                        transform: `translate(${leftPilot.avatarOffsetX ?? 0}px, ${leftPilot.avatarOffsetY ?? (leftPilot.avatarUrl?.includes('yura') ? 10 : 0)}px) scale(${
-                          (leftPilot.avatarScale ?? (leftPilot.avatarUrl?.includes('yura') ? 1.58 : 1.0)) * 1.28
-                        })`,
-                        transformOrigin: 'bottom center'
-                      }}
+                      className="w-full h-full object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)]"
                     />
                   ) : (
                     <DriverAvatarFallback pilot={leftPilot} isRight={false} />
@@ -562,27 +556,21 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     </span>
                   </div>
 
-                  {/* Pilot Avatar Standardized Box (SCALED UP & HEROIC) */}
+                  {/* Pilot Avatar Standardized Fixed Bounding Box (Identical dimensions, uniform fill, zero scale hacks) */}
                   <motion.div
-                    initial={{ y: 50, opacity: 0 }}
+                    initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 30, opacity: 0 }}
-                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-x-0 bottom-0 top-[10%] flex items-end justify-center z-15 pointer-events-none"
+                    exit={{ y: 20, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-x-0 bottom-0 flex items-end justify-center z-15 pointer-events-none"
                   >
-                    <div className="relative w-full max-w-[720px] h-full flex items-end justify-center overflow-visible">
+                    <div className="relative w-[90%] max-w-[620px] h-[82vh] max-h-[780px] flex items-end justify-center overflow-hidden">
                       {!imgErrors[rightPilot.id] && rightPilot.avatarUrl ? (
                         <img
                           src={rightPilot.avatarUrl}
                           alt={rightPilot.nickname}
                           onError={() => handleImageError(rightPilot.id)}
-                          className="max-h-[92%] w-auto max-w-[95%] object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)]"
-                          style={{
-                            transform: `translate(${rightPilot.avatarOffsetX ?? 0}px, ${rightPilot.avatarOffsetY ?? (rightPilot.avatarUrl?.includes('yura') ? 10 : 0)}px) scale(${
-                              (rightPilot.avatarScale ?? (rightPilot.avatarUrl?.includes('yura') ? 1.58 : 1.0)) * 1.28
-                            })`,
-                            transformOrigin: 'bottom center'
-                          }}
+                          className="w-full h-full object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.95)]"
                         />
                       ) : (
                         <DriverAvatarFallback pilot={rightPilot} isRight={true} />
