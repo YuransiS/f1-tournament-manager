@@ -31,7 +31,7 @@ export const DEFAULT_DRIVERS = [
   { id: 'drv-17', name: 'Denys KOVALENKO', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/denya.png' },
   { id: 'drv-18', name: 'Max VERSTAPPEN', country: 'NL', flag: '🇳🇱', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png' },
   { id: 'drv-19', name: 'Oscar PIASTRI', country: 'AU', flag: '🇦🇺', teamId: 'mclaren', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png' },
-  { id: 'drv-20', name: 'ZHOU Guanyu', country: 'CN', flag: '🇨🇳', teamId: 'alfa-romeo', isAi: true, avatar: 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2024Drivers/zhou' },
+  { id: 'drv-20', name: 'ZHOU Guanyu', country: 'CN', flag: '🇨🇳', teamId: 'alfa-romeo', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png' },
   { id: 'drv-21', name: 'Daniel RICCIARDO', country: 'AU', flag: '🇦🇺', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png' },
   { id: 'drv-22', name: 'Yuki TSUNODA', country: 'JP', flag: '🇯🇵', teamId: 'alphatauri', isAi: true, avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png' },
   { id: 'drv-23', name: 'Vadim MANSTEIN', country: 'UA', flag: '🇺🇦', teamId: 'red-bull', isAi: false, avatar: '/portraits/manstein.png' }

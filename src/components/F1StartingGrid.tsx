@@ -191,7 +191,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     return () => document.removeEventListener('fullscreenchange', onFsChange);
   }, []);
 
-  // Automatic cycle timer (no progress bar)
+  // Automatic cycle timer
   useEffect(() => {
     if (!isPlaying || totalPairs <= 1) return;
 
@@ -225,20 +225,20 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       {/* ========================================================================= */}
       {/* TOP BROADCAST HEADER */}
       {/* ========================================================================= */}
-      <header className="relative z-30 w-full px-5 py-3 flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-black/95 via-black/80 to-transparent backdrop-blur-md">
+      <header className="relative z-30 w-full px-6 py-3.5 flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-black/95 via-black/80 to-transparent backdrop-blur-md">
         {/* Left: Official F1 Branding & Grand Prix title */}
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-4">
           <img
             src="/F1-logo.png"
             alt="F1"
-            className="h-7 sm:h-8 object-contain filter drop-shadow-[0_0_12px_rgba(225,6,0,0.85)]"
+            className="h-8 sm:h-9 object-contain filter drop-shadow-[0_0_14px_rgba(225,6,0,0.85)]"
           />
 
           <div className="flex flex-col">
-            <h1 className="text-xs sm:text-sm md:text-base font-black tracking-wider uppercase text-white drop-shadow-md font-['Titillium_Web']">
+            <h1 className="text-sm sm:text-base md:text-lg font-black tracking-wider uppercase text-white drop-shadow-md font-['Titillium_Web']">
               TOURNAMENT CHAMPIONSHIP 2026 • {eventTitle}
             </h1>
-            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold tracking-widest text-neutral-300 uppercase">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold tracking-widest text-neutral-300 uppercase">
               <span className="text-[#E10600]">●</span>
               <span>{trackName}</span>
               <span className="text-white/40">•</span>
@@ -252,7 +252,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           <button
             onClick={togglePlay}
             title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-            className="flex items-center gap-1.5 px-2.5 py-1 bg-white/10 hover:bg-white/20 active:scale-95 text-[11px] font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer backdrop-blur-md"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer backdrop-blur-md"
           >
             {isPlaying ? (
               <>
@@ -273,15 +273,15 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               title="Previous Row"
               className="p-1.5 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer"
             >
-              <ChevronLeft className="w-3.5 h-3.5 text-white" />
+              <ChevronLeft className="w-4 h-4 text-white" />
             </button>
-            <div className="w-[1px] h-3.5 bg-white/20" />
+            <div className="w-[1px] h-4 bg-white/20" />
             <button
               onClick={handleNext}
               title="Next Row"
               className="p-1.5 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer"
             >
-              <ChevronRight className="w-3.5 h-3.5 text-white" />
+              <ChevronRight className="w-4 h-4 text-white" />
             </button>
           </div>
 
@@ -290,14 +290,14 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             title="Toggle Fullscreen"
             className="p-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded border border-white/20 transition-all cursor-pointer"
           >
-            {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
 
           {onClose && (
             <button
               onClick={onClose}
               title="Close"
-              className="px-2 py-1 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded border border-red-500/50 transition-all cursor-pointer ml-1"
+              className="px-2.5 py-1 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded border border-red-500/50 transition-all cursor-pointer ml-1"
             >
               ✕
             </button>
@@ -325,21 +325,21 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               <div
                 className="absolute inset-0 transition-colors duration-700 pointer-events-none"
                 style={{
-                  background: `radial-gradient(circle at 20% 45%, ${leftPilot.team.primaryColor}77 0%, ${leftPilot.team.primaryColor}22 45%, #05070B 85%)`
+                  background: `radial-gradient(circle at 25% 45%, ${leftPilot.team.primaryColor}88 0%, ${leftPilot.team.primaryColor}28 50%, #05070B 90%)`
                 }}
               />
 
               {/* High-tech racing grid texture */}
               <div
-                className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"
+                className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none"
                 style={{
-                  backgroundImage: `repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 20px)`
+                  backgroundImage: `repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 24px)`
                 }}
               />
 
               {/* Giant watermark logo */}
               {leftPilot.team.logoUrl && (
-                <div className="absolute -left-12 top-1/4 w-[420px] h-[420px] opacity-[0.06] pointer-events-none select-none flex items-center justify-center">
+                <div className="absolute -left-16 top-1/6 w-[560px] h-[560px] opacity-[0.07] pointer-events-none select-none flex items-center justify-center">
                   <img
                     src={leftPilot.team.logoUrl}
                     alt=""
@@ -349,9 +349,9 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               )}
 
               {/* Vertical Team Name Strip along outer left edge */}
-              <div className="absolute left-2 top-0 bottom-0 z-10 flex items-center justify-center pointer-events-none select-none">
+              <div className="absolute left-2.5 top-0 bottom-0 z-10 flex items-center justify-center pointer-events-none select-none">
                 <div
-                  className="text-[10px] lg:text-xs font-black tracking-[0.35em] text-white/25 uppercase whitespace-nowrap"
+                  className="text-xs lg:text-sm font-black tracking-[0.35em] text-white/30 uppercase whitespace-nowrap"
                   style={{
                     writingMode: 'vertical-rl',
                     transform: 'rotate(180deg)'
@@ -362,33 +362,37 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               </div>
 
               {/* Giant Stylized Driver Number (Watermark on OUTER LEFT) */}
-              <div className="absolute left-10 lg:left-14 bottom-4 z-10 pointer-events-none select-none">
+              <div className="absolute left-12 lg:left-16 bottom-6 z-10 pointer-events-none select-none">
                 <span
-                  className="text-7xl sm:text-8xl lg:text-9xl font-black italic tracking-tighter leading-none text-white/10 drop-shadow-2xl"
+                  className="text-8xl sm:text-9xl lg:text-[13rem] font-black italic tracking-tighter leading-none text-white/10 drop-shadow-2xl"
                   style={{
                     fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif",
-                    WebkitTextStroke: `2px ${leftPilot.team.primaryColor}88`
+                    WebkitTextStroke: `3px ${leftPilot.team.primaryColor}99`
                   }}
                 >
                   {leftPilot.driverNumber}
                 </span>
               </div>
 
-              {/* Pilot Avatar Standardized Box (TALL & STANDARDIZED) */}
+              {/* Pilot Avatar Standardized Box (SCALED UP & HEROIC) */}
               <motion.div
-                initial={{ y: 40, opacity: 0 }}
+                initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 25, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 flex items-end justify-center z-15 pointer-events-none"
+                exit={{ y: 30, opacity: 0 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-x-0 bottom-0 top-[10%] flex items-end justify-center z-15 pointer-events-none"
               >
-                <div className="w-[85%] max-w-[500px] h-[88%] lg:h-[92%] flex items-end justify-center overflow-visible pb-1">
+                <div className="relative w-full max-w-[720px] h-full flex items-end justify-center overflow-visible">
                   {!imgErrors[leftPilot.id] && leftPilot.avatarUrl ? (
                     <img
                       src={leftPilot.avatarUrl}
                       alt={leftPilot.nickname}
                       onError={() => handleImageError(leftPilot.id)}
-                      className="max-h-full max-w-full object-contain object-bottom filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
+                      className="max-h-[92%] w-auto max-w-[95%] object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)]"
+                      style={{
+                        transform: 'scale(1.28)',
+                        transformOrigin: 'bottom center'
+                      }}
                     />
                   ) : (
                     <DriverAvatarFallback pilot={leftPilot} isRight={false} />
@@ -398,13 +402,13 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
               {/* Top info: Position & Country Flag (OUTER LEFT ONLY) */}
               <motion.div
-                initial={{ x: -40, opacity: 0 }}
+                initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.35, delay: 0.05 }}
-                className="relative z-20 pt-5 pl-10 lg:pl-14 flex items-center gap-3.5"
+                transition={{ duration: 0.4, delay: 0.05 }}
+                className="relative z-20 pt-7 pl-12 lg:pl-16 flex items-center gap-4"
               >
                 <span
-                  className="text-5xl sm:text-6xl lg:text-7xl font-black italic tracking-tighter leading-none text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
+                  className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black italic tracking-tighter leading-none text-white drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
                   style={{
                     fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif"
                   }}
@@ -413,40 +417,40 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 </span>
 
                 {leftPilot.countryFlagUrl && (
-                  <div className="flex items-center rounded overflow-hidden shadow-lg border border-white/20">
-                    <FlagIcon countryCode={leftPilot.countryFlagUrl} style={{ width: '28px', height: '18px' }} />
+                  <div className="flex items-center rounded-md overflow-hidden shadow-2xl border border-white/25">
+                    <FlagIcon countryCode={leftPilot.countryFlagUrl} style={{ width: '38px', height: '24px' }} />
                   </div>
                 )}
               </motion.div>
 
               {/* Bottom info section: Signature, Nickname, Team & Timing */}
-              <div className="relative z-20 pl-10 lg:pl-14 pr-16 lg:pr-20 pb-5 mt-auto">
+              <div className="relative z-20 pl-12 lg:pl-16 pr-24 lg:pr-32 pb-8 mt-auto">
                 {/* Decorative Signature (Layer 1) */}
                 <motion.div
                   initial={{ scale: 0.85, opacity: 0, rotate: -4 }}
                   animate={{ scale: 1, opacity: 1, rotate: -4 }}
-                  transition={{ duration: 0.35, delay: 0.15 }}
-                  className="mb-[-8px] ml-2 pointer-events-none select-none"
+                  transition={{ duration: 0.4, delay: 0.15 }}
+                  className="mb-[-10px] ml-2 pointer-events-none select-none"
                   style={{
                     fontFamily: "'Caveat', cursive",
                     color: leftPilot.team.secondaryColor || '#FDE047',
-                    textShadow: `0 0 16px ${leftPilot.team.secondaryColor || '#FDE047'}66`
+                    textShadow: `0 0 20px ${leftPilot.team.secondaryColor || '#FDE047'}77`
                   }}
                 >
-                  <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide">
+                  <span className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-wide">
                     {leftPilot.realName || leftPilot.nickname}
                   </span>
                 </motion.div>
 
                 {/* Nickname (Layer 2) */}
                 <motion.div
-                  initial={{ x: -35, opacity: 0 }}
+                  initial={{ x: -40, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.35, delay: 0.1 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
                   className="relative flex flex-col"
                 >
                   <h2
-                    className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black italic uppercase tracking-tighter text-white leading-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.95)]"
+                    className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black italic uppercase tracking-tighter text-white leading-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
                     style={{
                       fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif"
                     }}
@@ -454,7 +458,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     {leftPilot.nickname}
                   </h2>
                   {leftPilot.realName && leftPilot.realName.toUpperCase() !== leftPilot.nickname.toUpperCase() && (
-                    <span className="text-xs font-semibold tracking-widest text-neutral-300 uppercase mt-0.5">
+                    <span className="text-xs sm:text-sm font-bold tracking-widest text-neutral-300 uppercase mt-1">
                       {leftPilot.realName}
                     </span>
                   )}
@@ -462,27 +466,27 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
                 {/* Team & Lap Time Strip */}
                 <motion.div
-                  initial={{ y: 15, opacity: 0 }}
+                  initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.35, delay: 0.2 }}
-                  className="mt-3 inline-flex items-center gap-3 px-3.5 py-2 bg-black/80 backdrop-blur-md rounded border border-white/20 shadow-xl"
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="mt-4 inline-flex items-center gap-3.5 px-4 py-2.5 bg-black/85 backdrop-blur-md rounded-lg border border-white/25 shadow-2xl"
                 >
                   {leftPilot.team.logoUrl && (
                     <img
                       src={leftPilot.team.logoUrl}
                       alt=""
-                      className="h-6 w-6 sm:h-8 sm:w-8 object-contain filter drop-shadow"
+                      className="h-8 w-8 sm:h-10 sm:w-10 object-contain filter drop-shadow"
                     />
                   )}
                   <div className="flex flex-col">
-                    <span className="text-[10px] sm:text-xs font-bold uppercase text-neutral-300">
+                    <span className="text-xs sm:text-sm font-bold uppercase text-neutral-200">
                       {leftPilot.team.name}
                     </span>
                     <div className="flex items-center gap-2 mt-0.5">
                       <span
-                        className={`text-xs sm:text-sm font-black tracking-wider px-2 py-0.5 rounded text-white ${
+                        className={`text-xs sm:text-sm font-black tracking-wider px-2.5 py-0.5 rounded text-white ${
                           leftPilot.position === 1
-                            ? 'bg-[#E10600] shadow-[0_0_10px_rgba(225,6,0,0.6)]'
+                            ? 'bg-[#E10600] shadow-[0_0_12px_rgba(225,6,0,0.7)]'
                             : 'bg-white/20'
                         }`}
                       >
@@ -504,21 +508,21 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                   <div
                     className="absolute inset-0 transition-colors duration-700 pointer-events-none"
                     style={{
-                      background: `radial-gradient(circle at 80% 45%, ${rightPilot.team.primaryColor}77 0%, ${rightPilot.team.primaryColor}22 45%, #05070B 85%)`
+                      background: `radial-gradient(circle at 75% 45%, ${rightPilot.team.primaryColor}88 0%, ${rightPilot.team.primaryColor}28 50%, #05070B 90%)`
                     }}
                   />
 
                   {/* High-tech racing grid texture */}
                   <div
-                    className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"
+                    className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none"
                     style={{
-                      backgroundImage: `repeating-linear-gradient(-45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 20px)`
+                      backgroundImage: `repeating-linear-gradient(-45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 24px)`
                     }}
                   />
 
                   {/* Giant watermark logo */}
                   {rightPilot.team.logoUrl && (
-                    <div className="absolute -right-12 top-1/4 w-[420px] h-[420px] opacity-[0.06] pointer-events-none select-none flex items-center justify-center">
+                    <div className="absolute -right-16 top-1/6 w-[560px] h-[560px] opacity-[0.07] pointer-events-none select-none flex items-center justify-center">
                       <img
                         src={rightPilot.team.logoUrl}
                         alt=""
@@ -528,9 +532,9 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                   )}
 
                   {/* Vertical Team Name Strip along outer right edge */}
-                  <div className="absolute right-2 top-0 bottom-0 z-10 flex items-center justify-center pointer-events-none select-none">
+                  <div className="absolute right-2.5 top-0 bottom-0 z-10 flex items-center justify-center pointer-events-none select-none">
                     <div
-                      className="text-[10px] lg:text-xs font-black tracking-[0.35em] text-white/25 uppercase whitespace-nowrap"
+                      className="text-xs lg:text-sm font-black tracking-[0.35em] text-white/30 uppercase whitespace-nowrap"
                       style={{
                         writingMode: 'vertical-rl'
                       }}
@@ -540,33 +544,37 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                   </div>
 
                   {/* Giant Stylized Driver Number (Watermark on OUTER RIGHT) */}
-                  <div className="absolute right-10 lg:right-14 bottom-4 z-10 pointer-events-none select-none">
+                  <div className="absolute right-12 lg:right-16 bottom-6 z-10 pointer-events-none select-none">
                     <span
-                      className="text-7xl sm:text-8xl lg:text-9xl font-black italic tracking-tighter leading-none text-white/10 drop-shadow-2xl"
+                      className="text-8xl sm:text-9xl lg:text-[13rem] font-black italic tracking-tighter leading-none text-white/10 drop-shadow-2xl"
                       style={{
                         fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif",
-                        WebkitTextStroke: `2px ${rightPilot.team.primaryColor}88`
+                        WebkitTextStroke: `3px ${rightPilot.team.primaryColor}99`
                       }}
                     >
                       {rightPilot.driverNumber}
                     </span>
                   </div>
 
-                  {/* Pilot Avatar Standardized Box (TALL & STANDARDIZED) */}
+                  {/* Pilot Avatar Standardized Box (SCALED UP & HEROIC) */}
                   <motion.div
-                    initial={{ y: 40, opacity: 0 }}
+                    initial={{ y: 50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 25, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-0 flex items-end justify-center z-15 pointer-events-none"
+                    exit={{ y: 30, opacity: 0 }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-x-0 bottom-0 top-[10%] flex items-end justify-center z-15 pointer-events-none"
                   >
-                    <div className="w-[85%] max-w-[500px] h-[88%] lg:h-[92%] flex items-end justify-center overflow-visible pb-1">
+                    <div className="relative w-full max-w-[720px] h-full flex items-end justify-center overflow-visible">
                       {!imgErrors[rightPilot.id] && rightPilot.avatarUrl ? (
                         <img
                           src={rightPilot.avatarUrl}
                           alt={rightPilot.nickname}
                           onError={() => handleImageError(rightPilot.id)}
-                          className="max-h-full max-w-full object-contain object-bottom filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
+                          className="max-h-[92%] w-auto max-w-[95%] object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)]"
+                          style={{
+                            transform: 'scale(1.28)',
+                            transformOrigin: 'bottom center'
+                          }}
                         />
                       ) : (
                         <DriverAvatarFallback pilot={rightPilot} isRight={true} />
@@ -576,13 +584,13 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
                   {/* Top info: Position & Country Flag (OUTER RIGHT ONLY) */}
                   <motion.div
-                    initial={{ x: 40, opacity: 0 }}
+                    initial={{ x: 50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.35, delay: 0.05 }}
-                    className="relative z-20 pt-5 pr-10 lg:pr-14 flex items-center gap-3.5 flex-row-reverse"
+                    transition={{ duration: 0.4, delay: 0.05 }}
+                    className="relative z-20 pt-7 pr-12 lg:pr-16 flex items-center gap-4 flex-row-reverse"
                   >
                     <span
-                      className="text-5xl sm:text-6xl lg:text-7xl font-black italic tracking-tighter leading-none text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
+                      className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black italic tracking-tighter leading-none text-white drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
                       style={{
                         fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif"
                       }}
@@ -591,40 +599,40 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     </span>
 
                     {rightPilot.countryFlagUrl && (
-                      <div className="flex items-center rounded overflow-hidden shadow-lg border border-white/20">
-                        <FlagIcon countryCode={rightPilot.countryFlagUrl} style={{ width: '28px', height: '18px' }} />
-                      </div>
+                  <div className="flex items-center rounded-md overflow-hidden shadow-2xl border border-white/25">
+                    <FlagIcon countryCode={rightPilot.countryFlagUrl} style={{ width: '38px', height: '24px' }} />
+                  </div>
                     )}
                   </motion.div>
 
                   {/* Bottom info section: Signature, Nickname, Team & Timing */}
-                  <div className="relative z-20 pr-10 lg:pr-14 pl-16 lg:pl-20 pb-5 mt-auto flex flex-col items-end text-right">
+                  <div className="relative z-20 pr-12 lg:pr-16 pl-24 lg:pl-32 pb-8 mt-auto flex flex-col items-end text-right">
                     {/* Decorative Signature (Layer 1) */}
                     <motion.div
                       initial={{ scale: 0.85, opacity: 0, rotate: 4 }}
                       animate={{ scale: 1, opacity: 1, rotate: 4 }}
-                      transition={{ duration: 0.35, delay: 0.15 }}
-                      className="mb-[-8px] mr-2 pointer-events-none select-none"
+                      transition={{ duration: 0.4, delay: 0.15 }}
+                      className="mb-[-10px] mr-2 pointer-events-none select-none"
                       style={{
                         fontFamily: "'Caveat', cursive",
                         color: rightPilot.team.secondaryColor || '#FDE047',
-                        textShadow: `0 0 16px ${rightPilot.team.secondaryColor || '#FDE047'}66`
+                        textShadow: `0 0 20px ${rightPilot.team.secondaryColor || '#FDE047'}77`
                       }}
                     >
-                      <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide">
+                      <span className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-wide">
                         {rightPilot.realName || rightPilot.nickname}
                       </span>
                     </motion.div>
 
                     {/* Nickname (Layer 2) */}
                     <motion.div
-                      initial={{ x: 35, opacity: 0 }}
+                      initial={{ x: 40, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      transition={{ duration: 0.35, delay: 0.1 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
                       className="relative flex flex-col items-end"
                     >
                       <h2
-                        className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black italic uppercase tracking-tighter text-white leading-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.95)]"
+                        className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black italic uppercase tracking-tighter text-white leading-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.95)]"
                         style={{
                           fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif"
                         }}
@@ -632,7 +640,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                         {rightPilot.nickname}
                       </h2>
                       {rightPilot.realName && rightPilot.realName.toUpperCase() !== rightPilot.nickname.toUpperCase() && (
-                        <span className="text-xs font-semibold tracking-widest text-neutral-300 uppercase mt-0.5">
+                        <span className="text-xs sm:text-sm font-bold tracking-widest text-neutral-300 uppercase mt-1">
                           {rightPilot.realName}
                         </span>
                       )}
@@ -640,24 +648,24 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
                     {/* Team & Lap Time Strip */}
                     <motion.div
-                      initial={{ y: 15, opacity: 0 }}
+                      initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.35, delay: 0.2 }}
-                      className="mt-3 inline-flex items-center gap-3 px-3.5 py-2 bg-black/80 backdrop-blur-md rounded border border-white/20 shadow-xl flex-row-reverse"
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      className="mt-4 inline-flex items-center gap-3.5 px-4 py-2.5 bg-black/85 backdrop-blur-md rounded-lg border border-white/25 shadow-2xl flex-row-reverse"
                     >
                       {rightPilot.team.logoUrl && (
                         <img
                           src={rightPilot.team.logoUrl}
                           alt=""
-                          className="h-6 w-6 sm:h-8 sm:w-8 object-contain filter drop-shadow"
+                          className="h-8 w-8 sm:h-10 sm:w-10 object-contain filter drop-shadow"
                         />
                       )}
                       <div className="flex flex-col items-end">
-                        <span className="text-[10px] sm:text-xs font-bold uppercase text-neutral-300">
+                        <span className="text-xs sm:text-sm font-bold uppercase text-neutral-200">
                           {rightPilot.team.name}
                         </span>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-xs sm:text-sm font-black tracking-wider px-2 py-0.5 rounded text-white bg-white/20">
+                          <span className="text-xs sm:text-sm font-black tracking-wider px-2.5 py-0.5 rounded text-white bg-white/20">
                             {rightPilot.lapTimeOrDelta}
                           </span>
                         </div>
@@ -675,19 +683,19 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         </AnimatePresence>
 
         {/* ========================================================================= */}
-        {/* CENTRAL STARTING GRID LADDER / POSITION TOWER */}
+        {/* CENTRAL STARTING GRID LADDER / POSITION TOWER (BROADCAST SCALE) */}
         {/* ========================================================================= */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-40 w-[114px] sm:w-[122px] pointer-events-none flex flex-col items-center">
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-40 w-[160px] sm:w-[176px] md:w-[192px] pointer-events-none flex flex-col items-center">
           {/* Ladder Header Badge */}
-          <div className="pointer-events-auto mb-1.5 px-2 py-0.5 bg-black/95 border border-white/30 rounded shadow-2xl backdrop-blur-md flex items-center gap-1.5 text-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E10600] animate-pulse" />
-            <span className="text-[9px] font-black tracking-widest text-white uppercase font-['Titillium_Web']">
+          <div className="pointer-events-auto mb-2 px-3 py-1 bg-black/95 border border-white/40 rounded-md shadow-2xl backdrop-blur-md flex items-center gap-2 text-center">
+            <span className="w-2 h-2 rounded-full bg-[#E10600] animate-pulse" />
+            <span className="text-xs font-black tracking-widest text-white uppercase font-['Titillium_Web']">
               STARTING GRID
             </span>
           </div>
 
           {/* Staggered Vertical Positions Ladder */}
-          <div className="pointer-events-auto flex flex-col gap-1 w-full max-h-[70vh] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 px-1">
+          <div className="pointer-events-auto flex flex-col gap-1.5 w-full max-h-[76vh] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 px-1">
             {pairs.map((pair, pIdx) => {
               const [pA, pB] = pair;
               const isActive = pIdx === activePairIndex;
@@ -696,27 +704,27 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 <div
                   key={`ladder-pair-${pIdx}`}
                   onClick={() => setActivePairIndex(pIdx)}
-                  className={`group relative flex items-center justify-between p-1 rounded cursor-pointer transition-all duration-200 ${
+                  className={`group relative flex items-center justify-between py-1.5 px-2 rounded-md cursor-pointer transition-all duration-200 ${
                     isActive
-                      ? 'bg-white text-black font-black border-2 border-white shadow-[0_0_18px_rgba(255,255,255,0.9)] scale-105 z-10'
-                      : 'bg-black/80 text-white/90 hover:bg-white/20 border border-white/10'
+                      ? 'bg-white text-black font-black border-2 border-white shadow-[0_0_25px_rgba(255,255,255,0.95)] scale-105 z-10'
+                      : 'bg-black/85 text-white/90 hover:bg-white/20 border border-white/15'
                   }`}
                 >
                   {/* Left Slot (e.g. 1 | VER) */}
-                  <div className="flex items-center gap-1 flex-1 overflow-hidden">
+                  <div className="flex items-center gap-1.5 flex-1 overflow-hidden">
                     <span
-                      className="w-1.5 h-4 rounded-full flex-shrink-0"
+                      className="w-2 h-5 rounded-sm flex-shrink-0"
                       style={{ backgroundColor: pA.team.primaryColor }}
                     />
                     <span
-                      className={`text-[11px] font-black leading-none ${
-                        isActive ? 'text-black' : 'text-neutral-400'
+                      className={`text-xs sm:text-sm font-black leading-none ${
+                        isActive ? 'text-black font-black' : 'text-neutral-400'
                       }`}
                     >
                       {pA.position}
                     </span>
                     <span
-                      className={`text-[11px] tracking-tight uppercase leading-none truncate ${
+                      className={`text-xs sm:text-sm tracking-tight uppercase leading-none truncate ${
                         isActive ? 'text-black font-black' : 'text-white font-bold'
                       }`}
                     >
@@ -726,35 +734,35 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
                   {/* Divider */}
                   <div
-                    className={`w-[1px] h-3.5 mx-0.5 flex-shrink-0 ${
-                      isActive ? 'bg-black/30' : 'bg-white/20'
+                    className={`w-[1px] h-4 mx-1 flex-shrink-0 ${
+                      isActive ? 'bg-black/40' : 'bg-white/25'
                     }`}
                   />
 
                   {/* Right Slot (e.g. 2 | NOR) */}
                   {pB ? (
-                    <div className="flex items-center justify-end gap-1 flex-1 overflow-hidden">
+                    <div className="flex items-center justify-end gap-1.5 flex-1 overflow-hidden">
                       <span
-                        className={`text-[11px] tracking-tight uppercase leading-none truncate ${
+                        className={`text-xs sm:text-sm tracking-tight uppercase leading-none truncate ${
                           isActive ? 'text-black font-black' : 'text-white font-bold'
                         }`}
                       >
                         {pB.team.shortCode || pB.nickname.slice(0, 3)}
                       </span>
                       <span
-                        className={`text-[11px] font-black leading-none ${
-                          isActive ? 'text-black' : 'text-neutral-400'
+                        className={`text-xs sm:text-sm font-black leading-none ${
+                          isActive ? 'text-black font-black' : 'text-neutral-400'
                         }`}
                       >
                         {pB.position}
                       </span>
                       <span
-                        className="w-1.5 h-4 rounded-full flex-shrink-0"
+                        className="w-2 h-5 rounded-sm flex-shrink-0"
                         style={{ backgroundColor: pB.team.primaryColor }}
                       />
                     </div>
                   ) : (
-                    <div className="flex-1 text-center text-[9px] text-neutral-500">—</div>
+                    <div className="flex-1 text-center text-xs text-neutral-500">—</div>
                   )}
                 </div>
               );

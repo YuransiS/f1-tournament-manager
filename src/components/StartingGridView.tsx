@@ -191,7 +191,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
       </div>
 
       {/* Starting Grid Viewport Frame */}
-      <div className="w-full aspect-[16/9] min-h-[640px] max-h-[88vh] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.85)] relative bg-black">
+      <div className="w-full h-[86vh] min-h-[720px] max-h-[960px] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.85)] relative bg-black">
         <F1StartingGrid
           key={`${selectedRaceId}-${cycleSpeed}`}
           pilots={activePilots}
