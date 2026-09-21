@@ -34,7 +34,7 @@ export interface F1StartingGridProps {
   className?: string;
 }
 
-// Ordinal suffix helper (1 -> 1ST, 2 -> 2ND, 3 -> 3RD, 4 -> 4TH...)
+// Ordinal suffix helper (1 -> 1st, 2 -> 2nd, 3 -> 3rd, 4 -> 4th...)
 function getOrdinalParts(n: number): { num: number; suffix: string } {
   const s = ['TH', 'ST', 'ND', 'RD'];
   const v = n % 100;
@@ -118,209 +118,118 @@ const DriverAvatarFallback: React.FC<{ pilot: GridPilot; isRight?: boolean }> = 
 };
 
 // =========================================================================
-// CENTRAL AUTHENTIC F1 STARTING GRID TRACK SLOT DIAGRAM (SVG)
-// Matches official broadcast starting grid diagram with staggered pole slot & 2nd slot
+// CENTRAL DYNAMIC SHIFTING F1 STARTING GRID TRACK
+// Shifts vertically to follow the active row down the starting grid list
 // =========================================================================
-interface StartingGridSlotDiagramProps {
-  leftPilot: GridPilot;
-  rightPilot: GridPilot | null;
-  nextPair?: [GridPilot, GridPilot | null] | null;
+interface StartingGridTrackProps {
+  pairs: [GridPilot, GridPilot | null][];
+  activePairIndex: number;
+  onSelectPair: (idx: number) => void;
 }
 
-const StartingGridSlotDiagram: React.FC<StartingGridSlotDiagramProps> = ({
-  leftPilot,
-  rightPilot,
-  nextPair
+const StartingGridTrack: React.FC<StartingGridTrackProps> = ({
+  pairs,
+  activePairIndex,
+  onSelectPair
 }) => {
-  const leftCode = leftPilot.team.shortCode || leftPilot.nickname.slice(0, 3).toUpperCase();
-  const rightCode = rightPilot
-    ? rightPilot.team.shortCode || rightPilot.nickname.slice(0, 3).toUpperCase()
-    : '—';
+  const TRACK_HEIGHT = 320;
+  const ROW_HEIGHT = 60;
+  const centerY = TRACK_HEIGHT / 2 - ROW_HEIGHT / 2; // 130px
 
   return (
-    <div className="flex flex-col items-center justify-center select-none pointer-events-none">
-      <svg
-        viewBox="0 0 200 240"
-        className="w-36 sm:w-44 md:w-52 h-auto filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]"
+    <div className="relative w-[210px] sm:w-[240px] h-[320px] overflow-hidden select-none">
+      {/* Top & Bottom Vignette masks for smooth track depth */}
+      <div className="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#0a0d14] via-[#0a0d14]/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#040508] via-[#040508]/80 to-transparent z-20 pointer-events-none" />
+
+      {/* Center asphalt dashed track line */}
+      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] border-l-2 border-dashed border-white/20 z-0 pointer-events-none" />
+
+      {/* Dynamic Sliding Grid Slots Container */}
+      <motion.div
+        animate={{ y: centerY - activePairIndex * ROW_HEIGHT }}
+        transition={{ type: "spring", stiffness: 280, damping: 30 }}
+        className="absolute top-0 inset-x-0 w-full flex flex-col items-center z-10"
       >
-        <defs>
-          {/* Asphalt grid track texture/glow */}
-          <filter id="gridGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#ffffff" floodOpacity="0.3" />
-          </filter>
-        </defs>
+        {pairs.map((pair, pIdx) => {
+          const [pA, pB] = pair;
+          const isActive = pIdx === activePairIndex;
+          const leftCode = pA.nickname ? pA.nickname.slice(0, 3).toUpperCase() : (pA.team.shortCode || 'DRV');
+          const rightCode = pB
+            ? (pB.nickname ? pB.nickname.slice(0, 3).toUpperCase() : (pB.team.shortCode || 'DRV'))
+            : '—';
 
-        {/* Center asphalt dividing track centerline */}
-        <line
-          x1="100"
-          y1="10"
-          x2="100"
-          y2="230"
-          stroke="rgba(255,255,255,0.22)"
-          strokeWidth="2"
-          strokeDasharray="6 6"
-        />
-
-        {/* ------------------------------------------------------------- */}
-        {/* SLOT 1 (LEFT / POLE POSITION - Stepped Forward, Y: 35) */}
-        {/* ------------------------------------------------------------- */}
-        <g filter="url(#gridGlow)">
-          {/* Slot Box Bracket Outline */}
-          <rect
-            x="24"
-            y="35"
-            width="64"
-            height="38"
-            rx="5"
-            fill="#060910"
-            stroke="#ffffff"
-            strokeWidth="2.5"
-          />
-          {/* Connecting asphalt starting grid guideline to center track */}
-          <path
-            d="M 24 73 L 24 90 L 100 90"
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth="1.5"
-            strokeOpacity="0.75"
-          />
-          {/* Team color accent indicator strip */}
-          <rect
-            x="24"
-            y="35"
-            width="5"
-            height="38"
-            rx="2"
-            fill={leftPilot.team.primaryColor}
-          />
-          {/* Driver 3-Letter Shortcode */}
-          <text
-            x="58"
-            y="60"
-            textAnchor="middle"
-            fill="#ffffff"
-            fontSize="15"
-            fontWeight="900"
-            fontFamily="'Titillium Web', sans-serif"
-            letterSpacing="1"
-          >
-            {leftCode}
-          </text>
-        </g>
-
-        {/* ------------------------------------------------------------- */}
-        {/* SLOT 2 (RIGHT / 2ND POSITION - Stepped Backward, Y: 105) */}
-        {/* ------------------------------------------------------------- */}
-        {rightPilot && (
-          <g filter="url(#gridGlow)">
-            {/* Slot Box Bracket Outline */}
-            <rect
-              x="112"
-              y="105"
-              width="64"
-              height="38"
-              rx="5"
-              fill="#060910"
-              stroke="#ffffff"
-              strokeWidth="2.5"
-            />
-            {/* Connecting asphalt starting grid guideline */}
-            <path
-              d="M 176 143 L 176 160 L 100 160"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="1.5"
-              strokeOpacity="0.75"
-            />
-            {/* Team color accent indicator strip */}
-            <rect
-              x="171"
-              y="105"
-              width="5"
-              height="38"
-              rx="2"
-              fill={rightPilot.team.primaryColor}
-            />
-            {/* Driver 3-Letter Shortcode */}
-            <text
-              x="142"
-              y="130"
-              textAnchor="middle"
-              fill="#ffffff"
-              fontSize="15"
-              fontWeight="900"
-              fontFamily="'Titillium Web', sans-serif"
-              letterSpacing="1"
+          return (
+            <div
+              key={`track-row-${pIdx}`}
+              onClick={() => onSelectPair(pIdx)}
+              style={{ height: `${ROW_HEIGHT}px` }}
+              className={`relative w-full flex items-center justify-between px-2 transition-all duration-300 cursor-pointer ${
+                isActive
+                  ? 'opacity-100 scale-105 z-30'
+                  : 'opacity-35 hover:opacity-75 scale-95 z-10'
+              }`}
             >
-              {rightCode}
-            </text>
-          </g>
-        )}
+              {/* Left Slot (Odd, Pole-stepped forward) */}
+              <div
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border transition-all ${
+                  isActive
+                    ? 'bg-[#060910] border-white shadow-[0_0_20px_rgba(255,255,255,0.85)] ring-1 ring-white/60'
+                    : 'bg-black/85 border-white/20'
+                }`}
+                style={{
+                  borderLeftColor: pA.team.primaryColor,
+                  borderLeftWidth: '4px'
+                }}
+              >
+                <span className="text-xs font-black text-[#E10600] font-mono leading-none">
+                  {pA.position}
+                </span>
+                <span className="text-xs sm:text-sm font-black text-white tracking-wider font-['Titillium_Web'] leading-none">
+                  {leftCode}
+                </span>
+              </div>
 
-        {/* ------------------------------------------------------------- */}
-        {/* FAINT RECEDING NEXT ROW PREVIEW (Perspective ladder) */}
-        {/* ------------------------------------------------------------- */}
-        {nextPair && nextPair[0] && (
-          <g opacity="0.32">
-            <rect
-              x="30"
-              y="175"
-              width="54"
-              height="30"
-              rx="4"
-              fill="#000000"
-              stroke="#ffffff"
-              strokeWidth="1.2"
-              strokeDasharray="4 2"
-            />
-            <text
-              x="57"
-              y="195"
-              textAnchor="middle"
-              fill="#ffffff"
-              fontSize="12"
-              fontWeight="700"
-              fontFamily="'Titillium Web', sans-serif"
-            >
-              {nextPair[0].team.shortCode || nextPair[0].nickname.slice(0, 3)}
-            </text>
+              {/* Connecting slot guide line across asphalt */}
+              <div
+                className={`h-[1px] flex-1 mx-2 transition-colors ${
+                  isActive ? 'bg-white/50' : 'bg-white/15'
+                }`}
+              />
 
-            {nextPair[1] && (
-              <>
-                <rect
-                  x="116"
-                  y="210"
-                  width="54"
-                  height="26"
-                  rx="4"
-                  fill="#000000"
-                  stroke="#ffffff"
-                  strokeWidth="1.2"
-                  strokeDasharray="4 2"
-                />
-                <text
-                  x="143"
-                  y="227"
-                  textAnchor="middle"
-                  fill="#ffffff"
-                  fontSize="11"
-                  fontWeight="700"
-                  fontFamily="'Titillium Web', sans-serif"
+              {/* Right Slot (Even, stepped backward) */}
+              {pB ? (
+                <div
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border transition-all mt-2.5 ${
+                    isActive
+                      ? 'bg-[#060910] border-white shadow-[0_0_20px_rgba(255,255,255,0.85)] ring-1 ring-white/60'
+                      : 'bg-black/85 border-white/20'
+                  }`}
+                  style={{
+                    borderRightColor: pB.team.primaryColor,
+                    borderRightWidth: '4px'
+                  }}
                 >
-                  {nextPair[1].team.shortCode || nextPair[1].nickname.slice(0, 3)}
-                </text>
-              </>
-            )}
-          </g>
-        )}
-      </svg>
+                  <span className="text-xs sm:text-sm font-black text-white tracking-wider font-['Titillium_Web'] leading-none">
+                    {rightCode}
+                  </span>
+                  <span className="text-xs font-black text-[#E10600] font-mono leading-none">
+                    {pB.position}
+                  </span>
+                </div>
+              ) : (
+                <div className="w-14 text-center text-xs text-neutral-600 font-bold">—</div>
+              )}
+            </div>
+          );
+        })}
+      </motion.div>
     </div>
   );
 };
 
 // =========================================================================
 // MAIN COMPONENT: F1StartingGrid
-// Recreates the authentic 4-Frame F1 Broadcast Storyboard Sequence
 // =========================================================================
 export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   pilots = [],
@@ -343,8 +252,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     return list;
   }, [sortedPilots]);
 
-  // Storyboard intro state machine: 'pill' -> 'beam' -> 'reveal' -> 'broadcast'
-  const [introStage, setIntroStage] = useState<'pill' | 'beam' | 'reveal' | 'broadcast'>('pill');
+  // Clean intro state machine: 'pill' -> 'beam' -> 'broadcast' (no awkward intermediate black bars!)
+  const [introStage, setIntroStage] = useState<'pill' | 'beam' | 'broadcast'>('pill');
   const [activePairIndex, setActivePairIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -354,23 +263,19 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   const totalPairs = pairs.length;
   const currentPair = pairs[activePairIndex] || [null, null];
   const [leftPilot, rightPilot] = currentPair;
-  const nextPair = pairs[(activePairIndex + 1) % Math.max(1, totalPairs)] || null;
 
   // -------------------------------------------------------------------------
-  // STORYBOARD INTRO TIMELINE (Frames 1 -> 2 -> 3 -> 4)
+  // INTRO ANIMATION TIMELINE (Frame 1 -> Frame 2 -> Frame 4)
   // -------------------------------------------------------------------------
   useEffect(() => {
     if (introStage === 'broadcast') return;
 
     if (introStage === 'pill') {
-      const t1 = setTimeout(() => setIntroStage('beam'), 850);
+      const t1 = setTimeout(() => setIntroStage('beam'), 800);
       return () => clearTimeout(t1);
     } else if (introStage === 'beam') {
-      const t2 = setTimeout(() => setIntroStage('reveal'), 700);
+      const t2 = setTimeout(() => setIntroStage('broadcast'), 550);
       return () => clearTimeout(t2);
-    } else if (introStage === 'reveal') {
-      const t3 = setTimeout(() => setIntroStage('broadcast'), 750);
-      return () => clearTimeout(t3);
     }
   }, [introStage]);
 
@@ -487,10 +392,10 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       onClick={introStage !== 'broadcast' ? skipIntro : undefined}
     >
       {/* ========================================================================= */}
-      {/* WAVED FLAG CLOTH BACKGROUND & WATERMARKS (Present across all frames) */}
+      {/* WAVED FLAG CLOTH BACKGROUND & WATERMARKS (Non-interfering z-index) */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1c0812] via-[#090b12] to-[#14060d] overflow-hidden pointer-events-none">
-        {/* Dynamic Bahrain / Track Country Cloth Waves */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1c0812] via-[#090b12] to-[#14060d] overflow-hidden pointer-events-none z-0">
+        {/* Dynamic Bahrain / Country Cloth Waves */}
         <svg
           className="absolute inset-0 w-full h-full opacity-35 mix-blend-screen"
           xmlns="http://www.w3.org/2000/svg"
@@ -508,7 +413,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               <stop offset="100%" stopColor="#CE1126" stopOpacity="0.2" />
             </linearGradient>
           </defs>
-          {/* Wave ripples */}
           <path
             d="M 0,0 C 450,160 850,-80 1350,120 C 1650,220 1920,110 1920,110 L 1920,1080 L 0,1080 Z"
             fill="url(#flagWave)"
@@ -518,7 +422,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             fill="#CE1126"
             opacity="0.1"
           />
-          {/* Stylized chevrons (Bahrain flag motif) */}
           <polygon
             points="0,0 220,0 320,108 220,216 320,324 220,432 320,540 220,648 320,756 220,864 320,972 220,1080 0,1080"
             fill="url(#chevronGrad)"
@@ -526,24 +429,14 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         </svg>
 
         {/* Top-center Faint Broadcast Watermark: 2026 Grid */}
-        <div className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 select-none opacity-45 pointer-events-none">
-          <span className="text-3xl sm:text-5xl lg:text-6xl font-black italic tracking-widest text-white/50 font-['Titillium_Web'] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+        <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 select-none opacity-40 pointer-events-none">
+          <span className="text-3xl sm:text-5xl lg:text-6xl font-black italic tracking-widest text-white/40 font-['Titillium_Web'] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             2026 Grid
           </span>
         </div>
 
-        {/* Top Right: Official F1 TV Watermark */}
-        <div className="absolute top-4 sm:top-6 right-6 sm:right-8 flex items-center gap-1.5 opacity-85 select-none z-50">
-          <span className="font-black italic text-base sm:text-xl tracking-tighter text-white font-['Titillium_Web']">
-            F1
-          </span>
-          <span className="font-bold text-xs tracking-wider text-white/80 bg-white/10 px-1.5 py-0.5 rounded border border-white/20">
-            TV
-          </span>
-        </div>
-
         {/* Bottom Left: Official F1 FIA Logo Watermark */}
-        <div className="absolute bottom-4 sm:bottom-6 left-6 sm:right-auto sm:left-8 opacity-75 select-none z-50">
+        <div className="absolute bottom-4 sm:bottom-6 left-6 sm:left-8 opacity-75 select-none pointer-events-none">
           <img
             src="/F1-logo.png"
             alt="F1"
@@ -553,7 +446,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* FRAME 1: INTRO PILL (STARTING GRID metallic badge with red top accent) */}
+      {/* FRAME 1: INTRO PILL */}
       {/* ========================================================================= */}
       {introStage === 'pill' && (
         <motion.div
@@ -564,9 +457,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           transition={{ duration: 0.35, ease: 'easeOut' }}
           className="relative z-30 w-[280px] sm:w-[350px] h-[78px] sm:h-[94px] bg-[#0c0f16] border border-white/25 rounded-md shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col items-center justify-center overflow-hidden cursor-pointer"
         >
-          {/* Sharp bright red top border accent */}
           <div className="absolute top-0 inset-x-0 h-[4px] bg-[#E10600] shadow-[0_0_14px_#E10600]" />
-
           <span className="text-[11px] sm:text-xs font-black tracking-[0.45em] text-white/90 uppercase mb-0.5">
             STARTING
           </span>
@@ -577,38 +468,34 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* FRAME 2: HORIZONTAL VISOR BEAM EXPANSION with Energy Arcs */}
+      {/* FRAME 2: HORIZONTAL VISOR BEAM EXPANSION */}
       {/* ========================================================================= */}
       {introStage === 'beam' && (
         <motion.div
           key="frame-2-beam"
           initial={{ width: 350, height: 94 }}
           animate={{ width: '92vw', maxWidth: 1240, height: 68 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-30 bg-black/95 border border-white/30 rounded-md shadow-[0_30px_70px_rgba(0,0,0,0.98)] flex items-center justify-center overflow-visible cursor-pointer"
         >
-          {/* Glowing red accent shooting across full width */}
           <motion.div
             initial={{ scaleX: 0.2 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
             className="absolute top-0 inset-x-0 h-[4px] bg-[#E10600] shadow-[0_0_24px_#E10600]"
           />
-
-          {/* Glowing energetic arcs / pips over the line (as seen in storyboard Frame 2) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.15 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             className="absolute -top-3.5 left-[34%] w-4 h-4 border-t-2 border-l-2 border-cyan-400 rounded-full rotate-45 shadow-[0_0_12px_#00ffff]"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.5, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.15 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             className="absolute -top-3.5 right-[34%] w-4 h-4 border-t-2 border-r-2 border-[#E10600] rounded-full -rotate-45 shadow-[0_0_12px_#E10600]"
           />
-
           <div className="flex items-center gap-6 sm:gap-14">
             <span className="text-xs sm:text-sm font-black tracking-[0.45em] text-white/80 uppercase">
               STARTING
@@ -621,148 +508,68 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* FRAME 3: VERTICAL EXPANSION, RED 1st/2nd POP & DRIVERS RISING */}
-      {/* ========================================================================= */}
-      {introStage === 'reveal' && (
-        <motion.div
-          key="frame-3-reveal"
-          initial={{ height: 68, opacity: 0.9 }}
-          animate={{ height: '82vh', maxHeight: 760, opacity: 1 }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 w-[94vw] max-w-[1300px] bg-gradient-to-b from-[#0c0f16] via-[#080a0f] to-[#040508] border-2 border-white/25 rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.98)] flex flex-col justify-between overflow-hidden cursor-pointer"
-        >
-          {/* Top red accent line */}
-          <div className="absolute top-0 inset-x-0 h-[4px] bg-[#E10600] shadow-[0_0_20px_#E10600] z-30" />
-
-          {/* Central Horizontal Band (Frame 3 visor line) with red 1st & 2nd numbers */}
-          <div className="absolute top-1/2 -translate-y-1/2 inset-x-0 h-28 bg-black/90 border-y border-white/20 flex items-center justify-between px-8 sm:px-20 z-20">
-            <motion.div
-              initial={{ x: -80, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              className="flex items-baseline"
-            >
-              <span className="text-6xl sm:text-8xl font-black italic text-[#E10600] drop-shadow-[0_0_30px_rgba(225,6,0,0.95)] font-['Chakra_Petch'] leading-none">
-                {leftOrdinal.num}
-              </span>
-              <span className="text-3xl sm:text-4xl font-black italic text-[#E10600] drop-shadow-[0_0_20px_rgba(225,6,0,0.95)] font-['Chakra_Petch'] -ml-1">
-                {leftOrdinal.suffix}
-              </span>
-            </motion.div>
-
-            {rightOrdinal && (
-              <motion.div
-                initial={{ x: 80, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="flex items-baseline"
-              >
-                <span className="text-6xl sm:text-8xl font-black italic text-[#E10600] drop-shadow-[0_0_30px_rgba(225,6,0,0.95)] font-['Chakra_Petch'] leading-none">
-                  {rightOrdinal.num}
-                </span>
-                <span className="text-3xl sm:text-4xl font-black italic text-[#E10600] drop-shadow-[0_0_20px_rgba(225,6,0,0.95)] font-['Chakra_Petch'] -ml-1">
-                  {rightOrdinal.suffix}
-                </span>
-              </motion.div>
-            )}
-          </div>
-
-          {/* Rising driver silhouettes / busts */}
-          <div className="relative w-full h-full flex items-end justify-between px-6 sm:px-16 pointer-events-none">
-            <motion.div
-              initial={{ y: 160, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="w-[45%] max-w-[560px] h-[82%] flex items-end justify-center overflow-hidden"
-            >
-              <img
-                src={leftPilot.avatarUrl}
-                alt={leftPilot.nickname}
-                className="w-full h-full object-contain object-bottom filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.95)]"
-              />
-            </motion.div>
-
-            {rightPilot && (
-              <motion.div
-                initial={{ y: 160, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="w-[45%] max-w-[560px] h-[82%] flex items-end justify-center overflow-hidden"
-              >
-                <img
-                  src={rightPilot.avatarUrl}
-                  alt={rightPilot.nickname}
-                  className="w-full h-full object-contain object-bottom filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.95)]"
-                />
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
-      )}
-
-      {/* ========================================================================= */}
       {/* FRAME 4: FULL TELEVISION BROADCAST STARTING GRID FRAME */}
-      {/* Metallic Chassis Bezel, Red Position Numbers, Authentic Central Slot SVG, Telemetry */}
+      {/* Opens smoothly from beam without awkward intermediate black bars */}
       {/* ========================================================================= */}
       {introStage === 'broadcast' && (
         <motion.div
           key="frame-4-broadcast"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="relative z-20 w-full max-w-[1340px] h-[96%] max-h-[740px] aspect-[16/9] bg-gradient-to-b from-[#0e121a]/95 via-[#090b10]/95 to-[#040508]/98 border-2 border-white/30 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.98)] overflow-hidden flex flex-col justify-between backdrop-blur-md mx-auto"
+          initial={{ scaleY: 0.1, opacity: 0 }}
+          animate={{ scaleY: 1, opacity: 1 }}
+          transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-20 w-[96%] max-w-[1360px] h-[95%] max-h-[800px] bg-gradient-to-b from-[#0e121a]/95 via-[#090b10]/95 to-[#040508]/98 border-2 border-white/30 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.98)] overflow-hidden flex flex-col justify-between backdrop-blur-md mx-auto"
         >
-          {/* Sharp F1 Red Top Accent Line running across the bezel */}
-          <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-30 shadow-[0_0_14px_#E10600]" />
+          {/* Sharp F1 Red Top Accent Line */}
+          <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
 
-          {/* Subtle Chassis Texture & Team Glows inside bezel */}
+          {/* Subtle Ambient Team Glows inside chassis */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-20"
+            className="absolute inset-0 pointer-events-none opacity-20 z-0"
             style={{
-              background: `radial-gradient(circle at 20% 50%, ${leftPilot.team.primaryColor}55 0%, transparent 60%), radial-gradient(circle at 80% 50%, ${
+              background: `radial-gradient(circle at 18% 50%, ${leftPilot.team.primaryColor}55 0%, transparent 60%), radial-gradient(circle at 82% 50%, ${
                 rightPilot ? rightPilot.team.primaryColor : '#ffffff'
               }55 0%, transparent 60%)`
             }}
           />
 
           {/* ------------------------------------------------------------- */}
-          {/* TOP BAR INSIDE BEZEL: F1 Formula 1 Badge, STARTING GRID, Controls */}
+          {/* TOP BAR: F1 Badge (Left), STARTING GRID (Center), Controls (Right) */}
           {/* ------------------------------------------------------------- */}
-          <header className="relative z-30 w-full px-5 sm:px-8 pt-4 pb-2 flex items-center justify-between border-b border-white/10">
+          <header className="relative z-40 w-full h-16 px-6 sm:px-10 flex items-center justify-between border-b border-white/10 flex-shrink-0">
             {/* Top-Left: Rounded double-outline F1 Badge */}
-            <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg border-2 border-white/35 bg-black/60 shadow-lg backdrop-blur-sm">
-              <div className="flex flex-col">
-                <span className="text-[11px] font-black tracking-widest text-white uppercase font-['Titillium_Web'] leading-none">
+            <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg border-2 border-white/35 bg-black/70 shadow-lg backdrop-blur-sm max-w-[240px] sm:max-w-[340px] md:max-w-[420px]">
+              <div className="flex flex-col min-w-0">
+                <span className="text-[10px] sm:text-[11px] font-black tracking-widest text-[#E10600] uppercase font-['Titillium_Web'] leading-none">
                   FORMULA 1
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold tracking-wider text-neutral-300 uppercase leading-tight mt-0.5">
+                <span className="text-xs sm:text-sm font-bold tracking-wide text-neutral-200 uppercase truncate leading-tight mt-0.5">
                   {eventTitle} {trackName ? `• ${trackName}` : ''}
                 </span>
               </div>
             </div>
 
-            {/* Top-Center: Official STARTING GRID broadcast title */}
-            <h1 className="text-sm sm:text-base md:text-xl font-black tracking-[0.25em] text-white uppercase font-['Titillium_Web'] drop-shadow-md text-center">
-              STARTING GRID
-            </h1>
+            {/* Top-Center: Official STARTING GRID broadcast title (Guaranteed centered) */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none select-none text-center">
+              <h1 className="text-sm sm:text-base md:text-xl font-black tracking-[0.3em] text-white uppercase font-['Titillium_Web'] drop-shadow-md">
+                STARTING GRID
+              </h1>
+            </div>
 
-            {/* Top-Right: Broadcast interactive controls */}
-            <div className="flex items-center gap-1.5">
-              {/* Replay Intro sequence */}
+            {/* Top-Right: Broadcast interactive controls & F1 TV logo */}
+            <div className="flex items-center gap-2 flex-shrink-0 z-50">
               <button
                 onClick={replayIntro}
                 title="Replay Intro Sequence (R)"
-                className="flex items-center gap-1 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer"
+                className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
                 <span className="hidden md:inline">INTRO</span>
               </button>
 
-              {/* Autoplay toggle */}
               <button
                 onClick={togglePlay}
                 title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-                className="flex items-center gap-1 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer"
               >
                 {isPlaying ? (
                   <>
@@ -777,7 +584,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 )}
               </button>
 
-              {/* Prev / Next Pair Buttons */}
               <div className="flex items-center bg-white/10 rounded border border-white/20 overflow-hidden">
                 <button
                   onClick={handlePrev}
@@ -796,7 +602,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 </button>
               </div>
 
-              {/* Fullscreen Toggle */}
               <button
                 onClick={toggleFullscreen}
                 title="Fullscreen (F)"
@@ -805,7 +610,16 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
 
-              {/* Close button if provided */}
+              {/* F1 TV Watermark Badge */}
+              <div className="hidden sm:flex items-center gap-1 opacity-80 select-none ml-1">
+                <span className="font-black italic text-sm tracking-tighter text-white font-['Titillium_Web']">
+                  F1
+                </span>
+                <span className="font-bold text-[10px] tracking-wider text-white/80 bg-white/15 px-1 py-0.5 rounded border border-white/20">
+                  TV
+                </span>
+              </div>
+
               {onClose && (
                 <button
                   onClick={onClose}
@@ -819,7 +633,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           </header>
 
           {/* ------------------------------------------------------------- */}
-          {/* MAIN STAGE: LEFT PILOT | CENTRAL F1 SLOT SVG | RIGHT PILOT */}
+          {/* MAIN STAGE: LEFT DRIVER | CENTRAL SHIFTING GRID TRACK | RIGHT DRIVER */}
           {/* ------------------------------------------------------------- */}
           <div className="relative flex-1 w-full flex overflow-hidden min-h-0">
             <AnimatePresence mode="wait">
@@ -828,31 +642,31 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.28 }}
+                transition={{ duration: 0.22 }}
                 className="absolute inset-0 w-full h-full flex"
               >
-                {/* Horizontal Broadcast Shutter / Laser flash on transition */}
+                {/* Clean Horizontal Broadcast Shutter flash on row change */}
                 <motion.div
-                  initial={{ scaleX: 0, opacity: 0.9 }}
+                  initial={{ scaleX: 0, opacity: 0.8 }}
                   animate={{ scaleX: 1, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="absolute top-1/2 -translate-y-1/2 inset-x-0 h-[2px] bg-[#E10600] z-40 pointer-events-none shadow-[0_0_20px_#E10600]"
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  className="absolute top-1/2 -translate-y-1/2 inset-x-0 h-[2px] bg-[#E10600] z-40 pointer-events-none shadow-[0_0_16px_#E10600]"
                 />
 
                 {/* ========================================================= */}
                 {/* LEFT DRIVER CARD (Odd Position: 1st, 3rd, 5th...) */}
                 {/* ========================================================= */}
-                <div className="relative w-1/2 h-full flex flex-col justify-between overflow-hidden px-8 sm:px-12 py-5">
+                <div className="relative w-1/2 h-full flex flex-col justify-between overflow-hidden pl-10 sm:pl-14 lg:pl-16 pr-4 pt-5 pb-6">
                   {/* Top-Left: Driver Identity Block (First Name, Surname, Flag, Red Position) */}
-                  <div className="relative z-25 flex flex-col">
+                  <div className="relative z-30 flex flex-col">
                     <div className="flex items-center gap-3">
                       {leftFirst && (
-                        <span className="text-lg sm:text-2xl font-bold text-white tracking-wide">
+                        <span className="text-base sm:text-xl lg:text-2xl font-bold text-neutral-200 tracking-wide">
                           {leftFirst}
                         </span>
                       )}
                       {leftPilot.countryFlagUrl && (
-                        <div className="rounded overflow-hidden shadow-md border border-white/20">
+                        <div className="rounded overflow-hidden shadow-md border border-white/25">
                           <FlagIcon
                             countryCode={leftPilot.countryFlagUrl}
                             style={{ width: '28px', height: '18px' }}
@@ -861,30 +675,30 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                       )}
                     </div>
 
-                    <span className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none drop-shadow-xl font-['Titillium_Web'] mt-0.5">
+                    <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none drop-shadow-xl font-['Titillium_Web'] mt-1">
                       {leftLast}
                     </span>
 
                     {/* Authentic Broadcast Red Position Number (e.g. 1st) */}
-                    <div className="mt-2 flex items-baseline">
-                      <span className="text-6xl sm:text-8xl lg:text-9xl font-black italic text-[#E10600] drop-shadow-[0_0_24px_rgba(225,6,0,0.9)] font-['Chakra_Petch'] leading-none">
+                    <div className="mt-2 flex items-baseline select-none">
+                      <span className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black italic text-[#E10600] drop-shadow-[0_0_24px_rgba(225,6,0,0.85)] font-['Chakra_Petch'] leading-none">
                         {leftOrdinal.num}
                       </span>
-                      <span className="text-2xl sm:text-4xl lg:text-5xl font-black italic text-[#E10600] drop-shadow-[0_0_20px_rgba(225,6,0,0.9)] font-['Chakra_Petch'] -ml-1">
+                      <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic text-[#E10600] drop-shadow-[0_0_16px_rgba(225,6,0,0.85)] font-['Chakra_Petch'] -ml-1">
                         {leftOrdinal.suffix}
                       </span>
                     </div>
                   </div>
 
                   {/* Standardized Heroic Portrait Box (Anchored to bottom, zero scale hacks) */}
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-center z-15 pointer-events-none">
-                    <div className="relative w-[85%] max-w-[500px] h-[72%] max-h-[580px] flex items-end justify-center overflow-hidden">
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-center z-10 pointer-events-none">
+                    <div className="relative w-[85%] max-w-[460px] md:max-w-[500px] h-[72%] max-h-[540px] flex items-end justify-center overflow-hidden">
                       {!imgErrors[leftPilot.id] && leftPilot.avatarUrl ? (
                         <img
                           src={leftPilot.avatarUrl}
                           alt={leftPilot.nickname}
                           onError={() => handleImageError(leftPilot.id)}
-                          className="w-full h-full object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.98)]"
+                          className="w-full h-full object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)]"
                         />
                       ) : (
                         <DriverAvatarFallback pilot={leftPilot} isRight={false} />
@@ -892,11 +706,11 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     </div>
                   </div>
 
-                  {/* Bottom-Left: Team Logo, Team Constructor Name & Big Monospace Lap Time */}
-                  <div className="relative z-30 flex flex-col gap-1 mt-auto">
-                    <div className="flex items-center gap-3">
+                  {/* Bottom-Left: Team Logo, Constructor Name & Big Monospace Lap Time */}
+                  <div className="relative z-30 flex flex-col gap-1.5 mt-auto select-none">
+                    <div className="flex items-center gap-2.5">
                       <TeamLogo teamId={leftPilot.team.id} size="md" />
-                      <span className="text-sm sm:text-base font-bold text-white tracking-wider uppercase drop-shadow">
+                      <span className="text-xs sm:text-sm md:text-base font-bold text-neutral-200 tracking-wider uppercase drop-shadow">
                         {leftPilot.team.name}
                       </span>
                     </div>
@@ -909,19 +723,19 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 {/* ========================================================= */}
                 {/* RIGHT DRIVER CARD (Even Position: 2nd, 4th, 6th...) */}
                 {/* ========================================================= */}
-                <div className="relative w-1/2 h-full flex flex-col justify-between overflow-hidden px-8 sm:px-12 py-5 items-end text-right">
+                <div className="relative w-1/2 h-full flex flex-col justify-between overflow-hidden pr-10 sm:pr-14 lg:pr-16 pl-4 pt-5 pb-6 items-end text-right">
                   {rightPilot ? (
                     <>
                       {/* Top-Right: Driver Identity Block */}
-                      <div className="relative z-25 flex flex-col items-end">
+                      <div className="relative z-30 flex flex-col items-end">
                         <div className="flex items-center gap-3 flex-row-reverse">
                           {rightFirst && (
-                            <span className="text-lg sm:text-2xl font-bold text-white tracking-wide">
+                            <span className="text-base sm:text-xl lg:text-2xl font-bold text-neutral-200 tracking-wide">
                               {rightFirst}
                             </span>
                           )}
                           {rightPilot.countryFlagUrl && (
-                            <div className="rounded overflow-hidden shadow-md border border-white/20">
+                            <div className="rounded overflow-hidden shadow-md border border-white/25">
                               <FlagIcon
                                 countryCode={rightPilot.countryFlagUrl}
                                 style={{ width: '28px', height: '18px' }}
@@ -930,17 +744,17 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                           )}
                         </div>
 
-                        <span className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none drop-shadow-xl font-['Titillium_Web'] mt-0.5">
+                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none drop-shadow-xl font-['Titillium_Web'] mt-1">
                           {rightLast}
                         </span>
 
                         {/* Authentic Broadcast Red Position Number (e.g. 2nd) */}
                         {rightOrdinal && (
-                          <div className="mt-2 flex items-baseline flex-row-reverse">
-                            <span className="text-2xl sm:text-4xl lg:text-5xl font-black italic text-[#E10600] drop-shadow-[0_0_20px_rgba(225,6,0,0.9)] font-['Chakra_Petch'] -mr-1">
+                          <div className="mt-2 flex items-baseline flex-row-reverse select-none">
+                            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic text-[#E10600] drop-shadow-[0_0_16px_rgba(225,6,0,0.85)] font-['Chakra_Petch'] -mr-1">
                               {rightOrdinal.suffix}
                             </span>
-                            <span className="text-6xl sm:text-8xl lg:text-9xl font-black italic text-[#E10600] drop-shadow-[0_0_24px_rgba(225,6,0,0.9)] font-['Chakra_Petch'] leading-none">
+                            <span className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black italic text-[#E10600] drop-shadow-[0_0_24px_rgba(225,6,0,0.85)] font-['Chakra_Petch'] leading-none">
                               {rightOrdinal.num}
                             </span>
                           </div>
@@ -948,14 +762,14 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                       </div>
 
                       {/* Standardized Heroic Portrait Box */}
-                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-center z-15 pointer-events-none">
-                        <div className="relative w-[85%] max-w-[500px] h-[72%] max-h-[580px] flex items-end justify-center overflow-hidden">
+                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-center z-10 pointer-events-none">
+                        <div className="relative w-[85%] max-w-[460px] md:max-w-[500px] h-[72%] max-h-[540px] flex items-end justify-center overflow-hidden">
                           {!imgErrors[rightPilot.id] && rightPilot.avatarUrl ? (
                             <img
                               src={rightPilot.avatarUrl}
                               alt={rightPilot.nickname}
                               onError={() => handleImageError(rightPilot.id)}
-                              className="w-full h-full object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.98)]"
+                              className="w-full h-full object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)]"
                             />
                           ) : (
                             <DriverAvatarFallback pilot={rightPilot} isRight={true} />
@@ -964,10 +778,10 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                       </div>
 
                       {/* Bottom-Right: Team Logo, Constructor Name & Delta Time */}
-                      <div className="relative z-30 flex flex-col items-end gap-1 mt-auto">
-                        <div className="flex items-center gap-3 flex-row-reverse">
+                      <div className="relative z-30 flex flex-col items-end gap-1.5 mt-auto select-none">
+                        <div className="flex items-center gap-2.5 flex-row-reverse">
                           <TeamLogo teamId={rightPilot.team.id} size="md" />
-                          <span className="text-sm sm:text-base font-bold text-white tracking-wider uppercase drop-shadow">
+                          <span className="text-xs sm:text-sm md:text-base font-bold text-neutral-200 tracking-wider uppercase drop-shadow">
                             {rightPilot.team.name}
                           </span>
                         </div>
@@ -986,14 +800,14 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </AnimatePresence>
 
             {/* ============================================================= */}
-            {/* CENTER: AUTHENTIC F1 STARTING GRID TRACK SLOT SVG DIAGRAM */}
-            {/* Staggered Pole Slot [ VER ] & 2nd Slot [ HAM ] with asphalt gridlines */}
+            {/* CENTER: DYNAMIC SHIFTING F1 STARTING GRID TRACK */}
+            {/* Smoothly moves and shifts down the grid to spotlight active row */}
             {/* ============================================================= */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-35 flex flex-col items-center pointer-events-none">
-              <StartingGridSlotDiagram
-                leftPilot={leftPilot}
-                rightPilot={rightPilot}
-                nextPair={nextPair}
+            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-35 flex flex-col items-center pointer-events-auto">
+              <StartingGridTrack
+                pairs={pairs}
+                activePairIndex={activePairIndex}
+                onSelectPair={(idx) => setActivePairIndex(idx)}
               />
             </div>
           </div>
