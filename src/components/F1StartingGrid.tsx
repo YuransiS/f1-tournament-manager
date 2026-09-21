@@ -28,6 +28,8 @@ export interface F1StartingGridProps {
   pilots: GridPilot[];
   eventTitle?: string;
   trackName?: string;
+  countryCode?: string; // Host country code (e.g. 'jp', 'bh', 'it', 'us', 'sa', 'sg')
+  flagGifUrl?: string; // Optional custom flag GIF URL
   cycleIntervalMs?: number;
   autoPlay?: boolean;
   onClose?: () => void;
@@ -118,112 +120,170 @@ const DriverAvatarFallback: React.FC<{ pilot: GridPilot; isRight?: boolean }> = 
 };
 
 // =========================================================================
-// CENTRAL DYNAMIC SHIFTING F1 STARTING GRID TRACK
-// Shifts vertically to follow the active row down the starting grid list
+// CENTRAL STARTING GRID SLOT DISPLAY (Authentic F1 TV Wireframe Style)
+// Transparent minimalist layout showing active row brackets and next row preview
 // =========================================================================
-interface StartingGridTrackProps {
+interface StartingGridSlotDisplayProps {
   pairs: [GridPilot, GridPilot | null][];
   activePairIndex: number;
   onSelectPair: (idx: number) => void;
 }
 
-const StartingGridTrack: React.FC<StartingGridTrackProps> = ({
+const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> = ({
   pairs,
   activePairIndex,
   onSelectPair
 }) => {
-  const TRACK_HEIGHT = 320;
-  const ROW_HEIGHT = 60;
-  const centerY = TRACK_HEIGHT / 2 - ROW_HEIGHT / 2; // 130px
+  const currentPair = pairs[activePairIndex] || [null, null];
+  const nextPair = pairs[activePairIndex + 1] || null;
+  const prevPair = activePairIndex > 0 ? pairs[activePairIndex - 1] : null;
+
+  const [pA, pB] = currentPair;
+  const leftCode = pA?.nickname ? pA.nickname.slice(0, 3).toUpperCase() : (pA?.team.shortCode || 'DRV');
+  const rightCode = pB
+    ? (pB.nickname ? pB.nickname.slice(0, 3).toUpperCase() : (pB.team.shortCode || 'DRV'))
+    : '—';
+
+  const nextLeftCode = nextPair && nextPair[0]
+    ? (nextPair[0].nickname ? nextPair[0].nickname.slice(0, 3).toUpperCase() : '')
+    : '';
+  const nextRightCode = nextPair && nextPair[1]
+    ? (nextPair[1].nickname ? nextPair[1].nickname.slice(0, 3).toUpperCase() : '')
+    : '';
+
+  const prevLeftCode = prevPair && prevPair[0]
+    ? (prevPair[0].nickname ? prevPair[0].nickname.slice(0, 3).toUpperCase() : '')
+    : '';
+  const prevRightCode = prevPair && prevPair[1]
+    ? (prevPair[1].nickname ? prevPair[1].nickname.slice(0, 3).toUpperCase() : '')
+    : '';
 
   return (
-    <div className="relative w-[210px] sm:w-[240px] h-[320px] overflow-hidden select-none">
-      {/* Top & Bottom Vignette masks for smooth track depth */}
-      <div className="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#0a0d14] via-[#0a0d14]/80 to-transparent z-20 pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#040508] via-[#040508]/80 to-transparent z-20 pointer-events-none" />
+    <div className="relative flex flex-col items-center select-none pointer-events-auto">
+      {/* Official Broadcast Header: 2026 Grid / STARTING GRID */}
+      <div className="flex flex-col items-center mb-2.5">
+        <span className="text-xs sm:text-sm font-black italic tracking-widest text-neutral-300 font-['Titillium_Web'] uppercase drop-shadow">
+          2026 Grid
+        </span>
+        <h2 className="text-sm sm:text-lg font-black tracking-[0.25em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+          STARTING GRID
+        </h2>
+      </div>
 
-      {/* Center asphalt dashed track line */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] border-l-2 border-dashed border-white/20 z-0 pointer-events-none" />
-
-      {/* Dynamic Sliding Grid Slots Container */}
-      <motion.div
-        animate={{ y: centerY - activePairIndex * ROW_HEIGHT }}
-        transition={{ type: "spring", stiffness: 280, damping: 30 }}
-        className="absolute top-0 inset-x-0 w-full flex flex-col items-center z-10"
-      >
-        {pairs.map((pair, pIdx) => {
-          const [pA, pB] = pair;
-          const isActive = pIdx === activePairIndex;
-          const leftCode = pA.nickname ? pA.nickname.slice(0, 3).toUpperCase() : (pA.team.shortCode || 'DRV');
-          const rightCode = pB
-            ? (pB.nickname ? pB.nickname.slice(0, 3).toUpperCase() : (pB.team.shortCode || 'DRV'))
-            : '—';
-
-          return (
-            <div
-              key={`track-row-${pIdx}`}
-              onClick={() => onSelectPair(pIdx)}
-              style={{ height: `${ROW_HEIGHT}px` }}
-              className={`relative w-full flex items-center justify-between px-2 transition-all duration-300 cursor-pointer ${
-                isActive
-                  ? 'opacity-100 scale-105 z-30'
-                  : 'opacity-35 hover:opacity-75 scale-95 z-10'
-              }`}
-            >
-              {/* Left Slot (Odd, Pole-stepped forward) */}
-              <div
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border transition-all ${
-                  isActive
-                    ? 'bg-[#060910] border-white shadow-[0_0_20px_rgba(255,255,255,0.85)] ring-1 ring-white/60'
-                    : 'bg-black/85 border-white/20'
-                }`}
-                style={{
-                  borderLeftColor: pA.team.primaryColor,
-                  borderLeftWidth: '4px'
-                }}
-              >
-                <span className="text-xs font-black text-[#E10600] font-mono leading-none">
-                  {pA.position}
-                </span>
-                <span className="text-xs sm:text-sm font-black text-white tracking-wider font-['Titillium_Web'] leading-none">
-                  {leftCode}
-                </span>
-              </div>
-
-              {/* Connecting slot guide line across asphalt */}
-              <div
-                className={`h-[1px] flex-1 mx-2 transition-colors ${
-                  isActive ? 'bg-white/50' : 'bg-white/15'
-                }`}
-              />
-
-              {/* Right Slot (Even, stepped backward) */}
-              {pB ? (
-                <div
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border transition-all mt-2.5 ${
-                    isActive
-                      ? 'bg-[#060910] border-white shadow-[0_0_20px_rgba(255,255,255,0.85)] ring-1 ring-white/60'
-                      : 'bg-black/85 border-white/20'
-                  }`}
-                  style={{
-                    borderRightColor: pB.team.primaryColor,
-                    borderRightWidth: '4px'
-                  }}
-                >
-                  <span className="text-xs sm:text-sm font-black text-white tracking-wider font-['Titillium_Web'] leading-none">
-                    {rightCode}
-                  </span>
-                  <span className="text-xs font-black text-[#E10600] font-mono leading-none">
-                    {pB.position}
-                  </span>
-                </div>
-              ) : (
-                <div className="w-14 text-center text-xs text-neutral-600 font-bold">—</div>
-              )}
+      {/* Grid Graphic Container - Completely Transparent Background */}
+      <div className="relative w-[190px] sm:w-[220px] h-[140px] sm:h-[150px] flex items-center justify-center">
+        {/* Previous Row Silhouette (Fading up if activePairIndex > 0) */}
+        {prevPair && (
+          <div
+            onClick={() => onSelectPair(activePairIndex - 1)}
+            className="absolute -top-2 w-full flex items-center justify-between px-2 opacity-25 hover:opacity-60 transition-opacity cursor-pointer scale-90"
+            title="Previous Row"
+          >
+            <div className="w-[58px] h-[26px] rounded-[3px] border border-dashed border-white/40 flex items-center justify-center">
+              <span className="text-[10px] font-bold text-white/60 font-mono">{prevLeftCode}</span>
             </div>
-          );
-        })}
-      </motion.div>
+            <div className="w-[58px] h-[26px] rounded-[3px] border border-dashed border-white/40 flex items-center justify-center mt-3">
+              <span className="text-[10px] font-bold text-white/60 font-mono">{prevRightCode}</span>
+            </div>
+          </div>
+        )}
+
+        {/* ACTIVE ROW SLOTS (Exact TV broadcast wireframe look) */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`slot-row-${activePairIndex}`}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="relative w-full flex items-center justify-between px-2 z-20"
+          >
+            {/* Left Slot (Odd position / Pole stepped forward) */}
+            <div
+              className="w-[66px] sm:w-[74px] h-[32px] sm:h-[36px] rounded-[4px] border-2 border-white bg-black/50 backdrop-blur-sm flex items-center justify-center shadow-[0_0_16px_rgba(255,255,255,0.45)] transition-all"
+              style={{
+                borderLeftColor: pA?.team.primaryColor || '#E10600',
+                borderLeftWidth: '4px'
+              }}
+            >
+              <span className="text-xs sm:text-sm font-black text-white tracking-widest font-['Titillium_Web'] drop-shadow">
+                {leftCode}
+              </span>
+            </div>
+
+            {/* F1 Asphalt Track Slot Stagger Guide Line */}
+            <div className="flex-1 mx-2 relative h-10 flex items-center justify-center pointer-events-none">
+              <svg className="w-full h-full" viewBox="0 0 60 40" fill="none">
+                <path
+                  d="M0,14 L30,14 L30,26 L60,26"
+                  stroke="rgba(255,255,255,0.6)"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 2"
+                />
+                <circle cx="30" cy="20" r="2.5" fill="#E10600" />
+              </svg>
+            </div>
+
+            {/* Right Slot (Even position stepped back) */}
+            <div
+              className="w-[66px] sm:w-[74px] h-[32px] sm:h-[36px] rounded-[4px] border-2 border-white bg-black/50 backdrop-blur-sm flex items-center justify-center shadow-[0_0_16px_rgba(255,255,255,0.45)] mt-4 sm:mt-5 transition-all"
+              style={{
+                borderRightColor: pB?.team.primaryColor || '#ffffff',
+                borderRightWidth: '4px'
+              }}
+            >
+              <span className="text-xs sm:text-sm font-black text-white tracking-widest font-['Titillium_Web'] drop-shadow">
+                {rightCode}
+              </span>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* NEXT ROW PREVIEW (Slots behind active row matching TV reference) */}
+        {nextPair ? (
+          <div
+            onClick={() => onSelectPair(activePairIndex + 1)}
+            className="absolute bottom-0 w-full flex items-center justify-between px-2 opacity-40 hover:opacity-75 transition-opacity cursor-pointer"
+            title="Next Row"
+          >
+            {/* Slot below Left */}
+            <div className="w-[66px] sm:w-[74px] h-[28px] sm:h-[30px] rounded-[4px] border border-white/40 flex items-center justify-center bg-black/30">
+              <span className="text-[11px] font-bold text-white/60 font-mono tracking-wider">
+                {nextLeftCode || '—'}
+              </span>
+            </div>
+
+            <div className="flex-1 mx-2 h-[1px] bg-white/10" />
+
+            {/* Slot below Right (Staggered) */}
+            <div className="w-[66px] sm:w-[74px] h-[28px] sm:h-[30px] rounded-[4px] border border-white/40 flex items-center justify-center bg-black/30 mt-4 sm:mt-5">
+              <span className="text-[11px] font-bold text-white/60 font-mono tracking-wider">
+                {nextRightCode || '—'}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="absolute bottom-1 text-[10px] font-bold uppercase tracking-widest text-neutral-500 font-mono">
+            END OF GRID
+          </div>
+        )}
+      </div>
+
+      {/* Quick Row Navigation Dots */}
+      <div className="flex items-center gap-1.5 mt-2">
+        {pairs.map((_, i) => (
+          <button
+            key={`grid-nav-dot-${i}`}
+            onClick={() => onSelectPair(i)}
+            title={`Row ${i + 1} (${i * 2 + 1} - ${i * 2 + 2})`}
+            className={`transition-all rounded-full cursor-pointer ${
+              i === activePairIndex
+                ? 'w-4 h-1.5 bg-[#E10600] shadow-[0_0_8px_#E10600]'
+                : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/60'
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
@@ -235,11 +295,16 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   pilots = [],
   eventTitle = "GULF AIR BAHRAIN GRAND PRIX 2021",
   trackName = "BAHRAIN INTERNATIONAL CIRCUIT",
+  countryCode = "jp",
+  flagGifUrl,
   cycleIntervalMs = 2800,
   autoPlay = true,
   onClose,
   className = ""
 }) => {
+  const activeCountryCode = (countryCode || 'jp').toLowerCase();
+  const flagGifSrc = flagGifUrl || `/flags/animated/${activeCountryCode}.gif`;
+
   const sortedPilots = React.useMemo(() => {
     return [...pilots].sort((a, b) => a.position - b.position);
   }, [pilots]);
@@ -392,45 +457,26 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       onClick={introStage !== 'broadcast' ? skipIntro : undefined}
     >
       {/* ========================================================================= */}
-      {/* WAVED FLAG CLOTH BACKGROUND & WATERMARKS (Non-interfering z-index) */}
+      {/* WAVING FLAG CLOTH BACKGROUND & WATERMARKS (Live Looping Host Flag) */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1c0812] via-[#090b12] to-[#14060d] overflow-hidden pointer-events-none z-0">
-        {/* Dynamic Bahrain / Country Cloth Waves */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-35 mix-blend-screen"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          viewBox="0 0 1920 1080"
-        >
-          <defs>
-            <linearGradient id="flagWave" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#CE1126" stopOpacity="0.45" />
-              <stop offset="45%" stopColor="#400b14" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#0B0D12" stopOpacity="0.85" />
-            </linearGradient>
-            <linearGradient id="chevronGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="#CE1126" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M 0,0 C 450,160 850,-80 1350,120 C 1650,220 1920,110 1920,110 L 1920,1080 L 0,1080 Z"
-            fill="url(#flagWave)"
-          />
-          <path
-            d="M 0,260 C 500,420 950,210 1450,380 C 1780,480 1920,380 1920,380 L 1920,1080 L 0,1080 Z"
-            fill="#CE1126"
-            opacity="0.1"
-          />
-          <polygon
-            points="0,0 220,0 320,108 220,216 320,324 220,432 320,540 220,648 320,756 220,864 320,972 220,1080 0,1080"
-            fill="url(#chevronGrad)"
-          />
-        </svg>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#07090E]">
+        {/* Dynamic Waving Country Flag corresponding to host GP */}
+        <img
+          src={flagGifSrc}
+          alt={`${activeCountryCode.toUpperCase()} Flag Waving`}
+          className="w-full h-full object-cover opacity-60 filter blur-[0.3px] saturate-125 scale-105"
+          onError={(e) => {
+            (e.target as HTMLElement).style.display = 'none';
+          }}
+        />
+
+        {/* Cinematic dark broadcast gradient overlay & lighting */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/45 to-[#040508]/65 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/75 via-transparent to-[#040508]/75" />
 
         {/* Top-center Faint Broadcast Watermark: 2026 Grid */}
-        <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 select-none opacity-40 pointer-events-none">
-          <span className="text-3xl sm:text-5xl lg:text-6xl font-black italic tracking-widest text-white/40 font-['Titillium_Web'] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+        <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 select-none opacity-20 pointer-events-none">
+          <span className="text-3xl sm:text-5xl lg:text-6xl font-black italic tracking-widest text-white/30 font-['Titillium_Web'] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             2026 Grid
           </span>
         </div>
@@ -453,17 +499,19 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           key="frame-1-pill"
           initial={{ scale: 0.75, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.95, opacity: 0 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-          className="relative z-30 w-[280px] sm:w-[350px] h-[78px] sm:h-[94px] bg-[#0c0f16] border border-white/25 rounded-md shadow-[0_25px_60px_rgba(0,0,0,0.95)] flex flex-col items-center justify-center overflow-hidden cursor-pointer"
+          exit={{ scale: 1.15, opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-30 flex flex-col items-center select-none cursor-pointer"
         >
-          <div className="absolute top-0 inset-x-0 h-[4px] bg-[#E10600] shadow-[0_0_14px_#E10600]" />
-          <span className="text-[11px] sm:text-xs font-black tracking-[0.45em] text-white/90 uppercase mb-0.5">
-            STARTING
-          </span>
-          <span className="text-3xl sm:text-4xl font-black italic tracking-[0.22em] text-white uppercase font-['Titillium_Web'] leading-none">
-            GRID
-          </span>
+          <div className="relative px-10 sm:px-14 py-5 sm:py-6 rounded-2xl bg-gradient-to-b from-[#161a24]/95 to-[#080a0f]/98 border-2 border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col items-center">
+            <div className="absolute top-0 inset-x-0 h-[4px] bg-[#E10600] shadow-[0_0_16px_#E10600]" />
+            <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] text-neutral-300 uppercase font-['Titillium_Web'] mb-1">
+              STARTING
+            </span>
+            <span className="text-3xl sm:text-5xl font-black italic tracking-[0.15em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
+              GRID
+            </span>
+          </div>
         </motion.div>
       )}
 
@@ -473,37 +521,22 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       {introStage === 'beam' && (
         <motion.div
           key="frame-2-beam"
-          initial={{ width: 350, height: 94 }}
-          animate={{ width: '92vw', maxWidth: 1240, height: 68 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 bg-black/95 border border-white/30 rounded-md shadow-[0_30px_70px_rgba(0,0,0,0.98)] flex items-center justify-center overflow-visible cursor-pointer"
+          initial={{ scaleX: 0.25, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-30 w-[96%] max-w-[1360px] h-20 bg-gradient-to-r from-transparent via-[#0e121a]/95 to-transparent border-y-2 border-white/50 flex items-center justify-center overflow-hidden"
         >
-          <motion.div
-            initial={{ scaleX: 0.2 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="absolute top-0 inset-x-0 h-[4px] bg-[#E10600] shadow-[0_0_24px_#E10600]"
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5, y: 12 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="absolute -top-3.5 left-[34%] w-4 h-4 border-t-2 border-l-2 border-cyan-400 rounded-full rotate-45 shadow-[0_0_12px_#00ffff]"
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5, y: 12 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="absolute -top-3.5 right-[34%] w-4 h-4 border-t-2 border-r-2 border-[#E10600] rounded-full -rotate-45 shadow-[0_0_12px_#E10600]"
-          />
-          <div className="flex items-center gap-6 sm:gap-14">
-            <span className="text-xs sm:text-sm font-black tracking-[0.45em] text-white/80 uppercase">
-              STARTING
-            </span>
-            <span className="text-2xl sm:text-3xl font-black italic tracking-[0.25em] text-white uppercase font-['Titillium_Web']">
-              GRID
-            </span>
-          </div>
+          <div className="absolute top-0 inset-x-0 h-[3px] bg-[#E10600] shadow-[0_0_20px_#E10600]" />
+          <svg className="absolute -top-3 left-1/4 w-12 h-6" viewBox="0 0 50 25" fill="none">
+            <path d="M5,20 C15,5 35,5 45,20" stroke="#00d2ff" strokeWidth="3" opacity="0.9" />
+          </svg>
+          <svg className="absolute -top-3 right-1/4 w-12 h-6" viewBox="0 0 50 25" fill="none">
+            <path d="M5,20 C15,5 35,5 45,20" stroke="#E10600" strokeWidth="3" opacity="0.9" />
+          </svg>
+          <span className="text-xl sm:text-3xl font-black italic tracking-[0.3em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_0_25px_rgba(255,255,255,0.7)]">
+            STARTING GRID
+          </span>
         </motion.div>
       )}
 
@@ -517,7 +550,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           initial={{ scaleY: 0.1, opacity: 0 }}
           animate={{ scaleY: 1, opacity: 1 }}
           transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-20 w-[96%] max-w-[1360px] h-[95%] max-h-[800px] bg-gradient-to-b from-[#0e121a]/95 via-[#090b10]/95 to-[#040508]/98 border-2 border-white/30 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.98)] overflow-hidden flex flex-col justify-between backdrop-blur-md mx-auto"
+          className="relative z-20 w-[96%] max-w-[1360px] h-[95%] max-h-[800px] bg-gradient-to-b from-[#0e121a]/84 via-[#090b10]/86 to-[#040508]/90 border-2 border-white/30 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.98)] overflow-hidden flex flex-col justify-between backdrop-blur-md mx-auto"
         >
           {/* Sharp F1 Red Top Accent Line */}
           <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
@@ -546,13 +579,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                   {eventTitle} {trackName ? `• ${trackName}` : ''}
                 </span>
               </div>
-            </div>
-
-            {/* Top-Center: Official STARTING GRID broadcast title (Guaranteed centered) */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none select-none text-center">
-              <h1 className="text-sm sm:text-base md:text-xl font-black tracking-[0.3em] text-white uppercase font-['Titillium_Web'] drop-shadow-md">
-                STARTING GRID
-              </h1>
             </div>
 
             {/* Top-Right: Broadcast interactive controls & F1 TV logo */}
@@ -800,11 +826,11 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </AnimatePresence>
 
             {/* ============================================================= */}
-            {/* CENTER: DYNAMIC SHIFTING F1 STARTING GRID TRACK */}
-            {/* Smoothly moves and shifts down the grid to spotlight active row */}
+            {/* CENTER: MINIMALIST TV BROADCAST STARTING GRID WIREFRAME SLOTS */}
+            {/* Transparent layout matching official Bahrain 2021 F1 broadcast */}
             {/* ============================================================= */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-35 flex flex-col items-center pointer-events-auto">
-              <StartingGridTrack
+            <div className="absolute left-1/2 -translate-x-1/2 top-[34%] -translate-y-1/2 z-35 flex flex-col items-center pointer-events-auto">
+              <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
                 onSelectPair={(idx) => setActivePairIndex(idx)}

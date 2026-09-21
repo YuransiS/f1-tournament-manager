@@ -38,6 +38,29 @@ const DRIVER_NUMBER_MAP: Record<string, number> = {
 };
 
 
+// Mapping of Grand Prix event to ISO 2-letter country code for host country waving flags
+export function getRaceCountryCode(race?: any): string {
+  if (!race) return 'jp';
+  const text = `${race.title || ''} ${race.subtitle || ''} ${race.circuitName || ''}`.toLowerCase();
+  if (text.includes('japan') || text.includes('suzuka')) return 'jp';
+  if (text.includes('bahrain') || text.includes('sakhir')) return 'bh';
+  if (text.includes('saudi') || text.includes('jeddah')) return 'sa';
+  if (text.includes('australia') || text.includes('albert park') || text.includes('melbourne')) return 'au';
+  if (text.includes('china') || text.includes('shanghai')) return 'cn';
+  if (text.includes('miami') || text.includes('united states') || text.includes('usa') || text.includes('austin')) return 'us';
+  if (text.includes('imola') || text.includes('emilia') || text.includes('monza') || text.includes('italy') || text.includes('italian')) return 'it';
+  if (text.includes('monaco') || text.includes('monte carlo')) return 'mc';
+  if (text.includes('canada') || text.includes('montreal') || text.includes('gilles')) return 'ca';
+  if (text.includes('spain') || text.includes('spanish') || text.includes('barcelona') || text.includes('catalunya')) return 'es';
+  if (text.includes('austria') || text.includes('red bull ring') || text.includes('spielberg')) return 'at';
+  if (text.includes('silverstone') || text.includes('british') || text.includes('united kingdom') || text.includes('uk')) return 'gb';
+  if (text.includes('hungary') || text.includes('hungaroring') || text.includes('budapest')) return 'hu';
+  if (text.includes('belgian') || text.includes('belgium') || text.includes('spa')) return 'be';
+  if (text.includes('netherlands') || text.includes('dutch') || text.includes('zandvoort')) return 'nl';
+  if (text.includes('singapore') || text.includes('marina bay')) return 'sg';
+  return 'jp';
+}
+
 export default function StartingGridView({ data }: StartingGridViewProps) {
   const races = useMemo(() => data?.races || [], [data]);
   const drivers = useMemo(() => data?.drivers || [], [data]);
@@ -63,6 +86,8 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
   const selectedRace = useMemo(() => {
     return validRaces.find((r) => r.id === selectedRaceId) || validRaces[0] || races[0];
   }, [validRaces, races, selectedRaceId]);
+
+  const hostCountryCode = useMemo(() => getRaceCountryCode(selectedRace), [selectedRace]);
 
   // Transform actual race results into GridPilot[] ordered by starting grid position (1, 2, 3...)
   const activePilots: GridPilot[] = useMemo(() => {
@@ -205,6 +230,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
           pilots={activePilots}
           eventTitle={activeEventTitle}
           trackName={activeTrackName}
+          countryCode={hostCountryCode}
           cycleIntervalMs={cycleSpeed}
           autoPlay={true}
           className="w-full h-full"
