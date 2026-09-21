@@ -46,6 +46,7 @@ export function getRaceCountryCode(race?: any): string {
   if (text.includes('bahrain') || text.includes('sakhir')) return 'bh';
   if (text.includes('saudi') || text.includes('jeddah')) return 'sa';
   if (text.includes('australia') || text.includes('albert park') || text.includes('melbourne')) return 'au';
+  if (text.includes('azerbaijan') || text.includes('baku')) return 'az';
   if (text.includes('china') || text.includes('shanghai')) return 'cn';
   if (text.includes('miami') || text.includes('united states') || text.includes('usa') || text.includes('austin')) return 'us';
   if (text.includes('imola') || text.includes('emilia') || text.includes('monza') || text.includes('italy') || text.includes('italian')) return 'it';

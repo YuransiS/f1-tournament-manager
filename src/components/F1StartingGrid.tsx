@@ -30,11 +30,32 @@ export interface F1StartingGridProps {
   trackName?: string;
   countryCode?: string; // Host country code (e.g. 'jp', 'bh', 'it', 'us', 'sa', 'sg')
   flagGifUrl?: string; // Optional custom flag GIF URL
+  flagVideoId?: string; // Optional YouTube video ID override
   cycleIntervalMs?: number;
   autoPlay?: boolean;
   onClose?: () => void;
   className?: string;
 }
+
+// Map of host countries to 4K / HD looping waving flag animation video IDs (no player UI, seamless loop)
+export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
+  bh: 'EY_88yHI9Uc', // Bahrain
+  sa: 'eDBnesS7_BY', // Saudi Arabia
+  au: 'oh_a7IR9wBQ', // Australia
+  az: '7upmTbfsa90', // Azerbaijan
+  us: 'O1TWZ_OOHMU', // USA (Miami & Austin)
+  it: 'frO_J_MubJY', // Italy (Imola & Monza)
+  mc: 'OFVVct6DVyw', // Monaco
+  es: 't-JBSXdJnR8', // Spain
+  ca: '7Ry6UhLNOaI', // Canada
+  at: 'vBIHzWBmcCU', // Austria
+  gb: 'v7w4CMPkJsA', // Great Britain
+  hu: 'qvym0lkBL2s', // Hungary
+  be: 'RuhgyWAIMnQ', // Belgium
+  nl: 'u2P2xBi6ygg', // Netherlands
+  sg: 'WqwBlGrAf6A', // Singapore
+  jp: 'x0Za2ghUHvw', // Japan
+};
 
 // Ordinal suffix helper (1 -> 1st, 2 -> 2nd, 3 -> 3rd, 4 -> 4th...)
 function getOrdinalParts(n: number): { num: number; suffix: string } {
@@ -297,12 +318,14 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   trackName = "BAHRAIN INTERNATIONAL CIRCUIT",
   countryCode = "jp",
   flagGifUrl,
+  flagVideoId,
   cycleIntervalMs = 2800,
   autoPlay = true,
   onClose,
   className = ""
 }) => {
   const activeCountryCode = (countryCode || 'jp').toLowerCase();
+  const activeVideoId = flagVideoId || COUNTRY_FLAG_YOUTUBE_MAP[activeCountryCode] || 'x0Za2ghUHvw';
   const flagGifSrc = flagGifUrl || `/flags/animated/${activeCountryCode}.gif`;
 
   const sortedPilots = React.useMemo(() => {
@@ -457,32 +480,60 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       onClick={introStage !== 'broadcast' ? skipIntro : undefined}
     >
       {/* ========================================================================= */}
-      {/* WAVING FLAG CLOTH BACKGROUND & WATERMARKS (Live Looping Host Flag) */}
+      {/* WAVING FLAG BACKGROUND & WATERMARKS (YouTube 4K Loop & Fallback) */}
       {/* ========================================================================= */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#07090E]">
-        {/* Dynamic Waving Country Flag corresponding to host GP */}
+        {/* Fallback animated GIF underneath while video loads */}
         <img
           src={flagGifSrc}
-          alt={`${activeCountryCode.toUpperCase()} Flag Waving`}
-          className="w-full h-full object-cover opacity-60 filter blur-[0.3px] saturate-125 scale-105"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-40 filter blur-[0.5px] saturate-125 scale-105 pointer-events-none"
           onError={(e) => {
             (e.target as HTMLElement).style.display = 'none';
           }}
         />
 
+        {/* Dynamic Waving Country Flag 4K/HD Video (Seamless loop, no controls, cropped player) */}
+        {activeVideoId && (
+          <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none">
+            <iframe
+              key={activeVideoId}
+              src={`https://www.youtube-nocookie.com/embed/${activeVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${activeVideoId}&playsinline=1&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`}
+              className="pointer-events-none border-0 select-none"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%) scale(1.35)',
+                width: 'max(100%, 178vh, 178%)',
+                height: 'max(100%, 56.25vw, 56.25%)',
+                minWidth: '100%',
+                minHeight: '100%',
+                pointerEvents: 'none',
+                userSelect: 'none',
+                backgroundColor: '#07090E',
+                filter: 'brightness(0.9) contrast(1.08)',
+              }}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              tabIndex={-1}
+              title="Host Country Flag Video Animation"
+            />
+          </div>
+        )}
+
         {/* Cinematic dark broadcast gradient overlay & lighting */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/45 to-[#040508]/65 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/75 via-transparent to-[#040508]/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/40 to-[#040508]/60 mix-blend-multiply pointer-events-none z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/75 via-transparent to-[#040508]/75 pointer-events-none z-[1]" />
 
         {/* Top-center Faint Broadcast Watermark: 2026 Grid */}
-        <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 select-none opacity-20 pointer-events-none">
+        <div className="absolute top-5 sm:top-7 left-1/2 -translate-x-1/2 select-none opacity-20 pointer-events-none z-[2]">
           <span className="text-3xl sm:text-5xl lg:text-6xl font-black italic tracking-widest text-white/30 font-['Titillium_Web'] drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             2026 Grid
           </span>
         </div>
 
         {/* Bottom Left: Official F1 FIA Logo Watermark */}
-        <div className="absolute bottom-4 sm:bottom-6 left-6 sm:left-8 opacity-75 select-none pointer-events-none">
+        <div className="absolute bottom-4 sm:bottom-6 left-6 sm:left-8 opacity-75 select-none pointer-events-none z-[2]">
           <img
             src="/F1-logo.png"
             alt="F1"
