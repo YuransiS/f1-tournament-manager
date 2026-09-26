@@ -302,74 +302,164 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
               </div>
             </div>
 
-            {/* Right Winner Cutout */}
-            <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
+            {/* Right Winner Column (Authentic F1 TV Broadcast Winner Panel) */}
+            <div style={{
+              position: 'relative',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              background: `linear-gradient(180deg, ${winner.team.color || '#E10600'}35 0%, rgba(14, 18, 26, 0.92) 55%, rgba(8, 10, 15, 0.98) 100%)`,
+              border: '2px solid rgba(255,255,255,0.12)',
+              borderTop: `4px solid ${winner.team.color || '#E10600'}`,
+              boxShadow: `0 15px 40px rgba(0,0,0,0.8), inset 0 0 30px ${winner.team.color || '#E10600'}15`
+            }}>
+              {/* Top Winner Header Badge */}
               <div style={{
                 position: 'absolute',
-                top: '5%',
-                right: 0,
-                bottom: 0,
-                width: '90%',
-                background: `linear-gradient(180deg, ${winner.team.color}50 0%, rgba(0,0,0,0.85) 100%)`,
-                borderRadius: '16px 16px 0 0',
-                zIndex: 1
-              }} />
-
-              {winner.driver.avatar ? (
-                <motion.img
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  src={winner.driver.avatarFullNoBg || winner.driver.avatar}
-                  alt={winner.driver.name}
-                  style={{
-                    height: '400px',
-                    maxHeight: '115%',
-                    objectFit: 'contain',
-                    zIndex: 3,
-                    filter: 'drop-shadow(0 20px 35px rgba(0,0,0,0.95))'
-                  }}
-                />
-              ) : null}
-
-              <div style={{ position: 'absolute', bottom: '18px', right: '12px', textAlign: 'right', zIndex: 10 }}>
+                top: '12px',
+                left: '14px',
+                right: '14px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                zIndex: 10
+              }}>
                 <div style={{
-                  fontFamily: 'var(--font-f1)',
-                  fontSize: '3.2rem',
-                  fontWeight: '900',
-                  fontStyle: 'italic',
-                  color: '#FFFFFF',
-                  lineHeight: 0.85,
-                  letterSpacing: '2px',
-                  textShadow: '0 4px 20px rgba(0,0,0,0.95), 0 0 15px rgba(0,0,0,0.95)'
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: 'rgba(0,0,0,0.65)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  backdropFilter: 'blur(8px)',
+                  padding: '4px 10px',
+                  borderRadius: '6px'
                 }}>
-                  WINNER
+                  <span style={{
+                    fontFamily: 'var(--font-f1)',
+                    fontSize: '0.85rem',
+                    fontWeight: '900',
+                    letterSpacing: '1.5px',
+                    color: '#FFD700',
+                    textTransform: 'uppercase'
+                  }}>
+                    🏆 RACE WINNER
+                  </span>
                 </div>
 
                 <div style={{
-                  fontFamily: 'var(--font-f1)',
-                  fontSize: '2.2rem',
+                  fontFamily: "'Chakra Petch', 'Titillium Web', sans-serif",
+                  fontSize: '1.6rem',
                   fontWeight: '900',
-                  color: '#FF8000',
-                  textTransform: 'uppercase',
+                  fontStyle: 'italic',
+                  color: '#E10600',
+                  textShadow: '0 0 14px rgba(225,6,0,0.85)',
+                  lineHeight: 1
+                }}>
+                  P1
+                </div>
+              </div>
+
+              {/* Full-Height Heroic Standing Cutout */}
+              {winner.driver.avatar ? (
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  zIndex: 3,
+                  pointerEvents: 'none',
+                  paddingTop: '28px'
+                }}>
+                  <motion.img
+                    initial={{ opacity: 0, y: 25 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    src={winner.driver.avatarFullNoBg || winner.driver.avatar}
+                    alt={winner.driver.name}
+                    style={{
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      height: 'auto',
+                      width: 'auto',
+                      objectFit: 'contain',
+                      objectPosition: 'bottom',
+                      filter: 'drop-shadow(0 20px 35px rgba(0,0,0,0.98))'
+                    }}
+                  />
+                </div>
+              ) : null}
+
+              {/* Bottom Scrim & Identity Plate */}
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: '36px 16px 14px 16px',
+                background: 'linear-gradient(to top, rgba(5,7,12,0.98) 0%, rgba(5,7,12,0.85) 65%, transparent 100%)',
+                zIndex: 10,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2px'
+              }}>
+                {/* Flag + First Name */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <FlagIcon countryCode={winner.driver.country} style={{ width: '20px', height: '14px', borderRadius: '2px' }} />
+                  <span style={{
+                    fontSize: '0.9rem',
+                    fontWeight: '700',
+                    color: '#E5E7EB',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    {winner.driver.name.split(' ').slice(0, -1).join(' ') || winner.driver.name}
+                  </span>
+                </div>
+
+                {/* Last Name (Large, impactful F1 typography) */}
+                <div style={{
+                  fontFamily: 'var(--font-f1)',
+                  fontSize: '2.1rem',
+                  fontWeight: '900',
+                  fontStyle: 'italic',
+                  color: '#FFFFFF',
                   lineHeight: 1,
-                  textShadow: '0 4px 20px rgba(0,0,0,0.95), 0 0 15px rgba(0,0,0,0.95)',
-                  letterSpacing: '1px',
-                  marginTop: '2px'
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.5px',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.9)'
                 }}>
                   {winner.driver.name.split(' ').pop()}
                 </div>
 
+                {/* Team Name with Team Color Dot */}
                 <div style={{
-                  fontSize: '1.05rem',
-                  fontWeight: '800',
-                  color: '#38BDF8',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px',
-                  marginTop: '4px',
-                  textShadow: '0 2px 10px rgba(0,0,0,0.95)'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginTop: '4px'
                 }}>
-                  {winner.team.name}
+                  <div style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: winner.team.color || '#E10600',
+                    boxShadow: `0 0 8px ${winner.team.color || '#E10600'}`
+                  }} />
+                  <span style={{
+                    fontSize: '0.82rem',
+                    fontWeight: '800',
+                    color: '#D1D5DB',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>
+                    {winner.team.name}
+                  </span>
                 </div>
               </div>
             </div>
