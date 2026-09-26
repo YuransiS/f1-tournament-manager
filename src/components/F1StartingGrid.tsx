@@ -767,15 +767,15 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                     </div>
                   </div>
 
-                  {/* Standardized Heroic Portrait Box (Anchored to bottom, zero scale hacks) */}
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-center z-10 pointer-events-none">
-                    <div className="relative w-[85%] max-w-[460px] md:max-w-[500px] h-[72%] max-h-[540px] flex items-end justify-center overflow-hidden">
+                  {/* Standardized Heroic Portrait Box (Anchored to bottom, zero scale hacks, full headroom) */}
+                  <div className="absolute inset-x-0 top-10 sm:top-14 bottom-0 flex items-end justify-center z-10 pointer-events-none">
+                    <div className="relative w-full max-w-[460px] md:max-w-[520px] lg:max-w-[580px] h-full flex items-end justify-center">
                       {!imgErrors[leftPilot.id] && leftPilot.avatarUrl ? (
                         <img
                           src={leftPilot.avatarUrl}
                           alt={leftPilot.nickname}
                           onError={() => handleImageError(leftPilot.id)}
-                          className="w-full h-full object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)]"
+                          className="max-h-full max-w-full h-auto w-auto object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)] select-none"
                         />
                       ) : (
                         <DriverAvatarFallback pilot={leftPilot} isRight={false} />
@@ -838,15 +838,15 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                         )}
                       </div>
 
-                      {/* Standardized Heroic Portrait Box */}
-                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-center z-10 pointer-events-none">
-                        <div className="relative w-[85%] max-w-[460px] md:max-w-[500px] h-[72%] max-h-[540px] flex items-end justify-center overflow-hidden">
+                      {/* Standardized Heroic Portrait Box (Anchored to bottom, zero scale hacks, full headroom) */}
+                      <div className="absolute inset-x-0 top-10 sm:top-14 bottom-0 flex items-end justify-center z-10 pointer-events-none">
+                        <div className="relative w-full max-w-[460px] md:max-w-[520px] lg:max-w-[580px] h-full flex items-end justify-center">
                           {!imgErrors[rightPilot.id] && rightPilot.avatarUrl ? (
                             <img
                               src={rightPilot.avatarUrl}
                               alt={rightPilot.nickname}
                               onError={() => handleImageError(rightPilot.id)}
-                              className="w-full h-full object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)]"
+                              className="max-h-full max-w-full h-auto w-auto object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)] select-none"
                             />
                           ) : (
                             <DriverAvatarFallback pilot={rightPilot} isRight={true} />

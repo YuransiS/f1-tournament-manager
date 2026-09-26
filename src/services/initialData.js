@@ -31,8 +31,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'aston-martin',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png'
+    avatarFullWithBg: '/portraits/standing/alonso.webp',
+    avatarFullNoBg: '/portraits/standing/alonso.webp'
   },
   {
     id: 'drv-3',
@@ -53,8 +53,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'williams',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png'
+    avatarFullWithBg: '/portraits/standing/albon.webp',
+    avatarFullNoBg: '/portraits/standing/albon.webp'
   },
   {
     id: 'drv-5',
@@ -64,8 +64,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alpine',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png'
+    avatarFullWithBg: '/portraits/standing/gasly.webp',
+    avatarFullNoBg: '/portraits/standing/gasly.webp'
   },
   {
     id: 'drv-6',
@@ -86,8 +86,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'mclaren',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png'
+    avatarFullWithBg: '/portraits/standing/norris.webp',
+    avatarFullNoBg: '/portraits/standing/norris.webp'
   },
   {
     id: 'drv-8',
@@ -97,8 +97,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'haas',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png'
+    avatarFullWithBg: '/portraits/standing/hulkenberg.webp',
+    avatarFullNoBg: '/portraits/standing/hulkenberg.webp'
   },
   {
     id: 'drv-9',
@@ -108,8 +108,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alfa-romeo',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/V/VALBOT01_Valtteri_Bottas/valbot01.png'
+    avatarFullWithBg: '/portraits/standing/bottas.webp',
+    avatarFullNoBg: '/portraits/standing/bottas.webp'
   },
   {
     id: 'drv-10',
@@ -119,8 +119,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'aston-martin',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png'
+    avatarFullWithBg: '/portraits/standing/stroll.webp',
+    avatarFullNoBg: '/portraits/standing/stroll.webp'
   },
   {
     id: 'drv-11',
@@ -141,8 +141,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'haas',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/K/KEVMAG01_Kevin_Magnussen/kevmag01.png'
+    avatarFullWithBg: '/portraits/standing/magnussen.webp',
+    avatarFullNoBg: '/portraits/standing/magnussen.webp'
   },
   {
     id: 'drv-13',
@@ -152,8 +152,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alpine',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png'
+    avatarFullWithBg: '/portraits/standing/ocon.webp',
+    avatarFullNoBg: '/portraits/standing/ocon.webp'
   },
   {
     id: 'drv-14',
@@ -163,8 +163,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'ferrari',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png'
+    avatarFullWithBg: '/portraits/standing/sainz.webp',
+    avatarFullNoBg: '/portraits/standing/sainz.webp'
   },
   {
     id: 'drv-15',
@@ -174,8 +174,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alphatauri',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png'
+    avatarFullWithBg: '/portraits/standing/perez.webp',
+    avatarFullNoBg: '/portraits/standing/perez.webp'
   },
   {
     id: 'drv-16',
@@ -185,8 +185,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'ferrari',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png'
+    avatarFullWithBg: '/portraits/standing/leclerc.webp',
+    avatarFullNoBg: '/portraits/standing/leclerc.webp'
   },
   {
     id: 'drv-17',
@@ -207,8 +207,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alphatauri',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png'
+    avatarFullWithBg: '/portraits/standing/verstappen.webp',
+    avatarFullNoBg: '/portraits/standing/verstappen.webp'
   },
   {
     id: 'drv-19',
@@ -218,8 +218,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'mclaren',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png'
+    avatarFullWithBg: '/portraits/standing/piastri.webp',
+    avatarFullNoBg: '/portraits/standing/piastri.webp'
   },
   {
     id: 'drv-20',
@@ -229,8 +229,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alfa-romeo',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png'
+    avatarFullWithBg: '/portraits/standing/zhou.webp',
+    avatarFullNoBg: '/portraits/standing/zhou.webp'
   },
   {
     id: 'drv-21',
@@ -240,8 +240,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alphatauri',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/D/DANRIC01_Daniel_Ricciardo/danric01.png'
+    avatarFullWithBg: '/portraits/standing/ricciardo.webp',
+    avatarFullNoBg: '/portraits/standing/ricciardo.webp'
   },
   {
     id: 'drv-22',
@@ -251,8 +251,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'alphatauri',
     isAi: true,
     avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png',
-    avatarFullWithBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png',
-    avatarFullNoBg: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png'
+    avatarFullWithBg: '/portraits/standing/tsunoda.webp',
+    avatarFullNoBg: '/portraits/standing/tsunoda.webp'
   },
   {
     id: 'drv-23',
@@ -262,8 +262,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'red-bull',
     isAi: false,
     avatar: '/portraits/manstein.png',
-    avatarFullWithBg: '/portraits/manstein.png',
-    avatarFullNoBg: '/portraits/manstein.png'
+    avatarFullWithBg: '/portraits/standing/zhou.webp',
+    avatarFullNoBg: '/portraits/standing/zhou.webp'
   }
 ];
 

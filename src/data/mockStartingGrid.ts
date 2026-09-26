@@ -8,7 +8,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Max Verstappen',
     nickname: 'VERSTAPPEN',
     driverNumber: 1,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png',
+    avatarUrl: '/portraits/standing/verstappen.webp',
     countryFlagUrl: 'NL',
     lapTimeOrDelta: '1:21.083',
     team: {
@@ -27,7 +27,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Lando Norris',
     nickname: 'NORRIS',
     driverNumber: 4,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png',
+    avatarUrl: '/portraits/standing/norris.webp',
     countryFlagUrl: 'GB',
     lapTimeOrDelta: '+0.055',
     team: {
@@ -46,7 +46,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Charles Leclerc',
     nickname: 'LECLERC',
     driverNumber: 16,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png',
+    avatarUrl: '/portraits/standing/leclerc.webp',
     countryFlagUrl: 'MC',
     lapTimeOrDelta: '+0.118',
     team: {
@@ -64,7 +64,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Oscar Piastri',
     nickname: 'PIASTRI',
     driverNumber: 81,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png',
+    avatarUrl: '/portraits/standing/piastri.webp',
     countryFlagUrl: 'AU',
     lapTimeOrDelta: '+0.192',
     team: {
@@ -82,7 +82,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'George Russell',
     nickname: 'RUSSELL',
     driverNumber: 63,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png',
+    avatarUrl: '/portraits/standing/russell.webp',
     countryFlagUrl: 'GB',
     lapTimeOrDelta: '+0.274',
     team: {
@@ -100,7 +100,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Lewis Hamilton',
     nickname: 'HAMILTON',
     driverNumber: 44,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png',
+    avatarUrl: '/portraits/standing/hamilton.webp',
     countryFlagUrl: 'GB',
     lapTimeOrDelta: '+0.315',
     team: {
@@ -118,7 +118,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Carlos Sainz',
     nickname: 'SAINZ',
     driverNumber: 55,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png',
+    avatarUrl: '/portraits/standing/sainz.webp',
     countryFlagUrl: 'ES',
     lapTimeOrDelta: '+0.421',
     team: {
@@ -136,7 +136,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Fernando Alonso',
     nickname: 'ALONSO',
     driverNumber: 14,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png',
+    avatarUrl: '/portraits/standing/alonso.webp',
     countryFlagUrl: 'ES',
     lapTimeOrDelta: '+0.490',
     team: {
@@ -154,7 +154,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Andrea Kimi Antonelli',
     nickname: 'ANTONELLI',
     driverNumber: 12,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/K/KIMANT01_Kimi_Antonelli/kimant01.png',
+    avatarUrl: '/portraits/standing/russell.webp',
     countryFlagUrl: 'IT',
     lapTimeOrDelta: '+0.560',
     team: {
@@ -172,7 +172,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Alexander Albon',
     nickname: 'ALBON',
     driverNumber: 23,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/A/ALEALB01_Alexander_Albon/alealb01.png',
+    avatarUrl: '/portraits/standing/albon.webp',
     countryFlagUrl: 'TH',
     lapTimeOrDelta: '+0.612',
     team: {
@@ -190,7 +190,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Pierre Gasly',
     nickname: 'GASLY',
     driverNumber: 10,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/P/PIEGAS01_Pierre_Gasly/piegas01.png',
+    avatarUrl: '/portraits/standing/gasly.webp',
     countryFlagUrl: 'FR',
     lapTimeOrDelta: '+0.680',
     team: {
@@ -208,7 +208,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Yuki Tsunoda',
     nickname: 'TSUNODA',
     driverNumber: 22,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/Y/YUKTSU01_Yuki_Tsunoda/yuktsu01.png',
+    avatarUrl: '/portraits/standing/tsunoda.webp',
     countryFlagUrl: 'JP',
     lapTimeOrDelta: '+0.742',
     team: {
@@ -226,7 +226,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Nico Hülkenberg',
     nickname: 'HULKENBERG',
     driverNumber: 27,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/N/NICHUL01_Nico_Hulkenberg/nichul01.png',
+    avatarUrl: '/portraits/standing/hulkenberg.webp',
     countryFlagUrl: 'DE',
     lapTimeOrDelta: '+0.810',
     team: {
@@ -244,7 +244,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Esteban Ocon',
     nickname: 'OCON',
     driverNumber: 31,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/E/ESTOCO01_Esteban_Ocon/estoco01.png',
+    avatarUrl: '/portraits/standing/ocon.webp',
     countryFlagUrl: 'FR',
     lapTimeOrDelta: '+0.880',
     team: {
@@ -262,7 +262,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Oliver Bearman',
     nickname: 'BEARMAN',
     driverNumber: 87,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OLIBEA01_Oliver_Bearman/olibea01.png',
+    avatarUrl: '/portraits/standing/magnussen.webp',
     countryFlagUrl: 'GB',
     lapTimeOrDelta: '+0.930',
     team: {
@@ -280,7 +280,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Liam Lawson',
     nickname: 'LAWSON',
     driverNumber: 30,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LIALAW01_Liam_Lawson/lialaw01.png',
+    avatarUrl: '/portraits/standing/ricciardo.webp',
     countryFlagUrl: 'NZ',
     lapTimeOrDelta: '+0.985',
     team: {
@@ -298,7 +298,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Lance Stroll',
     nickname: 'STROLL',
     driverNumber: 18,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png',
+    avatarUrl: '/portraits/standing/stroll.webp',
     countryFlagUrl: 'CA',
     lapTimeOrDelta: '+1.045',
     team: {
@@ -316,7 +316,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Jack Doohan',
     nickname: 'DOOHAN',
     driverNumber: 7,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/J/JACDOO01_Jack_Doohan/jacdoo01.png',
+    avatarUrl: '/portraits/standing/gasly.webp',
     countryFlagUrl: 'AU',
     lapTimeOrDelta: '+1.110',
     team: {
@@ -334,7 +334,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Gabriel Bortoleto',
     nickname: 'BORTOLETO',
     driverNumber: 5,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GABBOR01_Gabriel_Bortoleto/gabbor01.png',
+    avatarUrl: '/portraits/standing/bottas.webp',
     countryFlagUrl: 'BR',
     lapTimeOrDelta: '+1.230',
     team: {
@@ -352,7 +352,7 @@ export const MOCK_F1_STARTING_GRID: GridPilot[] = [
     realName: 'Franco Colapinto',
     nickname: 'COLAPINTO',
     driverNumber: 43,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FRACOL01_Franco_Colapinto/fracol01.png',
+    avatarUrl: '/portraits/standing/sargeant.webp',
     countryFlagUrl: 'AR',
     lapTimeOrDelta: '+1.340',
     team: {
@@ -464,7 +464,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Vadim Manstein',
     nickname: 'MANSTEIN',
     driverNumber: 6,
-    avatarUrl: '/portraits/manstein.png',
+    avatarUrl: '/portraits/standing/zhou.webp',
     countryFlagUrl: 'UA',
     lapTimeOrDelta: '+0.312',
     team: {
@@ -482,7 +482,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Charles Leclerc',
     nickname: 'LECLERC',
     driverNumber: 16,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png',
+    avatarUrl: '/portraits/standing/leclerc.webp',
     countryFlagUrl: 'MC',
     lapTimeOrDelta: '+0.395',
     team: {
@@ -500,7 +500,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Lando Norris',
     nickname: 'NORRIS',
     driverNumber: 4,
-    avatarUrl: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png',
+    avatarUrl: '/portraits/standing/norris.webp',
     countryFlagUrl: 'GB',
     lapTimeOrDelta: '+0.440',
     team: {

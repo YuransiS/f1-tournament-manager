@@ -26,8 +26,9 @@
   - **Broadcast HUD:** Driver portrait frame with bottom grounding, red Chakra Petch position markers, official driver number plates, team logos, and lap time / monotonic delta telemetry.
   - **Keyboard Controls:** Space (pause/play), Left/Right (step row), F (fullscreen toggle), R (replay intro animation).
 - `src/components/StartingGridView.tsx`: Interactive view integrating the starting grid widget with real race data filtering from tournament history (`data.races`). Automatically resolves Grand Prix host circuit to its ISO country code (`getRaceCountryCode`, covering 16 countries including Azerbaijan, Japan, Italy, Bahrain, etc.) to feed the animated waving flag background. Provides Grand Prix selector dropdown, interval speed controls, and authentic qualifying starting grid deltas.
+- `public/portraits/standing/*.webp`: Complete set of 20 official Formula 1 full-body standing transparent cutouts (Verstappen, Norris, Leclerc, Alonso, Sainz, Albon, Gasly, Perez, Stroll, Bottas, Ocon, Hulkenberg, Magnussen, Piastri, Zhou Guanyu [used for drv-20 Zhou & drv-23 Vadim Manstein], Ricciardo, Tsunoda, Hamilton, Russell, Sargeant) ensuring 100% format and scale parity with Ukrainian pilots' 9:16 standing cutouts.
 - `public/flags/animated/*.gif`: 17 optimized, local looping waving national flag GIFs for instant fallback and offline support.
-- `src/data/mockStartingGrid.ts`: Pre-populated starting grid datasets for official F1 2026 grid and tournament championship grid.
+- `src/data/mockStartingGrid.ts`: Pre-populated starting grid datasets for official F1 2026 grid and tournament championship grid using full-body standing cutouts.
 - `src/components/TeamLogo.jsx` & `FlagIcon.jsx`: Reusable SVG and asset helpers for F1 team branding and nationality flags.
 
 ---
