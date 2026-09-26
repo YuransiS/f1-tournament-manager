@@ -148,7 +148,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                 <div style={{ position: 'relative', height: '260px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end', margin: '14px 0' }}>
                   {leader.driver.avatar ? (
                     <img
-                      src={leader.driver.avatar}
+                      src={leader.driver.avatarFullNoBg || leader.driver.avatar}
                       alt={leader.driver.name}
                       style={{
                         height: '250px',

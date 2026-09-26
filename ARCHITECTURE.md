@@ -54,7 +54,9 @@ interface Driver {
   flag: string;
   teamId: string;
   isAi: boolean;
-  avatar: string;
+  avatar: string; // 1:1 square photo (mini icons in Drivers tab & official podium)
+  avatarFullWithBg?: string; // 9:16 full standing with background (Standings table announcements & bulletins)
+  avatarFullNoBg?: string; // 9:16 full standing transparent cutout (Starting Grid, Driver of the Day, Race Results Broadcast Card winner)
 }
 ```
 

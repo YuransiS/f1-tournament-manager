@@ -276,7 +276,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.9, ease: luxuryEase }}
-                src={driver.avatar}
+                src={driver.avatarFullNoBg || driver.avatar}
                 alt={driver.name}
                 style={{
                   height: '100%',

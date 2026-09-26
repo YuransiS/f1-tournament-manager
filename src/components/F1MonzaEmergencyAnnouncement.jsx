@@ -129,26 +129,50 @@ export default function F1MonzaEmergencyAnnouncement() {
                 </span>
                 <TeamLogo teamId="red-bull" size="sm" />
               </div>
-              <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  background: 'radial-gradient(circle, rgba(30,65,255,0.3) 0%, rgba(10,14,24,0.9) 100%)',
-                  border: '1px solid #1E41FF',
-                  flexShrink: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <img
-                    src="/portraits/manstein.png"
-                    alt="Vadim Manstein"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
+                  {/* Denys (Medical Bulletin) */}
+                  <div style={{
+                    width: '74px',
+                    height: '116px',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    border: '2px solid #EF4444',
+                    boxShadow: '0 4px 14px rgba(239, 68, 68, 0.4)',
+                    position: 'relative'
+                  }}>
+                    <img
+                      src="/portraits/denya_standing_9-16_with_backjground.png"
+                      alt="Denys Kovalenko"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(239,68,68,0.9)', fontSize: '8px', fontWeight: '900', textAlign: 'center', color: '#FFF', padding: '1px 0' }}>
+                      OUT (ХВОРИЙ)
+                    </div>
+                  </div>
+
+                  {/* Vadim (Debut Podium) */}
+                  <div style={{
+                    width: '74px',
+                    height: '116px',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    border: '2px solid #1E41FF',
+                    boxShadow: '0 4px 14px rgba(30, 65, 255, 0.4)',
+                    position: 'relative'
+                  }}>
+                    <img
+                      src="/portraits/manstein.png"
+                      alt="Vadim Manstein"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(30,65,255,0.9)', fontSize: '8px', fontWeight: '900', textAlign: 'center', color: '#FFF', padding: '1px 0' }}>
+                      IN (P3 PODIUM)
+                    </div>
+                  </div>
                 </div>
-                <div style={{ flex: 1, minWidth: '200px' }}>
+
+                <div style={{ flex: 1, minWidth: '180px' }}>
                   <h3 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', margin: '0 0 6px 0' }}>
                     Заміна пілота: Вадим Манштейн у боліді #17
                   </h3>
@@ -246,12 +270,60 @@ export default function F1MonzaEmergencyAnnouncement() {
                 </span>
                 <Scale size={18} color="var(--f1-gold)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', marginBottom: '10px' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '900', color: '#FFF', marginBottom: '8px' }}>
                 Анулювання системної DSQ Юрія Захарчука
               </h3>
-              <p style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: '1.55', margin: 0 }}>
-                Під час рестарту після аварії Марка внаслідок збою мережевого коду F1 23 боліду <strong>Юрія Захарчука (KillerplautzeGer)</strong> було безпідставно виписано технічну дискваліфікацію (DSQ).
-              </p>
+
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'center', marginTop: '10px', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
+                  {/* Yurii Zakharchuk */}
+                  <div style={{
+                    width: '74px',
+                    height: '116px',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    border: '2px solid var(--f1-silver)',
+                    boxShadow: '0 4px 14px rgba(192, 192, 192, 0.3)',
+                    position: 'relative'
+                  }}>
+                    <img
+                      src="/portraits/yura_standing_9-16_with_backjground.png"
+                      alt="Yurii Zakharchuk"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(0,161,155,0.9)', fontSize: '8px', fontWeight: '900', textAlign: 'center', color: '#FFF', padding: '1px 0' }}>
+                      P2 RESTORED
+                    </div>
+                  </div>
+
+                  {/* Mykola Yarema */}
+                  <div style={{
+                    width: '74px',
+                    height: '116px',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    border: '2px solid var(--f1-gold)',
+                    boxShadow: '0 4px 14px rgba(255, 215, 0, 0.4)',
+                    position: 'relative'
+                  }}>
+                    <img
+                      src="/portraits/kolya_standing_9-16_with_backjground.png"
+                      alt="Mykola Yarema"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(255,215,0,0.9)', fontSize: '8px', fontWeight: '900', textAlign: 'center', color: '#000', padding: '1px 0' }}>
+                      P1 WINNER
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ flex: 1, minWidth: '160px' }}>
+                  <p style={{ fontSize: '0.84rem', color: '#94A3B8', lineHeight: '1.5', margin: 0 }}>
+                    Під час рестарту після аварії Марка внаслідок збою мережевого коду F1 23 боліду <strong>Юрія Захарчука (KillerplautzeGer)</strong> було безпідставно виписано технічну дискваліфікацію (DSQ).
+                  </p>
+                </div>
+              </div>
+
               <div style={{
                 marginTop: '12px',
                 padding: '10px 14px',

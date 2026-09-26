@@ -320,7 +320,7 @@ export default function F1BroadcastSplitResultCard({ raceTitle, trackImage, full
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  src={winner.driver.avatar}
+                  src={winner.driver.avatarFullNoBg || winner.driver.avatar}
                   alt={winner.driver.name}
                   style={{
                     height: '400px',

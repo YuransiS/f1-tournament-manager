@@ -392,7 +392,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Mykola Yarema',
     nickname: 'KOLYA',
     driverNumber: 2,
-    avatarUrl: '/portraits/kolya.png',
+    avatarUrl: '/portraits/kolya_standing_9-16_without_backjground.png',
     countryFlagUrl: 'UA',
     lapTimeOrDelta: '+0.062',
     team: {
@@ -410,7 +410,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Yurii Zakharchuk',
     nickname: 'YURA',
     driverNumber: 3,
-    avatarUrl: '/portraits/yura.png',
+    avatarUrl: '/portraits/yura_standing_9-16_without_backjground.png',
     countryFlagUrl: 'UA',
     lapTimeOrDelta: '+0.115',
     team: {
@@ -428,7 +428,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Denys Kovalenko',
     nickname: 'DENYA',
     driverNumber: 4,
-    avatarUrl: '/portraits/denya.png',
+    avatarUrl: '/portraits/denya_standing_9-16_without_backjground.png',
     countryFlagUrl: 'UA',
     lapTimeOrDelta: '+0.178',
     team: {
@@ -446,7 +446,7 @@ export const MOCK_TOURNAMENT_STARTING_GRID: GridPilot[] = [
     realName: 'Alexsandr Gromov',
     nickname: 'SASHKO',
     driverNumber: 5,
-    avatarUrl: '/portraits/sashko.png',
+    avatarUrl: '/portraits/sashko_standing_9-16_without_backjground.png',
     countryFlagUrl: 'UA',
     lapTimeOrDelta: '+0.245',
     team: {

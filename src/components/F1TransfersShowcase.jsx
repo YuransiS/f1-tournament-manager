@@ -92,18 +92,25 @@ export default function F1TransfersShowcase() {
           gap: '20px',
           boxShadow: '0 10px 30px rgba(0,0,0,0.6)'
         }}>
-          <img
-            src="/portraits/kolya.png"
-            alt="Mykola Yarema"
-            style={{
-              width: '100px',
-              height: '100px',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '3px solid #FFD700',
-              boxShadow: '0 6px 20px rgba(255,215,0,0.4)'
-            }}
-          />
+          <div style={{
+            width: '90px',
+            height: '140px',
+            borderRadius: '10px',
+            overflow: 'hidden',
+            border: '2px solid #FFD700',
+            boxShadow: '0 6px 20px rgba(255,215,0,0.4)',
+            flexShrink: 0
+          }}>
+            <img
+              src="/portraits/kolya_standing_9-16_with_backjground.png"
+              alt="Mykola Yarema"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+          </div>
           <div>
             <div style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '800', textTransform: 'uppercase' }}>
               ЛИЧНЫЙ ЗАЧЁТ ПИЛОТОВ
