@@ -55,12 +55,12 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
       {/* LEFT HALF CURTAIN */}
       <motion.div
         initial={{ x: 0 }}
-        animate={{ x: isOpening ? '-105%' : 0 }}
+        animate={{ x: isOpening ? '-100%' : 0 }}
         transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-        className="absolute top-0 bottom-0 left-0 w-[50.5%] overflow-hidden bg-gradient-to-br from-[#0c072b] via-[#140b3b] to-[#07041a] z-20"
+        className="absolute top-0 bottom-0 left-0 w-1/2 overflow-hidden bg-gradient-to-br from-[#0c072b] via-[#140b3b] to-[#07041a] z-20"
       >
-        {/* Left Side Content & Background Mirroring */}
-        <div className="absolute top-0 bottom-0 left-0 w-[200%] overflow-hidden pointer-events-none">
+        {/* Left Side Content & Background Mirroring: Exact 100vw canvas anchored left-0 */}
+        <div className="absolute top-0 bottom-0 left-0 w-screen overflow-hidden pointer-events-none">
           {/* Diagonal Neon Streaks */}
           <div className="absolute inset-0 opacity-80">
             {[
@@ -160,12 +160,12 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
       {/* RIGHT HALF CURTAIN */}
       <motion.div
         initial={{ x: 0 }}
-        animate={{ x: isOpening ? '105%' : 0 }}
+        animate={{ x: isOpening ? '100%' : 0 }}
         transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-        className="absolute top-0 bottom-0 right-0 w-[50.5%] overflow-hidden bg-gradient-to-bl from-[#0c072b] via-[#140b3b] to-[#07041a] z-20"
+        className="absolute top-0 bottom-0 right-0 w-1/2 overflow-hidden bg-gradient-to-bl from-[#0c072b] via-[#140b3b] to-[#07041a] z-20"
       >
-        {/* Right Side Content & Background Mirroring */}
-        <div className="absolute top-0 bottom-0 right-0 w-[200%] overflow-hidden pointer-events-none">
+        {/* Right Side Content & Background Mirroring: Exact 100vw canvas anchored right-0 */}
+        <div className="absolute top-0 bottom-0 right-0 w-screen overflow-hidden pointer-events-none">
           {/* Diagonal Neon Streaks */}
           <div className="absolute inset-0 opacity-80">
             {[

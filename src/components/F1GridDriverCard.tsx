@@ -103,19 +103,19 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-full max-w-[680px] 2xl:max-w-[780px] flex items-end justify-center pb-0"
+              className="relative w-full h-full flex items-end justify-center pb-0"
               style={{
                 maskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)',
                 WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)'
               }}
             >
-              {/* Driver BUST Cutout: Head at ~22-26% from top, authentic natural bust framing */}
+              {/* Driver BUST Cutout: 1:1 bust centered cleanly in transparent box, fitting screen height naturally */}
               {!hasImageError && pilot.avatarUrl ? (
                 <img
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="h-[78%] sm:h-[82%] lg:h-[85%] 2xl:h-[88%] w-auto max-w-[92%] object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)]"
+                  className="h-[84%] sm:h-[86%] lg:h-[88%] w-auto max-w-full object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)]"
                 />
               ) : (
                 <div className="w-full h-full flex items-end justify-center">
