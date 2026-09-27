@@ -40,11 +40,35 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
   const activeCountryCode = (countryCode || 'jp').toLowerCase();
   const activeVideoId = flagVideoId || COUNTRY_FLAG_YOUTUBE_MAP[activeCountryCode] || 'x0Za2ghUHvw';
   const flagGifSrc = flagGifUrl || `/flags/animated/${activeCountryCode}.gif`;
+  const localVideoSrc = `/flags/videos/${activeCountryCode}.mp4`;
 
+  const [useLocalVideo, setUseLocalVideo] = React.useState<boolean>(false);
   const playerRef = useRef<any>(null);
   const containerId = useRef(`f1-flag-player-${Math.random().toString(36).substring(2, 9)}`).current;
+  const loopTimerRef = useRef<any>(null);
+
+  // Clean up interval timer on unmount
+  useEffect(() => {
+    return () => {
+      if (loopTimerRef.current) {
+        clearInterval(loopTimerRef.current);
+        loopTimerRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
+    // If local video is playing cleanly, skip initializing YouTube
+    if (useLocalVideo) {
+      if (playerRef.current) {
+        try {
+          playerRef.current.destroy();
+        } catch {}
+        playerRef.current = null;
+      }
+      return;
+    }
+
     let isCancelled = false;
 
     if (!window.YT) {
@@ -56,6 +80,27 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         document.body.appendChild(tag);
       }
     }
+
+    const startSeamlessLoopWatcher = (player: any) => {
+      if (loopTimerRef.current) {
+        clearInterval(loopTimerRef.current);
+      }
+      // Check every 250ms: rewind 2.5s BEFORE the video reaches end.
+      // This mathematically prevents YouTube from ever triggering PlayerState.ENDED,
+      // which is what spawns the YouTube player end-screen, recommendations, and reload banner!
+      loopTimerRef.current = setInterval(() => {
+        if (!player || typeof player.getCurrentTime !== 'function' || typeof player.getDuration !== 'function') {
+          return;
+        }
+        try {
+          const cur = player.getCurrentTime();
+          const dur = player.getDuration();
+          if (dur > 5 && cur >= dur - 2.5) {
+            player.seekTo(0.1, true);
+          }
+        } catch {}
+      }, 250);
+    };
 
     const initPlayer = () => {
       if (isCancelled || !window.YT || !window.YT.Player) return;
@@ -80,24 +125,26 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             modestbranding: 1,
             playsinline: 1,
             iv_load_policy: 3,
-            loop: 1,
-            playlist: activeVideoId,
             origin: window.location.origin
           },
           events: {
             onReady: (e: any) => {
               e.target.mute();
               e.target.playVideo();
+              startSeamlessLoopWatcher(e.target);
             },
             onStateChange: (e: any) => {
-              // Seamless Rewind on end without playlist OSD or black screen
+              // Safety catch: if ENDED was somehow hit, rewind immediately without showing UI
               if (e.data === window.YT.PlayerState.ENDED) {
-                e.target.seekTo(0, true);
+                e.target.seekTo(0.1, true);
                 e.target.playVideo();
               }
-              // Immediately resume if paused by any outside factor to prevent pause overlay
+              // Immediately resume if paused by outside factor to prevent pause overlay
               if (e.data === window.YT.PlayerState.PAUSED) {
                 e.target.playVideo();
+              }
+              if (e.data === window.YT.PlayerState.PLAYING) {
+                startSeamlessLoopWatcher(e.target);
               }
             }
           }
@@ -124,6 +171,10 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
       return () => {
         isCancelled = true;
         clearInterval(checkTimer);
+        if (loopTimerRef.current) {
+          clearInterval(loopTimerRef.current);
+          loopTimerRef.current = null;
+        }
         if (playerRef.current) {
           try {
             playerRef.current.destroy();
@@ -135,6 +186,10 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
 
     return () => {
       isCancelled = true;
+      if (loopTimerRef.current) {
+        clearInterval(loopTimerRef.current);
+        loopTimerRef.current = null;
+      }
       if (playerRef.current) {
         try {
           playerRef.current.destroy();
@@ -142,7 +197,7 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         playerRef.current = null;
       }
     };
-  }, [activeVideoId, containerId]);
+  }, [activeVideoId, containerId, useLocalVideo]);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-auto select-none z-0 bg-[#07090E]">
@@ -167,30 +222,47 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         }}
       />
 
-      {/* 2. Full-bleed video iframe container with scale(1.7) to push any player borders far offscreen */}
-      <div
-        className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none select-none z-[1]"
-        style={{ pointerEvents: 'none', userSelect: 'none' }}
-      >
+      {/* 2. Priority Local MP4 Video (Zero UI, 100% hardware acceleration, seamless native loop) */}
+      <video
+        key={`local-flag-video-${activeCountryCode}`}
+        src={localVideoSrc}
+        autoPlay
+        loop
+        muted
+        playsInline
+        onCanPlay={() => setUseLocalVideo(true)}
+        onError={() => setUseLocalVideo(false)}
+        className={`absolute inset-0 w-full h-full object-cover filter brightness-95 contrast-105 pointer-events-none select-none z-[2] transition-opacity duration-500 ${
+          useLocalVideo ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
+
+      {/* 3. Full-bleed YouTube video iframe container (Active when local video is not yet downloaded) */}
+      {!useLocalVideo && (
         <div
-          id={containerId}
-          className="pointer-events-none select-none border-0"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%) scale(1.75)',
-            width: 'max(100%, 178vh, 178%)',
-            height: 'max(100%, 56.25vw, 56.25%)',
-            minWidth: '100%',
-            minHeight: '100%',
-            pointerEvents: 'none',
-            userSelect: 'none',
-            filter: 'brightness(0.96) contrast(1.06)',
-            border: 'none'
-          }}
-        />
-      </div>
+          className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none select-none z-[1]"
+          style={{ pointerEvents: 'none', userSelect: 'none' }}
+        >
+          <div
+            id={containerId}
+            className="pointer-events-none select-none border-0"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%) scale(1.75)',
+              width: 'max(100%, 178vh, 178%)',
+              height: 'max(100%, 56.25vw, 56.25%)',
+              minWidth: '100%',
+              minHeight: '100%',
+              pointerEvents: 'none',
+              userSelect: 'none',
+              filter: 'brightness(0.96) contrast(1.06)',
+              border: 'none'
+            }}
+          />
+        </div>
+      )}
 
       {/* 3. True Pointer-Event Shield over video: absorbs any stray hover or click so YouTube never sees it */}
       <div
