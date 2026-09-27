@@ -37,7 +37,6 @@ const DRIVER_NUMBER_MAP: Record<string, number> = {
   'drv-23': 99   // Vadim MANSTEIN
 };
 
-
 // Mapping of Grand Prix event to ISO 2-letter country code for host country waving flags
 export function getRaceCountryCode(race?: any): string {
   if (!race) return 'jp';
@@ -104,15 +103,6 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
 
     // Extract pole reference time if available
     const poleLap = gridResults[0]?.bestLap || '1:32.010';
-    const parseLapSecs = (str?: string): number | null => {
-      if (!str) return null;
-      const parts = str.trim().split(':');
-      if (parts.length === 2) {
-        return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
-      }
-      return parseFloat(str) || null;
-    };
-    const poleSecs = parseLapSecs(poleLap);
 
     return gridResults.map((res: any) => {
       const driver = drivers.find((d: any) => d.id === res.driverId);
@@ -128,7 +118,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
       const nameParts = fullName.trim().split(' ');
       const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
 
-      // Formulate authentic qualifying starting grid timing: Pole time for P1, strictly monotonic delta to pole (+X.XXX) for P2+
+      // Pole time for P1, strictly monotonic delta to pole (+X.XXX) for P2+
       let timingDisplay = poleLap;
       if (res.grid > 1) {
         const deltaSec = 0.125 * (res.grid - 1) + (((res.grid * 37) % 60) / 1000);
@@ -160,9 +150,9 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
   const activeTrackName = selectedRace?.subtitle ? selectedRace.subtitle.toUpperCase() : 'F1 CIRCUIT';
 
   return (
-    <div className="w-full flex flex-col gap-5">
-      {/* Control & Filter Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-[#12141C] border border-[#262B3A] rounded-xl shadow-xl">
+    <div className="w-full flex flex-col gap-4">
+      {/* Control & Filter Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-[#12141C] border border-[#262B3A] rounded-xl shadow-lg">
         {/* Title */}
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-[#E10600]/20 border border-[#E10600]/40 rounded-lg text-[#E10600]">
@@ -170,18 +160,18 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
           </div>
           <div>
             <h2 className="text-base sm:text-lg font-black italic tracking-wide text-white uppercase font-['Titillium_Web']">
-              Starting Grid (F1 TV Style)
+              Starting Grid (F1 Broadcast)
             </h2>
             <p className="text-xs text-neutral-400">
-              Стартовая решетка официальных заездов турнира по сохраненным данным
+              Стартовая решетка заездов чемпионата в официальном формате ТВ-трансляции
             </p>
           </div>
         </div>
 
         {/* Filter Controls (Race Selector + Speed) */}
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
           {/* Race Select Dropdown */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-400">
               <Calendar size={14} className="text-[#E10600]" />
               Заезд:
@@ -189,7 +179,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
             <select
               value={selectedRaceId}
               onChange={(e) => setSelectedRaceId(e.target.value)}
-              className="bg-[#0B0D12] text-white text-xs font-bold px-3.5 py-2 rounded-lg border border-[#262B3A] hover:border-[#3D455C] focus:border-[#E10600] outline-none cursor-pointer transition-all shadow-inner"
+              className="bg-[#0B0D12] text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-[#262B3A] hover:border-[#3D455C] focus:border-[#E10600] outline-none cursor-pointer transition-all shadow-inner"
             >
               {validRaces.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -200,14 +190,15 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
           </div>
 
           {/* Speed Selector */}
-          <div className="flex items-center gap-2.5 px-3 py-1.5 bg-[#0B0D12] rounded-lg border border-[#262B3A] text-xs font-bold text-neutral-300">
+          <div className="flex items-center gap-2 px-3 py-1 bg-[#0B0D12] rounded-lg border border-[#262B3A] text-xs font-bold text-neutral-300">
             <span className="flex items-center gap-1 text-neutral-400">
               <Gauge size={14} className="text-amber-400" />
               Интервал:
             </span>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
               {[2000, 2800, 3600].map((ms) => (
                 <button
+                  type="button"
                   key={ms}
                   onClick={() => setCycleSpeed(ms)}
                   className={`px-2.5 py-1 rounded transition-all cursor-pointer ${
@@ -224,10 +215,9 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         </div>
       </div>
 
-      {/* Starting Grid Viewport Frame */}
-      <div className="w-full h-[86vh] min-h-[720px] max-h-[960px] rounded-2xl overflow-hidden border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.85)] relative bg-black">
+      {/* Starting Grid Broadcast Viewport (16:9 cinematic aspect ratio, single frame) */}
+      <div className="w-full aspect-[16/9] min-h-[580px] max-h-[84vh] rounded-2xl overflow-hidden border border-[#262B3A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] relative bg-[#07090E]">
         <F1StartingGrid
-          key={`${selectedRaceId}-${cycleSpeed}`}
           pilots={activePilots}
           eventTitle={activeEventTitle}
           trackName={activeTrackName}
