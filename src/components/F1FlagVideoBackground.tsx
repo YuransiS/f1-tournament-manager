@@ -145,7 +145,7 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
   }, [activeVideoId, containerId]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 bg-[#07090E]">
+    <div className="absolute inset-0 overflow-hidden pointer-events-auto select-none z-0 bg-[#07090E]">
       <style>{`
         #${containerId}, #${containerId} iframe, iframe[id^="f1-flag-player"] {
           width: 100% !important;
@@ -167,7 +167,7 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         }}
       />
 
-      {/* 2. Full-bleed video iframe container (uses 200% with scale(1.4) to eliminate any side bars) */}
+      {/* 2. Full-bleed video iframe container with scale(1.7) to push any player borders far offscreen */}
       <div
         className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none select-none z-[1]"
         style={{ pointerEvents: 'none', userSelect: 'none' }}
@@ -179,7 +179,7 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%) scale(1.60)',
+            transform: 'translate(-50%, -50%) scale(1.75)',
             width: 'max(100%, 178vh, 178%)',
             height: 'max(100%, 56.25vw, 56.25%)',
             minWidth: '100%',
@@ -192,18 +192,15 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         />
       </div>
 
-      {/* 3. True Pointer-Event Blocker over video: absorbs any stray hover or click so YouTube never sees it */}
+      {/* 3. True Pointer-Event Shield over video: absorbs any stray hover or click so YouTube never sees it */}
       <div
-        className="absolute inset-0 pointer-events-auto cursor-default z-[2]"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        onMouseDown={(e) => {
-          e.stopPropagation();
-        }}
-        onTouchStart={(e) => {
-          e.stopPropagation();
-        }}
+        className="absolute inset-0 pointer-events-auto cursor-default z-[5]"
+        onMouseMove={(e) => e.stopPropagation()}
+        onMouseEnter={(e) => e.stopPropagation()}
+        onMouseOver={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
       />
     </div>
   );

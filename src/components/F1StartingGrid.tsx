@@ -321,8 +321,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         flagVideoId={flagVideoId}
       />
 
-      {/* Deep Broadcast Indigo/Violet Overlay (softens flag to authentic TV studio backdrop) */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0c0628]/80 via-[#160a3a]/75 to-[#0a041f]/85 pointer-events-none z-[2]" />
+      {/* Deep Broadcast Indigo/Violet Overlay (captures all mouse movement to shield YouTube iframe) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0c072b]/80 via-[#160a3a]/75 to-[#0a041f]/85 pointer-events-auto z-[2]" />
 
       {/* Official F1 Broadcast Diagonal Neon Speed Laser Streaks (-35deg) matching media_1790524589122.png */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-80 z-[3]">
@@ -352,9 +352,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       {/* F1 Red Top Accent Line */}
       <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
 
-      {/* ===================================================================== */}
-      {/* 3. TOP BROADCAST HEADER: Official F1 Logo + Track Name | Clean Controls */}
-      {/* ===================================================================== */}
       {/* ===================================================================== */}
       {/* 3. TOP BROADCAST HEADER: Official F1 Logo + Track Name | Clean Controls */}
       {/* ===================================================================== */}
@@ -472,10 +469,10 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       </header>
 
       {/* ===================================================================== */}
-      {/* 4. MAIN STAGE: LEFT CARD | CENTER PELOTON | RIGHT CARD                */}
-      {/* 1-to-1 match with official reference media_1790524589122.png          */}
+      {/* 4. MAIN STAGE: MATHEMATICAL 50/50 SCREEN DIVISION WITH CENTER GAP    */}
+      {/* Left 50% (minus gap/2) | Center Gap | Right 50% (minus gap/2)         */}
       {/* ===================================================================== */}
-      <main className="relative flex-1 w-full flex items-center justify-between overflow-hidden min-h-0">
+      <main className="relative flex-1 w-full flex items-stretch justify-between overflow-hidden min-h-0">
         {/* Row Switch Broadcast Shutter Flash */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -494,10 +491,10 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 w-full h-full flex items-center justify-between"
+            className="absolute inset-0 w-full h-full flex items-stretch justify-between"
           >
-            {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5... with outer vertical bar) */}
-            <div className="flex-1 min-w-0 h-full flex flex-col justify-end overflow-hidden">
+            {/* LEFT DRIVER CARD (Takes full left half minus half the center gap) */}
+            <div className="w-[calc(50%-150px)] sm:w-[calc(50%-180px)] lg:w-[calc(50%-220px)] 2xl:w-[calc(50%-250px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -506,8 +503,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               />
             </div>
 
-            {/* CENTER ZONE: 13TH / 14TH + STARTING GRID + LOWER SLOTS REEL */}
-            <div className="w-[32%] min-w-[460px] max-w-[620px] 2xl:max-w-[760px] h-full flex flex-col items-center justify-center z-35 px-1 py-1 flex-shrink-0">
+            {/* CENTER ZONE: 10 on Top, Staggered Numbers & STARTING GRID, 10 on Bottom */}
+            <div className="w-[300px] sm:w-[360px] lg:w-[440px] 2xl:w-[500px] h-full flex flex-col items-center justify-between z-35 px-1 py-1 flex-shrink-0">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -516,8 +513,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               />
             </div>
 
-            {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6... with outer vertical bar) */}
-            <div className="flex-1 min-w-0 h-full flex flex-col justify-end overflow-hidden">
+            {/* RIGHT DRIVER CARD (Takes full right half minus half the center gap) */}
+            <div className="w-[calc(50%-150px)] sm:w-[calc(50%-180px)] lg:w-[calc(50%-220px)] 2xl:w-[calc(50%-250px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"

@@ -109,13 +109,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)'
               }}
             >
-              {/* Driver BUST Cutout: 1:1 bust centered cleanly in transparent box, fitting screen height naturally */}
+              {/* Driver BUST Cutout: 1:1 bust centered cleanly in transparent box, filling half-screen naturally */}
               {!hasImageError && pilot.avatarUrl ? (
                 <img
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="h-[84%] sm:h-[86%] lg:h-[88%] w-auto max-w-full object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)]"
+                  className="h-[90%] sm:h-[92%] lg:h-[94%] 2xl:h-[96%] w-auto max-w-full object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)]"
                 />
               ) : (
                 <div className="w-full h-full flex items-end justify-center">
