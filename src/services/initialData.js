@@ -262,8 +262,8 @@ export const DEFAULT_DRIVERS = [
     teamId: 'red-bull',
     isAi: false,
     avatar: '/portraits/manstein.png',
-    avatarFullWithBg: '/portraits/standing/zhou.webp',
-    avatarFullNoBg: '/portraits/standing/zhou.webp'
+    avatarFullWithBg: '/portraits/manstein.png',
+    avatarFullNoBg: '/portraits/manstein.png'
   }
 ];
 
