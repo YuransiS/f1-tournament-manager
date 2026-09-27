@@ -13,12 +13,12 @@ interface StartingGridViewProps {
 
 // Canonical racing numbers for drivers
 const DRIVER_NUMBER_MAP: Record<string, number> = {
-  'drv-1': 1,    // Yurii ZAKHARCHUK
+  'drv-1': 67,   // Yurii ZAKHARCHUK (67)
   'drv-2': 14,   // Fernando ALONSO
   'drv-3': 3,    // MARK
   'drv-4': 23,   // Alexander ALBON
   'drv-5': 10,   // Pierre GASLY
-  'drv-6': 6,    // Mykola YAREMA
+  'drv-6': 69,   // Mykola YAREMA (69)
   'drv-7': 4,    // Lando NORRIS
   'drv-8': 27,   // Nico HULKENBERG
   'drv-9': 77,   // Valtteri BOTTAS
