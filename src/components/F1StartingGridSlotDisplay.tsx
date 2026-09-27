@@ -6,6 +6,7 @@ import TeamLogo from './TeamLogo';
 interface StartingGridSlotDisplayProps {
   pairs: [GridPilot, GridPilot | null][];
   activePairIndex: number;
+  revealedIndices: Set<number>;
   onSelectPair: (idx: number) => void;
 }
 
@@ -46,23 +47,42 @@ export function getDriver3LetterCode(pilot?: GridPilot | null): string {
 export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> = ({
   pairs,
   activePairIndex,
+  revealedIndices,
   onSelectPair
 }) => {
   const total = pairs.length;
-  // Divide rows into top group (rows 1-5, e.g. indices 0-4) and bottom group (rows 6-10, e.g. indices 5-9)
+  // Divide rows into top group (e.g. rows 1-5) and bottom group (e.g. rows 6-10)
   const splitIndex = Math.min(5, Math.ceil(total / 2));
   const topRows = pairs.slice(0, splitIndex);
   const bottomRows = pairs.slice(splitIndex);
 
   const renderRow = (pair: [GridPilot, GridPilot | null], pairIndex: number) => {
     const [pA, pB] = pair;
+    const isRevealed = revealedIndices.has(pairIndex);
     const isActive = pairIndex === activePairIndex;
     const codeA = getDriver3LetterCode(pA);
     const codeB = getDriver3LetterCode(pB);
 
+    // If row hasn't been revealed yet in the bottom-to-top sequence, keep invisible spacer to lock layout
+    if (!isRevealed) {
+      return (
+        <div
+          key={`grid-peloton-row-${pairIndex}`}
+          className="flex items-center justify-between w-full gap-2 opacity-0 pointer-events-none h-6 sm:h-7"
+        >
+          <div className="flex-1 h-6 sm:h-7" />
+          <div className="w-4 sm:w-5 flex-shrink-0" />
+          <div className="flex-1 h-6 sm:h-7" />
+        </div>
+      );
+    }
+
     return (
-      <div
+      <motion.div
         key={`grid-peloton-row-${pairIndex}`}
+        initial={{ opacity: 0, scale: 0.88, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
         onClick={() => onSelectPair(pairIndex)}
         className="flex items-center justify-between w-full gap-2 cursor-pointer transition-transform duration-200 group"
       >
@@ -106,7 +126,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
             {codeB}
           </span>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
@@ -130,14 +150,21 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* ------------------------------------------------------------- */}
       {/* CENTER VERTICAL NEON: STARTING GRID (Between red lines) */}
       {/* ------------------------------------------------------------- */}
-      <div className="relative z-25 my-1 sm:my-2 px-1 py-1 rounded bg-black/80 border border-white/15 flex items-center justify-center pointer-events-none shadow-[0_0_15px_rgba(0,0,0,0.9)]">
+      <motion.div
+        animate={{
+          opacity: activePairIndex < splitIndex ? 1 : 0.45,
+          scale: activePairIndex < splitIndex ? 1.05 : 1
+        }}
+        transition={{ duration: 0.4 }}
+        className="relative z-25 my-1 sm:my-2 px-1 py-1 rounded bg-black/80 border border-white/15 flex items-center justify-center pointer-events-none shadow-[0_0_15px_rgba(0,0,0,0.9)]"
+      >
         <span
           className="text-[10px] sm:text-[11px] font-black tracking-[0.45em] text-[#ffd700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_8px_rgba(255,215,0,0.85)]"
           style={{ writingMode: 'vertical-rl' }}
         >
           STARTING GRID
         </span>
-      </div>
+      </motion.div>
 
       {/* ------------------------------------------------------------- */}
       {/* BOTTOM PELOTON GROUP (Rows 6 to 10+: P11 to P20+) */}

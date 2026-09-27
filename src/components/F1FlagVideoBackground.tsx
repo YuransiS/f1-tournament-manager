@@ -146,9 +146,12 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
     <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 bg-[#07090E]">
       <style>{`
         #${containerId}, #${containerId} iframe, iframe[id^="f1-flag-player"] {
+          width: 100% !important;
+          height: 100% !important;
           pointer-events: none !important;
           user-select: none !important;
           border: none !important;
+          object-fit: cover !important;
         }
       `}</style>
 
@@ -174,14 +177,14 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%) scale(1.45)',
-            width: '200%',
-            height: '200%',
+            transform: 'translate(-50%, -50%) scale(1.04)',
+            width: '100%',
+            height: '100%',
             minWidth: '100%',
             minHeight: '100%',
             pointerEvents: 'none',
             userSelect: 'none',
-            filter: 'brightness(0.9) contrast(1.08)',
+            filter: 'brightness(0.96) contrast(1.04)',
             border: 'none'
           }}
         />

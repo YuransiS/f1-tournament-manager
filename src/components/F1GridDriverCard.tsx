@@ -141,15 +141,15 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               }}
               className="relative w-full h-full max-w-[480px] sm:max-w-[560px] md:max-w-[660px] lg:max-w-[760px] flex items-end justify-center"
             >
-              {/* 1. Team-Color Halftone LED Dot Matrix Overlay (Flashes on enter) */}
+              {/* 1. Team-Color Halftone LED Dot Matrix Flash (Fades completely to 0 - zero leftover dots) */}
               <motion.div
                 initial={{ opacity: 0.95 }}
-                animate={{ opacity: 0.12 }}
-                transition={{ duration: 0.75, ease: 'easeOut' }}
+                animate={{ opacity: 0 }}
+                transition={{ duration: 0.48, ease: 'easeOut' }}
                 className="absolute inset-0 pointer-events-none z-10 mix-blend-screen"
                 style={{
-                  backgroundImage: `radial-gradient(circle, ${teamPrimaryColor} 2.5px, transparent 2.5px)`,
-                  backgroundSize: '7px 7px'
+                  backgroundImage: `radial-gradient(circle, ${teamPrimaryColor} 2px, transparent 2px)`,
+                  backgroundSize: '6px 6px'
                 }}
               />
 

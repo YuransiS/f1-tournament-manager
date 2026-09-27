@@ -9,9 +9,9 @@ interface F1StartingGridIntroProps {
 }
 
 export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
-  roundNumber = 17,
-  countryName = 'SINGAPORE',
-  circuitCity = 'Singapore',
+  roundNumber = 18,
+  countryName = 'JAPAN',
+  circuitCity = 'Suzuka',
   onComplete
 }) => {
   const [isOpening, setIsOpening] = useState(false);
@@ -48,7 +48,8 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
       style={{ fontFamily: "'Titillium Web', 'Inter', sans-serif" }}
     >
       {/* ============================================================= */}
-      {/* SPLIT SHUTTER CONTAINERS (Left & Right halves parting) */}
+      {/* SPLIT SHUTTER CURTAINS: Zero central border/line when idle! */}
+      {/* w-[50.5%] ensures a seamless subpixel overlap with 0 line */}
       {/* ============================================================= */}
 
       {/* LEFT HALF CURTAIN */}
@@ -56,7 +57,7 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
         initial={{ x: 0 }}
         animate={{ x: isOpening ? '-105%' : 0 }}
         transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-        className="absolute top-0 bottom-0 left-0 w-1/2 overflow-hidden bg-gradient-to-br from-[#0c072b] via-[#140b3b] to-[#07041a] z-20 border-r border-[#E10600]/80 shadow-[10px_0_30px_rgba(225,6,0,0.4)]"
+        className="absolute top-0 bottom-0 left-0 w-[50.5%] overflow-hidden bg-gradient-to-br from-[#0c072b] via-[#140b3b] to-[#07041a] z-20"
       >
         {/* Left Side Content & Background Mirroring */}
         <div className="absolute top-0 bottom-0 left-0 w-[200%] overflow-hidden pointer-events-none">
@@ -161,7 +162,7 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
         initial={{ x: 0 }}
         animate={{ x: isOpening ? '105%' : 0 }}
         transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-        className="absolute top-0 bottom-0 right-0 w-1/2 overflow-hidden bg-gradient-to-bl from-[#0c072b] via-[#140b3b] to-[#07041a] z-20 border-l border-[#E10600]/80 shadow-[-10px_0_30px_rgba(225,6,0,0.4)]"
+        className="absolute top-0 bottom-0 right-0 w-[50.5%] overflow-hidden bg-gradient-to-bl from-[#0c072b] via-[#140b3b] to-[#07041a] z-20"
       >
         {/* Right Side Content & Background Mirroring */}
         <div className="absolute top-0 bottom-0 right-0 w-[200%] overflow-hidden pointer-events-none">
@@ -251,7 +252,7 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
         </div>
       </motion.div>
 
-      {/* SEAM LIGHT BEAM (Bursts when opening begins) */}
+      {/* SEAM LIGHT BEAM (Bursts only when opening begins) */}
       <AnimatePresence>
         {isOpening && (
           <motion.div

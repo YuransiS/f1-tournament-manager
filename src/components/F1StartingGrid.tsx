@@ -99,12 +99,29 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Track indices of rows that have been revealed as presentation ascends from rear to front
+  const [revealedIndices, setRevealedIndices] = useState<Set<number>>(
+    () => new Set(totalPairs > 0 ? [totalPairs - 1] : [])
+  );
+
   // Sync index if pairs change
   useEffect(() => {
     if (totalPairs > 0 && activePairIndex >= totalPairs) {
       setActivePairIndex(totalPairs - 1);
     }
   }, [totalPairs, activePairIndex]);
+
+  // Sync revealed rows as activePairIndex changes or ascends
+  useEffect(() => {
+    if (totalPairs === 0) return;
+    setRevealedIndices((prev) => {
+      const next = new Set(prev);
+      for (let i = activePairIndex; i < totalPairs; i++) {
+        next.add(i);
+      }
+      return next;
+    });
+  }, [activePairIndex, totalPairs]);
 
   const currentPair = pairs[activePairIndex] || [null, null];
   const [leftPilot, rightPilot] = currentPair;
@@ -150,7 +167,20 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
   const replayIntro = useCallback(() => {
     setIntroStage('intro');
-    setActivePairIndex(Math.max(0, totalPairs - 1));
+    const lastIdx = Math.max(0, totalPairs - 1);
+    setActivePairIndex(lastIdx);
+    setRevealedIndices(new Set(totalPairs > 0 ? [lastIdx] : []));
+  }, [totalPairs]);
+
+  const handleSelectPair = useCallback((idx: number) => {
+    setActivePairIndex(idx);
+    setRevealedIndices((prev) => {
+      const next = new Set(prev);
+      for (let i = idx; i < totalPairs; i++) {
+        next.add(i);
+      }
+      return next;
+    });
   }, [totalPairs]);
 
   const skipIntro = useCallback(() => {
@@ -280,9 +310,9 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         flagVideoId={flagVideoId}
       />
 
-      {/* Broadcast Indigo Gradient & Speed Streak Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#060417] via-[#090620]/65 to-[#0b0826]/80 pointer-events-none z-[2]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#040312]/80 via-transparent to-[#040312]/80 pointer-events-none z-[2]" />
+      {/* Broadcast Indigo Gradient & Speed Streak Overlay (softened to keep waving flag clearly visible) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060417]/80 via-[#090620]/25 to-[#0b0826]/40 pointer-events-none z-[2]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#040312]/50 via-transparent to-[#040312]/50 pointer-events-none z-[2]" />
 
       {/* Diagonal Neon Speed Streaks (-35deg) across background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-60 z-[3]">
@@ -476,7 +506,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
-                onSelectPair={(idx) => setActivePairIndex(idx)}
+                revealedIndices={revealedIndices}
+                onSelectPair={handleSelectPair}
               />
             </div>
 
