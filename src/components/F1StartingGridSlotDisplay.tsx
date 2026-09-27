@@ -56,7 +56,7 @@ export function getDriver3LetterCode(pilot?: GridPilot | null): string {
 }
 
 // Authentic Formula 1 Starting Grid slot: Letter П (open at bottom!) matching media_1790535748106.png
-// Downward tick marks on left & right extending ~55% height, leaving plenty of vertical tarmac space!
+// Downward tick marks on left & right extending ~60% height
 const F1GridSlotBracket: React.FC<{ isActive: boolean }> = ({ isActive }) => (
   <svg
     viewBox="0 0 100 100"
@@ -64,15 +64,57 @@ const F1GridSlotBracket: React.FC<{ isActive: boolean }> = ({ isActive }) => (
     preserveAspectRatio="none"
     className="absolute inset-0 w-full h-full pointer-events-none"
   >
-    {/* Letter П open starting grid slot stroke: Left leg (down 55%) -> Top bar -> Right leg (down 55%) */}
     <path
-      d="M 1.5 55 L 1.5 1.5 L 98.5 1.5 L 98.5 55"
-      stroke={isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)'}
+      d="M 1.5 60 L 1.5 1.5 L 98.5 1.5 L 98.5 60"
+      stroke={isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.7)'}
       strokeWidth={isActive ? 2.5 : 1.5}
       strokeLinecap="square"
     />
   </svg>
 );
+
+// Individual compact Grid Slot: [ <digit> <logo> <CODE> ]
+// Clean, tight sequence without empty voids matching media_1790535748106.png
+const GridSlotItem: React.FC<{
+  pilot: GridPilot | null;
+  isActive: boolean;
+}> = ({ pilot, isActive }) => {
+  if (!pilot) {
+    return (
+      <div className="relative flex items-center justify-center min-w-[125px] sm:min-w-[140px] lg:min-w-[155px] h-[34px] sm:h-[36px] px-3 flex-shrink-0 opacity-30">
+        <F1GridSlotBracket isActive={false} />
+        <span className="font-mono text-xs text-neutral-400">—</span>
+      </div>
+    );
+  }
+
+  const code = getDriver3LetterCode(pilot);
+
+  return (
+    <div
+      className={`relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 min-w-[125px] sm:min-w-[140px] lg:min-w-[155px] h-[34px] sm:h-[36px] flex-shrink-0 select-none transition-transform duration-200 ${
+        isActive ? 'scale-[1.04]' : ''
+      }`}
+    >
+      <F1GridSlotBracket isActive={isActive} />
+
+      {/* 1. Digit: clear, bold monospace */}
+      <span className="relative z-10 font-mono font-black text-sm lg:text-base text-white min-w-[18px] text-left">
+        {pilot.position}
+      </span>
+
+      {/* 2. Immediately next to it: Team Logo */}
+      <div className="relative z-10 w-5 h-4 sm:w-6 sm:h-4.5 flex items-center justify-center flex-shrink-0">
+        {pilot.team.id && <TeamLogo teamId={pilot.team.id} size="sm" />}
+      </div>
+
+      {/* 3. Immediately next to it: 3 letters in bold */}
+      <span className="relative z-10 font-black tracking-wider text-sm lg:text-base text-white font-['Titillium_Web']">
+        {code}
+      </span>
+    </div>
+  );
+};
 
 export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> = ({
   pairs,
@@ -93,32 +135,30 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
   return (
     <div className="relative h-full w-full flex flex-col items-center justify-between select-none pointer-events-auto py-2 sm:py-3">
       {/* ============================================================= */}
-      {/* 1. UPPER TWIN RED BARS (Top edge down to ~40% with \ cut)     */}
+      {/* 1. UPPER TWIN RED BARS: Thick authoritative bars (gap: small) */}
       {/* ============================================================= */}
-      <div className="absolute top-0 bottom-[59%] left-1/2 -translate-x-1/2 flex gap-3 sm:gap-4 pointer-events-none z-10">
+      <div className="absolute top-0 bottom-[59%] left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 pointer-events-none z-10">
         <div
-          className="w-3 sm:w-3.5 lg:w-4 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 16px), 0 calc(100% - 32px))' }}
+          className="w-6 sm:w-7 lg:w-8 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 20px), 0 calc(100% - 40px))' }}
         />
         <div
-          className="w-3 sm:w-3.5 lg:w-4 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 16px))' }}
+          className="w-6 sm:w-7 lg:w-8 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 20px))' }}
         />
       </div>
 
       {/* ============================================================= */}
       {/* 2. TOP GRID SLOTS: Rows 0..4 (Positions 1 to 10)              */}
-      {/* Revealed ONLY when this pair has been presented!              */}
+      {/* Stagger formula: Right slot shifted down 0.5h (18px)          */}
+      {/* Interval to next row is exactly 0.5h (18px)                   */}
       {/* ============================================================= */}
-      <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[680px] flex flex-col gap-3 sm:gap-3.5 lg:gap-4 items-center z-20 flex-shrink-0">
+      <div className="relative w-full flex flex-col gap-[18px] items-center z-20 flex-shrink-0">
         {topRows.map(({ pair, idx }) => {
           const [pA, pB] = pair;
           const isActive = idx === activePairIndex;
           const isRevealed = revealedIndices.has(idx);
-          const codeA = getDriver3LetterCode(pA);
-          const codeB = getDriver3LetterCode(pB);
 
-          // If not revealed yet, keep slot space reserved but completely invisible
           if (!isRevealed) {
             return (
               <div
@@ -136,40 +176,20 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               animate={{ opacity: 1, y: 0, filter: 'brightness(1)' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
               onClick={() => onSelectPair(idx)}
-              className={`flex items-center justify-between w-full cursor-pointer transition-all duration-200 flex-shrink-0 ${
-                isActive ? 'opacity-100 scale-[1.02]' : 'opacity-85 hover:opacity-100'
+              className={`flex items-start justify-center w-full cursor-pointer transition-opacity duration-200 flex-shrink-0 ${
+                isActive ? 'opacity-100' : 'opacity-85 hover:opacity-100'
               }`}
               style={{ height: '36px' }}
             >
-              {/* Left Slot: Odd position (Stepped forward) matching media_1790535748106.png */}
-              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0">
-                <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
-                  {pA?.position}
-                </span>
-                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
-                  {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
-                </div>
-                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
-                  {codeA}
-                </span>
-              </div>
+              {/* Left Slot: Odd position (e.g. P1, P3, P5...) */}
+              <GridSlotItem pilot={pA} isActive={isActive} />
 
-              {/* Center Gap for the Twin Red Bars */}
-              <div className="w-8 sm:w-10 lg:w-12 flex-shrink-0" />
+              {/* Center Gap for the Thick Twin Red Bars */}
+              <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0" />
 
-              {/* Right Slot: Even position (Staggered back on track) */}
-              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0 translate-y-1.5">
-                <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
-                  {pB?.position || '—'}
-                </span>
-                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
-                  {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
-                </div>
-                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
-                  {codeB}
-                </span>
+              {/* Right Slot: Even position (Shifted down 0.5 slot height = 18px) */}
+              <div className="translate-y-[18px] flex-shrink-0">
+                <GridSlotItem pilot={pB} isActive={isActive} />
               </div>
             </motion.div>
           );
@@ -205,7 +225,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
         </div>
 
         {/* Center Floating Yellow Text: STARTING GRID */}
-        <div className="w-8 sm:w-10 lg:w-12 flex flex-col items-center justify-center flex-shrink-0">
+        <div className="w-10 sm:w-12 lg:w-14 flex flex-col items-center justify-center flex-shrink-0">
           <span
             className="text-xs sm:text-sm lg:text-base font-black tracking-[0.45em] text-[#FFD700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_14px_rgba(255,215,0,0.9)] select-none"
             style={{ writingMode: 'vertical-rl' }}
@@ -239,32 +259,30 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       </div>
 
       {/* ============================================================= */}
-      {/* 4. LOWER TWIN RED BARS (y ≈ 59% down to bottom edge with \ cut) */}
+      {/* 4. LOWER TWIN RED BARS: Thick authoritative bars (gap: small) */}
       {/* ============================================================= */}
-      <div className="absolute top-[59%] bottom-0 left-1/2 -translate-x-1/2 flex gap-3 sm:gap-4 pointer-events-none z-10">
+      <div className="absolute top-[59%] bottom-0 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 pointer-events-none z-10">
         <div
-          className="w-3 sm:w-3.5 lg:w-4 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
-          style={{ clipPath: 'polygon(0 0, 100% 16px, 100% 100%, 0 100%)' }}
+          className="w-6 sm:w-7 lg:w-8 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          style={{ clipPath: 'polygon(0 0, 100% 20px, 100% 100%, 0 100%)' }}
         />
         <div
-          className="w-3 sm:w-3.5 lg:w-4 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
-          style={{ clipPath: 'polygon(0 16px, 100% 32px, 100% 100%, 0 100%)' }}
+          className="w-6 sm:w-7 lg:w-8 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          style={{ clipPath: 'polygon(0 20px, 100% 40px, 100% 100%, 0 100%)' }}
         />
       </div>
 
       {/* ============================================================= */}
       {/* 5. BOTTOM GRID SLOTS: Rows 5..9 (Positions 11 to 20)           */}
-      {/* Revealed ONLY when this pair has been presented!              */}
+      {/* Stagger formula: Right slot shifted down 0.5h (18px)          */}
+      {/* Interval to next row is exactly 0.5h (18px)                   */}
       {/* ============================================================= */}
-      <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[680px] flex flex-col gap-3 sm:gap-3.5 lg:gap-4 items-center z-20 flex-shrink-0">
+      <div className="relative w-full flex flex-col gap-[18px] items-center z-20 flex-shrink-0">
         {bottomRows.map(({ pair, idx }) => {
           const [pA, pB] = pair;
           const isActive = idx === activePairIndex;
           const isRevealed = revealedIndices.has(idx);
-          const codeA = getDriver3LetterCode(pA);
-          const codeB = getDriver3LetterCode(pB);
 
-          // If not revealed yet, keep slot space reserved but completely invisible
           if (!isRevealed) {
             return (
               <div
@@ -282,40 +300,20 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               animate={{ opacity: 1, y: 0, filter: 'brightness(1)' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
               onClick={() => onSelectPair(idx)}
-              className={`flex items-center justify-between w-full cursor-pointer transition-all duration-200 flex-shrink-0 ${
-                isActive ? 'opacity-100 scale-[1.02]' : 'opacity-85 hover:opacity-100'
+              className={`flex items-start justify-center w-full cursor-pointer transition-opacity duration-200 flex-shrink-0 ${
+                isActive ? 'opacity-100' : 'opacity-85 hover:opacity-100'
               }`}
               style={{ height: '36px' }}
             >
-              {/* Left Slot: Odd position (Stepped forward) matching media_1790535748106.png */}
-              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0">
-                <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
-                  {pA?.position}
-                </span>
-                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
-                  {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
-                </div>
-                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
-                  {codeA}
-                </span>
-              </div>
+              {/* Left Slot: Odd position (e.g. P11, P13, P15...) */}
+              <GridSlotItem pilot={pA} isActive={isActive} />
 
-              {/* Center Gap for the Twin Red Bars */}
-              <div className="w-8 sm:w-10 lg:w-12 flex-shrink-0" />
+              {/* Center Gap for the Thick Twin Red Bars */}
+              <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0" />
 
-              {/* Right Slot: Even position (Staggered back on track) */}
-              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0 translate-y-1.5">
-                <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
-                  {pB?.position || '—'}
-                </span>
-                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
-                  {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
-                </div>
-                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
-                  {codeB}
-                </span>
+              {/* Right Slot: Even position (Shifted down 0.5 slot height = 18px) */}
+              <div className="translate-y-[18px] flex-shrink-0">
+                <GridSlotItem pilot={pB} isActive={isActive} />
               </div>
             </motion.div>
           );

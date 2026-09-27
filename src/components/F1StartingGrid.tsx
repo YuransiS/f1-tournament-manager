@@ -353,126 +353,124 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
 
       {/* ===================================================================== */}
-      {/* 3. TOP BROADCAST HEADER: Official F1 Logo + Track Name | Clean Controls */}
+      {/* 3. FLOATING OVERLAYS: Top-Left Event Badge & Top-Right Controls Strip  */}
+      {/* Takes 0px from layout height, freeing 100% space for 1:1 pilots        */}
       {/* ===================================================================== */}
-      <header className="relative z-40 w-full h-16 sm:h-20 lg:h-24 px-6 sm:px-12 flex items-center justify-between flex-shrink-0">
-        {/* Left: Official White F1 Logo + Track & Grand Prix Title */}
-        <div className="flex items-center gap-3 sm:gap-5 select-none">
-          <img
-            src="/F1-logo.png"
-            alt="Formula 1"
-            className="h-7 sm:h-9 lg:h-11 object-contain drop-shadow-[0_2px_14px_rgba(255,255,255,0.45)]"
-          />
-          <div className="h-7 sm:h-9 w-[2px] bg-white/30 rounded-full" />
-          <div className="flex flex-col">
-            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic tracking-wide text-white uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] font-['Titillium_Web'] leading-none">
-              {activeEventTitle}
-            </h1>
-            {activeTrackName && (
-              <span className="text-xs sm:text-sm lg:text-base font-bold tracking-widest text-neutral-300 uppercase mt-1 drop-shadow">
-                {activeTrackName}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Right: Controls Strip (Hidden by default (opacity-0), reveals on hover) */}
-        <div className="flex items-center gap-1.5 sm:gap-2 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl">
-          <button
-            type="button"
-            onClick={replayIntro}
-            title="Replay Intro Sequence (R)"
-            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
-          >
-            <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
-            <span className="hidden md:inline">INTRO</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={togglePlay}
-            title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
-          >
-            {isPlaying ? (
-              <>
-                <Pause className="w-3.5 h-3.5 text-amber-400" />
-                <span className="hidden sm:inline">PAUSE</span>
-              </>
-            ) : (
-              <>
-                <Play className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="hidden sm:inline">PLAY</span>
-              </>
-            )}
-          </button>
-
-          {/* Stepper Buttons (Up toward Pole / Down toward Rear) */}
-          <div className="flex items-center bg-white/10 rounded-lg border border-white/15 overflow-hidden">
-            <button
-              type="button"
-              onClick={handleStepUp}
-              title="Previous / Up Toward Pole (↑)"
-              className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
-            >
-              <ChevronUp className="w-4 h-4 text-white" />
-            </button>
-            <div className="w-[1px] h-4 bg-white/20" />
-            <button
-              type="button"
-              onClick={handleStepDown}
-              title="Next / Down Toward Rear (↓)"
-              className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
-            >
-              <ChevronDown className="w-4 h-4 text-white" />
-            </button>
-          </div>
-
-          {/* Sound Toggle (20% volume) */}
-          <button
-            type="button"
-            onClick={toggleMute}
-            title={isMuted ? 'Включить звук темы F1 (M)' : 'Выключить звук (M)'}
-            className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
-              isMuted
-                ? 'bg-white/10 text-neutral-400 border-white/15 hover:text-white'
-                : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_12px_rgba(225,6,0,0.6)]'
-            }`}
-          >
-            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
-            <span className="text-[10px] font-bold uppercase hidden lg:inline">
-              {isMuted ? 'MUTE' : 'AUDIO (20%)'}
+      <div className="absolute top-3 left-4 sm:top-4 sm:left-8 z-40 flex items-center gap-3 sm:gap-4 select-none pointer-events-none">
+        <img
+          src="/F1-logo.png"
+          alt="Formula 1"
+          className="h-6 sm:h-8 lg:h-9 object-contain drop-shadow-[0_2px_14px_rgba(255,255,255,0.45)]"
+        />
+        <div className="h-6 sm:h-8 w-[2px] bg-white/30 rounded-full" />
+        <div className="flex flex-col">
+          <h1 className="text-base sm:text-2xl lg:text-3xl font-black italic tracking-wide text-white uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] font-['Titillium_Web'] leading-none">
+            {activeEventTitle}
+          </h1>
+          {activeTrackName && (
+            <span className="text-[10px] sm:text-xs lg:text-sm font-bold tracking-widest text-neutral-300 uppercase mt-0.5 drop-shadow">
+              {activeTrackName}
             </span>
-          </button>
-
-          {/* Fullscreen Button */}
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            title="Fullscreen Toggle (F)"
-            className="p-1.5 bg-white/10 hover:bg-white/25 active:scale-95 text-white rounded-lg border border-white/15 transition-all cursor-pointer"
-          >
-            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-          </button>
-
-          {onClose && (
-            <button
-              type="button"
-              onClick={onClose}
-              title="Close (Esc)"
-              className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
-            >
-              ✕
-            </button>
           )}
         </div>
-      </header>
+      </div>
+
+      {/* Top-Right: Controls Strip (Hidden by default (opacity-0), reveals on hover) */}
+      <div className="absolute top-3 right-4 sm:top-4 sm:right-8 z-50 flex items-center gap-1.5 sm:gap-2 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl pointer-events-auto">
+        <button
+          type="button"
+          onClick={replayIntro}
+          title="Replay Intro Sequence (R)"
+          className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
+        >
+          <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
+          <span className="hidden md:inline">INTRO</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={togglePlay}
+          title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
+          className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
+        >
+          {isPlaying ? (
+            <>
+              <Pause className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">PAUSE</span>
+            </>
+          ) : (
+            <>
+              <Play className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden sm:inline">PLAY</span>
+            </>
+          )}
+        </button>
+
+        {/* Stepper Buttons (Up toward Pole / Down toward Rear) */}
+        <div className="flex items-center bg-white/10 rounded-lg border border-white/15 overflow-hidden">
+          <button
+            type="button"
+            onClick={handleStepUp}
+            title="Previous / Up Toward Pole (↑)"
+            className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
+          >
+            <ChevronUp className="w-4 h-4 text-white" />
+          </button>
+          <div className="w-[1px] h-4 bg-white/20" />
+          <button
+            type="button"
+            onClick={handleStepDown}
+            title="Next / Down Toward Rear (↓)"
+            className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
+          >
+            <ChevronDown className="w-4 h-4 text-white" />
+          </button>
+        </div>
+
+        {/* Sound Toggle (20% volume) */}
+        <button
+          type="button"
+          onClick={toggleMute}
+          title={isMuted ? 'Включить звук темы F1 (M)' : 'Выключить звук (M)'}
+          className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
+            isMuted
+              ? 'bg-white/10 text-neutral-400 border-white/15 hover:text-white'
+              : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_12px_rgba(225,6,0,0.6)]'
+          }`}
+        >
+          {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
+          <span className="text-[10px] font-bold uppercase hidden lg:inline">
+            {isMuted ? 'MUTE' : 'AUDIO (20%)'}
+          </span>
+        </button>
+
+        {/* Fullscreen Button */}
+        <button
+          type="button"
+          onClick={toggleFullscreen}
+          title="Fullscreen Toggle (F)"
+          className="p-1.5 bg-white/10 hover:bg-white/25 active:scale-95 text-white rounded-lg border border-white/15 transition-all cursor-pointer"
+        >
+          {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+        </button>
+
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            title="Close (Esc)"
+            className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
+          >
+            ✕
+          </button>
+        )}
+      </div>
 
       {/* ===================================================================== */}
-      {/* 4. MAIN STAGE: MATHEMATICAL 50/50 SCREEN DIVISION WITH CENTER GAP    */}
-      {/* Left 50% (minus gap/2) | Center Gap | Right 50% (minus gap/2)         */}
+      {/* 4. MAIN STAGE: 50/50 FULL-SCREEN DRIVER DIVISION + CENTER OVERLAY     */}
+      {/* Left 50% Pilot | Right 50% Pilot | Center Layered Grid Overlay       */}
       {/* ===================================================================== */}
-      <main className="relative flex-1 w-full flex items-stretch justify-between overflow-hidden min-h-0">
+      <main className="relative flex-1 w-full h-full overflow-hidden min-h-0">
         {/* Row Switch Broadcast Shutter Flash */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -491,10 +489,10 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 w-full h-full flex items-stretch justify-between"
+            className="absolute inset-0 w-full h-full"
           >
-            {/* LEFT DRIVER CARD (Takes full left half minus half the center gap) */}
-            <div className="w-[calc(50%-180px)] sm:w-[calc(50%-210px)] lg:w-[calc(50%-240px)] 2xl:w-[calc(50%-270px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
+            {/* LEFT DRIVER CARD: Takes full left 50% of the screen */}
+            <div className="absolute left-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -503,23 +501,23 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               />
             </div>
 
-            {/* CENTER ZONE: 10 on Top, Staggered Numbers & STARTING GRID, 10 on Bottom */}
-            <div className="w-[360px] sm:w-[420px] lg:w-[480px] 2xl:w-[540px] h-full flex flex-col items-center justify-between z-35 px-1 py-1 flex-shrink-0">
-              <F1StartingGridSlotDisplay
-                pairs={pairs}
-                activePairIndex={activePairIndex}
-                revealedIndices={revealedIndices}
-                onSelectPair={handleSelectPair}
-              />
-            </div>
-
-            {/* RIGHT DRIVER CARD (Takes full right half minus half the center gap) */}
-            <div className="w-[calc(50%-180px)] sm:w-[calc(50%-210px)] lg:w-[calc(50%-240px)] 2xl:w-[calc(50%-270px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
+            {/* RIGHT DRIVER CARD: Takes full right 50% of the screen */}
+            <div className="absolute right-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"
                 hasImageError={rightPilot ? imgErrors[rightPilot.id] : false}
                 onImageError={handleImageError}
+              />
+            </div>
+
+            {/* CENTER ZONE: Layered over the drivers down the center */}
+            <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[420px] sm:w-[480px] lg:w-[540px] 2xl:w-[600px] flex flex-col items-center justify-between z-30 px-1 py-2 pointer-events-auto">
+              <F1StartingGridSlotDisplay
+                pairs={pairs}
+                activePairIndex={activePairIndex}
+                revealedIndices={revealedIndices}
+                onSelectPair={handleSelectPair}
               />
             </div>
           </motion.div>
