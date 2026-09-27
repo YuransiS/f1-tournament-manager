@@ -11,8 +11,8 @@ export interface GridPilot {
   nickname: string;
   driverNumber: number;
   avatarUrl: string;
-  countryFlagUrl?: string; // e.g. "NL", "IT", "GB", "UA"
-  lapTimeOrDelta: string; // "1:28.997" or "+0.055"
+  countryFlagUrl?: string;
+  lapTimeOrDelta: string;
   team: {
     id: string;
     name: string;
@@ -28,49 +28,46 @@ export interface F1StartingGridProps {
   pilots: GridPilot[];
   eventTitle?: string;
   trackName?: string;
-  countryCode?: string; // Host country code (e.g. 'jp', 'bh', 'it', 'us', 'sa', 'sg')
-  flagGifUrl?: string; // Optional custom flag GIF URL
-  flagVideoId?: string; // Optional YouTube video ID override
+  countryCode?: string;
+  flagGifUrl?: string;
+  flagVideoId?: string;
   cycleIntervalMs?: number;
   autoPlay?: boolean;
   onClose?: () => void;
   className?: string;
 }
 
-// Map of host countries to 4K / HD looping waving flag animation video IDs
 export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
-  bh: 'EY_88yHI9Uc', // Bahrain
-  sa: 'eDBnesS7_BY', // Saudi Arabia
-  au: 'oh_a7IR9wBQ', // Australia
-  az: '7upmTbfsa90', // Azerbaijan
-  us: 'O1TWZ_OOHMU', // USA (Miami & Austin)
-  it: 'frO_J_MubJY', // Italy (Imola & Monza)
-  mc: 'OFVVct6DVyw', // Monaco
-  es: 't-JBSXdJnR8', // Spain
-  ca: '7Ry6UhLNOaI', // Canada
-  at: 'vBIHzWBmcCU', // Austria
-  gb: 'v7w4CMPkJsA', // Great Britain
-  hu: 'qvym0lkBL2s', // Hungary
-  be: 'RuhgyWAIMnQ', // Belgium
-  nl: 'u2P2xBi6ygg', // Netherlands
-  sg: 'WqwBlGrAf6A', // Singapore
-  jp: 'x0Za2ghUHvw', // Japan
+  bh: 'EY_88yHI9Uc',
+  sa: 'eDBnesS7_BY',
+  au: 'oh_a7IR9wBQ',
+  az: '7upmTbfsa90',
+  us: 'O1TWZ_OOHMU',
+  it: 'frO_J_MubJY',
+  mc: 'OFVVct6DVyw',
+  es: 't-JBSXdJnR8',
+  ca: '7Ry6UhLNOaI',
+  at: 'vBIHzWBmcCU',
+  gb: 'v7w4CMPkJsA',
+  hu: 'qvym0lkBL2s',
+  be: 'RuhgyWAIMnQ',
+  nl: 'u2P2xBi6ygg',
+  sg: 'WqwBlGrAf6A',
+  jp: 'x0Za2ghUHvw',
 };
 
 export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   pilots = [],
-  eventTitle = 'GULF AIR BAHRAIN GRAND PRIX',
-  trackName = 'BAHRAIN INTERNATIONAL CIRCUIT',
+  eventTitle = 'JAPANESE GRAND PRIX',
+  trackName = 'SUZUKA INTERNATIONAL RACING COURSE',
   countryCode = 'jp',
   flagGifUrl,
-  flagVideoId,
   cycleIntervalMs = 2800,
   autoPlay = true,
   onClose,
   className = ''
 }) => {
   const activeCountryCode = (countryCode || 'jp').toLowerCase();
-  const activeVideoId = flagVideoId || COUNTRY_FLAG_YOUTUBE_MAP[activeCountryCode] || 'x0Za2ghUHvw';
   const flagGifSrc = flagGifUrl || `/flags/animated/${activeCountryCode}.gif`;
 
   const sortedPilots = useMemo(() => {
@@ -97,8 +94,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   const [leftPilot, rightPilot] = currentPair;
 
   // -------------------------------------------------------------------------
-  // F1 BROADCAST AUDIO CONTROLLER
-  // Persistent singleton audio instance that doesn't reset on row cycle or prop change
+  // F1 BROADCAST AUDIO CONTROLLER: Fixed at 20% volume (0.20)
   // -------------------------------------------------------------------------
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -107,7 +103,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     if (!audioRef.current) {
       const audio = new Audio('/audio/f1_starting_grid.mp3');
       audio.loop = true;
-      audio.volume = 0.45;
+      audio.volume = 0.20; // 20% volume as requested
       audioRef.current = audio;
     }
   }, []);
@@ -136,7 +132,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     });
   }, [initAudio]);
 
-  // Keep pair index bounded when pilot list changes
   useEffect(() => {
     if (activePairIndex >= totalPairs && totalPairs > 0) {
       setActivePairIndex(0);
@@ -206,7 +201,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [togglePlay, handleNext, handlePrev, toggleFullscreen, replayIntro, toggleMute, onClose]);
 
-  // Sync fullscreen change listener
   useEffect(() => {
     const onFsChange = () => {
       setIsFullscreen(Boolean(document.fullscreenElement));
@@ -215,7 +209,6 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
     return () => document.removeEventListener('fullscreenchange', onFsChange);
   }, []);
 
-  // Automatic cycle timer
   useEffect(() => {
     if (!isPlaying || isIntroActive || totalPairs <= 1) return;
 
@@ -241,104 +234,78 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[560px] bg-[#07090E] text-white overflow-hidden select-none flex flex-col justify-between ${className}`}
+      className={`relative w-full h-full min-h-[580px] bg-[#07090E] text-white overflow-hidden select-none flex flex-col justify-between group ${className}`}
       style={{
         fontFamily: "'Titillium Web', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
       }}
     >
       {/* ===================================================================== */}
-      {/* BACKGROUND LAYER: Dynamic Flag Video / Looping GIF + Cinematic Vignette */}
+      {/* BACKGROUND: Pure Animated Flag GIF (Zero YouTube controls/overlays) */}
       {/* ===================================================================== */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#07090E]">
-        {/* Offline & Instant Fallback GIF */}
         <img
           src={flagGifSrc}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-35 filter blur-[0.5px] scale-105 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-45 filter contrast-110 scale-105 pointer-events-none"
           onError={(e) => {
             (e.target as HTMLElement).style.display = 'none';
           }}
         />
 
-        {/* Dynamic 4K/HD Video Background */}
-        {activeVideoId && (
-          <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none">
-            <iframe
-              key={activeVideoId}
-              src={`https://www.youtube-nocookie.com/embed/${activeVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${activeVideoId}&playsinline=1&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`}
-              className="pointer-events-none border-0 select-none"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%) scale(1.3)',
-                width: 'max(100%, 178vh, 178%)',
-                height: 'max(100%, 56.25vw, 56.25%)',
-                minWidth: '100%',
-                minHeight: '100%',
-                backgroundColor: '#07090E',
-                filter: 'brightness(0.85) contrast(1.1)'
-              }}
-              allow="autoplay; encrypted-media; picture-in-picture"
-              tabIndex={-1}
-              title="Host Country Flag Video Animation"
-            />
-          </div>
-        )}
+        {/* Cinematic Vignette Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/30 to-[#040508]/60 pointer-events-none z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/75 via-transparent to-[#040508]/75 pointer-events-none z-[1]" />
 
-        {/* Vignette Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/40 to-[#040508]/60 pointer-events-none z-[1]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/70 via-transparent to-[#040508]/70 pointer-events-none z-[1]" />
-
-        {/* Dynamic Ambient Team Glow */}
+        {/* Ambient Team Glows */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-20 z-[2] transition-colors duration-700"
+          className="absolute inset-0 pointer-events-none opacity-25 z-[2] transition-colors duration-700"
           style={{
-            background: `radial-gradient(circle at 20% 50%, ${leftPilot.team.primaryColor}55 0%, transparent 60%), radial-gradient(circle at 80% 50%, ${
+            background: `radial-gradient(circle at 18% 50%, ${leftPilot.team.primaryColor}66 0%, transparent 60%), radial-gradient(circle at 82% 50%, ${
               rightPilot ? rightPilot.team.primaryColor : '#ffffff'
-            }55 0%, transparent 60%)`
+            }66 0%, transparent 60%)`
           }}
         />
 
         {/* F1 Red Top Accent Line */}
-        <div className="absolute top-0 inset-x-0 h-[3px] bg-[#E10600] z-40 shadow-[0_0_12px_#E10600]" />
+        <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
 
         {/* F1 Official Logo Watermark in bottom left */}
-        <div className="absolute bottom-3 left-4 sm:left-6 opacity-60 pointer-events-none z-10">
-          <img src="/F1-logo.png" alt="F1" className="h-3.5 sm:h-4 object-contain drop-shadow" />
+        <div className="absolute bottom-3 left-6 opacity-60 pointer-events-none z-10">
+          <img src="/F1-logo.png" alt="F1" className="h-4 object-contain drop-shadow" />
         </div>
       </div>
 
       {/* ===================================================================== */}
-      {/* TOP BROADCAST BAR: F1 Badge (Left) & Controls (Right) */}
+      {/* TOP BROADCAST BAR: F1 Logo + Big Grand Prix Title | Hoverable Controls */}
       {/* ===================================================================== */}
-      <header className="relative z-40 w-full h-14 sm:h-16 px-4 sm:px-8 flex items-center justify-between border-b border-white/10 backdrop-blur-md bg-black/40 flex-shrink-0">
-        {/* Left: Event & Track Badge */}
-        <div className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg border border-white/20 bg-black/60 shadow max-w-[340px] sm:max-w-[560px] lg:max-w-[720px]">
-          <div className="flex flex-col min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] sm:text-[11px] font-black tracking-widest text-[#E10600] uppercase font-['Titillium_Web'] leading-none">
-                FORMULA 1
-              </span>
-              {trackName && (
-                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider hidden sm:inline truncate">
-                  • {trackName}
-                </span>
-              )}
-            </div>
-            <span className="text-xs sm:text-sm font-bold tracking-wide text-neutral-100 uppercase truncate leading-tight mt-0.5 font-['Titillium_Web']">
+      <header className="relative z-40 w-full h-16 sm:h-20 px-6 sm:px-10 flex items-center justify-between flex-shrink-0">
+        {/* Left: Official F1 Logo + Big Bold Grand Prix Title */}
+        <div className="flex items-center gap-3 sm:gap-4 select-none">
+          <img
+            src="/F1-logo.png"
+            alt="Formula 1"
+            className="h-7 sm:h-9 object-contain drop-shadow-[0_2px_12px_rgba(225,6,0,0.7)]"
+          />
+          <div className="h-6 sm:h-8 w-[2px] bg-white/20 rounded-full" />
+          <div className="flex flex-col">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black italic tracking-wide text-white uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] font-['Titillium_Web'] leading-none">
               {eventTitle}
-            </span>
+            </h1>
+            {trackName && (
+              <span className="text-[11px] sm:text-xs font-bold tracking-widest text-neutral-300 uppercase mt-1 drop-shadow">
+                {trackName}
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Right: Broadcast HUD Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        {/* Right: Controls Strip (Clean glassmorphism, fades in smoothly on hover) */}
+        <div className="flex items-center gap-1.5 sm:gap-2 opacity-30 hover:opacity-100 focus-within:opacity-100 transition-all duration-300 p-1.5 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl">
           <button
             type="button"
             onClick={replayIntro}
             title="Replay Intro Sequence (R)"
-            className="flex items-center gap-1 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-[11px] sm:text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
             <span className="hidden md:inline">INTRO</span>
@@ -347,8 +314,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           <button
             type="button"
             onClick={togglePlay}
-            title={isPlaying ? 'Pause Cycle (Space)' : 'Start Auto Cycle (Space)'}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-[11px] sm:text-xs font-bold uppercase tracking-wider rounded border border-white/20 transition-all cursor-pointer"
+            title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
           >
             {isPlaying ? (
               <>
@@ -364,12 +331,12 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           </button>
 
           {/* Stepper Buttons */}
-          <div className="flex items-center bg-white/10 rounded border border-white/20 overflow-hidden">
+          <div className="flex items-center bg-white/10 rounded-lg border border-white/15 overflow-hidden">
             <button
               type="button"
               onClick={handlePrev}
               title="Previous Row (←)"
-              className="p-1.5 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer"
+              className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4 text-white" />
             </button>
@@ -378,26 +345,26 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               type="button"
               onClick={handleNext}
               title="Next Row (→)"
-              className="p-1.5 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer"
+              className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-4 h-4 text-white" />
             </button>
           </div>
 
-          {/* Sound Toggle */}
+          {/* Sound Toggle (20% volume) */}
           <button
             type="button"
             onClick={toggleMute}
             title={isMuted ? 'Включить звук темы F1 (M)' : 'Выключить звук (M)'}
-            className={`p-1.5 rounded border transition-all cursor-pointer flex items-center gap-1 ${
+            className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
               isMuted
-                ? 'bg-white/10 text-neutral-400 border-white/20 hover:text-white'
-                : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_10px_rgba(225,6,0,0.5)]'
+                ? 'bg-white/10 text-neutral-400 border-white/15 hover:text-white'
+                : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_12px_rgba(225,6,0,0.6)]'
             }`}
           >
             {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
             <span className="text-[10px] font-bold uppercase hidden lg:inline">
-              {isMuted ? 'MUTE' : 'AUDIO'}
+              {isMuted ? 'MUTE' : 'AUDIO (20%)'}
             </span>
           </button>
 
@@ -406,7 +373,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             type="button"
             onClick={toggleFullscreen}
             title="Fullscreen Toggle (F)"
-            className="p-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded border border-white/20 transition-all cursor-pointer"
+            className="p-1.5 bg-white/10 hover:bg-white/25 active:scale-95 text-white rounded-lg border border-white/15 transition-all cursor-pointer"
           >
             {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
@@ -416,7 +383,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               type="button"
               onClick={onClose}
               title="Close (Esc)"
-              className="px-2 py-1 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded border border-red-500/50 transition-all cursor-pointer ml-1"
+              className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
             >
               ✕
             </button>
@@ -425,8 +392,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       </header>
 
       {/* ===================================================================== */}
-      {/* MAIN STAGE: LEFT DRIVER CARD | CENTRAL WIREFRAME SLOTS | RIGHT DRIVER CARD */}
-      {/* Clean 3-zone layout with dedicated center lane for zero overlap collisions */}
+      {/* MAIN STAGE: EXPANDED SCALE (43% Left | 14% Center | 43% Right) */}
       {/* ===================================================================== */}
       <main className="relative flex-1 w-full flex items-center justify-between overflow-hidden min-h-0">
         {/* Row Switch Broadcast Shutter Flash */}
@@ -450,7 +416,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             className="absolute inset-0 w-full h-full flex items-center justify-between"
           >
             {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5...) */}
-            <div className="w-[42%] h-full flex flex-col justify-between">
+            <div className="w-[43%] h-full flex flex-col justify-between">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -460,7 +426,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: Track Slot Display Graphic */}
-            <div className="w-[16%] flex flex-col items-center justify-center z-35 px-1">
+            <div className="w-[14%] flex flex-col items-center justify-center z-35 px-1">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -469,7 +435,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6...) */}
-            <div className="w-[42%] h-full flex flex-col justify-between">
+            <div className="w-[43%] h-full flex flex-col justify-between">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"
@@ -480,21 +446,21 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           </motion.div>
         </AnimatePresence>
 
-        {/* Intro sequence overlay */}
+        {/* Intro Flash Overlay */}
         <AnimatePresence>
           {isIntroActive && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.25 }}
-              className="absolute inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md"
+              className="absolute inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md"
             >
-              <div className="px-8 py-5 rounded-2xl border-2 border-white/40 bg-gradient-to-b from-[#161a24] to-[#080a0f] shadow-2xl flex flex-col items-center">
+              <div className="px-10 py-6 rounded-2xl border-2 border-white/40 bg-gradient-to-b from-[#161a24] to-[#080a0f] shadow-2xl flex flex-col items-center">
                 <span className="text-xs font-black tracking-[0.35em] text-[#E10600] uppercase font-['Titillium_Web'] mb-1">
                   OFFICIAL BROADCAST
                 </span>
-                <span className="text-3xl sm:text-5xl font-black italic tracking-[0.2em] text-white uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
+                <span className="text-3xl sm:text-5xl font-black italic tracking-[0.2em] text-white uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
                   STARTING GRID
                 </span>
               </div>

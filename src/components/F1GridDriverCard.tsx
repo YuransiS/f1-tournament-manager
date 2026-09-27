@@ -11,7 +11,6 @@ interface F1GridDriverCardProps {
   onImageError?: (id: string) => void;
 }
 
-// Ordinal suffix helper (1 -> 1st, 2 -> 2nd, 3 -> 3rd...)
 function getOrdinalParts(n: number): { num: number; suffix: string } {
   const s = ['TH', 'ST', 'ND', 'RD'];
   const v = n % 100;
@@ -19,7 +18,6 @@ function getOrdinalParts(n: number): { num: number; suffix: string } {
   return { num: n, suffix: suffix.toLowerCase() };
 }
 
-// Split full name into first name & last name
 function parseDriverName(fullName: string, nickname: string) {
   const target = (fullName || nickname || '').trim();
   const parts = target.split(' ');
@@ -58,25 +56,25 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
 
   return (
     <div
-      className={`relative flex-1 h-full flex flex-col justify-between pt-3 sm:pt-5 pb-3 select-none ${
+      className={`relative flex-1 h-full flex flex-col justify-between pt-2 sm:pt-4 pb-4 select-none ${
         isLeft
           ? 'pl-6 sm:pl-10 lg:pl-14 pr-2 sm:pr-4 items-start'
           : 'pr-6 sm:pr-10 lg:pr-14 pl-2 sm:pl-4 items-end text-right'
       }`}
     >
       {/* ------------------------------------------------------------- */}
-      {/* BACKGROUND LAYER (z-10): Giant Position Watermark */}
+      {/* BACKGROUND LAYER (z-10): Giant Heroic Position Watermark */}
       {/* ------------------------------------------------------------- */}
       <div
-        className={`absolute top-2 sm:top-4 ${
+        className={`absolute top-0 sm:top-2 ${
           isLeft ? 'left-6 sm:left-10 lg:left-14' : 'right-6 sm:right-10 lg:right-14'
-        } z-10 pointer-events-none opacity-25 sm:opacity-35 transition-opacity`}
+        } z-10 pointer-events-none opacity-20 sm:opacity-30 transition-opacity`}
       >
         <div className={`flex items-baseline ${isLeft ? '' : 'flex-row-reverse'}`}>
-          <span className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black italic text-[#E10600] font-['Chakra_Petch'] leading-none drop-shadow-[0_0_24px_rgba(225,6,0,0.4)]">
+          <span className="text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-black italic text-[#E10600] font-['Chakra_Petch'] leading-none drop-shadow-[0_0_35px_rgba(225,6,0,0.45)]">
             {ordinal.num}
           </span>
-          <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic text-[#E10600] font-['Chakra_Petch'] -ml-1">
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic text-[#E10600] font-['Chakra_Petch'] -ml-1">
             {ordinal.suffix}
           </span>
         </div>
@@ -87,43 +85,43 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
       {/* ------------------------------------------------------------- */}
       <div className={`relative z-30 flex flex-col ${isLeft ? 'items-start' : 'items-end'}`}>
         {/* First name, Flag & Number Badge */}
-        <div className={`flex items-center gap-2 sm:gap-2.5 ${isLeft ? '' : 'flex-row-reverse'}`}>
+        <div className={`flex items-center gap-2.5 sm:gap-3 ${isLeft ? '' : 'flex-row-reverse'}`}>
           {firstName && (
-            <span className="text-sm sm:text-base md:text-lg font-bold text-neutral-300 tracking-wide uppercase font-['Titillium_Web']">
+            <span className="text-base sm:text-lg md:text-xl font-bold text-neutral-200 tracking-wide uppercase font-['Titillium_Web'] drop-shadow">
               {firstName}
             </span>
           )}
           {pilot.countryFlagUrl && (
-            <div className="rounded overflow-hidden shadow-md border border-white/25 flex-shrink-0">
-              <FlagIcon countryCode={pilot.countryFlagUrl} style={{ width: '24px', height: '16px' }} />
+            <div className="rounded overflow-hidden shadow-lg border border-white/30 flex-shrink-0">
+              <FlagIcon countryCode={pilot.countryFlagUrl} style={{ width: '28px', height: '18px' }} />
             </div>
           )}
           {/* Driver Race Number Badge */}
           <span
-            className="text-[11px] sm:text-xs font-mono font-black px-1.5 py-0.5 rounded text-white bg-black/70 border border-white/20 shadow-sm"
-            style={{ borderLeftColor: teamPrimaryColor, borderLeftWidth: '3.5px' }}
+            className="text-xs sm:text-sm font-mono font-black px-2 py-0.5 rounded text-white bg-black/80 border border-white/25 shadow"
+            style={{ borderLeftColor: teamPrimaryColor, borderLeftWidth: '4px' }}
           >
             #{pilot.driverNumber}
           </span>
         </div>
 
-        {/* Big Bold Surname */}
-        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black uppercase text-white tracking-tight leading-none drop-shadow-xl mt-1 font-['Titillium_Web']">
+        {/* Big Bold Surname (Significantly Enlarged) */}
+        <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase text-white tracking-tight leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] mt-1 font-['Titillium_Web']">
           {lastName}
         </h3>
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* MIDDLE LAYER (z-20): Driver 9:16 Transparent Waist-Up Cutout */}
+      {/* MIDDLE LAYER (z-20): Large Heroic 9:16 Driver Cutout */}
       {/* ------------------------------------------------------------- */}
-      <div className="absolute inset-x-0 bottom-0 top-16 sm:top-20 flex items-end justify-center z-20 pointer-events-none">
-        <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[440px] lg:max-w-[490px] h-full flex items-end justify-center pb-0">
+      <div className="absolute inset-x-0 bottom-0 top-12 sm:top-16 flex items-end justify-center z-20 pointer-events-none">
+        <div className="relative w-full max-w-[420px] sm:max-w-[500px] md:max-w-[620px] lg:max-w-[740px] xl:max-w-[840px] h-full flex items-end justify-center pb-0">
           {!hasImageError && pilot.avatarUrl ? (
             <img
               src={pilot.avatarUrl}
               alt={pilot.nickname}
               onError={() => onImageError && onImageError(pilot.id)}
-              className="max-h-full max-w-full h-auto w-auto object-contain object-bottom filter drop-shadow-[0_16px_36px_rgba(0,0,0,0.95)] select-none"
+              className="max-h-[98%] max-w-full h-auto w-auto object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)] select-none"
             />
           ) : (
             <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />
@@ -135,13 +133,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
       {/* LOWER FOREGROUND (z-30): Authentic Broadcast Lower-Third Plates */}
       {/* ------------------------------------------------------------- */}
       <div
-        className={`relative z-30 flex flex-col gap-1.5 mt-auto select-none ${
+        className={`relative z-30 flex flex-col gap-2 mt-auto select-none ${
           isLeft ? 'items-start' : 'items-end'
         }`}
       >
         {/* Team Branding Pill */}
         <div
-          className={`inline-flex items-center gap-2 px-3 py-1 rounded-md bg-black/75 border border-white/20 backdrop-blur-md shadow-md ${
+          className={`inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-black/80 border border-white/20 backdrop-blur-md shadow-lg ${
             isLeft ? 'border-l-4' : 'border-r-4 flex-row-reverse'
           }`}
           style={
@@ -150,15 +148,15 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               : { borderRightColor: teamPrimaryColor }
           }
         >
-          <TeamLogo teamId={pilot.team.id} size="sm" />
-          <span className="text-xs sm:text-sm font-bold text-neutral-200 tracking-wider uppercase drop-shadow font-['Titillium_Web']">
+          <TeamLogo teamId={pilot.team.id} size="md" />
+          <span className="text-xs sm:text-sm md:text-base font-bold text-neutral-100 tracking-wider uppercase drop-shadow font-['Titillium_Web']">
             {pilot.team.name}
           </span>
         </div>
 
         {/* Telemetry Lap Time or Interval Delta Plate */}
         <div
-          className={`inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg bg-black/85 border border-white/25 backdrop-blur-md shadow-xl ${
+          className={`inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-black/90 border border-white/25 backdrop-blur-md shadow-2xl ${
             isLeft ? 'border-l-4' : 'border-r-4 flex-row-reverse'
           }`}
           style={
@@ -167,10 +165,10 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               : { borderRightColor: teamPrimaryColor }
           }
         >
-          <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-neutral-400 uppercase">
+          <span className="text-[11px] sm:text-xs font-mono font-bold tracking-widest text-neutral-400 uppercase">
             {isPole ? 'POLE TIME' : 'INTERVAL'}
           </span>
-          <span className="text-xl sm:text-2xl md:text-3xl font-mono font-black text-white tracking-wider drop-shadow">
+          <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-mono font-black text-white tracking-wider drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             {pilot.lapTimeOrDelta}
           </span>
         </div>

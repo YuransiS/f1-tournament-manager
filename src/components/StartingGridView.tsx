@@ -215,8 +215,8 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         </div>
       </div>
 
-      {/* Starting Grid Broadcast Viewport (16:9 cinematic aspect ratio, single frame) */}
-      <div className="w-full aspect-[16/9] min-h-[580px] max-h-[84vh] rounded-2xl overflow-hidden border border-[#262B3A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] relative bg-[#07090E]">
+      {/* Starting Grid Broadcast Viewport (16:9 cinematic aspect ratio, expanded scale) */}
+      <div className="w-full aspect-[16/9] min-h-[640px] max-h-[90vh] rounded-2xl overflow-hidden border border-[#262B3A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] relative bg-[#07090E]">
         <F1StartingGrid
           pilots={activePilots}
           eventTitle={activeEventTitle}
