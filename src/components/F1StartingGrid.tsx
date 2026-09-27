@@ -494,7 +494,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             className="absolute inset-0 w-full h-full flex items-stretch justify-between"
           >
             {/* LEFT DRIVER CARD (Takes full left half minus half the center gap) */}
-            <div className="w-[calc(50%-150px)] sm:w-[calc(50%-180px)] lg:w-[calc(50%-220px)] 2xl:w-[calc(50%-250px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
+            <div className="w-[calc(50%-180px)] sm:w-[calc(50%-210px)] lg:w-[calc(50%-240px)] 2xl:w-[calc(50%-270px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -504,7 +504,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: 10 on Top, Staggered Numbers & STARTING GRID, 10 on Bottom */}
-            <div className="w-[300px] sm:w-[360px] lg:w-[440px] 2xl:w-[500px] h-full flex flex-col items-center justify-between z-35 px-1 py-1 flex-shrink-0">
+            <div className="w-[360px] sm:w-[420px] lg:w-[480px] 2xl:w-[540px] h-full flex flex-col items-center justify-between z-35 px-1 py-1 flex-shrink-0">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -514,7 +514,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* RIGHT DRIVER CARD (Takes full right half minus half the center gap) */}
-            <div className="w-[calc(50%-150px)] sm:w-[calc(50%-180px)] lg:w-[calc(50%-220px)] 2xl:w-[calc(50%-250px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
+            <div className="w-[calc(50%-180px)] sm:w-[calc(50%-210px)] lg:w-[calc(50%-240px)] 2xl:w-[calc(50%-270px)] h-full flex flex-col justify-end overflow-hidden flex-shrink-0">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"

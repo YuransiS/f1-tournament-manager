@@ -56,7 +56,7 @@ export function getDriver3LetterCode(pilot?: GridPilot | null): string {
 }
 
 // Authentic Formula 1 Starting Grid slot: Letter П (open at bottom!) matching media_1790535748106.png
-// Zero background box, zero persistent glow, clean crisp vector stroke!
+// Downward tick marks on left & right extending ~55% height, leaving plenty of vertical tarmac space!
 const F1GridSlotBracket: React.FC<{ isActive: boolean }> = ({ isActive }) => (
   <svg
     viewBox="0 0 100 100"
@@ -64,9 +64,9 @@ const F1GridSlotBracket: React.FC<{ isActive: boolean }> = ({ isActive }) => (
     preserveAspectRatio="none"
     className="absolute inset-0 w-full h-full pointer-events-none"
   >
-    {/* Letter П open starting grid slot stroke: Left leg -> Top bar -> Right leg (bottom is open!) */}
+    {/* Letter П open starting grid slot stroke: Left leg (down 55%) -> Top bar -> Right leg (down 55%) */}
     <path
-      d="M 1.5 100 L 1.5 1.5 L 98.5 1.5 L 98.5 100"
+      d="M 1.5 55 L 1.5 1.5 L 98.5 1.5 L 98.5 55"
       stroke={isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)'}
       strokeWidth={isActive ? 2.5 : 1.5}
       strokeLinecap="square"
@@ -91,7 +91,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
   const bottomRows = pairs.slice(5, 10).map((pair, offset) => ({ pair, idx: offset + 5 }));
 
   return (
-    <div className="relative h-full w-full flex flex-col items-center justify-between select-none overflow-hidden pointer-events-auto py-2">
+    <div className="relative h-full w-full flex flex-col items-center justify-between select-none pointer-events-auto py-2 sm:py-3">
       {/* ============================================================= */}
       {/* 1. UPPER TWIN RED BARS (Top edge down to ~40% with \ cut)     */}
       {/* ============================================================= */}
@@ -110,7 +110,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* 2. TOP GRID SLOTS: Rows 0..4 (Positions 1 to 10)              */}
       {/* Revealed ONLY when this pair has been presented!              */}
       {/* ============================================================= */}
-      <div className="relative w-full max-w-[500px] sm:max-w-[560px] lg:max-w-[620px] flex flex-col gap-2 sm:gap-2.5 items-center z-20">
+      <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[680px] flex flex-col gap-3 sm:gap-3.5 lg:gap-4 items-center z-20 flex-shrink-0">
         {topRows.map(({ pair, idx }) => {
           const [pA, pB] = pair;
           const isActive = idx === activePairIndex;
@@ -123,7 +123,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
             return (
               <div
                 key={`top-grid-slot-row-${idx}`}
-                className="w-full pointer-events-none invisible opacity-0"
+                className="w-full pointer-events-none invisible opacity-0 flex-shrink-0"
                 style={{ height: '36px' }}
               />
             );
@@ -136,38 +136,38 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               animate={{ opacity: 1, y: 0, filter: 'brightness(1)' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
               onClick={() => onSelectPair(idx)}
-              className={`flex items-center justify-between w-full cursor-pointer transition-all duration-200 ${
+              className={`flex items-center justify-between w-full cursor-pointer transition-all duration-200 flex-shrink-0 ${
                 isActive ? 'opacity-100 scale-[1.02]' : 'opacity-85 hover:opacity-100'
               }`}
               style={{ height: '36px' }}
             >
               {/* Left Slot: Odd position (Stepped forward) matching media_1790535748106.png */}
-              <div className="relative w-[120px] sm:w-[145px] lg:w-[170px] 2xl:w-[190px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-3.5">
+              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0">
                 <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-6 text-left text-xs sm:text-sm font-mono font-bold text-white select-none">
+                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
                   {pA?.position}
                 </span>
-                <div className="relative z-10 w-6 sm:w-7 h-4 sm:h-5 flex items-center justify-center mx-1">
+                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
                   {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
                 </div>
-                <span className="relative z-10 w-8 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none">
+                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
                   {codeA}
                 </span>
               </div>
 
               {/* Center Gap for the Twin Red Bars */}
-              <div className="w-10 sm:w-14 lg:w-18 flex-shrink-0" />
+              <div className="w-8 sm:w-10 lg:w-12 flex-shrink-0" />
 
               {/* Right Slot: Even position (Staggered back on track) */}
-              <div className="relative w-[120px] sm:w-[145px] lg:w-[170px] 2xl:w-[190px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-3.5 translate-y-2">
+              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0 translate-y-1.5">
                 <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-6 text-left text-xs sm:text-sm font-mono font-bold text-white select-none">
+                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
                   {pB?.position || '—'}
                 </span>
-                <div className="relative z-10 w-6 sm:w-7 h-4 sm:h-5 flex items-center justify-center mx-1">
+                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
                   {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
                 </div>
-                <span className="relative z-10 w-8 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none">
+                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
                   {codeB}
                 </span>
               </div>
@@ -181,8 +181,8 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* Left position is HIGHER, Right position is LOWER              */}
       {/* ============================================================= */}
       <div className="relative w-full flex items-center justify-center pointer-events-none z-25 my-1 sm:my-2">
-        {/* Left Position Number: Odd position (Stepped higher: translate-y-[-14px]) */}
-        <div className="flex-1 flex justify-end pr-2 sm:pr-4 lg:pr-6 -translate-y-3 sm:-translate-y-4">
+        {/* Left Position Number: Odd position (Stepped higher: translate-y-[-10px]) */}
+        <div className="flex-1 flex justify-end pr-2 sm:pr-4 lg:pr-6 -translate-y-2 sm:-translate-y-2.5">
           <AnimatePresence mode="wait">
             {leftPos && (
               <motion.div
@@ -205,7 +205,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
         </div>
 
         {/* Center Floating Yellow Text: STARTING GRID */}
-        <div className="w-10 sm:w-14 lg:w-18 flex flex-col items-center justify-center flex-shrink-0">
+        <div className="w-8 sm:w-10 lg:w-12 flex flex-col items-center justify-center flex-shrink-0">
           <span
             className="text-xs sm:text-sm lg:text-base font-black tracking-[0.45em] text-[#FFD700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_14px_rgba(255,215,0,0.9)] select-none"
             style={{ writingMode: 'vertical-rl' }}
@@ -214,8 +214,8 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
           </span>
         </div>
 
-        {/* Right Position Number: Even position (Stepped lower: translate-y-[14px]) */}
-        <div className="flex-1 flex justify-start pl-2 sm:pl-4 lg:pl-6 translate-y-3 sm:translate-y-4">
+        {/* Right Position Number: Even position (Stepped lower: translate-y-[10px]) */}
+        <div className="flex-1 flex justify-start pl-2 sm:pl-4 lg:pl-6 translate-y-2 sm:translate-y-2.5">
           <AnimatePresence mode="wait">
             {rightPos && (
               <motion.div
@@ -256,7 +256,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* 5. BOTTOM GRID SLOTS: Rows 5..9 (Positions 11 to 20)           */}
       {/* Revealed ONLY when this pair has been presented!              */}
       {/* ============================================================= */}
-      <div className="relative w-full max-w-[500px] sm:max-w-[560px] lg:max-w-[620px] flex flex-col gap-2 sm:gap-2.5 items-center z-20">
+      <div className="relative w-full max-w-[560px] sm:max-w-[620px] lg:max-w-[680px] flex flex-col gap-3 sm:gap-3.5 lg:gap-4 items-center z-20 flex-shrink-0">
         {bottomRows.map(({ pair, idx }) => {
           const [pA, pB] = pair;
           const isActive = idx === activePairIndex;
@@ -269,7 +269,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
             return (
               <div
                 key={`bottom-grid-slot-row-${idx}`}
-                className="w-full pointer-events-none invisible opacity-0"
+                className="w-full pointer-events-none invisible opacity-0 flex-shrink-0"
                 style={{ height: '36px' }}
               />
             );
@@ -282,38 +282,38 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               animate={{ opacity: 1, y: 0, filter: 'brightness(1)' }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
               onClick={() => onSelectPair(idx)}
-              className={`flex items-center justify-between w-full cursor-pointer transition-all duration-200 ${
+              className={`flex items-center justify-between w-full cursor-pointer transition-all duration-200 flex-shrink-0 ${
                 isActive ? 'opacity-100 scale-[1.02]' : 'opacity-85 hover:opacity-100'
               }`}
               style={{ height: '36px' }}
             >
               {/* Left Slot: Odd position (Stepped forward) matching media_1790535748106.png */}
-              <div className="relative w-[120px] sm:w-[145px] lg:w-[170px] 2xl:w-[190px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-3.5">
+              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0">
                 <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-6 text-left text-xs sm:text-sm font-mono font-bold text-white select-none">
+                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
                   {pA?.position}
                 </span>
-                <div className="relative z-10 w-6 sm:w-7 h-4 sm:h-5 flex items-center justify-center mx-1">
+                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
                   {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
                 </div>
-                <span className="relative z-10 w-8 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none">
+                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
                   {codeA}
                 </span>
               </div>
 
               {/* Center Gap for the Twin Red Bars */}
-              <div className="w-10 sm:w-14 lg:w-18 flex-shrink-0" />
+              <div className="w-8 sm:w-10 lg:w-12 flex-shrink-0" />
 
               {/* Right Slot: Even position (Staggered back on track) */}
-              <div className="relative w-[120px] sm:w-[145px] lg:w-[170px] 2xl:w-[190px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-3.5 translate-y-2">
+              <div className="relative w-[150px] sm:w-[170px] lg:w-[195px] 2xl:w-[215px] h-[34px] sm:h-[36px] flex items-center justify-between px-3 sm:px-4 flex-shrink-0 translate-y-1.5">
                 <F1GridSlotBracket isActive={isActive} />
-                <span className="relative z-10 w-6 text-left text-xs sm:text-sm font-mono font-bold text-white select-none">
+                <span className="relative z-10 w-7 sm:w-8 text-left text-xs sm:text-sm font-mono font-black text-white select-none pl-0.5">
                   {pB?.position || '—'}
                 </span>
-                <div className="relative z-10 w-6 sm:w-7 h-4 sm:h-5 flex items-center justify-center mx-1">
+                <div className="relative z-10 w-7 sm:w-8 h-4 sm:h-5 flex items-center justify-center flex-shrink-0 mx-1">
                   {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
                 </div>
-                <span className="relative z-10 w-8 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none">
+                <span className="relative z-10 w-10 sm:w-11 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] select-none pr-0.5">
                   {codeB}
                 </span>
               </div>
