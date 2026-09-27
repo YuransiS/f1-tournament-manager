@@ -47,7 +47,6 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
   useEffect(() => {
     let isCancelled = false;
 
-    // Load YouTube Iframe API script if not yet available
     if (!window.YT) {
       const existingScript = document.getElementById('yt-iframe-api-script');
       if (!existingScript) {
@@ -89,9 +88,13 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
               e.target.playVideo();
             },
             onStateChange: (e: any) => {
-              // Seamless Loop: Rewind instantly on end without black reload or playlist OSD
+              // Seamless Rewind on end without playlist OSD or black screen
               if (e.data === window.YT.PlayerState.ENDED) {
                 e.target.seekTo(0, true);
+                e.target.playVideo();
+              }
+              // Immediately resume if paused by any outside factor to prevent pause overlay
+              if (e.data === window.YT.PlayerState.PAUSED) {
                 e.target.playVideo();
               }
             }
@@ -110,13 +113,12 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         if (prevCallback) prevCallback();
         initPlayer();
       };
-      // Fallback timer if callback missed
       const checkTimer = setInterval(() => {
         if (window.YT && window.YT.Player) {
           clearInterval(checkTimer);
           initPlayer();
         }
-      }, 250);
+      }, 200);
       return () => {
         isCancelled = true;
         clearInterval(checkTimer);
@@ -142,17 +144,25 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0 bg-[#07090E]">
-      {/* 1. Underlying Animated GIF Fallback (Prevents any momentary black screen) */}
+      <style>{`
+        #${containerId}, #${containerId} iframe, iframe[id^="f1-flag-player"] {
+          pointer-events: none !important;
+          user-select: none !important;
+          border: none !important;
+        }
+      `}</style>
+
+      {/* 1. Underlying Animated Fallback GIF (guarantees full coverage and zero black flicker) */}
       <img
         src={flagGifSrc}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-60 filter contrast-110 scale-105 pointer-events-none select-none z-0"
+        className="absolute inset-0 w-full h-full object-cover filter contrast-110 scale-105 pointer-events-none select-none z-0"
         onError={(e) => {
           (e.target as HTMLElement).style.display = 'none';
         }}
       />
 
-      {/* 2. Seamless Looping Video Layer (Strictly Pointer-Events Blocked) */}
+      {/* 2. Full-bleed video iframe container (uses 200% with scale(1.4) to eliminate any side bars) */}
       <div
         className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center pointer-events-none select-none z-[1]"
         style={{ pointerEvents: 'none', userSelect: 'none' }}
@@ -164,9 +174,9 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%) scale(1.35)',
-            width: 'max(100%, 178vh, 178%)',
-            height: 'max(100%, 56.25vw, 56.25%)',
+            transform: 'translate(-50%, -50%) scale(1.45)',
+            width: '200%',
+            height: '200%',
             minWidth: '100%',
             minHeight: '100%',
             pointerEvents: 'none',
@@ -177,10 +187,12 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
         />
       </div>
 
-      {/* 3. Absolute Click Shield Layer to prevent any click passing to YouTube iframe */}
+      {/* 3. True Pointer-Event Blocker over video: absorbs any stray hover or click so YouTube never sees it */}
       <div
-        className="absolute inset-0 pointer-events-none select-none z-[2]"
-        style={{ pointerEvents: 'none' }}
+        className="absolute inset-0 pointer-events-auto cursor-default z-[2]"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       />
     </div>
   );
