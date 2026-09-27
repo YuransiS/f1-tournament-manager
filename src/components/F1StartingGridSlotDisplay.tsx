@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GridPilot } from './F1StartingGrid';
+import TeamLogo from './TeamLogo';
 
 interface StartingGridSlotDisplayProps {
   pairs: [GridPilot, GridPilot | null][];
@@ -38,124 +39,132 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
     : '';
 
   return (
-    <div className="relative flex flex-col items-center select-none pointer-events-auto w-full max-w-[210px]">
-      {/* Broadcast Header: 2026 Grid / STARTING GRID */}
-      <div className="flex flex-col items-center mb-2">
-        <span className="text-[10px] sm:text-xs font-black italic tracking-widest text-neutral-400 uppercase">
-          2026 Grid
-        </span>
-        <h2 className="text-xs sm:text-sm md:text-base font-black tracking-[0.2em] text-white uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+    <div className="relative h-full w-full flex flex-col items-center justify-center select-none pointer-events-auto">
+      {/* ------------------------------------------------------------- */}
+      {/* CENTRAL VERTICAL SPINE (Authentic F1 TV Broadcast Divider) */}
+      {/* ------------------------------------------------------------- */}
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-transparent via-[#E10600] to-transparent shadow-[0_0_12px_#E10600] pointer-events-none z-10" />
+
+      {/* Vertical STARTING GRID Title running along the spine */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none">
+        <span
+          className="text-[11px] sm:text-xs font-black tracking-[0.45em] text-amber-300 uppercase drop-shadow-[0_0_10px_rgba(252,211,77,0.8)] font-['Titillium_Web']"
+          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+        >
           STARTING GRID
-        </h2>
+        </span>
       </div>
 
-      {/* Grid Wireframe Slot Graphic */}
-      <div className="relative w-full h-[120px] sm:h-[135px] flex items-center justify-center">
-        {/* Previous Row Ghost (above active) */}
+      {/* ------------------------------------------------------------- */}
+      {/* VERTICAL PELOTON CAROUSEL CONVEYOR */}
+      {/* Previous row slides up, new row rises from bottom */}
+      {/* ------------------------------------------------------------- */}
+      <div className="relative w-full max-w-[260px] h-[220px] flex items-center justify-center overflow-visible">
+        {/* PREVIOUS ROW (Ghost above, clicks step back) */}
         {prevPair && (
           <button
             type="button"
             onClick={() => onSelectPair(activePairIndex - 1)}
-            className="absolute -top-1 w-full flex items-center justify-between px-2 opacity-30 hover:opacity-75 transition-opacity cursor-pointer scale-90"
+            className="absolute top-2 w-full flex items-center justify-between px-2 opacity-25 hover:opacity-75 transition-opacity cursor-pointer scale-85 z-15"
             title={`Row ${activePairIndex} (${(activePairIndex - 1) * 2 + 1} - ${(activePairIndex - 1) * 2 + 2})`}
           >
-            <div className="w-[52px] sm:w-[58px] h-[24px] rounded border border-dashed border-white/40 flex items-center justify-center bg-black/40">
-              <span className="text-[10px] font-bold text-white/60 font-mono">{prevLeftCode}</span>
+            <div className="w-[84px] h-[28px] rounded bg-black/60 border border-dashed border-white/40 flex items-center justify-between px-2 shadow">
+              <span className="text-[10px] font-mono font-bold text-neutral-400">#{prevPair[0]?.driverNumber}</span>
+              <span className="text-[11px] font-bold text-white/70 font-['Titillium_Web']">{prevLeftCode}</span>
             </div>
-            <div className="w-[52px] sm:w-[58px] h-[24px] rounded border border-dashed border-white/40 flex items-center justify-center bg-black/40 mt-3">
-              <span className="text-[10px] font-bold text-white/60 font-mono">{prevRightCode}</span>
+            <div className="w-[84px] h-[28px] rounded bg-black/60 border border-dashed border-white/40 flex items-center justify-between px-2 mt-3 shadow">
+              <span className="text-[10px] font-mono font-bold text-neutral-400">#{prevPair[1]?.driverNumber}</span>
+              <span className="text-[11px] font-bold text-white/70 font-['Titillium_Web']">{prevRightCode}</span>
             </div>
           </button>
         )}
 
-        {/* ACTIVE ROW SLOTS */}
+        {/* ACTIVE ROW (Vertical Sliding Carousel with AnimatePresence) */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={`slot-row-${activePairIndex}`}
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="relative w-full flex items-center justify-between px-1 z-20"
+            key={`carousel-row-${activePairIndex}`}
+            initial={{ opacity: 0, y: 35, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -35, scale: 0.94 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full flex items-center justify-between px-1 z-25"
           >
-            {/* Left Slot (Odd position / Pole stepped forward) */}
+            {/* Left Car Slot (Odd / Pole stepped forward) */}
             <div
-              className="w-[58px] sm:w-[66px] h-[30px] sm:h-[34px] rounded border-2 border-white bg-black/60 backdrop-blur-sm flex items-center justify-center shadow-[0_0_12px_rgba(255,255,255,0.35)] transition-all"
+              className="w-[96px] sm:w-[108px] h-[36px] sm:h-[40px] rounded-sm bg-black/85 backdrop-blur-md flex items-center justify-between px-2 sm:px-2.5 shadow-[0_0_16px_rgba(255,255,255,0.25)] border-t border-b border-r border-white/30"
               style={{
-                borderLeftColor: pA?.team.primaryColor || '#E10600',
-                borderLeftWidth: '4px'
+                borderLeft: `5px solid ${pA?.team.primaryColor || '#E10600'}`
               }}
             >
-              <span className="text-xs sm:text-sm font-black text-white tracking-wider drop-shadow">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[11px] sm:text-xs font-mono font-black text-white/80">
+                  {pA?.position}
+                </span>
+                {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
+              </div>
+              <span className="text-xs sm:text-sm font-black text-white tracking-wider font-['Titillium_Web'] drop-shadow">
                 {leftCode}
               </span>
             </div>
 
-            {/* Asphalt Track Slot Stagger Guide Line */}
-            <div className="flex-1 mx-1.5 relative h-8 flex items-center justify-center pointer-events-none">
+            {/* F1 Grid Stagger Line & Sensor */}
+            <div className="flex-1 mx-2 relative h-10 flex items-center justify-center pointer-events-none">
               <svg className="w-full h-full" viewBox="0 0 60 40" fill="none">
                 <path
                   d="M0,14 L30,14 L30,26 L60,26"
-                  stroke="rgba(255,255,255,0.6)"
+                  stroke="rgba(255,255,255,0.7)"
                   strokeWidth="1.5"
                   strokeDasharray="3 2"
                 />
-                <circle cx="30" cy="20" r="2.5" fill="#E10600" />
+                <circle cx="30" cy="20" r="3" fill="#E10600" />
               </svg>
             </div>
 
-            {/* Right Slot (Even position stepped back) */}
+            {/* Right Car Slot (Even position stepped back) */}
             <div
-              className="w-[58px] sm:w-[66px] h-[30px] sm:h-[34px] rounded border-2 border-white bg-black/60 backdrop-blur-sm flex items-center justify-center shadow-[0_0_12px_rgba(255,255,255,0.35)] mt-3.5 sm:mt-4 transition-all"
+              className="w-[96px] sm:w-[108px] h-[36px] sm:h-[40px] rounded-sm bg-black/85 backdrop-blur-md flex items-center justify-between px-2 sm:px-2.5 shadow-[0_0_16px_rgba(255,255,255,0.25)] border-t border-b border-l border-white/30 mt-5 sm:mt-6"
               style={{
-                borderRightColor: pB?.team.primaryColor || '#ffffff',
-                borderRightWidth: '4px'
+                borderRight: `5px solid ${pB?.team.primaryColor || '#ffffff'}`
               }}
             >
-              <span className="text-xs sm:text-sm font-black text-white tracking-wider drop-shadow">
+              <span className="text-xs sm:text-sm font-black text-white tracking-wider font-['Titillium_Web'] drop-shadow">
                 {rightCode}
               </span>
+              <div className="flex items-center gap-1.5">
+                {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
+                <span className="text-[11px] sm:text-xs font-mono font-black text-white/80">
+                  {pB?.position}
+                </span>
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Next Row Ghost (below active) */}
-        {nextPair ? (
+        {/* NEXT ROW (Ghost below, ready to rise on carousel step) */}
+        {nextPair && (
           <button
             type="button"
             onClick={() => onSelectPair(activePairIndex + 1)}
-            className="absolute bottom-0 w-full flex items-center justify-between px-2 opacity-35 hover:opacity-75 transition-opacity cursor-pointer scale-90"
+            className="absolute bottom-2 w-full flex items-center justify-between px-2 opacity-30 hover:opacity-75 transition-opacity cursor-pointer scale-85 z-15"
             title={`Row ${activePairIndex + 2} (${(activePairIndex + 1) * 2 + 1} - ${(activePairIndex + 1) * 2 + 2})`}
           >
-            <div className="w-[52px] sm:w-[58px] h-[24px] rounded border border-white/35 flex items-center justify-center bg-black/40">
-              <span className="text-[10px] font-bold text-white/55 font-mono">{nextLeftCode || '—'}</span>
+            <div className="w-[84px] h-[28px] rounded bg-black/60 border border-white/30 flex items-center justify-between px-2 shadow">
+              <span className="text-[10px] font-mono font-bold text-neutral-400">#{nextPair[0]?.driverNumber}</span>
+              <span className="text-[11px] font-bold text-white/70 font-['Titillium_Web']">{nextLeftCode || '—'}</span>
             </div>
-            <div className="w-[52px] sm:w-[58px] h-[24px] rounded border border-white/35 flex items-center justify-center bg-black/40 mt-3">
-              <span className="text-[10px] font-bold text-white/55 font-mono">{nextRightCode || '—'}</span>
+            <div className="w-[84px] h-[28px] rounded bg-black/60 border border-white/30 flex items-center justify-between px-2 mt-3 shadow">
+              <span className="text-[10px] font-mono font-bold text-neutral-400">#{nextPair[1]?.driverNumber}</span>
+              <span className="text-[11px] font-bold text-white/70 font-['Titillium_Web']">{nextRightCode || '—'}</span>
             </div>
           </button>
-        ) : (
-          <div className="absolute bottom-0 text-[9px] font-bold uppercase tracking-widest text-neutral-500 font-mono">
-            END OF GRID
-          </div>
         )}
       </div>
 
-      {/* Row Navigation Pips */}
-      <div className="flex items-center gap-1.5 mt-2 flex-wrap justify-center max-w-[190px]">
-        {pairs.map((_, i) => (
-          <button
-            type="button"
-            key={`grid-pip-${i}`}
-            onClick={() => onSelectPair(i)}
-            title={`Row ${i + 1} (${i * 2 + 1} - ${i * 2 + 2})`}
-            className={`transition-all rounded-full cursor-pointer ${
-              i === activePairIndex
-                ? 'w-4 h-1.5 bg-[#E10600] shadow-[0_0_8px_#E10600]'
-                : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/60'
-            }`}
-          />
-        ))}
+      {/* Row Indicator Badge at bottom of the spine */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded bg-black/80 border border-white/15 backdrop-blur-md shadow">
+        <span className="text-[10px] font-mono font-black tracking-widest text-neutral-300 uppercase">
+          ROW {activePairIndex + 1} / {pairs.length}
+        </span>
       </div>
     </div>
   );

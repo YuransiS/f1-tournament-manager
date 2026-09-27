@@ -476,7 +476,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 className="absolute inset-0 w-full h-full flex items-center justify-between"
               >
                 {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5...) */}
-                <div className="w-[43%] h-full flex flex-col justify-between">
+                <div className="w-[41%] h-full flex flex-col justify-between">
                   <F1GridDriverCard
                     pilot={leftPilot}
                     align="left"
@@ -485,8 +485,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                   />
                 </div>
 
-                {/* CENTER ZONE: Track Slot Display Graphic */}
-                <div className="w-[14%] flex flex-col items-center justify-center z-35 px-1">
+                {/* CENTER ZONE: Vertical Peloton Spine with Carousel */}
+                <div className="w-[18%] h-full flex flex-col items-center justify-center z-35 px-1">
                   <F1StartingGridSlotDisplay
                     pairs={pairs}
                     activePairIndex={activePairIndex}
@@ -495,7 +495,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
                 </div>
 
                 {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6...) */}
-                <div className="w-[43%] h-full flex flex-col justify-between">
+                <div className="w-[41%] h-full flex flex-col justify-between">
                   <F1GridDriverCard
                     pilot={rightPilot}
                     align="right"
