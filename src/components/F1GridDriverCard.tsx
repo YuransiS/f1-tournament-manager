@@ -29,6 +29,22 @@ function parseDriverName(fullName: string, nickname: string) {
   return { firstName, lastName };
 }
 
+// Authentic F1 TV broadcast vertical gradient pairings for constructor identities
+export function getTeamGradient(teamId: string, fallbackColor: string): [string, string] {
+  const tid = (teamId || '').toLowerCase();
+  if (tid.includes('ferrari')) return ['#ff4d4d', '#b30000'];
+  if (tid.includes('mercedes')) return ['#00f5df', '#008779'];
+  if (tid.includes('red-bull')) return ['#3b82f6', '#1d4ed8'];
+  if (tid.includes('mclaren')) return ['#ff9f43', '#d9480f'];
+  if (tid.includes('aston-martin')) return ['#00e6a8', '#005940'];
+  if (tid.includes('alpine')) return ['#38bdf8', '#0284c7'];
+  if (tid.includes('williams')) return ['#60a5fa', '#1e40af'];
+  if (tid.includes('alfa-romeo') || tid.includes('sauber')) return ['#4ade80', '#15803d'];
+  if (tid.includes('haas')) return ['#f3f4f6', '#9ca3af'];
+  if (tid.includes('alphatauri') || tid.includes('rb')) return ['#93c5fd', '#1e3a8a'];
+  return [fallbackColor || '#ffffff', fallbackColor || '#E10600'];
+}
+
 export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   pilot,
   align,
@@ -50,6 +66,7 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   const { num, suffix } = formatF1PositionOrdinal(pilot.position);
   const { firstName, lastName } = parseDriverName(pilot.realName || '', pilot.nickname);
   const teamPrimaryColor = pilot.team.primaryColor || '#E10600';
+  const [gradTop, gradBottom] = getTeamGradient(pilot.team.id, teamPrimaryColor);
 
   return (
     <div className="relative w-full h-full flex select-none overflow-hidden">
@@ -64,7 +81,7 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
         {/* Top Accent Dot in Team Color */}
         <div
           className="w-2.5 h-2.5 rounded-full shadow-[0_0_10px_currentColor]"
-          style={{ backgroundColor: teamPrimaryColor, color: teamPrimaryColor }}
+          style={{ backgroundColor: gradTop, color: gradTop }}
         />
 
         {/* Rotated Constructor Name (Wide tracked uppercase) */}
@@ -80,27 +97,29 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
           </span>
         </div>
 
-        {/* Team Logo at the bottom of the outer strip */}
+        {/* Team Logo at bottom of outer strip */}
         <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center filter drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
           <TeamLogo teamId={pilot.team.id} size="md" />
         </div>
       </div>
 
       {/* ============================================================= */}
-      {/* 2. MAIN DRIVER STAGE (Portrait, Position Watermark, Chest Typography) */}
+      {/* 2. MAIN DRIVER STAGE: BUST Framing, Staggered Position & Gradient */}
       {/* ============================================================= */}
-      <div className={`relative flex-1 h-full overflow-hidden ${isLeft ? 'order-2' : 'order-2'}`}>
+      <div className={`relative flex-1 h-full overflow-hidden order-2 ${!isLeft ? 'translate-y-2' : ''}`}>
         {/* ----------------------------------------------------------- */}
         {/* DRIVER POSITION BADGE: Beside head, facing center */}
-        {/* Left card: on inner right side; Right card: on inner left side */}
+        {/* STAGGER: Even position is offset downwards (top-11 vs top-7) */}
         {/* ----------------------------------------------------------- */}
         <motion.div
           key={`pos-badge-${pilot.id}-${pilot.position}`}
           initial={{ opacity: 0, scale: 0.8, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className={`absolute top-8 sm:top-12 z-35 flex items-start pointer-events-none ${
-            isLeft ? 'right-4 sm:right-8 lg:right-12' : 'left-4 sm:left-8 lg:left-12'
+          className={`absolute z-35 flex items-start pointer-events-none ${
+            isLeft
+              ? 'top-7 sm:top-10 right-4 sm:right-8 lg:right-12'
+              : 'top-11 sm:top-14 left-4 sm:left-8 lg:left-12'
           }`}
         >
           <div className="flex items-baseline">
@@ -114,9 +133,9 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
         </motion.div>
 
         {/* ----------------------------------------------------------- */}
-        {/* MATERIALIZATION CONTAINER: Driver Cutout + CRT + LED Dots */}
+        {/* BUST PORTRAIT CONTAINER: Head, Shoulders, Upper Chest only */}
         {/* ----------------------------------------------------------- */}
-        <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20">
+        <div className="absolute inset-0 flex items-start justify-center pointer-events-none overflow-hidden z-20">
           <AnimatePresence mode="wait">
             <motion.div
               key={`pilot-portrait-${pilot.id}`}
@@ -139,16 +158,16 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 duration: 0.45,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="relative w-full h-full max-w-[480px] sm:max-w-[560px] md:max-w-[660px] lg:max-w-[760px] flex items-end justify-center"
+              className="relative w-full h-[125%] sm:h-[135%] md:h-[145%] flex items-start justify-center pt-2 sm:pt-4"
             >
-              {/* 1. Team-Color Halftone LED Dot Matrix Flash (Fades completely to 0 - zero leftover dots) */}
+              {/* 1. Team-Color Halftone LED Dot Matrix Materialization Flash (Fully fades to 0) */}
               <motion.div
                 initial={{ opacity: 0.95 }}
                 animate={{ opacity: 0 }}
                 transition={{ duration: 0.48, ease: 'easeOut' }}
                 className="absolute inset-0 pointer-events-none z-10 mix-blend-screen"
                 style={{
-                  backgroundImage: `radial-gradient(circle, ${teamPrimaryColor} 2px, transparent 2px)`,
+                  backgroundImage: `radial-gradient(circle, ${gradTop} 2px, transparent 2px)`,
                   backgroundSize: '6px 6px'
                 }}
               />
@@ -175,8 +194,8 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 <div
                   className="absolute top-1/2 left-0 right-0 h-1.5 shadow-[0_0_18px_currentColor] opacity-90"
                   style={{
-                    backgroundColor: teamPrimaryColor,
-                    color: teamPrimaryColor,
+                    backgroundColor: gradTop,
+                    color: gradTop,
                     transform: 'rotate(-35deg) scaleX(2)'
                   }}
                 />
@@ -186,13 +205,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 />
               </motion.div>
 
-              {/* Driver Cutout Portrait */}
+              {/* Driver BUST Cutout (Cropped at mid-chest, large heroic head & shoulders) */}
               {!hasImageError && pilot.avatarUrl ? (
                 <img
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="max-h-[96%] max-w-full h-auto w-auto object-contain object-bottom filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.98)] select-none relative z-5"
+                  className="h-full w-auto max-w-none object-cover object-top filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.98)] select-none relative z-5"
                 />
               ) : (
                 <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />
@@ -202,46 +221,56 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
         </div>
 
         {/* ----------------------------------------------------------- */}
-        {/* LOWER CHEST TYPOGRAPHY: Cursive First Name + Surname + Number */}
+        {/* LOWER CHEST TYPOGRAPHY: Cursive Name + Gradient Surname & Number */}
         {/* ----------------------------------------------------------- */}
         <div
           className={`absolute bottom-6 sm:bottom-10 z-35 flex flex-col pointer-events-none select-none ${
             isLeft ? 'left-6 sm:left-10 lg:left-14 items-start' : 'right-6 sm:right-10 lg:right-14 items-end text-right'
           }`}
         >
-          {/* Cursive First Name in White script */}
+          {/* Cursive First Name in White Handwriting Script */}
           {firstName && (
             <motion.span
               key={`first-name-${pilot.id}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.15 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-['Caveat'] font-bold drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] -mb-2 sm:-mb-3 select-none"
+              className="text-4xl sm:text-5xl md:text-6xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] -mb-2 sm:-mb-3.5 select-none tracking-wide"
             >
               {firstName}
             </motion.span>
           )}
 
-          {/* Big Bold Surname in Team Color */}
+          {/* Big Bold Surname with Team Vertical Gradient Fill */}
           <motion.h2
             key={`last-name-${pilot.id}`}
             initial={{ opacity: 0, scale: 0.92, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight leading-none drop-shadow-[0_6px_28px_rgba(0,0,0,0.98)] font-['Titillium_Web'] select-none"
-            style={{ color: teamPrimaryColor }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight leading-none font-['Titillium_Web'] select-none"
+            style={{
+              background: `linear-gradient(180deg, ${gradTop} 0%, ${gradBottom} 100%)`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 16px ${gradTop}50)`
+            }}
           >
             {lastName}
           </motion.h2>
 
-          {/* Driver Race Number in Team Color */}
+          {/* Driver Race Number with Matching Gradient Fill */}
           <motion.div
             key={`drv-num-${pilot.id}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-['Chakra_Petch'] leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)] mt-1 select-none"
-            style={{ color: teamPrimaryColor }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-['Chakra_Petch'] leading-none mt-0.5 select-none"
+            style={{
+              background: `linear-gradient(180deg, ${gradTop} 0%, ${gradBottom} 100%)`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: `drop-shadow(0 4px 20px rgba(0,0,0,0.98)) drop-shadow(0 0 12px ${gradTop}45)`
+            }}
           >
             {pilot.driverNumber}
           </motion.div>
