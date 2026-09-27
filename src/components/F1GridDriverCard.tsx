@@ -103,19 +103,19 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-full flex items-end justify-center pb-0"
+              className="relative w-full h-full max-w-[680px] 2xl:max-w-[780px] flex items-end justify-center pb-0"
               style={{
                 maskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)',
                 WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)'
               }}
             >
-              {/* Driver BUST Cutout: Head starts at top 10-15%, full hair & torso visible */}
+              {/* Driver BUST Cutout: Head at ~22-26% from top, authentic natural bust framing */}
               {!hasImageError && pilot.avatarUrl ? (
                 <img
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="h-[96%] sm:h-[104%] lg:h-[114%] 2xl:h-[124%] w-auto max-w-none object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)]"
+                  className="h-[78%] sm:h-[82%] lg:h-[85%] 2xl:h-[88%] w-auto max-w-[92%] object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)]"
                 />
               ) : (
                 <div className="w-full h-full flex items-end justify-center">
@@ -130,21 +130,21 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
         {/* 3. LOWER CHEST TYPOGRAPHY: First Name, Surname, Car Number    */}
         {/* Exact match with official reference media_1790524589122.png   */}
         {/* ============================================================= */}
-        <div className="absolute bottom-6 sm:bottom-10 lg:bottom-12 inset-x-2 sm:inset-x-4 z-35 flex flex-col items-center justify-center text-center pointer-events-none select-none">
-          {/* Cursive First Name in White Handwriting Script ("Nico", "Yuki") */}
+        <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 inset-x-2 sm:inset-x-4 z-35 flex flex-col items-center justify-center text-center pointer-events-none select-none">
+          {/* Cursive First Name in White Handwriting Script ("Nico", "Yuki", "Fernando") */}
           {firstName && (
             <motion.span
               key={`first-name-${pilot.id}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.12 }}
-              className="text-5xl sm:text-6xl lg:text-7xl 2xl:text-8xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] -mb-2 select-none tracking-wide text-center"
+              className="text-4xl sm:text-5xl lg:text-6xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] -mb-1 select-none tracking-wide text-center"
             >
               {firstName}
             </motion.span>
           )}
 
-          {/* Big Bold Surname with Team Neon Color ("HULKENBERG", "TSUNODA") */}
+          {/* Big Bold Surname with Team Neon Color ("HULKENBERG", "TSUNODA", "ALONSO") */}
           <motion.h2
             key={`last-name-${pilot.id}`}
             initial={{ opacity: 0, scale: 0.94, y: 15 }}
@@ -154,10 +154,10 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
             style={{
               fontSize:
                 lastName.length > 9
-                  ? 'clamp(2.8rem, 5.4vw, 5.8rem)'
+                  ? 'clamp(2.4rem, 4.6vw, 4.8rem)'
                   : lastName.length > 6
-                  ? 'clamp(3.5rem, 6.6vw, 7.2rem)'
-                  : 'clamp(4.2rem, 8.2vw, 8.8rem)',
+                  ? 'clamp(3.0rem, 5.6vw, 6.0rem)'
+                  : 'clamp(3.6rem, 6.8vw, 7.2rem)',
               color: teamColor,
               textShadow: `0 4px 24px rgba(0,0,0,0.98), 0 0 35px ${teamColor}90`,
               filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 24px ${teamColor}80)`
@@ -166,13 +166,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
             {lastName}
           </motion.h2>
 
-          {/* Driver Race Number Centered Directly Under Surname ("27", "22") */}
+          {/* Driver Race Number Centered Directly Under Surname ("27", "22", "14") */}
           <motion.div
             key={`drv-num-${pilot.id}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.18 }}
-            className="text-6xl sm:text-7xl lg:text-8xl 2xl:text-9xl font-black font-['Chakra_Petch'] leading-none mt-2 select-none text-center mx-auto"
+            className="text-5xl sm:text-6xl lg:text-7xl 2xl:text-8xl font-black font-['Chakra_Petch'] leading-none mt-1 select-none text-center mx-auto"
             style={{
               color: teamColor,
               textShadow: `0 4px 20px rgba(0,0,0,0.98), 0 0 26px ${teamColor}80`,
