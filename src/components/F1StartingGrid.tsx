@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, ChevronLeft, ChevronRight, Maximize2, Minimize2, RotateCcw } from 'lucide-react';
+import { Play, Pause, ChevronLeft, ChevronRight, Maximize2, Minimize2, RotateCcw, Volume2, VolumeX } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 
@@ -353,6 +353,70 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   const [leftPilot, rightPilot] = currentPair;
 
   // -------------------------------------------------------------------------
+  // F1 THEME BROADCAST AUDIO (/audio/f1_starting_grid.mp3 from 105s)
+  // -------------------------------------------------------------------------
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const [audioBlocked, setAudioBlocked] = useState(false);
+
+  const startAudio = useCallback(() => {
+    if (!audioRef.current) {
+      const audio = new Audio('/audio/f1_starting_grid.mp3');
+      audio.loop = true;
+      audio.volume = 0.75;
+      audioRef.current = audio;
+    }
+    audioRef.current.muted = isMuted;
+    audioRef.current.currentTime = 0;
+    const playPromise = audioRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setAudioBlocked(false);
+        })
+        .catch(() => {
+          // Autoplay policy prevented playback until user interaction
+          setAudioBlocked(true);
+        });
+    }
+  }, [isMuted]);
+
+  // Start audio immediately when Starting Grid mounts
+  useEffect(() => {
+    startAudio();
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, [startAudio]);
+
+  const toggleMute = useCallback(() => {
+    setIsMuted((prev) => {
+      const next = !prev;
+      if (audioRef.current) {
+        audioRef.current.muted = next;
+        if (!next && audioRef.current.paused) {
+          audioRef.current.play().catch(() => {});
+        }
+      } else if (!next) {
+        startAudio();
+      }
+      return next;
+    });
+    setAudioBlocked(false);
+  }, [startAudio]);
+
+  const handleUserGesture = useCallback(() => {
+    if (audioRef.current && audioRef.current.paused && !isMuted) {
+      audioRef.current.play()
+        .then(() => setAudioBlocked(false))
+        .catch(() => {});
+    }
+  }, [isMuted]);
+
+  // -------------------------------------------------------------------------
   // INTRO ANIMATION TIMELINE (Frame 1 -> Frame 2 -> Frame 4)
   // -------------------------------------------------------------------------
   useEffect(() => {
@@ -370,11 +434,18 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   const replayIntro = useCallback(() => {
     setIntroStage('pill');
     setActivePairIndex(0);
-  }, []);
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().then(() => setAudioBlocked(false)).catch(() => {});
+    } else {
+      startAudio();
+    }
+  }, [startAudio]);
 
   const skipIntro = useCallback(() => {
     setIntroStage('broadcast');
-  }, []);
+    handleUserGesture();
+  }, [handleUserGesture]);
 
   const handleNext = useCallback(() => {
     setActivePairIndex((prev) => (prev + 1) % Math.max(1, totalPairs));
@@ -419,6 +490,9 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       } else if (e.key.toLowerCase() === 'r') {
         e.preventDefault();
         replayIntro();
+      } else if (e.key.toLowerCase() === 'm') {
+        e.preventDefault();
+        toggleMute();
       } else if (e.key === 'Escape' && onClose) {
         onClose();
       }
@@ -426,7 +500,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [togglePlay, handleNext, handlePrev, toggleFullscreen, replayIntro, onClose]);
+  }, [togglePlay, handleNext, handlePrev, toggleFullscreen, replayIntro, toggleMute, onClose]);
 
   useEffect(() => {
     const onFsChange = () => {
@@ -477,6 +551,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       style={{
         fontFamily: "'Titillium Web', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
       }}
+      onClickCapture={handleUserGesture}
       onClick={introStage !== 'broadcast' ? skipIntro : undefined}
     >
       {/* ========================================================================= */}
@@ -686,6 +761,34 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               >
                 {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
+
+              {/* F1 Theme Broadcast Audio Control (Mute/Unmute / Keyboard: M) */}
+              <button
+                onClick={toggleMute}
+                title={isMuted ? "Включить тему F1 (M)" : "Выключить звук (M)"}
+                className={`p-1.5 rounded border transition-all cursor-pointer ${
+                  isMuted
+                    ? 'bg-red-500/25 text-red-300 border-red-500/50 hover:bg-red-500/40'
+                    : 'bg-white/10 text-white border-white/20 hover:bg-white/20 active:scale-95'
+                }`}
+              >
+                {isMuted ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
+              </button>
+
+              {audioBlocked && !isMuted && (
+                <button
+                  onClick={() => {
+                    if (audioRef.current) {
+                      audioRef.current.play().then(() => setAudioBlocked(false)).catch(() => {});
+                    }
+                  }}
+                  title="Нажмите, чтобы включить звук темы F1"
+                  className="px-2 py-1 bg-[#E10600] hover:bg-[#ff1a14] text-white text-[10px] font-black tracking-wider uppercase rounded flex items-center gap-1 shadow-[0_0_12px_rgba(225,6,0,0.85)] animate-pulse cursor-pointer border border-white/30"
+                >
+                  <Volume2 className="w-3.5 h-3.5" />
+                  <span>ВКЛ ЗВУК</span>
+                </button>
+              )}
 
               {/* F1 TV Watermark Badge */}
               <div className="hidden sm:flex items-center gap-1 opacity-80 select-none ml-1">
