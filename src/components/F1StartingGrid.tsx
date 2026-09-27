@@ -355,21 +355,24 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       {/* ===================================================================== */}
       {/* 3. TOP BROADCAST HEADER: Official F1 Logo + Track Name | Clean Controls */}
       {/* ===================================================================== */}
-      <header className="relative z-40 w-full h-14 sm:h-18 px-6 sm:px-10 flex items-center justify-between flex-shrink-0">
+      {/* ===================================================================== */}
+      {/* 3. TOP BROADCAST HEADER: Official F1 Logo + Track Name | Clean Controls */}
+      {/* ===================================================================== */}
+      <header className="relative z-40 w-full h-16 sm:h-20 lg:h-24 px-6 sm:px-12 flex items-center justify-between flex-shrink-0">
         {/* Left: Official White F1 Logo + Track & Grand Prix Title */}
-        <div className="flex items-center gap-3 sm:gap-4 select-none">
+        <div className="flex items-center gap-3 sm:gap-5 select-none">
           <img
             src="/F1-logo.png"
             alt="Formula 1"
-            className="h-6 sm:h-8 object-contain drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)]"
+            className="h-7 sm:h-9 lg:h-11 object-contain drop-shadow-[0_2px_14px_rgba(255,255,255,0.45)]"
           />
-          <div className="h-6 sm:h-7 w-[1.5px] bg-white/25 rounded-full" />
+          <div className="h-7 sm:h-9 w-[2px] bg-white/30 rounded-full" />
           <div className="flex flex-col">
-            <h1 className="text-lg sm:text-2xl md:text-3xl font-black italic tracking-wide text-white uppercase drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] font-['Titillium_Web'] leading-none">
+            <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic tracking-wide text-white uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] font-['Titillium_Web'] leading-none">
               {activeEventTitle}
             </h1>
             {activeTrackName && (
-              <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-300 uppercase mt-0.5 drop-shadow">
+              <span className="text-xs sm:text-sm lg:text-base font-bold tracking-widest text-neutral-300 uppercase mt-1 drop-shadow">
                 {activeTrackName}
               </span>
             )}
@@ -377,12 +380,12 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         </div>
 
         {/* Right: Controls Strip (Hidden by default (opacity-0), reveals on hover) */}
-        <div className="flex items-center gap-1.5 sm:gap-2 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl">
+        <div className="flex items-center gap-1.5 sm:gap-2 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl">
           <button
             type="button"
             onClick={replayIntro}
             title="Replay Intro Sequence (R)"
-            className="flex items-center gap-1 px-2.5 py-1 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
             <span className="hidden md:inline">INTRO</span>
@@ -392,7 +395,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             type="button"
             onClick={togglePlay}
             title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-            className="flex items-center gap-1 px-2.5 py-1 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
+            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
           >
             {isPlaying ? (
               <>
@@ -433,7 +436,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             type="button"
             onClick={toggleMute}
             title={isMuted ? 'Включить звук темы F1 (M)' : 'Выключить звук (M)'}
-            className={`px-2 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
               isMuted
                 ? 'bg-white/10 text-neutral-400 border-white/15 hover:text-white'
                 : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_12px_rgba(225,6,0,0.6)]'
@@ -460,7 +463,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               type="button"
               onClick={onClose}
               title="Close (Esc)"
-              className="px-2.5 py-1 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
+              className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
             >
               ✕
             </button>
@@ -469,7 +472,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       </header>
 
       {/* ===================================================================== */}
-      {/* 4. MAIN STAGE: LEFT CARD (36%) | CENTER PELOTON (28%) | RIGHT CARD (36%) */}
+      {/* 4. MAIN STAGE: LEFT CARD | CENTER PELOTON | RIGHT CARD                */}
       {/* 1-to-1 match with official reference media_1790524589122.png          */}
       {/* ===================================================================== */}
       <main className="relative flex-1 w-full flex items-center justify-between overflow-hidden min-h-0">
@@ -494,7 +497,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             className="absolute inset-0 w-full h-full flex items-center justify-between"
           >
             {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5... with outer vertical bar) */}
-            <div className="w-[36%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="flex-1 min-w-0 h-full flex flex-col justify-end overflow-hidden">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -504,7 +507,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: 13TH / 14TH + STARTING GRID + LOWER SLOTS REEL */}
-            <div className="w-[28%] min-w-[340px] max-w-[420px] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
+            <div className="w-[32%] min-w-[460px] max-w-[620px] 2xl:max-w-[760px] h-full flex flex-col items-center justify-center z-35 px-1 py-1 flex-shrink-0">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -514,7 +517,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6... with outer vertical bar) */}
-            <div className="w-[36%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="flex-1 min-w-0 h-full flex flex-col justify-end overflow-hidden">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"

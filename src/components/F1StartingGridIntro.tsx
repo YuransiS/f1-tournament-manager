@@ -100,55 +100,55 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
 
           {/* Center Graphic Mirror (Left portion of centered elements) */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative flex flex-col items-center text-center px-4 max-w-[950px]">
+            <div className="relative flex flex-col items-center text-center px-6 w-full max-w-[1500px] 2xl:max-w-[1900px]">
               {/* Upper Twin Red Pillar */}
-              <div className="flex gap-2.5 mb-3">
+              <div className="flex gap-3 sm:gap-4 mb-4">
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 72%)' }}
                 />
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 72%)' }}
                 />
               </div>
 
               {/* Center F1 Red Logo */}
-              <div className="my-2">
+              <div className="my-3">
                 <img
                   src="/F1-logo.png"
                   alt="F1"
-                  className="h-10 sm:h-16 object-contain filter drop-shadow-[0_0_28px_rgba(225,6,0,1)]"
+                  className="h-14 sm:h-20 lg:h-28 2xl:h-36 object-contain filter drop-shadow-[0_0_35px_rgba(225,6,0,1)]"
                 />
               </div>
 
               {/* ROUND X · COUNTRY */}
-              <div className="text-xs sm:text-base md:text-lg font-black tracking-[0.42em] text-neutral-200 uppercase font-['Titillium_Web'] mt-2 drop-shadow">
+              <div className="text-base sm:text-xl lg:text-2xl 2xl:text-3xl font-black tracking-[0.45em] text-neutral-200 uppercase font-['Titillium_Web'] mt-3 drop-shadow">
                 ROUND {roundNumber} · {countryName}
               </div>
 
               {/* STARTING GRID */}
-              <div className="relative mt-2 flex flex-col items-center">
-                <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black italic tracking-[0.06em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_4px_35px_rgba(255,255,255,0.5)] leading-none select-none">
+              <div className="relative mt-3 flex flex-col items-center">
+                <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] 2xl:text-[12rem] font-black italic tracking-[0.06em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_4px_45px_rgba(255,255,255,0.65)] leading-none select-none">
                   STARTING GRID
                 </h1>
 
                 {/* Circuit City Cursive Script */}
                 {circuitCity && (
-                  <span className="text-4xl sm:text-6xl md:text-7xl text-[#ff3838] font-['Caveat'] font-bold drop-shadow-[0_2px_14px_rgba(225,6,0,0.95)] -mt-4 sm:-mt-6 select-none -rotate-2">
+                  <span className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl 2xl:text-[10rem] text-[#ff3838] font-['Caveat'] font-bold drop-shadow-[0_2px_20px_rgba(225,6,0,0.95)] -mt-5 sm:-mt-8 lg:-mt-12 select-none -rotate-2">
                     {circuitCity}
                   </span>
                 )}
               </div>
 
               {/* Lower Twin Red Pillar */}
-              <div className="flex gap-2.5 mt-5 sm:mt-8">
+              <div className="flex gap-3 sm:gap-4 mt-6 sm:mt-10">
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 28%, 100% 0, 100% 100%, 0 100%)' }}
                 />
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 28%, 100% 0, 100% 100%, 0 100%)' }}
                 />
               </div>
@@ -195,55 +195,55 @@ export const F1StartingGridIntro: React.FC<F1StartingGridIntroProps> = ({
 
           {/* Center Graphic Mirror (Right portion of centered elements) */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative flex flex-col items-center text-center px-4 max-w-[950px]">
+            <div className="relative flex flex-col items-center text-center px-6 w-full max-w-[1500px] 2xl:max-w-[1900px]">
               {/* Upper Twin Red Pillar */}
-              <div className="flex gap-2.5 mb-3">
+              <div className="flex gap-3 sm:gap-4 mb-4">
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 72%)' }}
                 />
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 72%)' }}
                 />
               </div>
 
               {/* Center F1 Red Logo */}
-              <div className="my-2">
+              <div className="my-3">
                 <img
                   src="/F1-logo.png"
                   alt="F1"
-                  className="h-10 sm:h-16 object-contain filter drop-shadow-[0_0_28px_rgba(225,6,0,1)]"
+                  className="h-14 sm:h-20 lg:h-28 2xl:h-36 object-contain filter drop-shadow-[0_0_35px_rgba(225,6,0,1)]"
                 />
               </div>
 
               {/* ROUND X · COUNTRY */}
-              <div className="text-xs sm:text-base md:text-lg font-black tracking-[0.42em] text-neutral-200 uppercase font-['Titillium_Web'] mt-2 drop-shadow">
+              <div className="text-base sm:text-xl lg:text-2xl 2xl:text-3xl font-black tracking-[0.45em] text-neutral-200 uppercase font-['Titillium_Web'] mt-3 drop-shadow">
                 ROUND {roundNumber} · {countryName}
               </div>
 
               {/* STARTING GRID */}
-              <div className="relative mt-2 flex flex-col items-center">
-                <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black italic tracking-[0.06em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_4px_35px_rgba(255,255,255,0.5)] leading-none select-none">
+              <div className="relative mt-3 flex flex-col items-center">
+                <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] 2xl:text-[12rem] font-black italic tracking-[0.06em] text-white uppercase font-['Titillium_Web'] drop-shadow-[0_4px_45px_rgba(255,255,255,0.65)] leading-none select-none">
                   STARTING GRID
                 </h1>
 
                 {/* Circuit City Cursive Script */}
                 {circuitCity && (
-                  <span className="text-4xl sm:text-6xl md:text-7xl text-[#ff3838] font-['Caveat'] font-bold drop-shadow-[0_2px_14px_rgba(225,6,0,0.95)] -mt-4 sm:-mt-6 select-none -rotate-2">
+                  <span className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl 2xl:text-[10rem] text-[#ff3838] font-['Caveat'] font-bold drop-shadow-[0_2px_20px_rgba(225,6,0,0.95)] -mt-5 sm:-mt-8 lg:-mt-12 select-none -rotate-2">
                     {circuitCity}
                   </span>
                 )}
               </div>
 
               {/* Lower Twin Red Pillar */}
-              <div className="flex gap-2.5 mt-5 sm:mt-8">
+              <div className="flex gap-3 sm:gap-4 mt-6 sm:mt-10">
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 28%, 100% 0, 100% 100%, 0 100%)' }}
                 />
                 <div
-                  className="w-4 sm:w-5 h-18 sm:h-24 bg-[#E10600] shadow-[0_0_20px_#E10600]"
+                  className="w-6 sm:w-8 lg:w-10 2xl:w-12 h-24 sm:h-36 lg:h-48 2xl:h-56 bg-[#E10600] shadow-[0_0_30px_#E10600,0_0_60px_#E10600]"
                   style={{ clipPath: 'polygon(0 28%, 100% 0, 100% 100%, 0 100%)' }}
                 />
               </div>
