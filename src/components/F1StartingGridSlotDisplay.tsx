@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { GridPilot } from './F1StartingGrid';
 import TeamLogo from './TeamLogo';
 
@@ -8,6 +8,13 @@ interface StartingGridSlotDisplayProps {
   activePairIndex: number;
   revealedIndices: Set<number>;
   onSelectPair: (idx: number) => void;
+}
+
+export function formatF1PositionOrdinal(n: number): { num: number; suffix: string } {
+  const s = ['TH', 'ST', 'ND', 'RD'];
+  const v = n % 100;
+  const suffix = s[(v - 20) % 10] || s[v] || s[0];
+  return { num: n, suffix };
 }
 
 export function getDriver3LetterCode(pilot?: GridPilot | null): string {
@@ -54,158 +61,178 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
   revealedIndices,
   onSelectPair
 }) => {
-  const ROW_HEIGHT = 50; // Total height per pair item (38px bracket + 12px gap)
-  const CENTER_ANCHOR = 210; // Vertical center anchor for active row in the reel
+  const currentPair = pairs[activePairIndex] || [null, null];
+  const [leftPilot, rightPilot] = currentPair;
+
+  const leftPos = leftPilot ? formatF1PositionOrdinal(leftPilot.position) : null;
+  const rightPos = rightPilot ? formatF1PositionOrdinal(rightPilot.position) : null;
+
+  // Render revealed rows from active down to rear (up to 5 rows visible)
+  const visibleRows = pairs
+    .map((pair, idx) => ({ pair, idx }))
+    .filter(({ idx }) => idx >= activePairIndex && (revealedIndices.has(idx) || idx <= activePairIndex + 3));
 
   return (
-    <div className="relative h-full w-full flex flex-col items-center justify-center select-none overflow-hidden py-4 pointer-events-auto">
-      {/* ------------------------------------------------------------- */}
-      {/* 1. UPPER TWIN RED BARS (Continuous Slanted Diagonal Cut \ )   */}
-      {/* Matches official broadcast: parallel diagonal slice           */}
-      {/* ------------------------------------------------------------- */}
-      <div className="absolute top-0 bottom-[54%] left-1/2 -translate-x-1/2 flex gap-2 sm:gap-2.5 pointer-events-none z-10">
-        {/* Left Bar (ends higher) */}
+    <div className="relative h-full w-full flex flex-col items-center justify-between select-none overflow-hidden pointer-events-auto">
+      {/* ============================================================= */}
+      {/* 1. UPPER TWIN RED BARS (Top edge down to ~33% with \ diagonal cut) */}
+      {/* ============================================================= */}
+      <div className="absolute top-0 bottom-[66%] left-1/2 -translate-x-1/2 flex gap-2 pointer-events-none z-10">
+        {/* Left red stripe (ends slightly higher) */}
         <div
-          className="w-4 sm:w-5 lg:w-6 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          className="w-4 sm:w-5 h-full bg-[#E10600] shadow-[0_0_20px_#E10600]"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 14px), 0 calc(100% - 28px))' }}
         />
-        {/* Right Bar (ends lower, completing single continuous diagonal cut \) */}
+        {/* Right red stripe (ends slightly lower, forming single continuous \ diagonal) */}
         <div
-          className="w-4 sm:w-5 lg:w-6 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          className="w-4 sm:w-5 h-full bg-[#E10600] shadow-[0_0_20px_#E10600]"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 14px))' }}
         />
       </div>
 
-      {/* ------------------------------------------------------------- */}
-      {/* 2. LOWER TWIN RED BARS (Parallel Slanted Diagonal Cut \ )     */}
-      {/* Parallel to the upper cut: starts higher on left, lower right */}
-      {/* ------------------------------------------------------------- */}
-      <div className="absolute top-[54%] bottom-0 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-2.5 pointer-events-none z-10">
-        {/* Left Bar (starts higher) */}
+      {/* ============================================================= */}
+      {/* 2. MID SECTION (y ≈ 33% to 68%): STARTING GRID + 13TH / 14TH */}
+      {/* 1-to-1 match with official reference broadcast graphic        */}
+      {/* ============================================================= */}
+      <div className="absolute top-[34%] bottom-[32%] inset-x-0 flex items-center justify-center pointer-events-none z-25">
+        {/* Left Position Number: 13TH */}
+        <div className="flex-1 flex justify-end pr-4 sm:pr-6">
+          <AnimatePresence mode="wait">
+            {leftPos && (
+              <motion.div
+                key={`mid-pos-left-${leftPilot?.id}-${leftPos.num}`}
+                initial={{ opacity: 0, x: -15, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="flex items-baseline select-none"
+              >
+                <span className="text-6xl sm:text-7xl lg:text-8xl font-black italic text-white font-['Titillium_Web'] leading-none drop-shadow-[0_0_24px_rgba(255,255,255,0.7)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)]">
+                  {leftPos.num}
+                </span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-black italic text-white font-['Titillium_Web'] ml-1 leading-none drop-shadow-[0_0_16px_rgba(255,255,255,0.6)]">
+                  {leftPos.suffix}
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Center Floating Yellow Text: STARTING GRID */}
+        <div className="w-12 sm:w-16 flex flex-col items-center justify-center flex-shrink-0">
+          <span
+            className="text-xs sm:text-sm font-black tracking-[0.45em] text-[#FFD700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_16px_rgba(255,215,0,0.95)] select-none"
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            STARTING GRID
+          </span>
+        </div>
+
+        {/* Right Position Number: 14TH */}
+        <div className="flex-1 flex justify-start pl-4 sm:pr-6">
+          <AnimatePresence mode="wait">
+            {rightPos && (
+              <motion.div
+                key={`mid-pos-right-${rightPilot?.id}-${rightPos.num}`}
+                initial={{ opacity: 0, x: 15, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="flex items-baseline select-none"
+              >
+                <span className="text-6xl sm:text-7xl lg:text-8xl font-black italic text-white font-['Titillium_Web'] leading-none drop-shadow-[0_0_24px_rgba(255,255,255,0.7)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)]">
+                  {rightPos.num}
+                </span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-black italic text-white font-['Titillium_Web'] ml-1 leading-none drop-shadow-[0_0_16px_rgba(255,255,255,0.6)]">
+                  {rightPos.suffix}
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* ============================================================= */}
+      {/* 3. LOWER TWIN RED BARS (y ≈ 68% down to bottom edge with \ cut) */}
+      {/* ============================================================= */}
+      <div className="absolute top-[68%] bottom-0 left-1/2 -translate-x-1/2 flex gap-2 pointer-events-none z-10">
+        {/* Left red stripe (starts slightly higher) */}
         <div
-          className="w-4 sm:w-5 lg:w-6 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          className="w-4 sm:w-5 h-full bg-[#E10600] shadow-[0_0_20px_#E10600]"
           style={{ clipPath: 'polygon(0 0, 100% 14px, 100% 100%, 0 100%)' }}
         />
-        {/* Right Bar (starts lower, completing continuous parallel diagonal cut \) */}
+        {/* Right red stripe (starts slightly lower, forming single continuous parallel \ diagonal) */}
         <div
-          className="w-4 sm:w-5 lg:w-6 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
+          className="w-4 sm:w-5 h-full bg-[#E10600] shadow-[0_0_20px_#E10600]"
           style={{ clipPath: 'polygon(0 14px, 100% 28px, 100% 100%, 0 100%)' }}
         />
       </div>
 
-      {/* ------------------------------------------------------------- */}
-      {/* 3. CENTER YELLOW VERTICAL TEXT: STARTING GRID                 */}
-      {/* Pure broadcast styling: floating neon text between red bars   */}
-      {/* ------------------------------------------------------------- */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none z-15 flex flex-col items-center justify-center">
-        <span
-          className="text-xs sm:text-sm font-black tracking-[0.45em] text-[#FFD700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_16px_rgba(255,215,0,0.95)] select-none"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          STARTING GRID
-        </span>
-      </div>
-
-      {/* ------------------------------------------------------------- */}
-      {/* 4. VERTICAL CAROUSEL REEL: True F1 Asphalt Starting Grid Boxes */}
-      {/* Open semi-rectangle brackets looking upwards ( |_| )           */}
-      {/* ------------------------------------------------------------- */}
-      <div
-        className="relative w-full h-[520px] overflow-hidden flex flex-col items-center justify-start z-20 pointer-events-auto"
-        style={{
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)'
-        }}
-      >
-        <motion.div
-          animate={{ y: CENTER_ANCHOR - (activePairIndex * ROW_HEIGHT) }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full flex flex-col gap-3 items-center"
-        >
-          {pairs.map((pair, pairIndex) => {
+      {/* ============================================================= */}
+      {/* 4. LOWER STARTING GRID ASPHALT BOXES: Flanking bottom red bars */}
+      {/* Open semi-rectangle tarmac slots ( |_| ) anchored at the bottom */}
+      {/* ============================================================= */}
+      <div className="absolute top-[71%] bottom-3 inset-x-0 flex flex-col items-center justify-start z-20 overflow-hidden pointer-events-auto">
+        <div className="w-full flex flex-col gap-2 items-center">
+          {visibleRows.slice(0, 4).map(({ pair, idx }) => {
             const [pA, pB] = pair;
-            const isRevealed = revealedIndices.has(pairIndex);
-            const isActive = pairIndex === activePairIndex;
+            const isActive = idx === activePairIndex;
             const codeA = getDriver3LetterCode(pA);
             const codeB = getDriver3LetterCode(pB);
 
             return (
-              <motion.div
-                key={`grid-peloton-row-${pairIndex}`}
-                onClick={() => onSelectPair(pairIndex)}
+              <div
+                key={`grid-slot-row-${idx}`}
+                onClick={() => onSelectPair(idx)}
                 className={`flex items-center justify-between w-full cursor-pointer transition-all duration-300 ${
-                  isActive
-                    ? 'opacity-100 scale-[1.03]'
-                    : isRevealed
-                    ? 'opacity-85 hover:opacity-100'
-                    : 'opacity-25 hover:opacity-40'
+                  isActive ? 'opacity-100 scale-[1.02]' : 'opacity-85 hover:opacity-100'
                 }`}
-                style={{ height: '38px' }}
+                style={{ height: '36px' }}
               >
-                {/* ========================================================= */}
-                {/* Left Slot (Odd Grid Position - Stepped forward on track)  */}
-                {/* Real F1 tarmac open bracket: border-l-2, border-b-2, border-r-2, border-t-0 */}
-                {/* ========================================================= */}
+                {/* Left Open Bracket: [ 13 (logo) HUL ] */}
                 <div
-                  className={`w-[110px] sm:w-[125px] lg:w-[140px] h-[34px] sm:h-[38px] flex items-center justify-between px-2.5 transition-all duration-300 rounded-b-[2px] ${
+                  className={`w-[110px] sm:w-[124px] lg:w-[136px] h-[34px] flex items-center justify-between px-2.5 transition-all duration-300 rounded-b-[2px] ${
                     isActive
-                      ? 'border-2 border-white border-t-0 bg-white/20 shadow-[0_0_20px_rgba(255,255,255,0.95),inset_0_0_10px_rgba(255,255,255,0.25)]'
-                      : isRevealed
-                      ? 'border-[1.5px] border-white/55 border-t-0 bg-black/45 backdrop-blur-xs text-neutral-200'
-                      : 'border-[1.5px] border-white/20 border-t-0 bg-black/25 text-neutral-400'
+                      ? 'border-2 border-white border-t-0 bg-white/25 shadow-[0_0_18px_rgba(255,255,255,0.9),inset_0_0_8px_rgba(255,255,255,0.3)]'
+                      : 'border-[1.5px] border-white/50 border-t-0 bg-black/65 backdrop-blur-xs text-neutral-200'
                   }`}
                 >
-                  {/* Grid Starting Position Number (P1, P3, P11, etc. - NOT car number!) */}
                   <span className="w-6 text-left text-xs sm:text-sm font-mono font-black text-white drop-shadow">
                     {pA?.position}
                   </span>
-
-                  {/* Team Constructor Logo */}
                   <div className="w-7 h-5 flex items-center justify-center mx-1 filter drop-shadow">
                     {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
                   </div>
-
-                  {/* Driver 3-Letter Code (SAI, VER, TSU...) */}
                   <span className="w-9 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] drop-shadow">
                     {codeA}
                   </span>
                 </div>
 
-                {/* Center Gap Spacer for Twin Red Pillars */}
-                <div className="w-12 sm:w-14 lg:w-18 flex-shrink-0" />
+                {/* Center Gap for the Twin Red Bars */}
+                <div className="w-12 sm:w-16 flex-shrink-0" />
 
-                {/* ========================================================= */}
-                {/* Right Slot (Even Grid Position - Staggered back on track) */}
-                {/* Real F1 tarmac open bracket: border-l-2, border-b-2, border-r-2, border-t-0 */}
-                {/* ========================================================= */}
+                {/* Right Open Bracket: [ 14 (logo) TSU ] (Staggered down by 10px) */}
                 <div
-                  className={`w-[110px] sm:w-[125px] lg:w-[140px] h-[34px] sm:h-[38px] flex items-center justify-between px-2.5 transition-all duration-300 rounded-b-[2px] translate-y-3.5 ${
+                  className={`w-[110px] sm:w-[124px] lg:w-[136px] h-[34px] flex items-center justify-between px-2.5 transition-all duration-300 rounded-b-[2px] translate-y-2.5 ${
                     isActive
-                      ? 'border-2 border-white border-t-0 bg-white/20 shadow-[0_0_20px_rgba(255,255,255,0.95),inset_0_0_10px_rgba(255,255,255,0.25)]'
-                      : isRevealed
-                      ? 'border-[1.5px] border-white/55 border-t-0 bg-black/45 backdrop-blur-xs text-neutral-200'
-                      : 'border-[1.5px] border-white/20 border-t-0 bg-black/25 text-neutral-400'
+                      ? 'border-2 border-white border-t-0 bg-white/25 shadow-[0_0_18px_rgba(255,255,255,0.9),inset_0_0_8px_rgba(255,255,255,0.3)]'
+                      : 'border-[1.5px] border-white/50 border-t-0 bg-black/65 backdrop-blur-xs text-neutral-200'
                   }`}
                 >
-                  {/* Grid Starting Position Number (P2, P4, P12, etc. - NOT car number!) */}
                   <span className="w-6 text-left text-xs sm:text-sm font-mono font-black text-white drop-shadow">
                     {pB?.position || '—'}
                   </span>
-
-                  {/* Team Constructor Logo */}
                   <div className="w-7 h-5 flex items-center justify-center mx-1 filter drop-shadow">
                     {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
                   </div>
-
-                  {/* Driver 3-Letter Code (BOR, NOR, RIC...) */}
                   <span className="w-9 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] drop-shadow">
                     {codeB}
                   </span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

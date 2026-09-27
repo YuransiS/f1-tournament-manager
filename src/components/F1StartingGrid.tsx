@@ -321,8 +321,33 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         flagVideoId={flagVideoId}
       />
 
-      {/* Clean broadcast studio soft wash (ensures 100% uniform brightness across left and right) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#060417]/65 via-transparent to-[#0b0826]/20 pointer-events-none z-[2]" />
+      {/* Deep Broadcast Indigo/Violet Overlay (softens flag to authentic TV studio backdrop) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0c0628]/80 via-[#160a3a]/75 to-[#0a041f]/85 pointer-events-none z-[2]" />
+
+      {/* Official F1 Broadcast Diagonal Neon Speed Laser Streaks (-35deg) matching media_1790524589122.png */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-80 z-[3]">
+        {[
+          { top: '15%', left: '8%', w: '130px', color: '#ff2d55' },
+          { top: '22%', left: '36%', w: '150px', color: '#00d2ff' },
+          { top: '48%', left: '32%', w: '95px', color: '#00d2ff' },
+          { top: '32%', left: '60%', w: '140px', color: '#ec4899' },
+          { top: '16%', left: '80%', w: '160px', color: '#00d2ff' },
+          { top: '45%', left: '84%', w: '120px', color: '#ff2d55' }
+        ].map((s, i) => (
+          <div
+            key={`f1-bg-laser-${i}`}
+            className="absolute h-[3px] rounded-full"
+            style={{
+              top: s.top,
+              left: s.left,
+              width: s.w,
+              backgroundColor: s.color,
+              boxShadow: `0 0 12px ${s.color}, 0 0 20px ${s.color}`,
+              transform: 'rotate(-35deg)'
+            }}
+          />
+        ))}
+      </div>
 
       {/* F1 Red Top Accent Line */}
       <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
@@ -444,7 +469,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       </header>
 
       {/* ===================================================================== */}
-      {/* 4. MAIN STAGE: LEFT CARD (41%) | CENTER PELOTON (18%) | RIGHT CARD (41%) */}
+      {/* 4. MAIN STAGE: LEFT CARD (36%) | CENTER PELOTON (28%) | RIGHT CARD (36%) */}
+      {/* 1-to-1 match with official reference media_1790524589122.png          */}
       {/* ===================================================================== */}
       <main className="relative flex-1 w-full flex items-center justify-between overflow-hidden min-h-0">
         {/* Row Switch Broadcast Shutter Flash */}
@@ -468,7 +494,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             className="absolute inset-0 w-full h-full flex items-center justify-between"
           >
             {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5... with outer vertical bar) */}
-            <div className="w-[41%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="w-[36%] h-full flex flex-col justify-between overflow-hidden">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -477,8 +503,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
               />
             </div>
 
-            {/* CENTER ZONE: Dual-Column Peloton Flanking Twin Red Line Spine */}
-            <div className="w-[18%] min-w-[260px] max-w-[340px] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
+            {/* CENTER ZONE: 13TH / 14TH + STARTING GRID + LOWER SLOTS REEL */}
+            <div className="w-[28%] min-w-[340px] max-w-[420px] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -488,7 +514,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6... with outer vertical bar) */}
-            <div className="w-[41%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="w-[36%] h-full flex flex-col justify-between overflow-hidden">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"
