@@ -322,39 +322,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       />
 
       {/* Clean broadcast studio soft wash (ensures 100% uniform brightness across left and right) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#060417]/70 via-transparent to-[#0b0826]/30 pointer-events-none z-[2]" />
-
-      {/* Diagonal Neon Speed Streaks (-35deg) across background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-60 z-[3]">
-        {[
-          { top: '18%', left: '8%', w: '130px', color: '#00d2ff' },
-          { top: '28%', left: '72%', w: '160px', color: '#ff2d55' },
-          { top: '45%', left: '18%', w: '90px', color: '#ffffff' },
-          { top: '65%', left: '82%', w: '180px', color: '#00d2ff' },
-          { top: '78%', left: '22%', w: '140px', color: '#ff9500' }
-        ].map((s, i) => (
-          <div
-            key={`grid-bg-streak-${i}`}
-            className="absolute h-[2px] rounded-full shadow-lg"
-            style={{
-              top: s.top,
-              left: s.left,
-              width: s.w,
-              backgroundColor: s.color,
-              boxShadow: `0 0 10px ${s.color}`,
-              transform: 'rotate(-35deg)'
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Subtle Team Neon Glow (mix-blend screen ensures it CAN NEVER darken any pilot) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-20 z-[3] mix-blend-screen transition-opacity duration-700"
-        style={{
-          background: `radial-gradient(circle at 20% 50%, #00d2ff 0%, transparent 60%), radial-gradient(circle at 80% 50%, #ff2d55 0%, transparent 60%)`
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060417]/65 via-transparent to-[#0b0826]/20 pointer-events-none z-[2]" />
 
       {/* F1 Red Top Accent Line */}
       <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />

@@ -128,9 +128,19 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
         </motion.div>
 
         {/* ----------------------------------------------------------- */}
-        {/* BUST PORTRAIT CONTAINER: Heroic 1:1 scale filling the screen */}
+        {/* BUST PORTRAIT CONTAINER: Heroic 1.5x scale filling the screen */}
         {/* ----------------------------------------------------------- */}
         <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20 pb-0">
+          {/* Dedicated Pilot Illuminating Backlight (cancels any dark shadows/cloth folds) */}
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{
+              background: isLeft
+                ? 'radial-gradient(circle at 50% 55%, rgba(255,255,255,0.15) 0%, transparent 65%)'
+                : 'radial-gradient(circle at 50% 55%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 45%, transparent 70%)'
+            }}
+          />
+
           <AnimatePresence mode="wait">
             <motion.div
               key={`pilot-portrait-${pilot.id}`}
@@ -153,10 +163,10 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 duration: 0.38,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="relative w-full h-full max-w-[850px] flex items-end justify-center pb-0"
+              className="relative w-full h-full max-w-[950px] flex items-end justify-center pb-0"
               style={{
-                maskImage: 'linear-gradient(to top, transparent 0%, black 14%, black 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 14%, black 100%)'
+                maskImage: 'linear-gradient(to top, transparent 0%, black 12%, black 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 12%, black 100%)'
               }}
             >
               {/* 1. Team-Color Halftone LED Dot Matrix Materialization Flash (Fully fades to 0) */}
@@ -179,41 +189,20 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 className="absolute inset-0 pointer-events-none z-15 bg-gradient-to-b from-white/30 via-transparent to-white/10"
               />
 
-              {/* 3. Diagonal Neon Laser Streaks */}
-              <motion.div
-                initial={{ x: isLeft ? -120 : 120, opacity: 0.95 }}
-                animate={{ x: 0, opacity: 0 }}
-                transition={{ duration: 0.55, ease: 'easeOut' }}
-                className="absolute inset-0 pointer-events-none z-15 overflow-hidden"
-              >
-                <div
-                  className="absolute top-1/4 left-0 right-0 h-1 bg-cyan-400 shadow-[0_0_14px_#00d2ff] opacity-85"
-                  style={{ transform: 'rotate(-35deg) scaleX(2)' }}
-                />
-                <div
-                  className="absolute top-1/2 left-0 right-0 h-1.5 shadow-[0_0_18px_currentColor] opacity-90"
-                  style={{
-                    backgroundColor: gradBottom,
-                    color: gradBottom,
-                    transform: 'rotate(-35deg) scaleX(2)'
-                  }}
-                />
-                <div
-                  className="absolute top-3/4 left-0 right-0 h-1 bg-pink-500 shadow-[0_0_14px_#ec4899] opacity-80"
-                  style={{ transform: 'rotate(-35deg) scaleX(2)' }}
-                />
-              </motion.div>
-
-              {/* Driver BUST Cutout (Heroic proportions, 1:1 bust photo from Drivers tab) */}
+              {/* Driver BUST Cutout (Enlarged by 1.5x per instruction, perfectly anchored to bottom) */}
               {!hasImageError && pilot.avatarUrl ? (
                 <img
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="h-[88%] sm:h-[92%] lg:h-[96%] w-auto max-w-[98%] object-contain object-bottom filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)] select-none relative z-5"
+                  className={`h-[92%] sm:h-[95%] lg:h-[98%] w-auto max-w-[125%] object-contain object-bottom select-none relative z-5 scale-[1.45] sm:scale-[1.5] lg:scale-[1.55] origin-bottom ${
+                    !isLeft ? 'filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)] brightness-[1.18] contrast-[1.06]' : 'filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)] brightness-[1.05]'
+                  }`}
                 />
               ) : (
-                <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />
+                <div className="scale-[1.3] origin-bottom w-full h-full flex items-end justify-center">
+                  <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />
+                </div>
               )}
             </motion.div>
           </AnimatePresence>
