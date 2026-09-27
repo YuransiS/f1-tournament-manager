@@ -512,7 +512,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: Layered over the drivers down the center */}
-            <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[420px] sm:w-[480px] lg:w-[540px] 2xl:w-[600px] flex flex-col items-center justify-between z-30 px-1 py-2 pointer-events-auto">
+            <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[520px] sm:w-[580px] lg:w-[660px] 2xl:w-[740px] flex flex-col items-center justify-center z-30 px-1 py-2 pointer-events-auto">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
