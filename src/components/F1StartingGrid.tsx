@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, ChevronLeft, ChevronRight, Maximize2, Minimize2, RotateCcw, Volume2, VolumeX } from 'lucide-react';
 import F1GridDriverCard from './F1GridDriverCard';
 import F1StartingGridSlotDisplay from './F1StartingGridSlotDisplay';
+import F1FlagVideoBackground, { COUNTRY_FLAG_YOUTUBE_MAP } from './F1FlagVideoBackground';
+
+export { COUNTRY_FLAG_YOUTUBE_MAP };
 
 export interface GridPilot {
   id: string;
@@ -37,39 +40,18 @@ export interface F1StartingGridProps {
   className?: string;
 }
 
-export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
-  bh: 'EY_88yHI9Uc',
-  sa: 'eDBnesS7_BY',
-  au: 'oh_a7IR9wBQ',
-  az: '7upmTbfsa90',
-  us: 'O1TWZ_OOHMU',
-  it: 'frO_J_MubJY',
-  mc: 'OFVVct6DVyw',
-  es: 't-JBSXdJnR8',
-  ca: '7Ry6UhLNOaI',
-  at: 'vBIHzWBmcCU',
-  gb: 'v7w4CMPkJsA',
-  hu: 'qvym0lkBL2s',
-  be: 'RuhgyWAIMnQ',
-  nl: 'u2P2xBi6ygg',
-  sg: 'WqwBlGrAf6A',
-  jp: 'x0Za2ghUHvw',
-};
-
 export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   pilots = [],
   eventTitle = 'JAPANESE GRAND PRIX',
   trackName = 'SUZUKA INTERNATIONAL RACING COURSE',
   countryCode = 'jp',
   flagGifUrl,
+  flagVideoId,
   cycleIntervalMs = 2800,
   autoPlay = true,
   onClose,
   className = ''
 }) => {
-  const activeCountryCode = (countryCode || 'jp').toLowerCase();
-  const flagGifSrc = flagGifUrl || `/flags/animated/${activeCountryCode}.gif`;
-
   const sortedPilots = useMemo(() => {
     return [...pilots].sort((a, b) => a.position - b.position);
   }, [pilots]);
@@ -240,39 +222,34 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
       }}
     >
       {/* ===================================================================== */}
-      {/* BACKGROUND: Pure Animated Flag GIF (Zero YouTube controls/overlays) */}
+      {/* BACKGROUND: Seamless Waving Flag Video with Zero Player Controls */}
       {/* ===================================================================== */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#07090E]">
-        <img
-          src={flagGifSrc}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-45 filter contrast-110 scale-105 pointer-events-none"
-          onError={(e) => {
-            (e.target as HTMLElement).style.display = 'none';
-          }}
-        />
+      <F1FlagVideoBackground
+        countryCode={countryCode}
+        flagGifUrl={flagGifUrl}
+        flagVideoId={flagVideoId}
+      />
 
-        {/* Cinematic Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/30 to-[#040508]/60 pointer-events-none z-[1]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/75 via-transparent to-[#040508]/75 pointer-events-none z-[1]" />
+      {/* Cinematic Vignette Overlay & Accent Lighting */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#040508] via-[#040508]/30 to-[#040508]/60 pointer-events-none z-[2]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#040508]/75 via-transparent to-[#040508]/75 pointer-events-none z-[2]" />
 
-        {/* Ambient Team Glows */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-25 z-[2] transition-colors duration-700"
-          style={{
-            background: `radial-gradient(circle at 18% 50%, ${leftPilot.team.primaryColor}66 0%, transparent 60%), radial-gradient(circle at 82% 50%, ${
-              rightPilot ? rightPilot.team.primaryColor : '#ffffff'
-            }66 0%, transparent 60%)`
-          }}
-        />
+      {/* Ambient Team Glows */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-25 z-[3] transition-colors duration-700"
+        style={{
+          background: `radial-gradient(circle at 18% 50%, ${leftPilot.team.primaryColor}66 0%, transparent 60%), radial-gradient(circle at 82% 50%, ${
+            rightPilot ? rightPilot.team.primaryColor : '#ffffff'
+          }66 0%, transparent 60%)`
+        }}
+      />
 
-        {/* F1 Red Top Accent Line */}
-        <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
+      {/* F1 Red Top Accent Line */}
+      <div className="absolute top-0 inset-x-0 h-[3.5px] bg-[#E10600] z-40 shadow-[0_0_14px_#E10600]" />
 
-        {/* F1 Official Logo Watermark in bottom left */}
-        <div className="absolute bottom-3 left-6 opacity-60 pointer-events-none z-10">
-          <img src="/F1-logo.png" alt="F1" className="h-4 object-contain drop-shadow" />
-        </div>
+      {/* F1 Official Logo Watermark in bottom left */}
+      <div className="absolute bottom-3 left-6 opacity-60 pointer-events-none z-10">
+        <img src="/F1-logo.png" alt="F1" className="h-4 object-contain drop-shadow" />
       </div>
 
       {/* ===================================================================== */}
