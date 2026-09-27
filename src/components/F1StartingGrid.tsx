@@ -41,6 +41,7 @@ export interface F1StartingGridProps {
   flagVideoId?: string;
   cycleIntervalMs?: number;
   autoPlay?: boolean;
+  startWithSound?: boolean;
   onClose?: () => void;
   className?: string;
 }
@@ -57,6 +58,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   flagVideoId,
   cycleIntervalMs = 2800,
   autoPlay = true,
+  startWithSound = false,
   onClose,
   className = ''
 }) => {
@@ -130,26 +132,35 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   // F1 BROADCAST AUDIO CONTROLLER: Fixed at 20% volume (0.20)
   // -------------------------------------------------------------------------
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(!startWithSound);
 
   const initAudio = useCallback(() => {
     if (!audioRef.current) {
       const audio = new Audio('/audio/f1_starting_grid.mp3');
       audio.loop = true;
       audio.volume = 0.20; // Exactly 20% volume per user instruction
+      audio.muted = !startWithSound;
       audioRef.current = audio;
     }
-  }, []);
+  }, [startWithSound]);
 
   useEffect(() => {
     initAudio();
+    if (startWithSound && audioRef.current) {
+      audioRef.current.muted = false;
+      setIsMuted(false);
+      audioRef.current.play().catch(() => {
+        // Fallback if browser blocks sound
+        setIsMuted(true);
+      });
+    }
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
     };
-  }, [initAudio]);
+  }, [initAudio, startWithSound]);
 
   const toggleMute = useCallback(() => {
     initAudio();
@@ -375,8 +386,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           </div>
         </div>
 
-        {/* Right: Controls Strip (30% opacity by default, 100% on hover) */}
-        <div className="flex items-center gap-1.5 sm:gap-2 opacity-30 hover:opacity-100 focus-within:opacity-100 transition-all duration-300 p-1 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl">
+        {/* Right: Controls Strip (Hidden by default (opacity-0), reveals on hover) */}
+        <div className="flex items-center gap-1.5 sm:gap-2 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl">
           <button
             type="button"
             onClick={replayIntro}
@@ -492,7 +503,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             className="absolute inset-0 w-full h-full flex items-center justify-between"
           >
             {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5... with outer vertical bar) */}
-            <div className="w-[41%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="w-[39%] h-full flex flex-col justify-between overflow-hidden">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -502,7 +513,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: Dual-Column Peloton Flanking Twin Red Line Spine */}
-            <div className="w-[18%] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
+            <div className="w-[22%] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -512,7 +523,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6... with outer vertical bar) */}
-            <div className="w-[41%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="w-[39%] h-full flex flex-col justify-between overflow-hidden">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"

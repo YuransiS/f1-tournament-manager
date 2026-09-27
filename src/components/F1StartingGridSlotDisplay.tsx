@@ -68,11 +68,11 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       return (
         <div
           key={`grid-peloton-row-${pairIndex}`}
-          className="flex items-center justify-between w-full h-[28px] sm:h-[32px] opacity-0 pointer-events-none"
+          className="flex items-center justify-between w-full h-[30px] sm:h-[34px] lg:h-[38px] opacity-0 pointer-events-none"
         >
-          <div className="w-[105px] sm:w-[118px] h-[28px] sm:h-[32px]" />
-          <div className="w-8 sm:w-10 flex-shrink-0" />
-          <div className="w-[105px] sm:w-[118px] h-[28px] sm:h-[32px] translate-y-3.5" />
+          <div className="w-[115px] sm:w-[130px] lg:w-[145px] h-[30px] sm:h-[34px] lg:h-[38px]" />
+          <div className="w-14 sm:w-16 lg:w-20 flex-shrink-0" />
+          <div className="w-[115px] sm:w-[130px] lg:w-[145px] h-[30px] sm:h-[34px] lg:h-[38px] translate-y-3.5 sm:translate-y-4" />
         </div>
       );
     }
@@ -88,57 +88,58 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       >
         {/* ========================================================= */}
         {/* Left Slot (Odd position - Higher / stepped forward)       */}
+        {/* Authentic Starting Grid slot outline without heavy box    */}
         {/* Format: [ Position (left) | Logo (center) | Code (right) ]*/}
         {/* ========================================================= */}
         <div
-          className={`w-[105px] sm:w-[118px] h-[28px] sm:h-[32px] rounded-sm flex items-center justify-between px-2 transition-all duration-300 ${
+          className={`w-[115px] sm:w-[130px] lg:w-[145px] h-[30px] sm:h-[34px] lg:h-[38px] rounded-[3px] flex items-center justify-between px-2.5 transition-all duration-300 ${
             isActive
-              ? 'bg-white/20 border-2 border-white shadow-[0_0_16px_rgba(255,255,255,0.9)] scale-[1.04]'
-              : 'bg-[#0a0d18]/90 border border-white/20 group-hover:border-white/50 text-neutral-300'
+              ? 'bg-white/20 border-2 border-white shadow-[0_0_18px_rgba(255,255,255,0.95),inset_0_0_10px_rgba(255,255,255,0.2)] scale-[1.04]'
+              : 'bg-black/25 backdrop-blur-xs border border-white/35 hover:border-white/70 hover:bg-black/40 text-neutral-200'
           }`}
         >
           {/* Position number */}
-          <span className="w-5 text-left text-xs font-mono font-black text-white/90">
+          <span className="w-6 text-left text-xs sm:text-sm font-mono font-black text-white/95">
             {pA?.position}
           </span>
 
           {/* Cleanly fitted team logo */}
-          <div className="w-6 h-5 flex items-center justify-center mx-1 filter drop-shadow">
+          <div className="w-7 h-5 flex items-center justify-center mx-1 filter drop-shadow">
             {pA?.team.id && <TeamLogo teamId={pA.team.id} size="sm" />}
           </div>
 
           {/* 3-letter driver code */}
-          <span className="w-8 text-right text-xs font-black tracking-wider text-white font-['Titillium_Web'] drop-shadow">
+          <span className="w-9 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] drop-shadow">
             {codeA}
           </span>
         </div>
 
-        {/* Center Gap Spacer for Twin Thick Red Pillars */}
-        <div className="w-8 sm:w-10 flex-shrink-0" />
+        {/* Center Gap Spacer for 2x Thicker Twin Red Pillars */}
+        <div className="w-14 sm:w-16 lg:w-20 flex-shrink-0" />
 
         {/* ========================================================= */}
         {/* Right Slot (Even position - Staggered DOWNWARDS by ~14px)  */}
         {/* Format: [ Position (left) | Logo (center) | Code (right) ]*/}
         {/* ========================================================= */}
         <div
-          className={`w-[105px] sm:w-[118px] h-[28px] sm:h-[32px] rounded-sm flex items-center justify-between px-2 transition-all duration-300 translate-y-3.5 ${
+          className={`w-[115px] sm:w-[130px] lg:w-[145px] h-[30px] sm:h-[34px] lg:h-[38px] rounded-[3px] flex items-center justify-between px-2.5 transition-all duration-300 translate-y-3.5 sm:translate-y-4 ${
             isActive
-              ? 'bg-white/20 border-2 border-white shadow-[0_0_16px_rgba(255,255,255,0.9)] scale-[1.04]'
-              : 'bg-[#0a0d18]/90 border border-white/20 group-hover:border-white/50 text-neutral-300'
+              ? 'bg-white/20 border-2 border-white shadow-[0_0_18px_rgba(255,255,255,0.95),inset_0_0_10px_rgba(255,255,255,0.2)] scale-[1.04]'
+              : 'bg-black/25 backdrop-blur-xs border border-white/35 hover:border-white/70 hover:bg-black/40 text-neutral-200'
           }`}
         >
           {/* Position number */}
-          <span className="w-5 text-left text-xs font-mono font-black text-white/90">
+          <span className="w-6 text-left text-xs sm:text-sm font-mono font-black text-white/95">
             {pB?.position || '—'}
           </span>
 
           {/* Cleanly fitted team logo */}
-          <div className="w-6 h-5 flex items-center justify-center mx-1 filter drop-shadow">
+          <div className="w-7 h-5 flex items-center justify-center mx-1 filter drop-shadow">
             {pB?.team.id && <TeamLogo teamId={pB.team.id} size="sm" />}
           </div>
 
           {/* 3-letter driver code */}
-          <span className="w-8 text-right text-xs font-black tracking-wider text-white font-['Titillium_Web'] drop-shadow">
+          <span className="w-9 text-right text-xs sm:text-sm font-black tracking-wider text-white font-['Titillium_Web'] drop-shadow">
             {codeB}
           </span>
         </div>
@@ -149,29 +150,29 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
   return (
     <div className="relative h-full w-full flex flex-col items-center justify-between select-none py-2 pointer-events-auto">
       {/* ------------------------------------------------------------- */}
-      {/* 1. UPPER TWIN THICK RED PILLAR (Chevron 45-degree angled cut) */}
+      {/* 1. UPPER TWIN THICK RED PILLARS (2x Thicker, 45-deg angled cut) */}
       {/* ------------------------------------------------------------- */}
-      <div className="absolute top-0 bottom-[53%] left-1/2 -translate-x-1/2 flex gap-1.5 pointer-events-none z-10">
+      <div className="absolute top-0 bottom-[53%] left-1/2 -translate-x-1/2 flex gap-2 sm:gap-2.5 pointer-events-none z-10">
         <div
-          className="w-3 sm:w-3.5 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
+          className="w-5 sm:w-6 lg:w-7 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 74%)' }}
         />
         <div
-          className="w-3 sm:w-3.5 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
+          className="w-5 sm:w-6 lg:w-7 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 74%)' }}
         />
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. LOWER TWIN THICK RED PILLAR (Chevron 45-degree angled cut) */}
+      {/* 2. LOWER TWIN THICK RED PILLARS (2x Thicker, 45-deg angled cut) */}
       {/* ------------------------------------------------------------- */}
-      <div className="absolute top-[53%] bottom-0 left-1/2 -translate-x-1/2 flex gap-1.5 pointer-events-none z-10">
+      <div className="absolute top-[53%] bottom-0 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-2.5 pointer-events-none z-10">
         <div
-          className="w-3 sm:w-3.5 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
+          className="w-5 sm:w-6 lg:w-7 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
           style={{ clipPath: 'polygon(0 26%, 100% 0, 100% 100%, 0 100%)' }}
         />
         <div
-          className="w-3 sm:w-3.5 h-full bg-[#E10600] shadow-[0_0_18px_#E10600]"
+          className="w-5 sm:w-6 lg:w-7 h-full bg-[#E10600] shadow-[0_0_24px_#E10600,0_0_40px_rgba(225,6,0,0.6)]"
           style={{ clipPath: 'polygon(0 26%, 100% 0, 100% 100%, 0 100%)' }}
         />
       </div>
@@ -188,14 +189,14 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* ------------------------------------------------------------- */}
       <motion.div
         animate={{
-          opacity: activePairIndex < splitIndex ? 1 : 0.6,
+          opacity: activePairIndex < splitIndex ? 1 : 0.65,
           scale: activePairIndex < splitIndex ? 1.05 : 1
         }}
         transition={{ duration: 0.4 }}
-        className="relative z-25 my-1 sm:my-2 px-1 py-1.5 rounded bg-black/85 border border-white/20 flex items-center justify-center pointer-events-none shadow-[0_0_18px_rgba(0,0,0,0.95)]"
+        className="relative z-25 my-1 sm:my-2 px-1.5 py-1.5 rounded bg-black/90 border border-white/25 flex items-center justify-center pointer-events-none shadow-[0_0_20px_rgba(0,0,0,0.95)]"
       >
         <span
-          className="text-[11px] sm:text-xs font-black tracking-[0.38em] text-[#ffd700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_10px_rgba(255,215,0,0.9)]"
+          className="text-xs sm:text-sm font-black tracking-[0.38em] text-[#ffd700] uppercase font-['Titillium_Web'] drop-shadow-[0_0_12px_rgba(255,215,0,0.95)]"
           style={{ writingMode: 'vertical-rl' }}
         >
           STARTING GRID

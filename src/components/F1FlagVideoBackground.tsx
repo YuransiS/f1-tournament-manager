@@ -177,7 +177,7 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%) scale(1.04)',
+            transform: 'translate(-50%, -50%) scale(1.22)',
             width: '100%',
             height: '100%',
             minWidth: '100%',
