@@ -80,6 +80,8 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             modestbranding: 1,
             playsinline: 1,
             iv_load_policy: 3,
+            loop: 1,
+            playlist: activeVideoId,
             origin: window.location.origin
           },
           events: {
@@ -194,6 +196,12 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
       <div
         className="absolute inset-0 pointer-events-auto cursor-default z-[2]"
         onClick={(e) => {
+          e.stopPropagation();
+        }}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+        }}
+        onTouchStart={(e) => {
           e.stopPropagation();
         }}
       />

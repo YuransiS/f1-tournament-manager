@@ -103,7 +103,8 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
       {/* ============================================================= */}
       <div className={`relative flex-1 h-full overflow-hidden order-2 ${!isLeft ? 'translate-y-2' : ''}`}>
         {/* ----------------------------------------------------------- */}
-        {/* DRIVER POSITION BADGE: Beside head, facing center           */}
+        {/* DRIVER POSITION BADGE: Beside chin/neck facing center (11TH / 12TH) */}
+        {/* Crisp solid white with brilliant glow, exactly as on TV broadcast   */}
         {/* ----------------------------------------------------------- */}
         <motion.div
           key={`pos-badge-${pilot.id}-${pilot.position}`}
@@ -112,50 +113,50 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className={`absolute z-35 flex items-start pointer-events-none ${
             isLeft
-              ? 'top-8 sm:top-12 right-6 sm:right-10'
-              : 'top-8 sm:top-12 left-6 sm:left-10'
+              ? 'top-[36%] right-3 sm:right-6 lg:right-8'
+              : 'top-[36%] left-3 sm:left-6 lg:left-8'
           }`}
         >
-          <div className="flex items-baseline">
-            <span className="text-5xl sm:text-6xl md:text-7xl font-black italic text-white/85 font-['Titillium_Web'] leading-none drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <div className="flex items-baseline select-none">
+            <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black italic text-white font-['Titillium_Web'] leading-none drop-shadow-[0_0_24px_rgba(255,255,255,0.7)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)]">
               {num}
             </span>
-            <span className="text-xl sm:text-2xl md:text-3xl font-black italic text-white/85 font-['Titillium_Web'] ml-1 leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black italic text-white font-['Titillium_Web'] ml-1 leading-none drop-shadow-[0_0_16px_rgba(255,255,255,0.6)] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
               {suffix}
             </span>
           </div>
         </motion.div>
 
         {/* ----------------------------------------------------------- */}
-        {/* BUST PORTRAIT CONTAINER: Head, Shoulders, Upper Chest only */}
+        {/* BUST PORTRAIT CONTAINER: Heroic 1:1 scale filling the screen */}
         {/* ----------------------------------------------------------- */}
         <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20 pb-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={`pilot-portrait-${pilot.id}`}
               initial={{
-                scaleY: 0.02,
                 opacity: 0,
-                filter: 'brightness(3.5) contrast(1.8)'
+                y: 35,
+                scale: 0.96
               }}
               animate={{
-                scaleY: 1,
                 opacity: 1,
-                filter: 'brightness(1) contrast(1)'
+                y: 0,
+                scale: 1
               }}
               exit={{
                 opacity: 0,
-                scaleY: 0.05,
-                filter: 'brightness(2)'
+                y: -20,
+                scale: 0.98
               }}
               transition={{
-                duration: 0.45,
+                duration: 0.38,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="relative w-full h-full max-w-[460px] sm:max-w-[540px] md:max-w-[620px] flex items-end justify-center pb-0"
+              className="relative w-full h-full max-w-[850px] flex items-end justify-center pb-0"
               style={{
-                maskImage: 'linear-gradient(to top, transparent 0%, black 18%, black 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 18%, black 100%)'
+                maskImage: 'linear-gradient(to top, transparent 0%, black 14%, black 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 14%, black 100%)'
               }}
             >
               {/* 1. Team-Color Halftone LED Dot Matrix Materialization Flash (Fully fades to 0) */}
@@ -172,10 +173,10 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
 
               {/* 2. CRT Scanline Raster Flash */}
               <motion.div
-                initial={{ opacity: 0.9 }}
+                initial={{ opacity: 0.85 }}
                 animate={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
-                className="absolute inset-0 pointer-events-none z-15 bg-gradient-to-b from-white/35 via-transparent to-white/15"
+                className="absolute inset-0 pointer-events-none z-15 bg-gradient-to-b from-white/30 via-transparent to-white/10"
               />
 
               {/* 3. Diagonal Neon Laser Streaks */}
@@ -203,13 +204,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                 />
               </motion.div>
 
-              {/* Driver BUST Cutout (1:1 bust photo from Drivers tab) */}
+              {/* Driver BUST Cutout (Heroic proportions, 1:1 bust photo from Drivers tab) */}
               {!hasImageError && pilot.avatarUrl ? (
                 <img
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="max-h-[84%] sm:max-h-[88%] w-auto max-w-full object-contain object-bottom filter drop-shadow-[0_20px_45px_rgba(0,0,0,0.98)] select-none relative z-5"
+                  className="h-[88%] sm:h-[92%] lg:h-[96%] w-auto max-w-[98%] object-contain object-bottom filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.98)] select-none relative z-5"
                 />
               ) : (
                 <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />
@@ -231,7 +232,7 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.15 }}
-              className="text-3xl sm:text-4xl md:text-5xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] -mb-1 select-none tracking-wide text-center"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] -mb-1 select-none tracking-wide text-center"
             >
               {firstName}
             </motion.span>
@@ -247,14 +248,14 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
             style={{
               fontSize:
                 lastName.length > 9
-                  ? 'clamp(1.75rem, 3.4vw, 3.1rem)'
+                  ? 'clamp(2.2rem, 4.4vw, 4.2rem)'
                   : lastName.length > 6
-                  ? 'clamp(2.15rem, 4.2vw, 4.1rem)'
-                  : 'clamp(2.65rem, 5.0vw, 5.0rem)',
-              background: `linear-gradient(180deg, ${gradTop} 0%, ${gradBottom} 100%)`,
+                  ? 'clamp(2.6rem, 5.2vw, 5.2rem)'
+                  : 'clamp(3.2rem, 6.2vw, 6.4rem)',
+              background: `linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 28%, ${gradBottom} 100%)`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 16px ${gradTop}50)`
+              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 16px ${gradBottom}70)`
             }}
           >
             {lastName}
@@ -266,12 +267,12 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-black font-['Chakra_Petch'] leading-none mt-1 select-none text-center mx-auto"
+            className="text-4xl sm:text-5xl md:text-6xl font-black font-['Chakra_Petch'] leading-none mt-1 select-none text-center mx-auto"
             style={{
-              background: `linear-gradient(180deg, ${gradTop} 0%, ${gradBottom} 100%)`,
+              background: `linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 30%, ${gradBottom} 100%)`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              filter: `drop-shadow(0 4px 20px rgba(0,0,0,0.98)) drop-shadow(0 0 12px ${gradTop}45)`
+              filter: `drop-shadow(0 4px 20px rgba(0,0,0,0.98)) drop-shadow(0 0 14px ${gradBottom}60)`
             }}
           >
             {pilot.driverNumber}

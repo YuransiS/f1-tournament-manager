@@ -321,9 +321,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         flagVideoId={flagVideoId}
       />
 
-      {/* Broadcast Indigo Gradient & Speed Streak Overlay (softened to keep waving flag clearly visible) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#060417]/80 via-[#090620]/25 to-[#0b0826]/40 pointer-events-none z-[2]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#040312]/50 via-transparent to-[#040312]/50 pointer-events-none z-[2]" />
+      {/* Clean broadcast studio soft wash (ensures 100% uniform brightness across left and right) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060417]/70 via-transparent to-[#0b0826]/30 pointer-events-none z-[2]" />
 
       {/* Diagonal Neon Speed Streaks (-35deg) across background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-60 z-[3]">
@@ -349,13 +348,11 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         ))}
       </div>
 
-      {/* Active Team Color Ambient Lighting */}
+      {/* Subtle Team Neon Glow (mix-blend screen ensures it CAN NEVER darken any pilot) */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-25 z-[3] transition-colors duration-700"
+        className="absolute inset-0 pointer-events-none opacity-20 z-[3] mix-blend-screen transition-opacity duration-700"
         style={{
-          background: `radial-gradient(circle at 18% 50%, ${leftPilot.team.primaryColor}88 0%, transparent 60%), radial-gradient(circle at 82% 50%, ${
-            rightPilot ? rightPilot.team.primaryColor : '#ffffff'
-          }88 0%, transparent 60%)`
+          background: `radial-gradient(circle at 20% 50%, #00d2ff 0%, transparent 60%), radial-gradient(circle at 80% 50%, #ff2d55 0%, transparent 60%)`
         }}
       />
 
@@ -503,7 +500,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             className="absolute inset-0 w-full h-full flex items-center justify-between"
           >
             {/* LEFT DRIVER CARD (Odd Position: P1, P3, P5... with outer vertical bar) */}
-            <div className="w-[39%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="w-[41%] h-full flex flex-col justify-between overflow-hidden">
               <F1GridDriverCard
                 pilot={leftPilot}
                 align="left"
@@ -513,7 +510,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: Dual-Column Peloton Flanking Twin Red Line Spine */}
-            <div className="w-[22%] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
+            <div className="w-[18%] min-w-[260px] max-w-[340px] h-full flex flex-col items-center justify-center z-35 px-1 py-1">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}
@@ -523,7 +520,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* RIGHT DRIVER CARD (Even Position: P2, P4, P6... with outer vertical bar) */}
-            <div className="w-[39%] h-full flex flex-col justify-between overflow-hidden">
+            <div className="w-[41%] h-full flex flex-col justify-between overflow-hidden">
               <F1GridDriverCard
                 pilot={rightPilot}
                 align="right"
