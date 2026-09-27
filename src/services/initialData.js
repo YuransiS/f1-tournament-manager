@@ -825,10 +825,10 @@ export const DEFAULT_RACES = [
     subtitle: 'MARINA BAY STREET CIRCUIT - RACE 17',
     date: '2026-09-20',
     status: 'completed',
-    fastestLapDriverId: 'drv-6',
-    incidentNote: '🇸🇬 Ночная буря в Сингапуре (Marina Bay): Гонка отметилась двумя выездами Safety Car! Дуэт Mercedes-AMG Юрий Захарчук (KillerplautzeGer) и Сашко Громов (PABV) оформили триумфальный победный дубль 1-2! Кевин Магнуссен сенсационно принес Haas подиум (P3), а Вадим Манштейн снова в топ-4 за Red Bull. Микола Ярема установил быстрейший круг (1:33.298), но из-за инцидентов и 5 пит-стопов финишировал 17-м (+3 сек. штраф). Марк (ugeto47, Williams), Ландо Норрис и Даниэль Риккардо сошли (DNF).',
+    fastestLapDriverId: 'drv-1',
+    incidentNote: '🇸🇬 Ночная буря в Сингапуре (Marina Bay): Гонка отметилась двумя выездами Safety Car! Дуэт Mercedes-AMG Юрий Захарчук (KillerplautzeGer) и Сашко Громов (PABV) оформили триумфальный победный дубль 1-2! Юрий Захарчук завоевал хет-трик (поул, победа, быстрейший круг 1:33.298). Кевин Магнуссен сенсационно принес Haas подиум (P3), а Вадим Манштейн снова в топ-4 за Red Bull. Микола Ярема из-за инцидентов и 5 пит-стопов финишировал 17-м (+3 сек. штраф). Марк (ugeto47, Williams), Ландо Норрис и Даниэль Риккардо сошли (DNF).',
     results: [
-      { driverId: 'drv-1', grid: 1, stops: 2, bestLap: '1:34.645', totalTime: '54:14.590', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes!', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 1, stops: 2, bestLap: '1:33.298', totalTime: '54:14.590', penaltySeconds: 0, penaltyLabel: '🏆 Хет-трик: Победа + FL (1:33.298)!', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 3, stops: 1, bestLap: '1:35.763', totalTime: '+3.039', penaltySeconds: 0, penaltyLabel: '🥈 Дубль Mercedes 1-2!', status: 'FINISHED' },
       { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:38.379', totalTime: '+7.848', penaltySeconds: 0, penaltyLabel: '🥉 Сенсационный подиум Haas!', status: 'FINISHED' },
       { driverId: 'drv-23', grid: 6, stops: 2, bestLap: '1:35.935', totalTime: '+8.631', penaltySeconds: 0, penaltyLabel: '⚡ Топ-4 в Сингапуре!', status: 'FINISHED' },
@@ -844,7 +844,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-2', grid: 13, stops: 1, bestLap: '1:37.851', totalTime: '+23.464', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-4', grid: 19, stops: 2, bestLap: '1:35.726', totalTime: '+28.613', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-10', grid: 14, stops: 1, bestLap: '1:39.203', totalTime: '+33.420', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-6', grid: 2, stops: 5, bestLap: '1:33.298', totalTime: '+33.420', penaltySeconds: 3, penaltyLabel: '⏱️ FL (1:33.298) • Штраф +3 сек • 5 питов', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 2, stops: 5, bestLap: '1:34.645', totalTime: '+33.420', penaltySeconds: 3, penaltyLabel: 'Штраф +3 сек • 5 пит-стопов', status: 'FINISHED' },
       { driverId: 'drv-3', grid: 20, stops: 2, bestLap: '1:38.984', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF) / 2 Safety Cars', status: 'DNF' },
       { driverId: 'drv-7', grid: 10, stops: 0, bestLap: '1:38.945', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-21', grid: 18, stops: 0, bestLap: '1:38.820', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
