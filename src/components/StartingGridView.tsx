@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import F1StartingGrid, { GridPilot } from './F1StartingGrid';
 import { Sparkles, Calendar, Gauge } from 'lucide-react';
+import { extractF1RaceDetails } from '../utils/f1CircuitHelper';
 
 interface StartingGridViewProps {
   data?: {
@@ -87,7 +88,8 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
     return validRaces.find((r) => r.id === selectedRaceId) || validRaces[0] || races[0];
   }, [validRaces, races, selectedRaceId]);
 
-  const hostCountryCode = useMemo(() => getRaceCountryCode(selectedRace), [selectedRace]);
+  const raceDetails = useMemo(() => extractF1RaceDetails(selectedRace), [selectedRace]);
+  const hostCountryCode = raceDetails.countryCode;
 
   // Transform actual race results into GridPilot[] ordered by starting grid position (1, 2, 3...)
   const activePilots: GridPilot[] = useMemo(() => {
@@ -219,9 +221,12 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
       <div className="w-full aspect-[16/9] min-h-[640px] max-h-[90vh] rounded-2xl overflow-hidden border border-[#262B3A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] relative bg-[#07090E]">
         <F1StartingGrid
           pilots={activePilots}
-          eventTitle={activeEventTitle}
-          trackName={activeTrackName}
-          countryCode={hostCountryCode}
+          eventTitle={raceDetails.eventTitle}
+          trackName={raceDetails.circuitName}
+          countryCode={raceDetails.countryCode}
+          roundNumber={raceDetails.roundNumber}
+          countryName={raceDetails.countryName}
+          circuitCity={raceDetails.circuitCity}
           cycleIntervalMs={cycleSpeed}
           autoPlay={true}
           className="w-full h-full"
