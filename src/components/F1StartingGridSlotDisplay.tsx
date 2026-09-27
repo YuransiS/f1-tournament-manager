@@ -56,7 +56,7 @@ export function getDriver3LetterCode(pilot?: GridPilot | null): string {
 }
 
 // Authentic Formula 1 Starting Grid slot: Letter П (open at bottom!) matching media_1790535748106.png
-// Scaled tick marks extending ~60% height
+// Clean vector bracket with tick marks extending ~65% height
 const F1GridSlotBracket: React.FC<{ isActive: boolean }> = ({ isActive }) => (
   <svg
     viewBox="0 0 100 100"
@@ -65,23 +65,23 @@ const F1GridSlotBracket: React.FC<{ isActive: boolean }> = ({ isActive }) => (
     className="absolute inset-0 w-full h-full pointer-events-none"
   >
     <path
-      d="M 1.5 60 L 1.5 1.5 L 98.5 1.5 L 98.5 60"
+      d="M 1 65 L 1 1 L 99 1 L 99 65"
       stroke={isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.75)'}
-      strokeWidth={isActive ? 3 : 2}
+      strokeWidth={isActive ? 3.5 : 2}
       strokeLinecap="square"
     />
   </svg>
 );
 
-// Individual compact Grid Slot scaled ~2x larger: [ <digit> <logo> <CODE> ]
-// Clean, tight sequence without empty voids matching media_1790535748106.png
+// Individual compact Grid Slot centered inside bracket: [ <digit> <logo> <CODE> ]
+// Generous balanced padding ensures numbers like 16, 10 never touch the left bracket leg
 const GridSlotItem: React.FC<{
   pilot: GridPilot | null;
   isActive: boolean;
 }> = ({ pilot, isActive }) => {
   if (!pilot) {
     return (
-      <div className="relative flex items-center justify-center min-w-[170px] sm:min-w-[195px] lg:min-w-[220px] h-[46px] sm:h-[50px] lg:h-[54px] px-4 flex-shrink-0 opacity-30">
+      <div className="relative flex items-center justify-center min-w-[190px] sm:min-w-[215px] lg:min-w-[235px] h-[48px] sm:h-[50px] lg:h-[52px] px-6 flex-shrink-0 opacity-30">
         <F1GridSlotBracket isActive={false} />
         <span className="font-mono text-sm text-neutral-400">—</span>
       </div>
@@ -92,23 +92,23 @@ const GridSlotItem: React.FC<{
 
   return (
     <div
-      className={`relative flex items-center gap-2 sm:gap-3 px-4 sm:px-5 min-w-[170px] sm:min-w-[195px] lg:min-w-[220px] h-[46px] sm:h-[50px] lg:h-[54px] flex-shrink-0 select-none transition-transform duration-200 ${
+      className={`relative flex items-center justify-center gap-2.5 sm:gap-3.5 px-6 sm:px-7 min-w-[190px] sm:min-w-[215px] lg:min-w-[235px] h-[48px] sm:h-[50px] lg:h-[52px] flex-shrink-0 select-none transition-transform duration-200 ${
         isActive ? 'scale-[1.04]' : ''
       }`}
     >
       <F1GridSlotBracket isActive={isActive} />
 
-      {/* 1. Digit: clear, large bold monospace */}
-      <span className="relative z-10 font-mono font-black text-base sm:text-lg lg:text-xl text-white min-w-[24px] sm:min-w-[28px] text-left">
+      {/* 1. Digit: clear, centered, bold monospace with dedicated width */}
+      <span className="relative z-10 font-mono font-black text-base sm:text-lg lg:text-xl text-white min-w-[28px] sm:min-w-[32px] text-center">
         {pilot.position}
       </span>
 
-      {/* 2. Immediately next to it: Team Logo (scaled 2x) */}
+      {/* 2. Immediately next to it: Team Logo */}
       <div className="relative z-10 w-7 h-5 sm:w-8 sm:h-6 lg:w-9 lg:h-7 flex items-center justify-center flex-shrink-0">
         {pilot.team.id && <TeamLogo teamId={pilot.team.id} size="md" />}
       </div>
 
-      {/* 3. Immediately next to it: 3 letters in bold (scaled 2x) */}
+      {/* 3. Immediately next to it: 3 letters in bold */}
       <span className="relative z-10 font-black tracking-wider text-base sm:text-lg lg:text-xl text-white font-['Titillium_Web']">
         {code}
       </span>
@@ -153,7 +153,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* Stagger formula: Right slot shifted down 0.5h (25px)          */}
       {/* Interval to next row is exactly 0.5h (25px)                   */}
       {/* ============================================================= */}
-      <div className="relative w-full flex flex-col gap-[22px] sm:gap-[24px] items-center z-20 flex-shrink-0">
+      <div className="relative w-full flex flex-col gap-[22px] sm:gap-[25px] items-center z-20 flex-shrink-0">
         {topRows.map(({ pair, idx }) => {
           const [pA, pB] = pair;
           const isActive = idx === activePairIndex;
@@ -164,7 +164,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               <div
                 key={`top-grid-slot-row-${idx}`}
                 className="w-full pointer-events-none invisible opacity-0 flex-shrink-0"
-                style={{ height: '48px' }}
+                style={{ height: '50px' }}
               />
             );
           }
@@ -179,16 +179,16 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               className={`flex items-start justify-center w-full cursor-pointer transition-opacity duration-200 flex-shrink-0 ${
                 isActive ? 'opacity-100' : 'opacity-85 hover:opacity-100'
               }`}
-              style={{ height: '48px' }}
+              style={{ height: '50px' }}
             >
               {/* Left Slot: Odd position (e.g. P1, P3, P5...) */}
               <GridSlotItem pilot={pA} isActive={isActive} />
 
               {/* Center Gap for the Thick Twin Red Bars */}
-              <div className="w-20 sm:w-24 lg:w-28 flex-shrink-0" />
+              <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0" />
 
-              {/* Right Slot: Even position (Shifted down 0.5 slot height = 24px) */}
-              <div className="translate-y-[24px] flex-shrink-0">
+              {/* Right Slot: Even position (Shifted down 0.5 slot height = 25px) */}
+              <div className="translate-y-[25px] flex-shrink-0">
                 <GridSlotItem pilot={pB} isActive={isActive} />
               </div>
             </motion.div>
@@ -277,7 +277,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
       {/* Stagger formula: Right slot shifted down 0.5h (25px)          */}
       {/* Interval to next row is exactly 0.5h (25px)                   */}
       {/* ============================================================= */}
-      <div className="relative w-full flex flex-col gap-[22px] sm:gap-[24px] items-center z-20 flex-shrink-0">
+      <div className="relative w-full flex flex-col gap-[22px] sm:gap-[25px] items-center z-20 flex-shrink-0">
         {bottomRows.map(({ pair, idx }) => {
           const [pA, pB] = pair;
           const isActive = idx === activePairIndex;
@@ -288,7 +288,7 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               <div
                 key={`bottom-grid-slot-row-${idx}`}
                 className="w-full pointer-events-none invisible opacity-0 flex-shrink-0"
-                style={{ height: '48px' }}
+                style={{ height: '50px' }}
               />
             );
           }
@@ -303,16 +303,16 @@ export const F1StartingGridSlotDisplay: React.FC<StartingGridSlotDisplayProps> =
               className={`flex items-start justify-center w-full cursor-pointer transition-opacity duration-200 flex-shrink-0 ${
                 isActive ? 'opacity-100' : 'opacity-85 hover:opacity-100'
               }`}
-              style={{ height: '48px' }}
+              style={{ height: '50px' }}
             >
               {/* Left Slot: Odd position (e.g. P11, P13, P15...) */}
               <GridSlotItem pilot={pA} isActive={isActive} />
 
               {/* Center Gap for the Thick Twin Red Bars */}
-              <div className="w-20 sm:w-24 lg:w-28 flex-shrink-0" />
+              <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0" />
 
-              {/* Right Slot: Even position (Shifted down 0.5 slot height = 24px) */}
-              <div className="translate-y-[24px] flex-shrink-0">
+              {/* Right Slot: Even position (Shifted down 0.5 slot height = 25px) */}
+              <div className="translate-y-[25px] flex-shrink-0">
                 <GridSlotItem pilot={pB} isActive={isActive} />
               </div>
             </motion.div>
