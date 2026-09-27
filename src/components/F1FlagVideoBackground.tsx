@@ -177,14 +177,14 @@ export const F1FlagVideoBackground: React.FC<F1FlagVideoBackgroundProps> = ({
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%) scale(1.22)',
-            width: '100%',
-            height: '100%',
+            transform: 'translate(-50%, -50%) scale(1.60)',
+            width: 'max(100%, 178vh, 178%)',
+            height: 'max(100%, 56.25vw, 56.25%)',
             minWidth: '100%',
             minHeight: '100%',
             pointerEvents: 'none',
             userSelect: 'none',
-            filter: 'brightness(0.96) contrast(1.04)',
+            filter: 'brightness(0.96) contrast(1.06)',
             border: 'none'
           }}
         />

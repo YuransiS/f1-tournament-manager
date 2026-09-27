@@ -86,6 +86,25 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
   const [isBroadcastActive, setIsBroadcastActive] = useState(false);
   const [startWithAudio, setStartWithAudio] = useState(true);
 
+  const handleStartBroadcast = (withAudio: boolean) => {
+    setStartWithAudio(withAudio);
+    setIsBroadcastActive(true);
+    try {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }
+    } catch {}
+  };
+
+  const handleCloseBroadcast = () => {
+    try {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    } catch {}
+    setIsBroadcastActive(false);
+  };
+
   const selectedRace = useMemo(() => {
     return validRaces.find((r) => r.id === selectedRaceId) || validRaces[0] || races[0];
   }, [validRaces, races, selectedRaceId]);
@@ -221,7 +240,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
           {isBroadcastActive ? (
             <button
               type="button"
-              onClick={() => setIsBroadcastActive(false)}
+              onClick={handleCloseBroadcast}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600/30 hover:bg-red-600/50 text-red-300 hover:text-white border border-red-500/40 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer shadow-md"
             >
               <Square size={13} fill="currentColor" />
@@ -230,10 +249,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
           ) : (
             <button
               type="button"
-              onClick={() => {
-                setStartWithAudio(true);
-                setIsBroadcastActive(true);
-              }}
+              onClick={() => handleStartBroadcast(true)}
               className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#E10600] hover:bg-[#ff1a14] active:scale-95 text-white border border-[#ff4d4d]/50 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-[0_0_16px_rgba(225,6,0,0.5)]"
             >
               <Play size={13} fill="currentColor" />
@@ -243,108 +259,9 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         </div>
       </div>
 
-      {/* Starting Grid Broadcast Viewport (16:9 cinematic aspect ratio, expanded scale) */}
-      <div className="w-full aspect-[16/9] min-h-[640px] max-h-[90vh] rounded-2xl overflow-hidden border border-[#262B3A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] relative bg-[#07090E]">
-        {!isBroadcastActive ? (
-          <div className="relative w-full h-full flex flex-col items-center justify-center p-6 sm:p-12 overflow-hidden select-none bg-gradient-to-br from-[#060417] via-[#090b14] to-[#04030c]">
-            {/* Background Grid Pattern & Speed Streaks */}
-            <div
-              className="absolute inset-0 opacity-15 pointer-events-none"
-              style={{
-                backgroundImage:
-                  'radial-gradient(circle at 50% 50%, rgba(225,6,0,0.15) 0%, transparent 70%), linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-                backgroundSize: '100% 100%, 40px 40px, 40px 40px'
-              }}
-            />
-
-            {/* Neon Diagonal Accent Streaks */}
-            <div className="absolute top-12 left-10 w-48 h-1 bg-[#E10600] opacity-60 shadow-[0_0_20px_#E10600] -rotate-12 pointer-events-none" />
-            <div className="absolute bottom-16 right-12 w-64 h-1 bg-[#00d2ff] opacity-50 shadow-[0_0_20px_#00d2ff] -rotate-12 pointer-events-none" />
-
-            {/* Center Launch Station Card */}
-            <div className="relative z-10 max-w-xl w-full flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl bg-black/75 backdrop-blur-xl border border-white/15 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
-              {/* Top Tag */}
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#E10600]/20 border border-[#E10600]/40 text-[#ff4d4d] text-xs font-black tracking-widest uppercase mb-4">
-                <Tv size={14} className="animate-pulse" />
-                <span>FORMULA 1 BROADCAST FEED</span>
-              </div>
-
-              {/* Official F1 Logo */}
-              <img
-                src="/F1-logo.png"
-                alt="Formula 1"
-                className="h-8 sm:h-10 object-contain drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)] mb-3"
-              />
-
-              {/* Grand Prix Title */}
-              <h2 className="text-2xl sm:text-4xl font-black italic tracking-wide text-white uppercase font-['Titillium_Web'] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
-                {raceDetails.eventTitle}
-              </h2>
-              <p className="text-xs sm:text-sm font-bold tracking-widest text-[#00d2ff] uppercase mt-1">
-                {raceDetails.circuitName} · {raceDetails.circuitCity}
-              </p>
-
-              {/* Pole Sitter Preview */}
-              {activePilots.length > 0 && (
-                <div className="my-5 p-3.5 w-full rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/40">
-                      <Trophy size={18} />
-                    </div>
-                    <div className="text-left">
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 block">
-                        POLE POSITION
-                      </span>
-                      <span className="text-sm font-black text-white font-['Titillium_Web'] uppercase">
-                        {activePilots[0].realName} ({activePilots[0].team.name})
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 block">
-                      QUALIFYING TIME
-                    </span>
-                    <span className="text-xs sm:text-sm font-mono font-black text-[#ffd700]">
-                      {activePilots[0].lapTimeOrDelta}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Main Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 w-full mt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStartWithAudio(true);
-                    setIsBroadcastActive(true);
-                  }}
-                  className="w-full sm:flex-1 py-3.5 px-6 rounded-xl bg-[#E10600] hover:bg-[#ff1a14] active:scale-95 text-white font-black text-xs sm:text-sm tracking-widest uppercase transition-all duration-200 shadow-[0_0_28px_rgba(225,6,0,0.7)] hover:shadow-[0_0_40px_rgba(225,6,0,0.95)] flex items-center justify-center gap-2 cursor-pointer border border-[#ff4d4d]/50"
-                >
-                  <Play size={18} fill="currentColor" />
-                  <span>ЗАПУСТИТЬ ТРАНСЛЯЦИЮ СО ЗВУКОМ (20%)</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStartWithAudio(false);
-                    setIsBroadcastActive(true);
-                  }}
-                  className="w-full sm:w-auto py-3.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-neutral-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer border border-white/15"
-                  title="Запустить без звука"
-                >
-                  Без звука
-                </button>
-              </div>
-
-              <p className="text-[11px] text-neutral-400 mt-4 flex items-center gap-1.5">
-                <Volume2 size={13} className="text-[#00d2ff]" />
-                Звук темы F1 запустится автоматически на 20% громкости
-              </p>
-            </div>
-          </div>
-        ) : (
+      {/* 1. Fullscreen Broadcast Mode: 100vw x 100vh true full-bleed F1 Broadcast */}
+      {isBroadcastActive && (
+        <div className="fixed inset-0 z-[99999] w-screen h-screen bg-[#07090E] overflow-hidden flex flex-col justify-between">
           <F1StartingGrid
             pilots={activePilots}
             eventTitle={raceDetails.eventTitle}
@@ -356,10 +273,106 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
             cycleIntervalMs={cycleSpeed}
             autoPlay={true}
             startWithSound={startWithAudio}
-            onClose={() => setIsBroadcastActive(false)}
+            onClose={handleCloseBroadcast}
             className="w-full h-full"
           />
-        )}
+        </div>
+      )}
+
+      {/* 2. Embedded Control Room & Launch Station (Displayed on Dashboard Tab) */}
+      <div className="w-full aspect-[16/9] min-h-[580px] max-h-[85vh] rounded-2xl overflow-hidden border border-[#262B3A] shadow-[0_24px_60px_rgba(0,0,0,0.95)] relative bg-[#07090E]">
+        <div className="relative w-full h-full flex flex-col items-center justify-center p-6 sm:p-12 overflow-hidden select-none bg-gradient-to-br from-[#060417] via-[#090b14] to-[#04030c]">
+          {/* Background Grid Pattern & Speed Streaks */}
+          <div
+            className="absolute inset-0 opacity-15 pointer-events-none"
+            style={{
+              backgroundImage:
+                'radial-gradient(circle at 50% 50%, rgba(225,6,0,0.15) 0%, transparent 70%), linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+              backgroundSize: '100% 100%, 40px 40px, 40px 40px'
+            }}
+          />
+
+          {/* Neon Diagonal Accent Streaks */}
+          <div className="absolute top-12 left-10 w-48 h-1 bg-[#E10600] opacity-60 shadow-[0_0_20px_#E10600] -rotate-12 pointer-events-none" />
+          <div className="absolute bottom-16 right-12 w-64 h-1 bg-[#00d2ff] opacity-50 shadow-[0_0_20px_#00d2ff] -rotate-12 pointer-events-none" />
+
+          {/* Center Launch Station Card */}
+          <div className="relative z-10 max-w-xl w-full flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl bg-black/75 backdrop-blur-xl border border-white/15 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
+            {/* Top Tag */}
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#E10600]/20 border border-[#E10600]/40 text-[#ff4d4d] text-xs font-black tracking-widest uppercase mb-4">
+              <Tv size={14} className="animate-pulse" />
+              <span>FORMULA 1 BROADCAST FEED</span>
+            </div>
+
+            {/* Official F1 Logo */}
+            <img
+              src="/F1-logo.png"
+              alt="Formula 1"
+              className="h-8 sm:h-10 object-contain drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)] mb-3"
+            />
+
+            {/* Grand Prix Title */}
+            <h2 className="text-2xl sm:text-4xl font-black italic tracking-wide text-white uppercase font-['Titillium_Web'] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+              {raceDetails.eventTitle}
+            </h2>
+            <p className="text-xs sm:text-sm font-bold tracking-widest text-[#00d2ff] uppercase mt-1">
+              {raceDetails.circuitName} · {raceDetails.circuitCity}
+            </p>
+
+            {/* Pole Sitter Preview */}
+            {activePilots.length > 0 && (
+              <div className="my-5 p-3.5 w-full rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/40">
+                    <Trophy size={18} />
+                  </div>
+                  <div className="text-left">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 block">
+                      POLE POSITION
+                    </span>
+                    <span className="text-sm font-black text-white font-['Titillium_Web'] uppercase">
+                      {activePilots[0].realName} ({activePilots[0].team.name})
+                    </span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 block">
+                    QUALIFYING TIME
+                  </span>
+                  <span className="text-xs sm:text-sm font-mono font-black text-[#ffd700]">
+                    {activePilots[0].lapTimeOrDelta}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Main Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full mt-2">
+              <button
+                type="button"
+                onClick={() => handleStartBroadcast(true)}
+                className="w-full sm:flex-1 py-4 px-6 rounded-xl bg-[#E10600] hover:bg-[#ff1a14] active:scale-95 text-white font-black text-xs sm:text-sm tracking-widest uppercase transition-all duration-200 shadow-[0_0_28px_rgba(225,6,0,0.7)] hover:shadow-[0_0_40px_rgba(225,6,0,0.95)] flex items-center justify-center gap-2 cursor-pointer border border-[#ff4d4d]/50"
+              >
+                <Play size={18} fill="currentColor" />
+                <span>ЗАПУСТИТЬ ТРАНСЛЯЦИЮ НА ВЕСЬ ЭКРАН (20% ЗВУК)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleStartBroadcast(false)}
+                className="w-full sm:w-auto py-4 px-5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-neutral-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer border border-white/15"
+                title="Запустить без звука"
+              >
+                Без звука
+              </button>
+            </div>
+
+            <p className="text-[11px] text-neutral-400 mt-4 flex items-center gap-1.5">
+              <Volume2 size={13} className="text-[#00d2ff]" />
+              Звук темы F1 запустится автоматически на 20% громкости при переходе в полноэкранный режим
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
