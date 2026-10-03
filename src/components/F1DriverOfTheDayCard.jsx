@@ -28,7 +28,8 @@ const RACE_COUNTRY_MAP = {
   'race-19-sprint': { code: 'QA', name: 'QATAR (SPRINT)' },
   'race-19': { code: 'QA', name: 'QATAR' },
   'race-20-sprint': { code: 'US', name: 'UNITED STATES (SPRINT)' },
-  'race-20': { code: 'US', name: 'UNITED STATES' }
+  'race-20': { code: 'US', name: 'UNITED STATES' },
+  'race-21': { code: 'MX', name: 'MEXICO' }
 };
 
 // High-res real track background photos uploaded by user
@@ -55,7 +56,8 @@ const REAL_TRACK_PHOTOS = {
   'race-19-sprint': '/tracks/singapore.jpg',
   'race-19': '/tracks/singapore.jpg',
   'race-20-sprint': '/tracks/miami.jpg',
-  'race-20': '/tracks/miami.jpg'
+  'race-20': '/tracks/miami.jpg',
+  'race-21': '/tracks/spain.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
@@ -142,6 +144,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     if (t.includes('ital') || t.includes('imola') || t.includes('monza')) return { code: 'IT', name: 'ITALY' };
     if (t.includes('qatar') || t.includes('lusail')) return { code: 'QA', name: 'QATAR' };
     if (t.includes('austin') || t.includes('texas') || t.includes('cota') || t.includes('united states')) return { code: 'US', name: 'USA' };
+    if (t.includes('mexic') || t.includes('hermanos')) return { code: 'MX', name: 'MEXICO' };
     return {
       code: 'HU',
       name: (title || '').replace(/Grand Prix/i, '').trim().toUpperCase()

@@ -1036,6 +1036,38 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:41.820', totalTime: '+1 Lap', penaltySeconds: 5, penaltyLabel: '⚠️ Штраф +5 сек', status: 'FINISHED' },
       { driverId: 'drv-9', grid: 10, stops: 1, bestLap: '1:40.036', totalTime: '+3 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
     ]
+  },
+  {
+    id: 'race-21',
+    title: 'Mexico City Grand Prix',
+    subtitle: 'AUTÓDROMO HERMANOS RODRÍGUEZ - RACE 21',
+    date: '2026-10-04',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    driverOfTheDayId: 'drv-1',
+    incidentNote: '🇲🇽 Жара в Мехико (Autódromo Hermanos Rodríguez): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает великолепную победу со старта с поула! Микола Ярема (Red Bull) финиширует 2-м (+3.844) и забирает бонусный балл за быстрейший круг (1:20.168). Денис Коваленко (Red Bull) поднимается на подиум (P3). Сашко Громов (Mercedes) на P4, Вадим Манштейн (Ferrari) в топ-5 на P5. Норрис, Окон, Чжоу, Пиастри и Алонсо замыкают очковую зону. Даниэль Риккардо сошёл с дистанции (DNF).',
+    results: [
+      { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:20.471', totalTime: '49:54.999', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes с поула!', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 3, stops: 1, bestLap: '1:20.168', totalTime: '+3.844', penaltySeconds: 0, penaltyLabel: '⏱️ P2 + Fastest Lap (1:20.168)!', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 5, stops: 1, bestLap: '1:21.491', totalTime: '+38.192', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Red Bull P3', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:21.184', totalTime: '+39.516', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 4, stops: 1, bestLap: '1:21.934', totalTime: '+47.282', penaltySeconds: 0, penaltyLabel: '⚡ Топ-5 за Ferrari!', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 10, stops: 1, bestLap: '1:21.918', totalTime: '+48.482', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 14, stops: 1, bestLap: '1:21.723', totalTime: '+49.330', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 7, stops: 1, bestLap: '1:22.060', totalTime: '+49.861', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 9, stops: 1, bestLap: '1:22.191', totalTime: '+50.425', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:22.117', totalTime: '+50.915', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 6, stops: 1, bestLap: '1:22.231', totalTime: '+51.738', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 12, stops: 1, bestLap: '1:22.148', totalTime: '+52.237', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 13, stops: 1, bestLap: '1:22.154', totalTime: '+53.031', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 11, stops: 1, bestLap: '1:22.041', totalTime: '+53.544', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 18, stops: 1, bestLap: '1:22.458', totalTime: '+1:03.884', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 16, stops: 1, bestLap: '1:21.897', totalTime: '+1:06.628', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 20, stops: 1, bestLap: '1:22.364', totalTime: '+1:07.306', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 15, stops: 1, bestLap: '1:22.560', totalTime: '+1:11.344', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 17, stops: 1, bestLap: '1:22.246', totalTime: '+3 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 19, stops: 1, bestLap: '1:21.641', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
   }
 ];
 

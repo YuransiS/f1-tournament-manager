@@ -18,6 +18,7 @@ export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
   sg: 'WqwBlGrAf6A', // Singapore
   jp: 'x0Za2ghUHvw', // Japan
   qa: 'x4z01_B_v9k', // Qatar
+  mx: 'wLp9l_N_KkM', // Mexico
 };
 
 interface F1FlagVideoBackgroundProps {
