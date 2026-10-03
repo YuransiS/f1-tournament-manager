@@ -1033,7 +1033,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-7', grid: 20, stops: 1, bestLap: '1:41.344', totalTime: '+1:19.291', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-5', grid: 12, stops: 1, bestLap: '1:41.223', totalTime: '+1:22.094', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-10', grid: 15, stops: 1, bestLap: '1:41.043', totalTime: '+1:36.204', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:41.820', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:41.820', totalTime: '+1 Lap', penaltySeconds: 5, penaltyLabel: '⚠️ Штраф +5 сек', status: 'FINISHED' },
       { driverId: 'drv-9', grid: 10, stops: 1, bestLap: '1:40.036', totalTime: '+3 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
     ]
   }
@@ -1048,7 +1048,8 @@ export const DEFAULT_PENALTIES = [
   { id: 'pen-7', driverId: 'drv-22', raceId: 'race-8', type: 'TIME', value: 20, reason: 'Штраф +20 сек за столкновение, разворот Юрия Захарчука в стену и повреждение своего колеса (DNF)', date: '2026-05-31' },
   { id: 'pen-8', driverId: 'drv-2', raceId: 'race-18', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и выбивание Сашка Громова (PABV) на 16-м круге Сузуки', date: '2026-09-27' },
   { id: 'pen-9', driverId: 'drv-11', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' },
-  { id: 'pen-10', driverId: 'drv-1', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' }
+  { id: 'pen-10', driverId: 'drv-1', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' },
+  { id: 'pen-11', driverId: 'drv-13', raceId: 'race-20', type: 'TIME', value: 5, reason: 'Штраф +5 сек', date: '2026-10-03' }
 ];
 
 export const BREAKING_TRANSFERS = [
