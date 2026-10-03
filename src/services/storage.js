@@ -262,6 +262,8 @@ export function calculatePointsProgression(data) {
     if (title.includes('Italian') || title.includes('Monza')) return 'Монца';
     if (title.includes('Singapore') || title.includes('Marina Bay')) return 'Сингапур';
     if (title.includes('Japan') || title.includes('Suzuka')) return 'Сузука';
+    if (title.includes('Qatar') || title.includes('Lusail')) return isSprint ? 'Катар Спринт' : 'Катар';
+    if (title.includes('United States') || title.includes('Austin') || title.includes('Texas') || title.includes('COTA')) return isSprint ? 'Остин Спринт' : 'Остин';
     return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 

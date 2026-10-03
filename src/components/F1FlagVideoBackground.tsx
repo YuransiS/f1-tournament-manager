@@ -17,6 +17,7 @@ export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
   nl: 'u2P2xBi6ygg', // Netherlands
   sg: 'WqwBlGrAf6A', // Singapore
   jp: 'x0Za2ghUHvw', // Japan
+  qa: 'x4z01_B_v9k', // Qatar
 };
 
 interface F1FlagVideoBackgroundProps {

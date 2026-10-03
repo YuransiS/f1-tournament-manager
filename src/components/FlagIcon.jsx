@@ -243,6 +243,14 @@ export default function FlagIcon({ countryCode = 'UA', style = {} }) {
         </svg>
       );
 
+    case 'QA': // Qatar 🇶🇦
+      return (
+        <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="480" fill="#8D1B3D" />
+          <polygon points="0,0 180,0 220,26.6 180,53.3 220,80 180,106.6 220,133.3 180,160 220,186.6 180,213.3 220,240 180,266.6 220,293.3 180,320 220,346.6 180,373.3 220,400 180,426.6 220,453.3 180,480 0,480" fill="#FFFFFF" />
+        </svg>
+      );
+
     default: // Default fallback (Ukraine 🇺🇦)
       return (
         <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">

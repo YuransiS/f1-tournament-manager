@@ -259,11 +259,22 @@ export const DEFAULT_DRIVERS = [
     name: 'Vadim MANSTEIN',
     country: 'UA',
     flag: '🇺🇦',
-    teamId: 'red-bull',
+    teamId: 'ferrari',
     isAi: false,
-    avatar: '/portraits/manstein.png',
-    avatarFullWithBg: '/portraits/manstein.png',
-    avatarFullNoBg: '/portraits/manstein.png'
+    avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png',
+    avatarFullWithBg: '/portraits/standing/zhou.webp',
+    avatarFullNoBg: '/portraits/standing/zhou.webp'
+  },
+  {
+    id: 'drv-24',
+    name: 'Logan SARGEANT',
+    country: 'US',
+    flag: '🇺🇸',
+    teamId: 'williams',
+    isAi: true,
+    avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LOGSAR01_Logan_Sargeant/logsar01.png',
+    avatarFullWithBg: '/portraits/standing/sargeant.webp',
+    avatarFullNoBg: '/portraits/standing/sargeant.webp'
   }
 ];
 
@@ -895,6 +906,136 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-14', grid: 11, stops: 2, bestLap: '1:32.797', totalTime: '+58.535', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-23', grid: 3, stops: 0, bestLap: '1:33.791', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход на старте (DNF)', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-19-sprint',
+    title: 'Qatar Grand Prix (Sprint)',
+    subtitle: 'LUSAIL INTERNATIONAL CIRCUIT - SPRINT 19',
+    date: '2026-10-02',
+    status: 'completed',
+    isSprint: true,
+    fastestLapDriverId: 'drv-1',
+    driverOfTheDayId: 'drv-1',
+    incidentNote: '🇶🇦 Ночной спринт в Катаре (Lusail): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает победу в напряженной борьбе со 2-го ряда и признан Driver of the Day! Микола Ярема (kolyacoolguy, Red Bull) уступает всего +0.495 сек и берет P2. Сашко Громов (PABV) дополняет триумф Mercedes на подиуме (P3). Вадим Манштейн (Ferrari) финиширует 4-м (+12.100), Денис Коваленко (Red Bull) 5-й. Даниэль Риккардо и Кевин Магнуссен сошли с дистанции (DNF).',
+    results: [
+      { driverId: 'drv-1', grid: 3, stops: 0, bestLap: '1:24.812', totalTime: '14:26.171', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте • Driver of the Day!', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:24.841', totalTime: '+0.495', penaltySeconds: 0, penaltyLabel: '🥈 P2 в борьбе (+0.495)', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 4, stops: 0, bestLap: '1:24.932', totalTime: '+8.324', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Mercedes!', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 2, stops: 0, bestLap: '1:25.942', totalTime: '+12.100', penaltySeconds: 0, penaltyLabel: '⚡ P4 за Ferrari!', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 5, stops: 0, bestLap: '1:26.546', totalTime: '+16.314', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 6, stops: 0, bestLap: '1:27.617', totalTime: '+22.861', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 7, stops: 0, bestLap: '1:27.439', totalTime: '+23.543', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 9, stops: 0, bestLap: '1:27.578', totalTime: '+24.086', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 10, stops: 0, bestLap: '1:27.518', totalTime: '+24.401', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 12, stops: 0, bestLap: '1:27.392', totalTime: '+25.117', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 13, stops: 0, bestLap: '1:27.308', totalTime: '+26.092', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 0, bestLap: '1:27.493', totalTime: '+26.630', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 17, stops: 0, bestLap: '1:27.364', totalTime: '+26.913', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 8, stops: 0, bestLap: '1:27.579', totalTime: '+27.927', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 20, stops: 0, bestLap: '1:27.775', totalTime: '+28.195', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 19, stops: 0, bestLap: '1:27.832', totalTime: '+29.478', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 14, stops: 0, bestLap: '1:27.790', totalTime: '+31.501', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 0, bestLap: '1:27.904', totalTime: '+31.749', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 0, bestLap: '1:27.926', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-12', grid: 15, stops: 0, bestLap: '1:27.873', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
+  },
+  {
+    id: 'race-19',
+    title: 'Qatar Grand Prix',
+    subtitle: 'LUSAIL INTERNATIONAL CIRCUIT - RACE 19',
+    date: '2026-10-02',
+    status: 'completed',
+    fastestLapDriverId: 'drv-17',
+    driverOfTheDayId: 'drv-6',
+    incidentNote: '🇶🇦 Главная гонка в Катаре: Микола Ярема (Red Bull) одерживает победу, удержав Юрия Захарчука (Mercedes) с отрывом +1.489 сек! Вадим Манштейн поднимается на подиум (P3) за Ferrari. Денис Коваленко (Red Bull) финиширует 4-м и забирает бонусное очко за быстрейший круг гонки (1:25.328). Оскар Пиастри приносит McLaren P5, Валттери Боттас P6 для Alfa Romeo. Пьер Гасли и Фернандо Алонсо сошли с дистанции.',
+    results: [
+      { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:25.601', totalTime: '42:43.028', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull!', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:25.333', totalTime: '+1.489', penaltySeconds: 0, penaltyLabel: '🥈 Подиум P2 (+1.489)', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 4, stops: 1, bestLap: '1:26.234', totalTime: '+12.075', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Ferrari (P3)!', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 5, stops: 2, bestLap: '1:25.328', totalTime: '+29.492', penaltySeconds: 0, penaltyLabel: '⏱️ P4 + Fastest Lap (1:25.328)', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:27.751', totalTime: '+1:03.985', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 1, bestLap: '1:27.319', totalTime: '+1:04.527', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 9, stops: 1, bestLap: '1:27.291', totalTime: '+1:05.003', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 17, stops: 1, bestLap: '1:27.494', totalTime: '+1:07.592', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 3, stops: 2, bestLap: '1:25.493', totalTime: '+1:09.563', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 6, stops: 1, bestLap: '1:27.297', totalTime: '+1:11.885', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 12, stops: 1, bestLap: '1:27.565', totalTime: '+1:12.255', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 7, stops: 1, bestLap: '1:27.632', totalTime: '+1:14.243', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 20, stops: 1, bestLap: '1:27.326', totalTime: '+1:14.765', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 13, stops: 1, bestLap: '1:27.920', totalTime: '+1:15.342', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:27.405', totalTime: '+1:16.326', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 16, stops: 1, bestLap: '1:27.629', totalTime: '+1:16.625', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 19, stops: 1, bestLap: '1:27.453', totalTime: '+1:19.427', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 15, stops: 1, bestLap: '1:27.916', totalTime: '+1:24.533', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 8, stops: 1, bestLap: '1:29.407', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-2', grid: 14, stops: 0, bestLap: '1:29.198', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
+  },
+  {
+    id: 'race-20-sprint',
+    title: 'United States Grand Prix (Sprint)',
+    subtitle: 'CIRCUIT OF THE AMERICAS - SPRINT 20',
+    date: '2026-10-03',
+    status: 'completed',
+    isSprint: true,
+    fastestLapDriverId: 'drv-1',
+    driverOfTheDayId: 'drv-6',
+    incidentNote: '🇺🇸 Спринт в Остине (Circuit of the Americas): Микола Ярема (Red Bull) удерживает лидерство с поула и берет победу! Юрий Захарчук (Mercedes) прессинговал до самого финиша (+0.352, быстрейший круг 1:37.737). Денис Коваленко замыкает топ-3. Цунода, Алонсо, Сарджент, Албон и Пиастри также берут очки в спринте. Сашко Громов, Вадим Манштейн, Хюлькенберг и Норрис сошли (DNF).',
+    results: [
+      { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:37.926', totalTime: '17:45.801', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте Red Bull!', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 5, stops: 0, bestLap: '1:37.737', totalTime: '+0.352', penaltySeconds: 0, penaltyLabel: '🥈 P2 в плотной борьбе (+0.352)', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 2, stops: 0, bestLap: '1:38.680', totalTime: '+5.329', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Red Bull P3', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 6, stops: 0, bestLap: '1:39.420', totalTime: '+8.266', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 7, stops: 0, bestLap: '1:39.335', totalTime: '+8.781', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 9, stops: 0, bestLap: '1:39.364', totalTime: '+9.460', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 13, stops: 0, bestLap: '1:40.121', totalTime: '+12.304', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 12, stops: 0, bestLap: '1:40.269', totalTime: '+13.007', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 8, stops: 0, bestLap: '1:40.386', totalTime: '+13.391', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 0, bestLap: '1:40.383', totalTime: '+14.871', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 15, stops: 0, bestLap: '1:40.301', totalTime: '+15.632', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 16, stops: 0, bestLap: '1:40.523', totalTime: '+17.435', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 14, stops: 0, bestLap: '1:40.690', totalTime: '+17.772', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 19, stops: 0, bestLap: '1:40.813', totalTime: '+18.792', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 0, bestLap: '1:40.741', totalTime: '+19.021', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 20, stops: 0, bestLap: '1:40.995', totalTime: '+21.390', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 10, stops: 0, bestLap: '1:39.728', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-11', grid: 3, stops: 0, bestLap: '1:38.124', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-23', grid: 4, stops: 0, bestLap: '1:38.003', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-7', grid: 17, stops: 0, bestLap: '1:40.936', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
+  },
+  {
+    id: 'race-20',
+    title: 'United States Grand Prix',
+    subtitle: 'CIRCUIT OF THE AMERICAS - RACE 20',
+    date: '2026-10-03',
+    status: 'completed',
+    fastestLapDriverId: 'drv-1',
+    driverOfTheDayId: 'drv-11',
+    incidentNote: '🇺🇸 Драма и триумф в Остине: Денис Коваленко (ProstoDenya, Red Bull) завоевывает феноменальную победу! Вадим Манштейн (Ferrari) прорывается с 18-го места на вторую ступень подиума (P2, +19.512)! Сашко Громов (PABV, Mercedes), несмотря на +3 сек штрафа, героически удерживает P3 и забирает звание Driver of the Day! Логан Сарджент приносит Williams сенсационное 4-е место на домашней трассе! Юрий Захарчук финиширует 5-м (+3 сек штраф) и берет очко за Fastest Lap (1:36.066). Микола Ярема P6.',
+    results: [
+      { driverId: 'drv-17', grid: 3, stops: 1, bestLap: '1:36.123', totalTime: '47:02.352', penaltySeconds: 0, penaltyLabel: '🏆 Блистательная победа Red Bull!', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 18, stops: 1, bestLap: '1:37.252', totalTime: '+19.512', penaltySeconds: 0, penaltyLabel: '🥈 Мегапрорыв P18 ➔ P2 Ferrari!', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 17, stops: 1, bestLap: '1:38.840', totalTime: '+22.450', penaltySeconds: 3, penaltyLabel: '🥉 Подиум P3 • Штраф +3 сек • Driver of the Day!', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 6, stops: 1, bestLap: '1:40.260', totalTime: '+57.109', penaltySeconds: 0, penaltyLabel: '⚡ Сенсация Williams на домашнем ГП!', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 2, stops: 3, bestLap: '1:36.066', totalTime: '+58.120', penaltySeconds: 3, penaltyLabel: '⏱️ P5 + Fastest Lap (1:36.066) • +3 сек', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:37.647', totalTime: '+59.226', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 8, stops: 1, bestLap: '1:40.729', totalTime: '+1:04.458', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 4, stops: 1, bestLap: '1:39.807', totalTime: '+1:05.084', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 9, stops: 1, bestLap: '1:40.158', totalTime: '+1:05.625', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 7, stops: 1, bestLap: '1:40.295', totalTime: '+1:06.412', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 11, stops: 1, bestLap: '1:39.946', totalTime: '+1:07.105', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 13, stops: 1, bestLap: '1:40.402', totalTime: '+1:07.404', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 1, bestLap: '1:40.334', totalTime: '+1:07.925', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 5, stops: 1, bestLap: '1:39.804', totalTime: '+1:08.474', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 14, stops: 1, bestLap: '1:40.935', totalTime: '+1:18.800', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 20, stops: 1, bestLap: '1:41.344', totalTime: '+1:19.291', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 12, stops: 1, bestLap: '1:41.223', totalTime: '+1:22.094', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 15, stops: 1, bestLap: '1:41.043', totalTime: '+1:36.204', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 19, stops: 1, bestLap: '1:41.820', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 10, stops: 1, bestLap: '1:40.036', totalTime: '+3 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
+    ]
   }
 ];
 
@@ -905,7 +1046,9 @@ export const DEFAULT_PENALTIES = [
   { id: 'pen-5', driverId: 'drv-16', raceId: 'race-3', type: 'TIME', value: 5, reason: 'Track limits warning x1 (+5 secs.)', date: '2026-03-16' },
   { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr GROMOV (Terminal Damage)', date: '2026-05-03' },
   { id: 'pen-7', driverId: 'drv-22', raceId: 'race-8', type: 'TIME', value: 20, reason: 'Штраф +20 сек за столкновение, разворот Юрия Захарчука в стену и повреждение своего колеса (DNF)', date: '2026-05-31' },
-  { id: 'pen-8', driverId: 'drv-2', raceId: 'race-18', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и выбивание Сашка Громова (PABV) на 16-м круге Сузуки', date: '2026-09-27' }
+  { id: 'pen-8', driverId: 'drv-2', raceId: 'race-18', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и выбивание Сашка Громова (PABV) на 16-м круге Сузуки', date: '2026-09-27' },
+  { id: 'pen-9', driverId: 'drv-11', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' },
+  { id: 'pen-10', driverId: 'drv-1', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' }
 ];
 
 export const BREAKING_TRANSFERS = [
@@ -963,5 +1106,16 @@ export const BREAKING_TRANSFERS = [
     fromTeam: 'Red Bull Racing (Reserve)',
     toTeam: 'Red Bull Racing',
     badgeText: 'RESERVE DEBUT PODIUM'
+  },
+  {
+    id: 'tr-6',
+    driverName: 'Вадим Манштейн (erich_manstein)',
+    type: 'TRANSFERRED',
+    title: 'Вадим Манштейн офіційно перейшов у Scuderia Ferrari',
+    subtitle: 'Після сенсаційного подіуму в Монці Вадим Манштейн підписав повноцінний контракт зі Scuderia Ferrari і став напарником Карлоса Сайнса!',
+    image: '/portraits/standing/zhou.webp',
+    fromTeam: 'Red Bull Racing (Reserve)',
+    toTeam: 'Scuderia Ferrari',
+    badgeText: 'JOINED FERRARI'
   }
 ];

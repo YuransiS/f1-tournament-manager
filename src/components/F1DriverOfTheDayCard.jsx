@@ -24,7 +24,11 @@ const RACE_COUNTRY_MAP = {
   'race-15': { code: 'NL', name: 'NETHERLANDS' },
   'race-16': { code: 'IT', name: 'ITALY' },
   'race-17': { code: 'SG', name: 'SINGAPORE' },
-  'race-18': { code: 'JP', name: 'JAPAN' }
+  'race-18': { code: 'JP', name: 'JAPAN' },
+  'race-19-sprint': { code: 'QA', name: 'QATAR (SPRINT)' },
+  'race-19': { code: 'QA', name: 'QATAR' },
+  'race-20-sprint': { code: 'US', name: 'UNITED STATES (SPRINT)' },
+  'race-20': { code: 'US', name: 'UNITED STATES' }
 };
 
 // High-res real track background photos uploaded by user
@@ -47,7 +51,11 @@ const REAL_TRACK_PHOTOS = {
   'race-15': '/tracks/zandvoort.jpg',
   'race-16': '/tracks/monza.jpg',
   'race-17': '/tracks/singapore.jpg',
-  'race-18': '/tracks/suzuka.jpg'
+  'race-18': '/tracks/suzuka.jpg',
+  'race-19-sprint': '/tracks/singapore.jpg',
+  'race-19': '/tracks/singapore.jpg',
+  'race-20-sprint': '/tracks/miami.jpg',
+  'race-20': '/tracks/miami.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
@@ -132,6 +140,8 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     if (t.includes('austr')) return { code: 'AT', name: 'AUSTRIA' };
     if (t.includes('spain') || t.includes('spanish')) return { code: 'ES', name: 'SPAIN' };
     if (t.includes('ital') || t.includes('imola') || t.includes('monza')) return { code: 'IT', name: 'ITALY' };
+    if (t.includes('qatar') || t.includes('lusail')) return { code: 'QA', name: 'QATAR' };
+    if (t.includes('austin') || t.includes('texas') || t.includes('cota') || t.includes('united states')) return { code: 'US', name: 'USA' };
     return {
       code: 'HU',
       name: (title || '').replace(/Grand Prix/i, '').trim().toUpperCase()
