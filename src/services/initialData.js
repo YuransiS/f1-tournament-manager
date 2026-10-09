@@ -1068,6 +1068,39 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-14', grid: 17, stops: 1, bestLap: '1:22.246', totalTime: '+3 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-21', grid: 19, stops: 1, bestLap: '1:21.641', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-22-sprint',
+    title: 'São Paulo Grand Prix (Sprint)',
+    subtitle: 'AUTÓDROMO JOSÉ CARLOS PACE - SPRINT 22',
+    date: '2026-10-10',
+    status: 'completed',
+    isSprint: true,
+    fastestLapDriverId: 'drv-11',
+    driverOfTheDayId: 'drv-6',
+    incidentNote: '🇧🇷 Дождевой спринт в Сан-Паулу (Autódromo José Carlos Pace): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает победу со старта с 3-го места (14:32.614)! Денис Коваленко (Red Bull) удерживает 2-е место (+8.525). Микола Ярема (Red Bull) совершает фантастический мегапрорыв с 20-го места на подиум (P3, +17 позиций, +21.313) и признан Driver of the Day! Макларен берут P4 (Норрис) и P5 (Пиастри), Феррари забирают P6 (Леклер) и P7 (Манштейн), Окон закрывает очковую зону спринта (P8). Сашко Громов (PABV) показывает абсолютно лучший круг заезда (1:11.100). Лэнс Стролл сошёл (DNF).',
+    results: [
+      { driverId: 'drv-1', grid: 3, stops: 0, bestLap: '1:11.461', totalTime: '14:32.614', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте Mercedes!', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 1, stops: 0, bestLap: '1:11.745', totalTime: '+8.525', penaltySeconds: 0, penaltyLabel: '🥈 P2 Подиум Red Bull', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 20, stops: 0, bestLap: '1:11.982', totalTime: '+21.313', penaltySeconds: 0, penaltyLabel: '🥉 Мегапрорыв P20 ➔ P3 • Driver of the Day!', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 6, stops: 0, bestLap: '1:13.137', totalTime: '+23.303', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 5, stops: 0, bestLap: '1:13.170', totalTime: '+23.856', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 9, stops: 0, bestLap: '1:13.093', totalTime: '+25.735', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 4, stops: 0, bestLap: '1:11.549', totalTime: '+27.936', penaltySeconds: 0, penaltyLabel: '⚡ Очки для Ferrari (P7)', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 18, stops: 0, bestLap: '1:13.449', totalTime: '+32.557', penaltySeconds: 0, penaltyLabel: '⚡ Топ-8 для Alpine', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 7, stops: 0, bestLap: '1:12.873', totalTime: '+32.861', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 19, stops: 0, bestLap: '1:13.476', totalTime: '+33.582', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 0, bestLap: '1:13.725', totalTime: '+35.671', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 14, stops: 0, bestLap: '1:13.493', totalTime: '+36.289', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 8, stops: 0, bestLap: '1:13.090', totalTime: '+36.779', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 12, stops: 0, bestLap: '1:13.318', totalTime: '+37.207', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:11.100', totalTime: '+37.924', penaltySeconds: 0, penaltyLabel: '⏱️ Быстрейший круг спринта (1:11.100)', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 10, stops: 0, bestLap: '1:12.894', totalTime: '+38.673', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 0, bestLap: '1:13.391', totalTime: '+38.976', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 15, stops: 0, bestLap: '1:12.908', totalTime: '+41.991', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 13, stops: 1, bestLap: '1:12.848', totalTime: '+53.537', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 17, stops: 0, bestLap: '1:13.758', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
   }
 ];
 
