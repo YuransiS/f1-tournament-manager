@@ -1133,6 +1133,70 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-4', grid: 19, stops: 0, bestLap: '1:23.750', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-12', grid: 20, stops: 0, bestLap: '1:23.890', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
     ]
+  },
+  {
+    id: 'race-23',
+    title: 'Las Vegas Grand Prix',
+    subtitle: 'LAS VEGAS STRIP CIRCUIT - RACE 23',
+    date: '2026-11-21',
+    status: 'completed',
+    fastestLapDriverId: 'drv-1',
+    driverOfTheDayId: 'drv-1',
+    incidentNote: '🇺🇸 Ночная феерия на Лас-Вегас Стрип: Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает доминирующую победу с быстрейшим кругом гонки (1:33.200)! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м (+22.019). Вадим Манштейн (_erich_manstein_) приносит сенсационный подиум для Ferrari (P3, +34.536)! Денис Коваленко (Red Bull) 4-й, Сашко Громов (Mercedes) замыкает топ-5. Норрис, Боттас, Сарджент, Чжоу и Сайнс в топ-10. Лэнс Стролл сошёл (DNF).',
+    results: [
+      { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:33.200', totalTime: '35:10.000', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes + Fastest Lap!', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:33.800', totalTime: '+22.019', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Red Bull (P2)', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 3, stops: 1, bestLap: '1:34.200', totalTime: '+34.536', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Ferrari (P3)!', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 4, stops: 1, bestLap: '1:34.400', totalTime: '+39.125', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 5, stops: 1, bestLap: '1:34.500', totalTime: '+41.593', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 6, stops: 1, bestLap: '1:35.000', totalTime: '+45.021', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 7, stops: 1, bestLap: '1:35.200', totalTime: '+56.083', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 8, stops: 1, bestLap: '1:35.300', totalTime: '+56.743', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 9, stops: 1, bestLap: '1:35.400', totalTime: '+59.149', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 10, stops: 1, bestLap: '1:35.500', totalTime: '+59.641', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 11, stops: 1, bestLap: '1:36.000', totalTime: '+1:19.754', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 12, stops: 1, bestLap: '1:36.100', totalTime: '+1:30.732', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 13, stops: 1, bestLap: '1:36.200', totalTime: '+1:39.350', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 14, stops: 1, bestLap: '1:36.300', totalTime: '+1:39.648', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 15, stops: 1, bestLap: '1:36.400', totalTime: '+1:39.714', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 16, stops: 1, bestLap: '1:36.500', totalTime: '+1:39.798', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 17, stops: 1, bestLap: '1:36.600', totalTime: '+1:39.984', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 18, stops: 1, bestLap: '1:36.800', totalTime: '+1:48.765', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 19, stops: 1, bestLap: '1:37.000', totalTime: '+1:54.281', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 20, stops: 1, bestLap: '1:37.500', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
+  },
+  {
+    id: 'race-24',
+    title: 'Chinese Grand Prix',
+    subtitle: 'SHANGHAI INTERNATIONAL CIRCUIT - RACE 24',
+    date: '2026-11-28',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    driverOfTheDayId: 'drv-6',
+    incidentNote: '🇨🇳 Гран-при Китая (Shanghai International Circuit): Микола Ярема (kolyacoolguy, Red Bull) выигрывает с поула и берет Fastest Lap (1:35.583), официально гарантируя себе титул Чемпиона Мира 2026! Юрий Захарчук (KillerplautzeGer, Mercedes) на 2-м месте (+14.627). Денис Коваленко (Red Bull) замыкает подиум P3. Чжоу Гуаньюй восхищает трибуны домашним 4-м местом! Алонсо, Сарджент, Пиастри, Боттас, Норрис и Риккардо в очках. Окон, Гасли, Громов и Манштейн сошли с дистанции (DNF).',
+    results: [
+      { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:35.583', totalTime: '47:58.135', penaltySeconds: 0, penaltyLabel: '🏆 Победа + Fastest Lap • Чемпион Мира!', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 4, stops: 2, bestLap: '1:36.464', totalTime: '+14.627', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Mercedes (P2)', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 5, stops: 1, bestLap: '1:36.871', totalTime: '+23.668', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Red Bull (P3)', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 6, stops: 1, bestLap: '1:38.213', totalTime: '+26.827', penaltySeconds: 0, penaltyLabel: '⚡ Феноменальный P4 на домашнем ГП!', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 8, stops: 1, bestLap: '1:38.359', totalTime: '+29.233', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 9, stops: 1, bestLap: '1:38.022', totalTime: '+29.764', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:38.909', totalTime: '+32.179', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 11, stops: 1, bestLap: '1:38.837', totalTime: '+32.759', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 12, stops: 1, bestLap: '1:38.714', totalTime: '+33.255', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 18, stops: 1, bestLap: '1:39.145', totalTime: '+38.814', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 14, stops: 1, bestLap: '1:39.070', totalTime: '+39.555', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 16, stops: 1, bestLap: '1:39.072', totalTime: '+39.847', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 17, stops: 1, bestLap: '1:38.822', totalTime: '+41.553', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 15, stops: 1, bestLap: '1:39.286', totalTime: '+49.270', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 7, stops: 3, bestLap: '1:38.446', totalTime: '+1:10.215', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 19, stops: 2, bestLap: '1:38.735', totalTime: '+1:13.096', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 20, stops: 1, bestLap: '1:38.993', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-5', grid: 13, stops: 1, bestLap: '1:39.059', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-11', grid: 2, stops: 0, bestLap: '1:38.398', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-23', grid: 3, stops: 0, bestLap: '1:37.863', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
   }
 ];
 

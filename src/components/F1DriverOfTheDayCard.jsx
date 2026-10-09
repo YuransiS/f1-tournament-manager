@@ -31,7 +31,9 @@ const RACE_COUNTRY_MAP = {
   'race-20': { code: 'US', name: 'UNITED STATES' },
   'race-21': { code: 'MX', name: 'MEXICO' },
   'race-22-sprint': { code: 'BR', name: 'BRAZIL (SPRINT)' },
-  'race-22': { code: 'BR', name: 'BRAZIL' }
+  'race-22': { code: 'BR', name: 'BRAZIL' },
+  'race-23': { code: 'US', name: 'LAS VEGAS • USA' },
+  'race-24': { code: 'CN', name: 'CHINA' }
 };
 
 // High-res real track background photos uploaded by user
@@ -61,7 +63,9 @@ const REAL_TRACK_PHOTOS = {
   'race-20': '/tracks/miami.jpg',
   'race-21': '/tracks/spain.jpg',
   'race-22-sprint': '/tracks/spain.jpg',
-  'race-22': '/tracks/spain.jpg'
+  'race-22': '/tracks/spain.jpg',
+  'race-23': '/tracks/miami.jpg',
+  'race-24': '/tracks/spain.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
@@ -150,6 +154,8 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     if (t.includes('austin') || t.includes('texas') || t.includes('cota') || t.includes('united states')) return { code: 'US', name: 'USA' };
     if (t.includes('mexic') || t.includes('hermanos')) return { code: 'MX', name: 'MEXICO' };
     if (t.includes('brazil') || t.includes('são paulo') || t.includes('sao paulo') || t.includes('interlagos')) return { code: 'BR', name: 'BRAZIL' };
+    if (t.includes('vegas')) return { code: 'US', name: 'LAS VEGAS' };
+    if (t.includes('china') || t.includes('shanghai')) return { code: 'CN', name: 'CHINA' };
     return {
       code: 'HU',
       name: (title || '').replace(/Grand Prix/i, '').trim().toUpperCase()

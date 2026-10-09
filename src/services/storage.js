@@ -6,7 +6,7 @@ import {
   DEFAULT_POINTS_MAP,
   SPRINT_POINTS_MAP,
   BREAKING_TRANSFERS
-} from './initialData';
+} from './initialData.js';
 
 const STORAGE_KEY = 'f1_tournament_data_v1';
 
@@ -266,6 +266,8 @@ export function calculatePointsProgression(data) {
     if (title.includes('United States') || title.includes('Austin') || title.includes('Texas') || title.includes('COTA')) return isSprint ? 'Остин Спринт' : 'Остин';
     if (title.includes('Mexico') || title.includes('Hermanos')) return 'Мексика';
     if (title.includes('São Paulo') || title.includes('Sao Paulo') || title.includes('Brazil') || title.includes('Interlagos')) return isSprint ? 'Интерлагос Спринт' : 'Интерлагос';
+    if (title.includes('Las Vegas') || title.includes('Vegas')) return 'Лас-Вегас';
+    if (title.includes('China') || title.includes('Chinese') || title.includes('Shanghai')) return 'Шанхай';
     return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 
