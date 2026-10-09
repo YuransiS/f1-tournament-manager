@@ -1101,6 +1101,38 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-24', grid: 13, stops: 1, bestLap: '1:12.848', totalTime: '+53.537', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-10', grid: 17, stops: 0, bestLap: '1:13.758', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-22',
+    title: 'São Paulo Grand Prix',
+    subtitle: 'AUTÓDROMO JOSÉ CARLOS PACE - RACE 22',
+    date: '2026-10-11',
+    status: 'completed',
+    fastestLapDriverId: 'drv-1',
+    driverOfTheDayId: 'drv-17',
+    incidentNote: '🇧🇷 Гран-при Сан-Паулу (Autódromo José Carlos Pace): Исторический победный дубль Red Bull (1-2)! Денис Коваленко (ProstoDenya) одерживает триумфальную победу со старта с поула (33:58.898) и признан Driver of the Day! Микола Ярема (kolyacoolguy) финиширует 2-м (+7.428). Юрий Захарчук (KillerplautzeGer, Mercedes) поднимается на подиум (P3) и забирает бонусный балл за Fastest Lap гонки (1:18.508). Сашко Громов (PABV, Mercedes) совершает феноменальный мегапрорыв с 17-го места на 4-е (P4, +13 позиций)! Норрис (McLaren) замыкает топ-5, Вадим Манштейн (Ferrari) P6, Пиастри (McLaren) P7. Гасли, Чжоу и Боттас в очках. Все 20 болидов добрались до финиша (0 сходов)!',
+    results: [
+      { driverId: 'drv-17', grid: 1, stops: 1, bestLap: '1:18.558', totalTime: '33:58.898', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull с поула!', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 3, stops: 1, bestLap: '1:18.529', totalTime: '+7.428', penaltySeconds: 0, penaltyLabel: '🥈 Победный дубль Red Bull (P2)', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 2, stops: 1, bestLap: '1:18.508', totalTime: '+8.618', penaltySeconds: 0, penaltyLabel: '⏱️ P3 + Fastest Lap (1:18.508)', status: 'FINISHED' },
+      { driverId: 'drv-11', grid: 17, stops: 2, bestLap: '1:19.819', totalTime: '+1:06.159', penaltySeconds: 0, penaltyLabel: '⚡ Мегапрорыв P17 ➔ P4 (+13 мест)!', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 8, stops: 0, bestLap: '1:22.329', totalTime: '+1:09.041', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-23', grid: 4, stops: 1, bestLap: '1:19.803', totalTime: '+1:14.157', penaltySeconds: 0, penaltyLabel: '⚡ Топ-6 для Ferrari', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 9, stops: 0, bestLap: '1:22.633', totalTime: '+1:16.897', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 7, stops: 0, bestLap: '1:22.666', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 11, stops: 0, bestLap: '1:22.756', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 10, stops: 0, bestLap: '1:22.731', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-8', grid: 15, stops: 0, bestLap: '1:22.860', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 5, stops: 0, bestLap: '1:23.856', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-2', grid: 12, stops: 0, bestLap: '1:23.362', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-16', grid: 6, stops: 1, bestLap: '1:21.909', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 13, stops: 0, bestLap: '1:23.410', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 14, stops: 0, bestLap: '1:23.520', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-10', grid: 16, stops: 0, bestLap: '1:23.680', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 18, stops: 0, bestLap: '1:23.710', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 19, stops: 0, bestLap: '1:23.750', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-12', grid: 20, stops: 0, bestLap: '1:23.890', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
+    ]
   }
 ];
 
