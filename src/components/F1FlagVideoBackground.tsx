@@ -17,9 +17,11 @@ export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
   nl: 'u2P2xBi6ygg', // Netherlands
   sg: 'WqwBlGrAf6A', // Singapore
   jp: 'x0Za2ghUHvw', // Japan
-  qa: 'x4z01_B_v9k', // Qatar
-  mx: 'wLp9l_N_KkM', // Mexico
-  br: 'oZ0V9l7eQ5k', // Brazil
+  qa: 'XpTUrAYJvW0', // Qatar
+  mx: '-MNVeuGfd7o', // Mexico
+  br: '_e2Z0KGs41k', // Brazil
+  cn: '5dG2kuvVtw0', // China
+  ae: '-9_lJ0zp-ZA', // United Arab Emirates (Abu Dhabi)
 };
 
 interface F1FlagVideoBackgroundProps {

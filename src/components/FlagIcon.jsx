@@ -271,6 +271,16 @@ export default function FlagIcon({ countryCode = 'UA', style = {} }) {
         </svg>
       );
 
+    case 'AE': // United Arab Emirates 🇦🇪
+      return (
+        <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="160" fill="#00732F" />
+          <rect y="160" width="640" height="160" fill="#FFFFFF" />
+          <rect y="320" width="640" height="160" fill="#000000" />
+          <rect width="160" height="480" fill="#FF0000" />
+        </svg>
+      );
+
     default: // Default fallback (Ukraine 🇺🇦)
       return (
         <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
