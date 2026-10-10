@@ -180,34 +180,65 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                   color: '#FFF'
                 }}
               >
-                {/* Layer 1: Dark Track Background Image with Rich Moody Wash */}
-                <img
-                  src="/tracks/spain.jpg"
-                  alt="Circuit"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    filter: 'brightness(0.35) contrast(1.2) grayscale(40%)'
-                  }}
-                />
-
-                {/* Layer 2: Red Bull Midnight Navy & Golden Ray Gradient */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'radial-gradient(circle at 75% 25%, rgba(255, 215, 0, 0.18) 0%, transparent 60%), linear-gradient(135deg, rgba(6, 10, 25, 0.96) 0%, rgba(13, 22, 45, 0.90) 50%, rgba(30, 20, 10, 0.94) 100%)',
-                  mixBlendMode: 'normal'
-                }} />
+                {/* Background Layer */}
+                {heroMode === 'art' ? (
+                  <>
+                    {/* Seamless 16:9 Outpainted Wide Championship Background */}
+                    <img
+                      src="/portraits/kolya_champion_victory.jpg"
+                      alt={champName}
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center center',
+                        zIndex: 1
+                      }}
+                    />
+                    {/* Cinematic Telemetry Contrast Gradient on the Right */}
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(to right, transparent 0%, transparent 32%, rgba(7, 9, 15, 0.5) 52%, rgba(7, 9, 15, 0.9) 82%), linear-gradient(to bottom, rgba(7, 9, 15, 0.8) 0%, transparent 20%, transparent 75%, rgba(7, 9, 15, 0.7) 100%)',
+                      pointerEvents: 'none',
+                      zIndex: 2
+                    }} />
+                  </>
+                ) : (
+                  <>
+                    {/* Fallback Track Background */}
+                    <img
+                      src="/tracks/spain.jpg"
+                      alt="Circuit"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.35) contrast(1.2) grayscale(40%)',
+                        zIndex: 1
+                      }}
+                    />
+                    {/* Red Bull Midnight Navy Gradient */}
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'radial-gradient(circle at 75% 25%, rgba(255, 215, 0, 0.18) 0%, transparent 60%), linear-gradient(135deg, rgba(6, 10, 25, 0.96) 0%, rgba(13, 22, 45, 0.90) 50%, rgba(30, 20, 10, 0.94) 100%)',
+                      zIndex: 2
+                    }} />
+                  </>
+                )}
 
                 {/* Layer 2.5: F1 Speed Pattern Watermark */}
                 <div style={{
                   position: 'absolute',
                   inset: 0,
                   backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 12px, transparent 12px, transparent 24px)',
-                  pointerEvents: 'none'
+                  pointerEvents: 'none',
+                  zIndex: 3
                 }} />
 
                 {/* Layer 3: Top Official FIA Ribbon Banner */}
@@ -263,87 +294,47 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                   </div>
                 </div>
 
-                {/* Layer 4: Left Heroic Visual (Victory Art or Driver Cutout) */}
-                <div style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  width: heroMode === 'art' ? '46%' : '44%',
-                  zIndex: 8,
-                  pointerEvents: 'none',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  alignItems: 'flex-end'
-                }}>
-                  {heroMode === 'art' ? (
-                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                      <img
-                        src="/portraits/kolya_champion_victory.jpg"
-                        alt={champName}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          objectPosition: 'center 15%',
-                          filter: 'contrast(1.08) saturate(1.15) brightness(0.96)'
-                        }}
-                      />
-                      {/* Smooth Right and Top Edge Fade to blend with dark poster */}
-                      <div style={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        width: '45%',
-                        background: 'linear-gradient(to right, transparent 0%, #07090F 100%)'
-                      }} />
-                      <div style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '90px',
-                        background: 'linear-gradient(to bottom, rgba(7,9,15,0.85) 0%, transparent 100%)'
-                      }} />
-                    </div>
-                  ) : (
+                {/* Layer 4: Standing Driver Cutout (Active only in photo mode) */}
+                {heroMode === 'photo' && (
+                  <div style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: '44%',
+                    zIndex: 8,
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    paddingLeft: '10%'
+                  }}>
+                    <img
+                      src="/portraits/kolya_standing_9-16_without_backjground.png"
+                      alt={champName}
+                      onError={(e) => {
+                        e.currentTarget.src = '/portraits/kolya.png';
+                      }}
+                      style={{
+                        height: '88%',
+                        maxHeight: '480px',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 20px 45px rgba(0,0,0,0.95)) drop-shadow(0 0 30px rgba(255,215,0,0.25))'
+                      }}
+                    />
+                    {/* Golden Trophy Silhouette behind pilot */}
                     <div style={{
-                      position: 'relative',
-                      width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      paddingLeft: '10%'
+                      position: 'absolute',
+                      left: '50%',
+                      bottom: '20px',
+                      transform: 'translateX(-50%)',
+                      zIndex: -1,
+                      opacity: 0.15,
+                      filter: 'drop-shadow(0 0 35px #FFD700)'
                     }}>
-                      <img
-                        src="/portraits/kolya_standing_9-16_without_backjground.png"
-                        alt={champName}
-                        onError={(e) => {
-                          e.currentTarget.src = '/portraits/kolya.png';
-                        }}
-                        style={{
-                          height: '88%',
-                          maxHeight: '480px',
-                          objectFit: 'contain',
-                          filter: 'drop-shadow(0 20px 45px rgba(0,0,0,0.95)) drop-shadow(0 0 30px rgba(255,215,0,0.25))'
-                        }}
-                      />
-                      {/* Golden Trophy Silhouette behind pilot */}
-                      <div style={{
-                        position: 'absolute',
-                        left: '50%',
-                        bottom: '20px',
-                        transform: 'translateX(-50%)',
-                        zIndex: -1,
-                        opacity: 0.15,
-                        filter: 'drop-shadow(0 0 35px #FFD700)'
-                      }}>
-                        <Trophy size={360} color="#FFD700" />
-                      </div>
+                      <Trophy size={360} color="#FFD700" />
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 {/* Layer 5: Right Authority Information & Typography Showcase */}
                 <div style={{
