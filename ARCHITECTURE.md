@@ -14,7 +14,8 @@
 - `src/components/Header.jsx`: Top F1 broadcast brand navigation bar, tab selectors, JSON export trigger.
 - `src/components/WinnerBanner.jsx`: Dynamic championship leader display banner with early World Champion coronation.
 - `src/components/StandingsView.jsx`: Broadcast cards, official World Champion declaration poster, Drivers Championship table, and Constructors Championship table.
-- `src/components/F1WorldChampionCard.jsx`: Official FIA World Champion declaration card & downloadable 16:9 poster celebration (Mykola Yarema early title victory with 425 pts, 11 wins, 21 podiums, and +35 pts gap), celebratory confetti cannon, collapse controls, and editorial briefing.
+- `src/components/F1WorldChampionCard.jsx`: Official FIA World Champion declaration card & downloadable 16:9 poster celebration (Mykola Yarema early title victory with 425 pts, 11 wins, 21 podiums, and +35 pts gap), celebratory confetti cannon, collapse controls, interactive meme popup modal ("ОТРЫВ +35 НЕОТЫГРЫВАЕМО"), and editorial briefing.
+- `src/components/F1ViceChampionCard.jsx`: Official FIA Vice-Champion declaration card & downloadable 16:9 poster celebration (Yurii Zakharchuk secured 2nd place with 390 pts, 10 wins, 19 podiums, +135 pts gap over 3rd place), celebratory silver confetti cannon, collapse controls, and editorial briefing.
 - `src/components/ChartsView.jsx`: Dedicated analytics view with cumulative points progression race chart (Личный зачёт Top 10 + Кубок конструкторов) with SVG telemetry curves, animated milestone dots, leader callouts, and race step simulation.
 - `src/components/F1PointsProgressionChart.jsx`: Core responsive SVG chart component rendering cumulative points lines, dots, hover HUD telemetry, and filters.
 - `src/components/RacesView.jsx`: Complete list of Grand Prix events (including Race 16 Monza, Race 17 Singapore, Race 18 Suzuka, Race 19 Qatar Sprint + GP, Race 20 Austin Sprint + GP, Race 21 Mexico City GP, Race 22 São Paulo Sprint + GP, Race 23 Las Vegas GP, and Race 24 Chinese GP), sprint races, penalty notes, track layouts, and race result breakdowns.
@@ -62,6 +63,7 @@ interface Driver {
   avatarFullWithBg?: string; // 9:16 full standing with background (Standings table announcements & bulletins)
   avatarFullNoBg?: string; // 9:16 full standing transparent cutout (Starting Grid, Driver of the Day, Race Results Broadcast Card winner)
   avatarChampion?: string; // Champion victory art poster and banner avatar
+  avatarViceChampion?: string; // Vice-Champion victory art poster and banner avatar
 }
 ```
 
