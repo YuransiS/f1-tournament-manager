@@ -224,17 +224,16 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                   paddingBottom: '14px'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{
-                      background: '#FFFFFF',
-                      padding: '4px 12px',
-                      borderRadius: '6px',
-                      fontWeight: '900',
-                      fontSize: '1.05rem',
-                      color: '#E10600',
-                      letterSpacing: '-0.5px'
-                    }}>
-                      F1
-                    </div>
+                    <img
+                      src="/F1-logo.png"
+                      alt="Formula 1"
+                      style={{
+                        height: '28px',
+                        width: 'auto',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 0 14px rgba(225,6,0,0.8))'
+                      }}
+                    />
                     <div>
                       <div style={{ fontSize: '0.72rem', letterSpacing: '2px', color: '#FFD700', fontWeight: '900', textTransform: 'uppercase' }}>
                         FIA FORMULA 1 WORLD CHAMPIONSHIP • 2026
