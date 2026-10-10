@@ -6,6 +6,7 @@ import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
 import F1PointsProgressionChart from './F1PointsProgressionChart';
 import F1WorldChampionCard from './F1WorldChampionCard';
 import F1ViceChampionCard from './F1ViceChampionCard';
+import F1BronzeChampionCard from './F1BronzeChampionCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
@@ -35,6 +36,13 @@ export default function StandingsView({ data, standings: propStandings, activeTa
       <F1ViceChampionCard
         runnerUp={driverStandings[1]}
         thirdPlace={driverStandings[2]}
+        lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
+      />
+
+      {/* Official FIA Bronze Medalist 2026 Declaration Card & Poster */}
+      <F1BronzeChampionCard
+        thirdPlace={driverStandings[2]}
+        fourthPlace={driverStandings[3]}
         lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
       />
 

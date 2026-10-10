@@ -199,7 +199,8 @@ export const DEFAULT_DRIVERS = [
     isAi: false,
     avatar: '/portraits/denya.png',
     avatarFullWithBg: '/portraits/denya_standing_9-16_with_backjground.png',
-    avatarFullNoBg: '/portraits/denya_standing_9-16_without_backjground.png'
+    avatarFullNoBg: '/portraits/denya_standing_9-16_without_backjground.png',
+    avatarBronzeChampion: '/portraits/denis_bronze_champion_wide.jpg'
   },
   {
     id: 'drv-18',

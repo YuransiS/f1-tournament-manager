@@ -7,6 +7,7 @@ import FlagIcon from './FlagIcon';
 export default function WinnerBanner({ driverStandings, races }) {
   const leader = driverStandings && driverStandings.length > 0 ? driverStandings[0] : null;
   const runnerUp = driverStandings && driverStandings.length > 1 ? driverStandings[1] : null;
+  const thirdPlace = driverStandings && driverStandings.length > 2 ? driverStandings[2] : null;
   const leaderId = leader?.driver?.id;
   const lastRace = races && races.length > 0 ? races[races.length - 1] : null;
   const isChampionSealed = leader && runnerUp ? ((leader.totalPoints - runnerUp.totalPoints) > 26) : false;
@@ -110,53 +111,101 @@ export default function WinnerBanner({ driverStandings, races }) {
         </div>
       </div>
 
-      {runnerUp && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          background: 'rgba(0, 210, 190, 0.1)',
-          border: '1px solid rgba(0, 210, 190, 0.35)',
-          padding: '8px 16px',
-          borderRadius: '12px',
-          zIndex: 5,
-          boxShadow: '0 4px 15px rgba(0, 210, 190, 0.15)'
-        }}>
-          <div style={{ position: 'relative' }}>
-            <img
-              src="/portraits/yura_vice_champion_wide.jpg"
-              alt="Vice Champion"
-              style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '10px',
-                objectFit: 'cover',
-                objectPosition: 'center 15%',
-                border: '1.5px solid #00D2BE'
-              }}
-            />
-            <div style={{
-              position: 'absolute',
-              top: '-6px',
-              right: '-6px',
-              fontSize: '0.9rem'
-            }}>
-              🥈
+      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', zIndex: 5 }}>
+        {runnerUp && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            background: 'rgba(0, 210, 190, 0.1)',
+            border: '1px solid rgba(0, 210, 190, 0.35)',
+            padding: '8px 14px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 15px rgba(0, 210, 190, 0.15)'
+          }}>
+            <div style={{ position: 'relative' }}>
+              <img
+                src="/portraits/yura_vice_champion_wide.jpg"
+                alt="Vice Champion"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
+                  objectFit: 'cover',
+                  objectPosition: 'center 15%',
+                  border: '1.5px solid #00D2BE'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                top: '-6px',
+                right: '-6px',
+                fontSize: '0.85rem'
+              }}>
+                🥈
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '0.62rem', color: '#00D2BE', fontWeight: '900', letterSpacing: '1px' }}>
+                ВИЦЕ-ЧЕМПИОН (ДОСРОЧНО)
+              </div>
+              <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#FFF' }}>
+                {runnerUp.driver.name}
+              </div>
+              <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>
+                <span style={{ color: '#00D2BE', fontWeight: '800' }}>{runnerUp.totalPoints} PTS</span> • {runnerUp.wins} побед
+              </div>
             </div>
           </div>
-          <div>
-            <div style={{ fontSize: '0.65rem', color: '#00D2BE', fontWeight: '900', letterSpacing: '1px' }}>
-              ВИЦЕ-ЧЕМПИОН 2026 (ДОСРОЧНО)
+        )}
+
+        {thirdPlace && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            background: 'rgba(217, 119, 6, 0.1)',
+            border: '1px solid rgba(217, 119, 6, 0.35)',
+            padding: '8px 14px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 15px rgba(217, 119, 6, 0.15)'
+          }}>
+            <div style={{ position: 'relative' }}>
+              <img
+                src="/portraits/denis_bronze_champion_wide.jpg"
+                alt="Bronze Medalist"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
+                  objectFit: 'cover',
+                  objectPosition: 'center 15%',
+                  border: '1.5px solid #D97706'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                top: '-6px',
+                right: '-6px',
+                fontSize: '0.85rem'
+              }}>
+                🥉
+              </div>
             </div>
-            <div style={{ fontSize: '0.95rem', fontWeight: '900', color: '#FFF' }}>
-              {runnerUp.driver.name}
-            </div>
-            <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
-              <span style={{ color: '#00D2BE', fontWeight: '800' }}>{runnerUp.totalPoints} PTS</span> • {runnerUp.wins} побед
+            <div>
+              <div style={{ fontSize: '0.62rem', color: '#F59E0B', fontWeight: '900', letterSpacing: '1px' }}>
+                БРОНЗОВЫЙ ПРИЗЁР (ДОСРОЧНО)
+              </div>
+              <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#FFF' }}>
+                {thirdPlace.driver.name}
+              </div>
+              <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>
+                <span style={{ color: '#F59E0B', fontWeight: '800' }}>{thirdPlace.totalPoints} PTS</span> • {thirdPlace.wins} побед
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {lastRace && (
         <motion.div

@@ -56,7 +56,8 @@ export function getTournamentData() {
             avatarFullWithBg: def.avatarFullWithBg || def.avatar || d.avatar,
             avatarFullNoBg: def.avatarFullNoBg || def.avatar || d.avatar,
             avatarChampion: def.avatarChampion || d.avatarChampion,
-            avatarViceChampion: def.avatarViceChampion || d.avatarViceChampion
+            avatarViceChampion: def.avatarViceChampion || d.avatarViceChampion,
+            avatarBronzeChampion: def.avatarBronzeChampion || d.avatarBronzeChampion
           };
         }
         return d;
