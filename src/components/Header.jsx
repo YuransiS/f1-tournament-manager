@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, TrendingUp, Flag, Users, Download, Zap } from 'lucide-react';
+import { Trophy, TrendingUp, Flag, Users, Download, Zap, Calendar } from 'lucide-react';
 
 export default function Header({ activeTab, setActiveTab, onExportData }) {
   return (
@@ -67,6 +67,31 @@ export default function Header({ activeTab, setActiveTab, onExportData }) {
         >
           <Zap size={18} color="#E10600" />
           Starting Grid
+        </button>
+
+        <button
+          className={`nav-btn ${activeTab === 'calendar' ? 'active' : ''}`}
+          onClick={() => setActiveTab('calendar')}
+          style={{
+            borderColor: activeTab === 'calendar' ? '#E10600' : undefined,
+            background: activeTab === 'calendar' ? 'rgba(225, 6, 0, 0.15)' : undefined,
+            position: 'relative'
+          }}
+        >
+          <Calendar size={18} color={activeTab === 'calendar' ? '#E10600' : undefined} />
+          Календарь 2027-1
+          <span style={{
+            fontSize: '0.6rem',
+            background: '#E10600',
+            color: '#FFF',
+            padding: '1px 6px',
+            borderRadius: '4px',
+            fontWeight: '900',
+            letterSpacing: '0.5px',
+            marginLeft: '4px'
+          }}>
+            2027
+          </span>
         </button>
       </nav>
 

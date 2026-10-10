@@ -6,6 +6,7 @@ import ChartsView from './components/ChartsView';
 import RacesView from './components/RacesView';
 import DriversView from './components/DriversView';
 import StartingGridView from './components/StartingGridView';
+import F1Calendar2027View from './components/F1Calendar2027View';
 
 import {
   getTournamentData,
@@ -18,10 +19,10 @@ function getTabFromUrl() {
   const path = window.location.pathname.toLowerCase().replace(/^\//, '');
   const hash = window.location.hash.toLowerCase().replace(/^#/, '');
 
-  const validTabs = ['standings', 'charts', 'races', 'drivers', 'starting-grid'];
+  const validTabs = ['standings', 'charts', 'races', 'drivers', 'starting-grid', 'calendar', 'calendar-2027'];
 
-  if (validTabs.includes(path)) return path;
-  if (validTabs.includes(hash)) return hash;
+  if (validTabs.includes(path)) return path === 'calendar-2027' ? 'calendar' : path;
+  if (validTabs.includes(hash)) return hash === 'calendar-2027' ? 'calendar' : hash;
   return 'standings';
 }
 
@@ -92,6 +93,7 @@ export default function App() {
             teams={data.teams}
             pointsMap={data.pointsMap}
             fastestLapPoints={data.fastestLapPoints}
+            onNavigateTab={setActiveTab}
           />
         )}
 
@@ -106,6 +108,10 @@ export default function App() {
 
         {activeTab === 'starting-grid' && (
           <StartingGridView data={data} />
+        )}
+
+        {activeTab === 'calendar' && (
+          <F1Calendar2027View />
         )}
 
       </main>

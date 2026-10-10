@@ -153,6 +153,16 @@ export function extractF1RaceDetails(race?: any): F1RaceDetails {
     countryCode = 'cn';
     circuitCity = 'Shanghai';
     circuitName = 'SHANGHAI INTERNATIONAL CIRCUIT';
+  } else if (text.includes('france') || text.includes('paul ricard') || text.includes('castellet')) {
+    countryName = 'FRANCE';
+    countryCode = 'fr';
+    circuitCity = 'Le Castellet';
+    circuitName = 'CIRCUIT PAUL RICARD';
+  } else if (text.includes('portugal') || text.includes('algarve') || text.includes('portimão') || text.includes('portimao')) {
+    countryName = 'PORTUGAL';
+    countryCode = 'pt';
+    circuitCity = 'Portimão';
+    circuitName = 'AUTÓDROMO INTERNACIONAL DO ALGARVE';
   } else if (text.includes('abu dhabi') || text.includes('yas marina')) {
     countryName = 'ABU DHABI';
     countryCode = 'ae';

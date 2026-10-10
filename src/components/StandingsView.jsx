@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Shield, User, TrendingUp } from 'lucide-react';
+import { Shield, User, TrendingUp, Calendar } from 'lucide-react';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
@@ -49,6 +49,75 @@ export default function StandingsView({ data, standings: propStandings, activeTa
 
       {/* Broadcast TV 16:9 Standings Graphic Card */}
       <F1StandingsBroadcastCard standings={standings} activeTab={activeTab} />
+
+      {/* 2027-1 Official Season Calendar Announcement Banner */}
+      <div className="card" style={{
+        padding: '16px 20px',
+        marginBottom: '24px',
+        background: 'linear-gradient(90deg, #181119 0%, #151825 100%)',
+        border: '1px solid rgba(225, 6, 0, 0.4)',
+        borderRadius: '12px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '14px',
+        boxShadow: '0 4px 20px rgba(225, 6, 0, 0.08)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{
+            width: '42px',
+            height: '42px',
+            borderRadius: '10px',
+            background: 'rgba(225, 6, 0, 0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#E10600',
+            border: '1px solid rgba(225, 6, 0, 0.5)'
+          }}>
+            <Calendar size={22} />
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '0.72rem', background: '#E10600', color: '#FFF', fontWeight: '900', padding: '1px 6px', borderRadius: '4px' }}>
+                FIA CALENDAR 2027-1
+              </span>
+              <span style={{ fontSize: '0.75rem', color: '#38BDF8', fontWeight: '800', letterSpacing: '0.5px' }}>
+                ⚡ 7 СПРИНТ-ЭТАПОВ
+              </span>
+            </div>
+            <div style={{ fontSize: '1.05rem', fontWeight: '900', color: '#FFF', marginTop: '2px' }}>
+              Официальный календарь следующего сезона 2027-1 утвержден
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#9CA3AF' }}>
+              23 Гран-при: Австрия, Франция, Португалия, Лас-Вегас, Монако и финальный заезд в Абу-Даби.
+            </div>
+          </div>
+        </div>
+
+        {onNavigateTab && (
+          <button
+            className="btn btn-sm"
+            onClick={() => onNavigateTab('calendar')}
+            style={{
+              fontWeight: '800',
+              padding: '10px 20px',
+              background: '#E10600',
+              color: '#FFF',
+              border: 'none',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer'
+            }}
+          >
+            <Calendar size={16} />
+            Перейти к календарю 2027-1 →
+          </button>
+        )}
+      </div>
 
       {/* 2.5 Quick Chart Progression Teaser / Embed */}
       <div className="card" style={{

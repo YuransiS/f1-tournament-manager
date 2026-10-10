@@ -38,7 +38,7 @@ const TRACK_LAYOUTS = {
   'race-24': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/China_Circuit.png'
 };
 
-export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints }) {
+export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints, onNavigateTab }) {
   const [selectedRaceId, setSelectedRaceId] = useState(races[races.length - 1]?.id || races[0]?.id || '');
   const [viewMode, setViewMode] = useState('main-results'); // 'press-release', 'main-results', 'penalty-notice', 'dotd'
 
@@ -83,6 +83,59 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
 
   return (
     <div>
+      {/* Season Switcher & 2027 Calendar Link */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '12px',
+        padding: '12px 18px',
+        marginBottom: '16px',
+        background: 'linear-gradient(90deg, rgba(225, 6, 0, 0.12) 0%, rgba(20, 24, 36, 0.9) 100%)',
+        border: '1px solid rgba(225, 6, 0, 0.3)',
+        borderRadius: '12px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{
+            background: '#E10600',
+            color: '#FFF',
+            padding: '3px 8px',
+            borderRadius: '4px',
+            fontWeight: '900',
+            fontSize: '0.72rem',
+            letterSpacing: '0.5px'
+          }}>
+            СЕЗОН 2026
+          </span>
+          <span style={{ fontSize: '0.85rem', color: '#E2E8F0', fontWeight: '600' }}>
+            Текущий архив гонок сезона 2026 (Сезон завершен)
+          </span>
+        </div>
+
+        {onNavigateTab && (
+          <button
+            onClick={() => onNavigateTab('calendar')}
+            className="btn btn-sm"
+            style={{
+              background: '#E10600',
+              color: '#FFF',
+              border: 'none',
+              fontWeight: '800',
+              borderRadius: '8px',
+              padding: '6px 14px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              cursor: 'pointer'
+            }}
+          >
+            <Calendar size={14} />
+            Официальный Календарь 2027-1 (23 Этапа) →
+          </button>
+        )}
+      </div>
+
       {/* Race Selection Bar */}
       <div className="card" style={{ padding: '16px 20px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
