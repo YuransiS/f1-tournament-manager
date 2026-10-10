@@ -11,6 +11,8 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
   if (!driverStandings || driverStandings.length === 0) return null;
 
   const leader = driverStandings[0];
+  const runnerUp = driverStandings[1];
+  const isChampionSealed = leader && runnerUp ? ((leader.totalPoints - runnerUp.totalPoints) > 26) : false;
   const luxuryEase = [0.16, 1, 0.3, 1];
 
   const handleDownload = async () => {
@@ -141,7 +143,7 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                   marginBottom: '14px',
                   letterSpacing: '1px'
                 }}>
-                  🏆 CHAMPIONSHIP LEADER
+                  {isChampionSealed ? '👑 2026 WORLD CHAMPION' : '🏆 CHAMPIONSHIP LEADER'}
                 </div>
 
                 {/* Leader Photo */}

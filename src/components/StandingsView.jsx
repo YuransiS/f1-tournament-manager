@@ -4,6 +4,7 @@ import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
 import F1PointsProgressionChart from './F1PointsProgressionChart';
+import F1WorldChampionCard from './F1WorldChampionCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
@@ -21,6 +22,14 @@ export default function StandingsView({ data, standings: propStandings, activeTa
 
   return (
     <div>
+      {/* Official FIA World Champion 2026 Declaration Card & Poster */}
+      <F1WorldChampionCard
+        champion={driverStandings[0]}
+        runnerUp={driverStandings[1]}
+        constructorChampion={constructorStandings[0]}
+        lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
+      />
+
       {/* Broadcast TV 16:9 Standings Graphic Card */}
       <F1StandingsBroadcastCard standings={standings} activeTab={activeTab} />
 

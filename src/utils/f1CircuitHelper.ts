@@ -148,6 +148,11 @@ export function extractF1RaceDetails(race?: any): F1RaceDetails {
     countryCode = 'us';
     circuitCity = 'Las Vegas';
     circuitName = 'LAS VEGAS STRIP CIRCUIT';
+  } else if (text.includes('china') || text.includes('chinese') || text.includes('shanghai')) {
+    countryName = 'CHINA';
+    countryCode = 'cn';
+    circuitCity = 'Shanghai';
+    circuitName = 'SHANGHAI INTERNATIONAL CIRCUIT';
   } else if (text.includes('abu dhabi') || text.includes('yas marina')) {
     countryName = 'ABU DHABI';
     countryCode = 'ae';

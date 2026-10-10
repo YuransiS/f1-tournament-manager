@@ -1,28 +1,30 @@
 import React, { useEffect } from 'react';
-import { Trophy, Flame, Sparkles } from 'lucide-react';
+import { Flame, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
 
 export default function WinnerBanner({ driverStandings, races }) {
   const leader = driverStandings && driverStandings.length > 0 ? driverStandings[0] : null;
+  const runnerUp = driverStandings && driverStandings.length > 1 ? driverStandings[1] : null;
   const leaderId = leader?.driver?.id;
   const lastRace = races && races.length > 0 ? races[races.length - 1] : null;
+  const isChampionSealed = leader && runnerUp ? ((leader.totalPoints - runnerUp.totalPoints) > 26) : false;
 
   // Trigger celebration confetti on mount
   useEffect(() => {
     if (!leaderId) return;
     try {
       confetti({
-        particleCount: 45,
-        spread: 60,
+        particleCount: isChampionSealed ? 65 : 45,
+        spread: 70,
         origin: { y: 0.15 },
-        colors: ['#E10600', '#FFD700', '#00A19B', '#FFFFFF']
+        colors: isChampionSealed ? ['#FFD700', '#E10600', '#1E41FF', '#FFFFFF'] : ['#E10600', '#FFD700', '#00A19B', '#FFFFFF']
       });
     } catch {
       // ignore
     }
-  }, [leaderId]);
+  }, [leaderId, isChampionSealed]);
 
   if (!leader) return null;
 
@@ -60,7 +62,7 @@ export default function WinnerBanner({ driverStandings, races }) {
 
         <div>
           <div style={{ fontSize: '0.75rem', color: '#FFD700', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '900', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Sparkles size={14} /> ЛИДЕР ЧЕМПИОНАТА ФОРМУЛЫ-1 2026
+            <Sparkles size={14} /> {isChampionSealed ? 'ЧЕМПИОН МИРА ФОРМУЛЫ-1 2026 👑 (ДОСРОЧНО)' : 'ЛИДЕР ЧЕМПИОНАТА ФОРМУЛЫ-1 2026'}
           </div>
           <div className="winner-name" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.6rem', fontWeight: '900' }}>
             <FlagIcon countryCode={leader.driver.country} style={{ width: '28px', height: '18px' }} />

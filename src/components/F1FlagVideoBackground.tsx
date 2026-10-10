@@ -20,7 +20,7 @@ export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
   qa: 'XpTUrAYJvW0', // Qatar
   mx: '-MNVeuGfd7o', // Mexico
   br: '_e2Z0KGs41k', // Brazil
-  cn: '5dG2kuvVtw0', // China
+  cn: '33IROrd58Ww', // China (4K Waving Flag Loop)
   ae: '-9_lJ0zp-ZA', // United Arab Emirates (Abu Dhabi)
 };
 

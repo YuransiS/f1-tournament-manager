@@ -47,7 +47,7 @@ export function getRaceCountryCode(race?: any): string {
   if (text.includes('saudi') || text.includes('jeddah')) return 'sa';
   if (text.includes('australia') || text.includes('albert park') || text.includes('melbourne')) return 'au';
   if (text.includes('azerbaijan') || text.includes('baku')) return 'az';
-  if (text.includes('china') || text.includes('shanghai')) return 'cn';
+  if (text.includes('china') || text.includes('chinese') || text.includes('shanghai')) return 'cn';
   if (text.includes('miami') || text.includes('united states') || text.includes('usa') || text.includes('austin')) return 'us';
   if (text.includes('imola') || text.includes('emilia') || text.includes('monza') || text.includes('italy') || text.includes('italian')) return 'it';
   if (text.includes('monaco') || text.includes('monte carlo')) return 'mc';
@@ -59,6 +59,11 @@ export function getRaceCountryCode(race?: any): string {
   if (text.includes('belgian') || text.includes('belgium') || text.includes('spa')) return 'be';
   if (text.includes('netherlands') || text.includes('dutch') || text.includes('zandvoort')) return 'nl';
   if (text.includes('singapore') || text.includes('marina bay')) return 'sg';
+  if (text.includes('qatar') || text.includes('lusail')) return 'qa';
+  if (text.includes('mexico') || text.includes('hermanos')) return 'mx';
+  if (text.includes('brazil') || text.includes('interlagos') || text.includes('são paulo') || text.includes('sao paulo')) return 'br';
+  if (text.includes('vegas')) return 'us';
+  if (text.includes('abu dhabi') || text.includes('yas marina')) return 'ae';
   return 'jp';
 }
 
