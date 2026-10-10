@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Trophy, Crown, Sparkles, Camera, Award, ChevronDown, ChevronUp, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Trophy, Crown, Sparkles, Camera, Award, ChevronDown, ChevronUp, CheckCircle2, ShieldCheck, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import confetti from 'canvas-confetti';
@@ -10,11 +10,22 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [heroMode, setHeroMode] = useState('art'); // 'art' (champion victory art) or 'photo' (standing cutout)
+  const [showMemeModal, setShowMemeModal] = useState(false);
 
   // Trigger celebration confetti on mount
   useEffect(() => {
     fireConfetti();
   }, []);
+
+  // Keyboard shortcut: Escape to close meme modal
+  useEffect(() => {
+    if (!showMemeModal) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setShowMemeModal(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showMemeModal]);
 
   const fireConfetti = () => {
     try {
@@ -463,18 +474,47 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                       <div style={{ fontSize: '0.62rem', color: '#F59E0B', fontWeight: '700' }}>ТОП-3</div>
                     </div>
 
-                    <div style={{
-                      background: 'rgba(255, 215, 0, 0.08)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255, 215, 0, 0.4)',
-                      borderRadius: '12px',
-                      padding: '12px',
-                      textAlign: 'center'
-                    }}>
+                    <motion.div
+                      whileHover={{ scale: 1.05, borderColor: '#FFD700', boxShadow: '0 0 25px rgba(255, 215, 0, 0.45)' }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        setShowMemeModal(true);
+                        fireConfetti();
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      title="Нажмите, чтобы открыть мем!"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(225, 6, 0, 0.12) 100%)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1.5px solid rgba(255, 215, 0, 0.6)',
+                        borderRadius: '12px',
+                        padding: '12px',
+                        textAlign: 'center',
+                        cursor: 'pointer',
+                        position: 'relative',
+                        transition: 'box-shadow 0.2s ease, border-color 0.2s ease'
+                      }}
+                    >
+                      <div style={{
+                        position: 'absolute',
+                        top: '-8px',
+                        right: '-6px',
+                        background: 'linear-gradient(135deg, #E10600 0%, #FF8C00 100%)',
+                        color: '#FFF',
+                        fontSize: '0.55rem',
+                        fontWeight: '900',
+                        padding: '2px 7px',
+                        borderRadius: '10px',
+                        boxShadow: '0 2px 8px rgba(225,6,0,0.5)',
+                        letterSpacing: '0.5px'
+                      }}>
+                        MEME 🐤
+                      </div>
                       <div style={{ fontSize: '0.65rem', color: '#FFD700', fontWeight: '800', letterSpacing: '1px' }}>ОТРЫВ</div>
                       <div style={{ fontSize: '1.85rem', fontWeight: '900', color: '#FFD700', lineHeight: '1.1' }}>+{pointsGap}</div>
-                      <div style={{ fontSize: '0.62rem', color: '#10B981', fontWeight: '700' }}>НЕОТЫГРЫВАЕМО</div>
-                    </div>
+                      <div style={{ fontSize: '0.62rem', color: '#10B981', fontWeight: '700' }}>НЕОТЫГРЫВАЕМО 👆</div>
+                    </motion.div>
                   </div>
 
                   {/* Verdict Footer Bar inside Poster */}
@@ -568,6 +608,105 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                 </div>
               </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Meme Lightbox Modal */}
+      <AnimatePresence>
+        {showMemeModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowMemeModal(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 99999,
+              background: 'rgba(0, 0, 0, 0.88)',
+              backdropFilter: 'blur(12px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px'
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.85, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: 'relative',
+                maxWidth: '680px',
+                width: '100%',
+                background: 'linear-gradient(145deg, #0B0E17 0%, #151A27 100%)',
+                border: '2px solid #FFD700',
+                borderRadius: '24px',
+                padding: '24px',
+                boxShadow: '0 30px 90px rgba(0,0,0,0.95), 0 0 50px rgba(255,215,0,0.3)',
+                textAlign: 'center'
+              }}
+            >
+              <button
+                onClick={() => setShowMemeModal(false)}
+                title="Закрыть (Esc)"
+                style={{
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px',
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: '#FFF',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(225,6,0,0.8)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+              >
+                <X size={20} />
+              </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '14px' }}>
+                <Crown size={18} style={{ color: '#FFD700' }} />
+                <span style={{ fontSize: '0.85rem', color: '#FFD700', fontWeight: '900', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                  OFFICIAL FIA CHAMPIONSHIP VERDICT
+                </span>
+              </div>
+
+              <div style={{
+                position: 'relative',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.15)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
+                background: '#000'
+              }}>
+                <img
+                  src="/portraits/otryv_neotygryvaemo.png"
+                  alt="Отрыв +35 Неотыгрываемо"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    maxHeight: '68vh',
+                    objectFit: 'contain'
+                  }}
+                />
+              </div>
+
+              <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#94A3B8', fontSize: '0.8rem', flexWrap: 'wrap', gap: '8px' }}>
+                <span>Нажмите в любое место или <strong>Esc</strong>, чтобы закрыть</span>
+                <span style={{ color: '#FFD700', fontWeight: '800' }}>🏆 ОТРЫВ +{pointsGap} ОЧКОВ</span>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
