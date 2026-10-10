@@ -1,6 +1,7 @@
 import React from 'react';
 import { User, Shield, AlertOctagon, Trophy, Zap, Flag } from 'lucide-react';
 import FlagIcon from './FlagIcon';
+import { DRIVER_NUMBER_MAP } from './StartingGridView';
 
 export default function DriversView({ drivers, teams, standings, penalties }) {
   const standingsMap = {};
@@ -39,6 +40,7 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
           const stats = standingsMap[driver.id] || { totalPoints: 0, wins: 0, podiums: 0, fastestLaps: 0, rank: '-' };
           const driverPenalties = penalties.filter(p => p.driverId === driver.id);
           const isPlayer = !driver.isAi;
+          const racingNumber = DRIVER_NUMBER_MAP[driver.id] || driver.driverNumber;
 
           return (
             <div
@@ -133,6 +135,27 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
                   P{stats.rank}
                 </div>
 
+                {/* Racing Number Badge */}
+                {racingNumber && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '60px',
+                    background: 'rgba(0,0,0,0.75)',
+                    border: `1px solid ${team.color || '#444'}`,
+                    color: team.color || '#FFF',
+                    padding: '3px 8px',
+                    borderRadius: '6px',
+                    fontWeight: '900',
+                    fontSize: '0.85rem',
+                    fontFamily: 'Titillium Web, sans-serif',
+                    zIndex: 3,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.6)'
+                  }}>
+                    #{racingNumber}
+                  </div>
+                )}
+
                 {/* Player Badge */}
                 {isPlayer && (
                   <div style={{
@@ -164,8 +187,23 @@ export default function DriversView({ drivers, teams, standings, penalties }) {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '6px', color: '#FFF' }}>
-                  {driver.name}
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '6px', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span>{driver.name}</span>
+                  {racingNumber && (
+                    <span style={{
+                      fontSize: '1.1rem',
+                      fontWeight: '900',
+                      fontStyle: 'italic',
+                      color: team.color || 'var(--f1-red)',
+                      fontFamily: 'Titillium Web, sans-serif',
+                      background: 'rgba(255, 255, 255, 0.06)',
+                      padding: '2px 8px',
+                      borderRadius: '6px',
+                      border: '1px solid rgba(255, 255, 255, 0.1)'
+                    }}>
+                      #{racingNumber}
+                    </span>
+                  )}
                 </h3>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>

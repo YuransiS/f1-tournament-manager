@@ -12,30 +12,30 @@ interface StartingGridViewProps {
 }
 
 // Canonical racing numbers for drivers
-const DRIVER_NUMBER_MAP: Record<string, number> = {
-  'drv-1': 67,   // Yurii ZAKHARCHUK (67)
+export const DRIVER_NUMBER_MAP: Record<string, number> = {
+  'drv-1': 69,   // Yurii ZAKHARCHUK (69) — поменялись с Колей
   'drv-2': 14,   // Fernando ALONSO
   'drv-3': 3,    // MARK
   'drv-4': 23,   // Alexander ALBON
   'drv-5': 10,   // Pierre GASLY
-  'drv-6': 69,   // Mykola YAREMA (69)
+  'drv-6': 67,   // Mykola YAREMA (67) — поменялись с Юрой
   'drv-7': 4,    // Lando NORRIS
   'drv-8': 27,   // Nico HULKENBERG
   'drv-9': 77,   // Valtteri BOTTAS
   'drv-10': 18,  // Lance STROLL
-  'drv-11': 11,  // Alexsandr GROMOV
+  'drv-11': 95,  // Alexsandr GROMOV (95)
   'drv-12': 20,  // Kevin MAGNUSSEN
   'drv-13': 31,  // Esteban OCON
   'drv-14': 55,  // Carlos SAINZ
   'drv-15': 11,  // Sergio PÉREZ
   'drv-16': 16,  // Charles LECLERC
-  'drv-17': 17,  // Denys KOVALENKO
+  'drv-17': 88,  // Denys KOVALENKO (88)
   'drv-18': 1,   // Max VERSTAPPEN
   'drv-19': 81,  // Oscar PIASTRI
   'drv-20': 24,  // ZHOU Guanyu
   'drv-21': 3,   // Daniel RICCIARDO
   'drv-22': 22,  // Yuki TSUNODA
-  'drv-23': 99   // Vadim MANSTEIN
+  'drv-23': 5    // Vadim MANSTEIN (5)
 };
 
 // Mapping of Grand Prix event to ISO 2-letter country code for host country waving flags

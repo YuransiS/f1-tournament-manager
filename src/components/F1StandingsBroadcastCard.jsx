@@ -3,6 +3,7 @@ import { Camera, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
+import { DRIVER_NUMBER_MAP } from './StartingGridView';
 
 export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabel = 'ТЕКУЩИЙ ЗАЧЕТ' }) {
   const cardRef = useRef(null);
@@ -166,8 +167,11 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                   )}
                 </div>
 
-                <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1.1 }}>
-                  {leader.driver.name}
+                <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#FFF', textTransform: 'uppercase', fontStyle: 'italic', lineHeight: 1.1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <span>{leader.driver.name}</span>
+                  <span style={{ fontSize: '1.15rem', color: leader.team.color, fontFamily: 'Titillium Web, sans-serif' }}>
+                    #{DRIVER_NUMBER_MAP[leader.driver.id] || leader.driver.driverNumber || ''}
+                  </span>
                 </div>
                 <div style={{ fontSize: '0.9rem', color: leader.team.color, fontWeight: '800', textTransform: 'uppercase', marginTop: '4px' }}>
                   {leader.team.name}
@@ -239,8 +243,20 @@ export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabe
                                 />
                               ) : null}
                               <FlagIcon countryCode={item.driver.country} />
-                              <div className="driver-name">
-                                {item.driver.name}
+                              <div className="driver-name" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <span>{item.driver.name}</span>
+                                <span style={{
+                                  fontSize: '0.72rem',
+                                  fontWeight: '900',
+                                  color: item.team.color || '#FFF',
+                                  background: 'rgba(255,255,255,0.06)',
+                                  border: '1px solid rgba(255,255,255,0.12)',
+                                  padding: '1px 5px',
+                                  borderRadius: '4px',
+                                  fontFamily: 'Titillium Web, sans-serif'
+                                }}>
+                                  #{DRIVER_NUMBER_MAP[item.driver.id] || item.driver.driverNumber || ''}
+                                </span>
                                 {isPlayer ? <span className="player-badge">Player</span> : <span className="ai-badge">AI</span>}
                               </div>
                             </div>

@@ -61,6 +61,7 @@ interface Driver {
   name: string;
   country: string; // ISO 2-letter country code
   flag: string;
+  driverNumber: number; // Canonical F1 driver car number (Yura: 69, Kolya: 67, Denis: 88, Sasha: 95, Manstein: 5)
   teamId: string;
   isAi: boolean;
   avatar: string; // 1:1 square photo (mini icons in Drivers tab & official podium)

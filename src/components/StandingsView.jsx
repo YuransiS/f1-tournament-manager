@@ -9,6 +9,7 @@ import F1ViceChampionCard from './F1ViceChampionCard';
 import F1BronzeChampionCard from './F1BronzeChampionCard';
 import F1ConstructorsChampionCard from './F1ConstructorsChampionCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
+import { DRIVER_NUMBER_MAP } from './StartingGridView';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
   const [internalTab, setInternalTab] = useState('drivers');
@@ -256,9 +257,21 @@ export default function StandingsView({ data, standings: propStandings, activeTa
                             </div>
                           )}
                           <div>
-                            <div className="driver-name" style={{ fontSize: '1.05rem', fontWeight: '800' }}>
-                              <FlagIcon countryCode={item.driver.country} style={{ marginRight: '6px' }} />
-                              {item.driver.name}
+                            <div className="driver-name" style={{ fontSize: '1.05rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <FlagIcon countryCode={item.driver.country} style={{ marginRight: '2px' }} />
+                              <span>{item.driver.name}</span>
+                              <span style={{
+                                fontSize: '0.78rem',
+                                fontWeight: '900',
+                                color: item.team.color || '#FFF',
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.12)',
+                                padding: '1px 6px',
+                                borderRadius: '4px',
+                                fontFamily: 'Titillium Web, sans-serif'
+                              }}>
+                                #{DRIVER_NUMBER_MAP[item.driver.id] || item.driver.driverNumber || ''}
+                              </span>
                               {isPlayer && <span className="player-badge">Player</span>}
                             </div>
                           </div>

@@ -3,6 +3,7 @@ import { Flame, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
+import { DRIVER_NUMBER_MAP } from './StartingGridView';
 
 export default function WinnerBanner({ driverStandings, races }) {
   const leader = driverStandings && driverStandings.length > 0 ? driverStandings[0] : null;
@@ -95,6 +96,19 @@ export default function WinnerBanner({ driverStandings, races }) {
           <div className="winner-name" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.6rem', fontWeight: '900' }}>
             <FlagIcon countryCode={leader.driver.country} style={{ width: '28px', height: '18px' }} />
             <span style={{ color: '#FFF', fontStyle: 'italic' }}>{leader.driver.name}</span>
+            <span style={{
+              fontSize: '1rem',
+              fontWeight: '900',
+              fontStyle: 'italic',
+              color: leader.team.color || '#FFD700',
+              fontFamily: 'Titillium Web, sans-serif',
+              background: 'rgba(255,255,255,0.08)',
+              padding: '2px 8px',
+              borderRadius: '6px',
+              border: '1px solid rgba(255,255,255,0.15)'
+            }}>
+              #{DRIVER_NUMBER_MAP[leader.driver.id] || leader.driver.driverNumber || ''}
+            </span>
             {!leader.driver.isAi ? (
               <span className="player-badge" style={{ fontSize: '0.7rem', padding: '3px 8px', background: '#0284C7' }}>PLAYER</span>
             ) : (
@@ -149,8 +163,11 @@ export default function WinnerBanner({ driverStandings, races }) {
               <div style={{ fontSize: '0.62rem', color: '#00D2BE', fontWeight: '900', letterSpacing: '1px' }}>
                 ВИЦЕ-ЧЕМПИОН (ДОСРОЧНО)
               </div>
-              <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#FFF' }}>
-                {runnerUp.driver.name}
+              <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#FFF', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span>{runnerUp.driver.name}</span>
+                <span style={{ fontSize: '0.8rem', color: '#00D2BE', fontFamily: 'Titillium Web, sans-serif' }}>
+                  #{DRIVER_NUMBER_MAP[runnerUp.driver.id] || runnerUp.driver.driverNumber || ''}
+                </span>
               </div>
               <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>
                 <span style={{ color: '#00D2BE', fontWeight: '800' }}>{runnerUp.totalPoints} PTS</span> • {runnerUp.wins} побед
@@ -196,8 +213,11 @@ export default function WinnerBanner({ driverStandings, races }) {
               <div style={{ fontSize: '0.62rem', color: '#F59E0B', fontWeight: '900', letterSpacing: '1px' }}>
                 БРОНЗОВЫЙ ПРИЗЁР (ДОСРОЧНО)
               </div>
-              <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#FFF' }}>
-                {thirdPlace.driver.name}
+              <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#FFF', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span>{thirdPlace.driver.name}</span>
+                <span style={{ fontSize: '0.8rem', color: '#F59E0B', fontFamily: 'Titillium Web, sans-serif' }}>
+                  #{DRIVER_NUMBER_MAP[thirdPlace.driver.id] || thirdPlace.driver.driverNumber || ''}
+                </span>
               </div>
               <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>
                 <span style={{ color: '#F59E0B', fontWeight: '800' }}>{thirdPlace.totalPoints} PTS</span> • {thirdPlace.wins} побед
