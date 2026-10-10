@@ -5,6 +5,7 @@ import TeamLogo from './TeamLogo';
 import F1StandingsBroadcastCard from './F1StandingsBroadcastCard';
 import F1PointsProgressionChart from './F1PointsProgressionChart';
 import F1WorldChampionCard from './F1WorldChampionCard';
+import F1ViceChampionCard from './F1ViceChampionCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
@@ -27,6 +28,13 @@ export default function StandingsView({ data, standings: propStandings, activeTa
         champion={driverStandings[0]}
         runnerUp={driverStandings[1]}
         constructorChampion={constructorStandings[0]}
+        lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
+      />
+
+      {/* Official FIA Vice-Champion 2026 Declaration Card & Poster */}
+      <F1ViceChampionCard
+        runnerUp={driverStandings[1]}
+        thirdPlace={driverStandings[2]}
         lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
       />
 

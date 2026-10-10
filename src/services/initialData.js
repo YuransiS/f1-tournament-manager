@@ -21,7 +21,8 @@ export const DEFAULT_DRIVERS = [
     isAi: false,
     avatar: '/portraits/yura.png',
     avatarFullWithBg: '/portraits/yura_standing_9-16_with_backjground.png',
-    avatarFullNoBg: '/portraits/yura_standing_9-16_without_backjground.png'
+    avatarFullNoBg: '/portraits/yura_standing_9-16_without_backjground.png',
+    avatarViceChampion: '/portraits/yura_vice_champion_wide.jpg'
   },
   {
     id: 'drv-2',

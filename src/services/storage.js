@@ -54,7 +54,9 @@ export function getTournamentData() {
             isAi: def.isAi !== undefined ? def.isAi : d.isAi,
             avatar: def.avatar || d.avatar,
             avatarFullWithBg: def.avatarFullWithBg || def.avatar || d.avatar,
-            avatarFullNoBg: def.avatarFullNoBg || def.avatar || d.avatar
+            avatarFullNoBg: def.avatarFullNoBg || def.avatar || d.avatar,
+            avatarChampion: def.avatarChampion || d.avatarChampion,
+            avatarViceChampion: def.avatarViceChampion || d.avatarViceChampion
           };
         }
         return d;

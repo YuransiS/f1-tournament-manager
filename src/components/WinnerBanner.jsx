@@ -110,6 +110,54 @@ export default function WinnerBanner({ driverStandings, races }) {
         </div>
       </div>
 
+      {runnerUp && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          background: 'rgba(0, 210, 190, 0.1)',
+          border: '1px solid rgba(0, 210, 190, 0.35)',
+          padding: '8px 16px',
+          borderRadius: '12px',
+          zIndex: 5,
+          boxShadow: '0 4px 15px rgba(0, 210, 190, 0.15)'
+        }}>
+          <div style={{ position: 'relative' }}>
+            <img
+              src="/portraits/yura_vice_champion_wide.jpg"
+              alt="Vice Champion"
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '10px',
+                objectFit: 'cover',
+                objectPosition: 'center 15%',
+                border: '1.5px solid #00D2BE'
+              }}
+            />
+            <div style={{
+              position: 'absolute',
+              top: '-6px',
+              right: '-6px',
+              fontSize: '0.9rem'
+            }}>
+              🥈
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: '0.65rem', color: '#00D2BE', fontWeight: '900', letterSpacing: '1px' }}>
+              ВИЦЕ-ЧЕМПИОН 2026 (ДОСРОЧНО)
+            </div>
+            <div style={{ fontSize: '0.95rem', fontWeight: '900', color: '#FFF' }}>
+              {runnerUp.driver.name}
+            </div>
+            <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+              <span style={{ color: '#00D2BE', fontWeight: '800' }}>{runnerUp.totalPoints} PTS</span> • {runnerUp.wins} побед
+            </div>
+          </div>
+        </div>
+      )}
+
       {lastRace && (
         <motion.div
           initial={{ opacity: 0, x: 20 }}
