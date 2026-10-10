@@ -478,7 +478,7 @@ export default function F1BronzeChampionCard({ thirdPlace, fourthPlace, lastRace
                     >
                       <div style={{ fontSize: '0.65rem', color: '#F59E0B', fontWeight: '800', letterSpacing: '1px' }}>ОТРЫВ ОТ P4</div>
                       <div style={{ fontSize: '1.85rem', fontWeight: '900', color: '#F59E0B', lineHeight: '1.1' }}>+{pointsGapP4}</div>
-                      <div style={{ fontSize: '0.62rem', color: '#10B981', fontWeight: '700' }}>НЕДОСЯГАЕМО 🥉</div>
+                      <div style={{ fontSize: '0.62rem', color: '#10B981', fontWeight: '700' }}>НЕЗЛАМНО 🥉</div>
                     </motion.div>
                   </div>
 
