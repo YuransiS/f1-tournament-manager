@@ -7,6 +7,7 @@ import F1PointsProgressionChart from './F1PointsProgressionChart';
 import F1WorldChampionCard from './F1WorldChampionCard';
 import F1ViceChampionCard from './F1ViceChampionCard';
 import F1BronzeChampionCard from './F1BronzeChampionCard';
+import F1ConstructorsChampionCard from './F1ConstructorsChampionCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
@@ -221,7 +222,14 @@ export default function StandingsView({ data, standings: propStandings, activeTa
           </div>
         </div>
       ) : (
-        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <>
+          {/* Official FIA Constructors World Champion 2026 Celebration Poster */}
+          <F1ConstructorsChampionCard
+            constructorChampion={constructorStandings[0]}
+            runnerUpTeam={constructorStandings[1]}
+          />
+
+          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
           <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
@@ -261,7 +269,14 @@ export default function StandingsView({ data, standings: propStandings, activeTa
                           <span className="team-stripe" style={{ backgroundColor: item.team.color, height: '38px', width: '5px' }} />
                           <TeamLogo teamId={item.team.id} size="md" />
                           <div>
-                            <div style={{ fontWeight: '800', fontSize: '1.1rem', color: '#FFF' }}>{item.team.name}</div>
+                            <div style={{ fontWeight: '800', fontSize: '1.1rem', color: '#FFF', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              {item.team.name}
+                              {pos === 1 && (
+                                <span style={{ fontSize: '0.65rem', background: 'rgba(255,215,0,0.15)', border: '1px solid #FFD700', color: '#FFD700', padding: '2px 8px', borderRadius: '4px', fontWeight: '900' }}>
+                                  ЧЕМПИОНЫ МИРА 🏆
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </td>
@@ -292,6 +307,7 @@ export default function StandingsView({ data, standings: propStandings, activeTa
             </table>
           </div>
         </div>
+        </>
       )}
     </div>
   );

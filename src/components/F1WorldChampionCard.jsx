@@ -599,8 +599,15 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                   fontSize: '0.85rem',
                   color: '#94A3B8'
                 }}>
-                  <div>
-                    🏆 <strong style={{ color: '#FFF' }}>Кубок Конструкторов:</strong> {constructorChampion?.team?.name || 'Red Bull Racing'} ({constructorChampion?.totalPoints || 680} pts) празднует победу с отрывом +{Math.max(0, (constructorChampion?.totalPoints || 680) - 583)} очков!
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <img
+                      src="/portraits/redbull_constructors_celebration.jpg"
+                      alt="Red Bull Constructors Celebration"
+                      style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #FFD700', flexShrink: 0 }}
+                    />
+                    <div>
+                      🏆 <strong style={{ color: '#FFF' }}>Кубок Конструкторов:</strong> {constructorChampion?.team?.name || 'Red Bull Racing'} ({constructorChampion?.totalPoints || 680} pts) празднует победу с отрывом +{Math.max(0, (constructorChampion?.totalPoints || 680) - 583)} очков!
+                    </div>
                   </div>
                   <div>
                     🏁 <strong style={{ color: '#FFF' }}>Финал в Абу-Даби:</strong> станет парадным этапом чествования новоиспеченного чемпиона мира.
