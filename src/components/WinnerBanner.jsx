@@ -50,15 +50,42 @@ export default function WinnerBanner({ driverStandings, races }) {
         pointerEvents: 'none'
       }} />
 
-      <div className="winner-info" style={{ zIndex: 5, position: 'relative' }}>
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], rotate: [0, -5, 5, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-          className="winner-crown"
-          style={{ filter: 'drop-shadow(0 0 16px rgba(255,215,0,0.8))' }}
-        >
-          🏆
-        </motion.div>
+      <div className="winner-info" style={{ zIndex: 5, position: 'relative', display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {isChampionSealed ? (
+          <div style={{ position: 'relative', flexShrink: 0 }}>
+            <img
+              src="/portraits/kolya_champion_victory.jpg"
+              alt="Champion Victory"
+              style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '14px',
+                objectFit: 'cover',
+                objectPosition: 'center 15%',
+                border: '2px solid #FFD700',
+                boxShadow: '0 0 20px rgba(255, 215, 0, 0.7)'
+              }}
+            />
+            <div style={{
+              position: 'absolute',
+              top: '-8px',
+              right: '-8px',
+              fontSize: '1.1rem',
+              filter: 'drop-shadow(0 0 6px rgba(255,215,0,0.9))'
+            }}>
+              👑
+            </div>
+          </div>
+        ) : (
+          <motion.div
+            animate={{ scale: [1, 1.15, 1], rotate: [0, -5, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+            className="winner-crown"
+            style={{ filter: 'drop-shadow(0 0 16px rgba(255,215,0,0.8))' }}
+          >
+            🏆
+          </motion.div>
+        )}
 
         <div>
           <div style={{ fontSize: '0.75rem', color: '#FFD700', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '900', display: 'flex', alignItems: 'center', gap: '6px' }}>

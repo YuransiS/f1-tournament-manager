@@ -9,6 +9,7 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [heroMode, setHeroMode] = useState('art'); // 'art' (champion victory art) or 'photo' (standing cutout)
 
   // Trigger celebration confetti on mount
   useEffect(() => {
@@ -105,6 +106,21 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
         </div>
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <button
+            onClick={() => setHeroMode(heroMode === 'art' ? 'photo' : 'art')}
+            className="btn btn-secondary"
+            style={{
+              padding: '8px 14px',
+              fontSize: '0.85rem',
+              fontWeight: '800',
+              background: heroMode === 'art' ? 'rgba(255, 100, 0, 0.15)' : 'rgba(255,255,255,0.06)',
+              border: heroMode === 'art' ? '1px solid rgba(255, 120, 0, 0.4)' : '1px solid rgba(255,255,255,0.2)',
+              color: heroMode === 'art' ? '#FF8C00' : '#FFF'
+            }}
+            title="Переключить: Арт победы / Ростовое фото"
+          >
+            {heroMode === 'art' ? '🔥 Арт Победы' : '👤 Фото Пилота'}
+          </button>
           <button
             onClick={fireConfetti}
             className="btn btn-secondary"
@@ -248,43 +264,86 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
                   </div>
                 </div>
 
-                {/* Layer 4: Left Heroic Standing Driver Cutout */}
+                {/* Layer 4: Left Heroic Visual (Victory Art or Driver Cutout) */}
                 <div style={{
                   position: 'absolute',
-                  left: '4%',
+                  left: 0,
+                  top: 0,
                   bottom: 0,
-                  height: '86%',
+                  width: heroMode === 'art' ? '46%' : '44%',
                   zIndex: 8,
                   pointerEvents: 'none',
+                  overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'flex-end'
                 }}>
-                  <img
-                    src="/portraits/kolya_standing_9-16_without_backjground.png"
-                    alt={champName}
-                    onError={(e) => {
-                      e.currentTarget.src = '/portraits/kolya.png';
-                    }}
-                    style={{
+                  {heroMode === 'art' ? (
+                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                      <img
+                        src="/portraits/kolya_champion_victory.jpg"
+                        alt={champName}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          objectPosition: 'center 15%',
+                          filter: 'contrast(1.08) saturate(1.15) brightness(0.96)'
+                        }}
+                      />
+                      {/* Smooth Right and Top Edge Fade to blend with dark poster */}
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        width: '45%',
+                        background: 'linear-gradient(to right, transparent 0%, #07090F 100%)'
+                      }} />
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '90px',
+                        background: 'linear-gradient(to bottom, rgba(7,9,15,0.85) 0%, transparent 100%)'
+                      }} />
+                    </div>
+                  ) : (
+                    <div style={{
+                      position: 'relative',
+                      width: '100%',
                       height: '100%',
-                      maxHeight: '480px',
-                      objectFit: 'contain',
-                      filter: 'drop-shadow(0 20px 45px rgba(0,0,0,0.95)) drop-shadow(0 0 30px rgba(255,215,0,0.25))'
-                    }}
-                  />
-
-                  {/* Golden Trophy Silhouette behind pilot */}
-                  <div style={{
-                    position: 'absolute',
-                    left: '50%',
-                    bottom: '20px',
-                    transform: 'translateX(-50%)',
-                    zIndex: -1,
-                    opacity: 0.15,
-                    filter: 'drop-shadow(0 0 35px #FFD700)'
-                  }}>
-                    <Trophy size={360} color="#FFD700" />
-                  </div>
+                      display: 'flex',
+                      alignItems: 'flex-end',
+                      paddingLeft: '10%'
+                    }}>
+                      <img
+                        src="/portraits/kolya_standing_9-16_without_backjground.png"
+                        alt={champName}
+                        onError={(e) => {
+                          e.currentTarget.src = '/portraits/kolya.png';
+                        }}
+                        style={{
+                          height: '88%',
+                          maxHeight: '480px',
+                          objectFit: 'contain',
+                          filter: 'drop-shadow(0 20px 45px rgba(0,0,0,0.95)) drop-shadow(0 0 30px rgba(255,215,0,0.25))'
+                        }}
+                      />
+                      {/* Golden Trophy Silhouette behind pilot */}
+                      <div style={{
+                        position: 'absolute',
+                        left: '50%',
+                        bottom: '20px',
+                        transform: 'translateX(-50%)',
+                        zIndex: -1,
+                        opacity: 0.15,
+                        filter: 'drop-shadow(0 0 35px #FFD700)'
+                      }}>
+                        <Trophy size={360} color="#FFD700" />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Layer 5: Right Authority Information & Typography Showcase */}
@@ -454,29 +513,68 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
               borderRadius: '16px',
               padding: '20px 24px',
               marginTop: '16px',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+              boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+              display: 'flex',
+              gap: '24px',
+              alignItems: 'center',
+              flexWrap: 'wrap'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFD700', fontWeight: '900', fontSize: '0.82rem', letterSpacing: '1px', marginBottom: '8px' }}>
-                <CheckCircle2 size={16} /> ОФИЦИАЛЬНОЕ ПОДТВЕРЖДЕНИЕ СТЮАРДОВ FIA & ДИРЕКЦИИ ЧЕМПИОНАТА
-              </div>
-              <p style={{ margin: '0 0 10px 0', fontSize: '0.95rem', color: '#E2E8F0', lineHeight: '1.5' }}>
-                После победы на {lastRaceTitle || 'Гран-при Китая'} и уверенного финиша в Лас-Вегасе украинский пилот <strong style={{ color: '#FFD700' }}>Микола Ярема (kolyacoolguy)</strong> официально оформил чемпионский титул сезона 2026! Имея в активе <strong>{champPoints} очков</strong>, {champWins} побед и {champPodiums} {champPodiums % 10 === 1 && champPodiums !== 11 ? 'подиум' : 'подиумов'}, он опережает ближайшего преследователя Юрия Захарчука ({runnerUpPoints} очков) на <strong>{pointsGap} очков</strong>.
-              </p>
               <div style={{
-                display: 'flex',
-                gap: '16px',
-                flexWrap: 'wrap',
-                background: 'rgba(0,0,0,0.3)',
-                padding: '12px 16px',
-                borderRadius: '10px',
-                fontSize: '0.85rem',
-                color: '#94A3B8'
+                position: 'relative',
+                flexShrink: 0,
+                width: '130px',
+                height: '175px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                border: '2px solid rgba(255,215,0,0.5)',
+                boxShadow: '0 8px 25px rgba(255,100,0,0.3)',
+                background: '#07090F'
               }}>
-                <div>
-                  🏆 <strong style={{ color: '#FFF' }}>Кубок Конструкторов:</strong> {constructorChampion?.team?.name || 'Red Bull Racing'} ({constructorChampion?.totalPoints || 680} pts) празднует победу с отрывом +{Math.max(0, (constructorChampion?.totalPoints || 680) - 583)} очков!
+                <img
+                  src="/portraits/kolya_champion_victory.jpg"
+                  alt="Mykola Yarema Victory Art"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%)',
+                  padding: '6px 4px',
+                  textAlign: 'center',
+                  fontSize: '0.65rem',
+                  fontWeight: '900',
+                  color: '#FFD700',
+                  letterSpacing: '0.5px'
+                }}>
+                  👑 ПОБЕДНЫЙ АРТ
                 </div>
-                <div>
-                  🏁 <strong style={{ color: '#FFF' }}>Финал в Абу-Даби:</strong> станет парадным этапом чествования новоиспеченного чемпиона мира.
+              </div>
+
+              <div style={{ flex: '1 1 500px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFD700', fontWeight: '900', fontSize: '0.82rem', letterSpacing: '1px', marginBottom: '8px' }}>
+                  <CheckCircle2 size={16} /> ОФИЦИАЛЬНОЕ ПОДТВЕРЖДЕНИЕ СТЮАРДОВ FIA & ДИРЕКЦИИ ЧЕМПИОНАТА
+                </div>
+                <p style={{ margin: '0 0 10px 0', fontSize: '0.95rem', color: '#E2E8F0', lineHeight: '1.5' }}>
+                  После победы на {lastRaceTitle || 'Гран-при Китая'} и уверенного финиша в Лас-Вегасе украинский пилот <strong style={{ color: '#FFD700' }}>Микола Ярема (kolyacoolguy)</strong> официально оформил чемпионский титул сезона 2026! Имея в активе <strong>{champPoints} очков</strong>, {champWins} побед и {champPodiums} {champPodiums % 10 === 1 && champPodiums !== 11 ? 'подиум' : 'подиумов'}, он опережает ближайшего преследователя Юрия Захарчука ({runnerUpPoints} очков) на <strong>{pointsGap} очков</strong>.
+                </p>
+                <div style={{
+                  display: 'flex',
+                  gap: '16px',
+                  flexWrap: 'wrap',
+                  background: 'rgba(0,0,0,0.3)',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  fontSize: '0.85rem',
+                  color: '#94A3B8'
+                }}>
+                  <div>
+                    🏆 <strong style={{ color: '#FFF' }}>Кубок Конструкторов:</strong> {constructorChampion?.team?.name || 'Red Bull Racing'} ({constructorChampion?.totalPoints || 680} pts) празднует победу с отрывом +{Math.max(0, (constructorChampion?.totalPoints || 680) - 583)} очков!
+                  </div>
+                  <div>
+                    🏁 <strong style={{ color: '#FFF' }}>Финал в Абу-Даби:</strong> станет парадным этапом чествования новоиспеченного чемпиона мира.
+                  </div>
                 </div>
               </div>
             </div>

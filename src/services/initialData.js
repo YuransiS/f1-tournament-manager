@@ -76,7 +76,8 @@ export const DEFAULT_DRIVERS = [
     isAi: false,
     avatar: '/portraits/kolya.png',
     avatarFullWithBg: '/portraits/kolya_standing_9-16_with_backjground.png',
-    avatarFullNoBg: '/portraits/kolya_standing_9-16_without_backjground.png'
+    avatarFullNoBg: '/portraits/kolya_standing_9-16_without_backjground.png',
+    avatarChampion: '/portraits/kolya_champion_victory.jpg'
   },
   {
     id: 'drv-7',
