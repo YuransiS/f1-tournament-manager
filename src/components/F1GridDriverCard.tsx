@@ -6,6 +6,7 @@ import { GridPilot } from './F1StartingGrid';
 
 interface F1GridDriverCardProps {
   pilot: GridPilot | null;
+  nextPilot?: GridPilot | null;
   align: 'left' | 'right';
   hasImageError?: boolean;
   onImageError?: (id: string) => void;
@@ -40,22 +41,25 @@ function getTeamNeonColor(teamId: string, fallbackColor: string): string {
 
 interface HalftoneOverlayProps {
   pilotId: string;
-  teamColor: string;
+  fromColor: string;
+  toColor: string;
   isLeft: boolean;
 }
 
 // Official F1 Broadcast Halftone Dot-Matrix Transition Effect (media_1792865475012_e333f9b7.jpg & media_1792865484764_d87537c1.jpg)
+// Frameless, vibrant neon glowing dots transitioning from current team to next team
 const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
   pilotId,
-  teamColor,
+  fromColor,
+  toColor,
   isLeft
 }) => {
   const blocks = [
-    { top: '8%', height: '15%', width: '82%', alignLeft: isLeft, delay: 0.0 },
-    { top: '22%', height: '18%', width: '96%', alignLeft: !isLeft, delay: 0.04 },
-    { top: '39%', height: '21%', width: '88%', alignLeft: isLeft, delay: 0.08 },
-    { top: '58%', height: '18%', width: '94%', alignLeft: !isLeft, delay: 0.12 },
-    { top: '75%', height: '16%', width: '78%', alignLeft: isLeft, delay: 0.16 }
+    { top: '8%', height: '16%', width: '84%', alignLeft: isLeft, delay: 0.0 },
+    { top: '23%', height: '19%', width: '96%', alignLeft: !isLeft, delay: 0.04 },
+    { top: '41%', height: '22%', width: '90%', alignLeft: isLeft, delay: 0.08 },
+    { top: '61%', height: '18%', width: '95%', alignLeft: !isLeft, delay: 0.12 },
+    { top: '77%', height: '16%', width: '80%', alignLeft: isLeft, delay: 0.16 }
   ];
 
   return (
@@ -73,16 +77,16 @@ const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
             key={idx}
             initial={{
               scaleX: 1,
-              opacity: 0.98,
+              opacity: 1,
               x: b.alignLeft ? -25 : 25
             }}
             animate={{
-              scaleX: [1, 1.04, 0],
-              opacity: [0.98, 0.9, 0],
+              scaleX: [1, 1.05, 0],
+              opacity: [1, 0.95, 0],
               x: 0
             }}
             transition={{
-              duration: 0.45,
+              duration: 0.46,
               delay: b.delay,
               ease: [0.22, 1, 0.36, 1]
             }}
@@ -93,30 +97,20 @@ const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
               width: b.width,
               left: b.alignLeft ? 0 : 'auto',
               right: b.alignLeft ? 'auto' : 0,
-              transformOrigin: b.alignLeft ? 'left center' : 'right center',
-              backgroundColor: `${teamColor}1a`,
-              borderTop: `1.5px solid ${teamColor}90`,
-              borderBottom: `1.5px solid ${teamColor}90`
+              transformOrigin: b.alignLeft ? 'left center' : 'right center'
             }}
-            className="overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8)]"
+            className="overflow-hidden"
           >
-            {/* Halftone Dot Matrix Texture */}
+            {/* Vibrant Halftone Dot Matrix with seamless color shift from current to next team (Zero borders) */}
             <div
               className="absolute inset-0"
               style={{
-                backgroundImage: `radial-gradient(circle, ${teamColor} 2.6px, transparent 2.6px)`,
-                backgroundSize: '9px 9px',
-                opacity: 0.92
-              }}
-            />
-            {/* Neon Glitch Edge Indicator */}
-            <div
-              className="absolute inset-y-0 w-2.5 shadow-[0_0_14px_currentColor]"
-              style={{
-                backgroundColor: teamColor,
-                color: teamColor,
-                left: b.alignLeft ? 'auto' : 0,
-                right: b.alignLeft ? 0 : 'auto'
+                background: `linear-gradient(${b.alignLeft ? '90deg' : '270deg'}, ${fromColor} 0%, ${toColor} 100%)`,
+                WebkitMaskImage: 'radial-gradient(circle, black 3.2px, transparent 3.2px)',
+                maskImage: 'radial-gradient(circle, black 3.2px, transparent 3.2px)',
+                WebkitMaskSize: '10px 10px',
+                maskSize: '10px 10px',
+                filter: `drop-shadow(0 0 8px ${fromColor}) drop-shadow(0 0 16px ${toColor})`
               }}
             />
           </motion.div>
@@ -128,11 +122,26 @@ const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
 
 export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   pilot,
+  nextPilot,
   align,
   hasImageError,
   onImageError
 }) => {
   const isLeft = align === 'left';
+  const currentTeamColor = pilot
+    ? getTeamNeonColor(pilot.team.id, pilot.team.primaryColor)
+    : '#00A0DE';
+  const nextTeamColor = nextPilot
+    ? getTeamNeonColor(nextPilot.team.id, nextPilot.team.primaryColor)
+    : currentTeamColor;
+
+  const prevTeamColorRef = React.useRef(currentTeamColor);
+  React.useEffect(() => {
+    prevTeamColorRef.current = currentTeamColor;
+  }, [currentTeamColor]);
+
+  const fromColor = prevTeamColorRef.current || currentTeamColor;
+  const toColor = nextTeamColor || currentTeamColor;
 
   if (!pilot) {
     return (
@@ -145,7 +154,6 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   }
 
   const { firstName, lastName } = parseDriverName(pilot.realName || '', pilot.nickname);
-  const teamColor = getTeamNeonColor(pilot.team.id, pilot.team.primaryColor);
 
   return (
     <div className="relative w-full h-full flex select-none overflow-hidden">
@@ -181,14 +189,15 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
       {/* 2. DRIVER STAGE: 1:1 Torso Portrait & Lower Overlay           */}
       {/* ============================================================= */}
       <div className="relative flex-1 h-full overflow-hidden order-2">
-        {/* Halftone Dot Matrix Transition Overlay */}
+        {/* Halftone Dot Matrix Transition Overlay: Frameless & Bright Neon Color-Morph */}
         <HalftoneTransitionOverlay
           pilotId={pilot.id}
-          teamColor={teamColor}
+          fromColor={fromColor}
+          toColor={toColor}
           isLeft={isLeft}
         />
 
-        {/* Torso Portrait: Natural framing with comfortable headroom matching media_1792865435171_00af0a55.png */}
+        {/* 1:1 Torso Portrait (50:50 Screen Ratio): 1:1 aspect ratio with natural headroom, bottom-cropped if tall */}
         <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20 pb-0">
           <AnimatePresence mode="wait">
             <motion.div
@@ -199,17 +208,19 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full h-full flex items-end justify-center pb-0"
               style={{
-                maskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)'
+                maskImage: 'linear-gradient(to top, transparent 0%, black 6%, black 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 6%, black 100%)'
               }}
             >
               {!hasImageError && pilot.avatarUrl ? (
-                <img
-                  src={pilot.avatarUrl}
-                  alt={pilot.nickname}
-                  onError={() => onImageError && onImageError(pilot.id)}
-                  className="h-[84%] sm:h-[86%] lg:h-[88%] w-auto max-w-full object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
-                />
+                <div className="relative aspect-square h-[86%] sm:h-[88%] lg:h-[92%] max-w-full flex items-end justify-center overflow-hidden">
+                  <img
+                    src={pilot.avatarUrl}
+                    alt={pilot.nickname}
+                    onError={() => onImageError && onImageError(pilot.id)}
+                    className="w-full h-full object-cover object-top select-none relative z-5 filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
+                  />
+                </div>
               ) : (
                 <div className="w-full h-full flex items-end justify-center">
                   <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />

@@ -102,7 +102,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         realName: fullName,
         nickname: surname.toUpperCase(),
         driverNumber: DRIVER_NUMBER_MAP[driver?.id] || res.grid,
-        avatarUrl: driver?.avatarFullNoBg || driver?.avatar || '',
+        avatarUrl: driver?.avatar || driver?.avatarFullNoBg || '',
         countryFlagUrl: driver?.country || 'UA',
         lapTimeOrDelta: timingDisplay,
         team: {

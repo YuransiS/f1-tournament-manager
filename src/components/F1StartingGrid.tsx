@@ -510,6 +510,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             <div className="absolute left-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
               <F1GridDriverCard
                 pilot={leftPilot}
+                nextPilot={activePairIndex > 0 ? (pairs[activePairIndex - 1]?.[0] || null) : null}
                 align="left"
                 hasImageError={imgErrors[leftPilot.id]}
                 onImageError={handleImageError}
@@ -520,6 +521,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             <div className="absolute right-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
               <F1GridDriverCard
                 pilot={rightPilot}
+                nextPilot={activePairIndex > 0 ? (pairs[activePairIndex - 1]?.[1] || null) : null}
                 align="right"
                 hasImageError={rightPilot ? imgErrors[rightPilot.id] : false}
                 onImageError={handleImageError}
