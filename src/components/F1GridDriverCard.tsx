@@ -128,10 +128,11 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   onImageError
 }) => {
   const isLeft = align === 'left';
-  const currentTeamColor = pilot
+  const teamColor = pilot?.team
     ? getTeamNeonColor(pilot.team.id, pilot.team.primaryColor)
     : '#00A0DE';
-  const nextTeamColor = nextPilot
+  const currentTeamColor = teamColor;
+  const nextTeamColor = nextPilot?.team
     ? getTeamNeonColor(nextPilot.team.id, nextPilot.team.primaryColor)
     : currentTeamColor;
 
@@ -175,13 +176,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               transform: isLeft ? 'rotate(180deg)' : 'none'
             }}
           >
-            {pilot.team.name}
+            {pilot?.team?.name || 'F1 TEAM'}
           </span>
         </div>
 
         {/* Team Logo at bottom of constructor strip */}
         <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 flex items-center justify-center filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] mt-3">
-          <TeamLogo teamId={pilot.team.id} size="sm" />
+          <TeamLogo teamId={pilot?.team?.id || ''} size="sm" />
         </div>
       </div>
 
