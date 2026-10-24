@@ -60,30 +60,22 @@ export default function Header({ activeTab, setActiveTab, onExportData }) {
         <button
           className={`nav-btn ${activeTab === 'starting-grid' ? 'active' : ''}`}
           onClick={() => setActiveTab('starting-grid')}
-          style={{
-            borderColor: activeTab === 'starting-grid' ? '#E10600' : undefined,
-            background: activeTab === 'starting-grid' ? 'rgba(225, 6, 0, 0.15)' : undefined
-          }}
         >
-          <Zap size={18} color="#E10600" />
+          <Zap size={18} color={activeTab === 'starting-grid' ? '#FFF' : '#E10600'} />
           Starting Grid
         </button>
 
         <button
           className={`nav-btn ${activeTab === 'calendar' ? 'active' : ''}`}
           onClick={() => setActiveTab('calendar')}
-          style={{
-            borderColor: activeTab === 'calendar' ? '#E10600' : undefined,
-            background: activeTab === 'calendar' ? 'rgba(225, 6, 0, 0.15)' : undefined,
-            position: 'relative'
-          }}
+          style={{ position: 'relative' }}
         >
-          <Calendar size={18} color={activeTab === 'calendar' ? '#E10600' : undefined} />
+          <Calendar size={18} color={activeTab === 'calendar' ? '#FFF' : '#38BDF8'} />
           Календарь 2027-1
           <span style={{
             fontSize: '0.6rem',
-            background: '#E10600',
-            color: '#FFF',
+            background: activeTab === 'calendar' ? '#FFF' : '#E10600',
+            color: activeTab === 'calendar' ? '#E10600' : '#FFF',
             padding: '1px 6px',
             borderRadius: '4px',
             fontWeight: '900',

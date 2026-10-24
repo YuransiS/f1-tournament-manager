@@ -8,6 +8,20 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('framer-motion')) return 'vendor-motion';
+            if (id.includes('lucide-react')) return 'vendor-icons';
+            if (id.includes('html-to-image') || id.includes('canvas-confetti')) return 'vendor-export';
+            if (id.includes('react-dom') || id.includes('react')) return 'vendor-react';
+          }
+        }
+      }
+    }
   }
 })
 

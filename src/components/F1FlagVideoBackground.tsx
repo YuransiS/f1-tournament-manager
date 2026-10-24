@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
+const COUNTRY_FLAG_YOUTUBE_MAP: Record<string, string> = {
   bh: 'EY_88yHI9Uc', // Bahrain
   sa: 'eDBnesS7_BY', // Saudi Arabia
   au: 'oh_a7IR9wBQ', // Australia

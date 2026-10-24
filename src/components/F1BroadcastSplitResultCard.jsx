@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Camera, Layers, Zap } from 'lucide-react';
+import { Camera, Layers } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';

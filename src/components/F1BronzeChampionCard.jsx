@@ -5,7 +5,7 @@ import { toPng } from 'html-to-image';
 import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
 
-export default function F1BronzeChampionCard({ thirdPlace, fourthPlace, lastRaceTitle = 'Chinese Grand Prix' }) {
+export default function F1BronzeChampionCard({ thirdPlace, fourthPlace }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);

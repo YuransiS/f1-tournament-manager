@@ -255,16 +255,6 @@ export default function FlagIcon({ countryCode = 'UA', style = {} }) {
         </svg>
       );
 
-    case 'MX': // Mexico 🇲🇽
-      return (
-        <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
-          <rect width="213.3" height="480" fill="#006847" />
-          <rect x="213.3" width="213.4" height="480" fill="#FFFFFF" />
-          <rect x="426.7" width="213.3" height="480" fill="#CE1126" />
-          <circle cx="320" cy="240" r="32" fill="#8B5A2B" opacity="0.8" />
-        </svg>
-      );
-
     case 'BR': // Brazil 🇧🇷
       return (
         <svg style={baseStyle} viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">

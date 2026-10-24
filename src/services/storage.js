@@ -329,7 +329,7 @@ export function calculatePointsProgression(data) {
   });
 
   // Step through each completed race
-  completedRaces.forEach((race, rIdx) => {
+  completedRaces.forEach((race) => {
     const currentRaceTeamPts = {};
     teams.forEach(t => { currentRaceTeamPts[t.id] = 0; });
 

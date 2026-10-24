@@ -1,3 +1,30 @@
+// Canonical racing numbers for tournament drivers
+export const DRIVER_NUMBER_MAP: Record<string, number> = {
+  'drv-1': 69,   // Yurii ZAKHARCHUK (69)
+  'drv-2': 14,   // Fernando ALONSO
+  'drv-3': 3,    // MARK
+  'drv-4': 23,   // Alexander ALBON
+  'drv-5': 10,   // Pierre GASLY
+  'drv-6': 67,   // Mykola YAREMA (67)
+  'drv-7': 4,    // Lando NORRIS
+  'drv-8': 27,   // Nico HULKENBERG
+  'drv-9': 77,   // Valtteri BOTTAS
+  'drv-10': 18,  // Lance STROLL
+  'drv-11': 95,  // Alexsandr GROMOV (95)
+  'drv-12': 20,  // Kevin MAGNUSSEN
+  'drv-13': 31,   // Esteban OCON
+  'drv-14': 55,  // Carlos SAINZ
+  'drv-15': 11,  // Sergio PÉREZ
+  'drv-16': 16,  // Charles LECLERC
+  'drv-17': 88,  // Denys KOVALENKO (88)
+  'drv-18': 1,   // Max VERSTAPPEN
+  'drv-19': 81,  // Oscar PIASTRI
+  'drv-20': 24,  // ZHOU Guanyu
+  'drv-21': 3,   // Daniel RICCIARDO
+  'drv-22': 22,  // Yuki TSUNODA
+  'drv-23': 5    // Vadim MANSTEIN (5)
+};
+
 export interface F1RaceDetails {
   roundNumber: number;
   countryName: string;

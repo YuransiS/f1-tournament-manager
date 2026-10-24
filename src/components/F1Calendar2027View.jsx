@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { Calendar, Flag, Sparkles, Camera, Download, Search, Filter, Zap, Clock, MapPin, Gauge, Shield, ChevronRight, X, Layers } from 'lucide-react';
+import { Calendar, Camera, Search, Zap, Clock, MapPin, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import FlagIcon from './FlagIcon';

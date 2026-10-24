@@ -43,7 +43,7 @@ export default function ChartsView({ data }) {
         <div className="card" style={{
           padding: '20px',
           background: 'linear-gradient(135deg, #151924 0%, #1A2133 100%)',
-          borderLeft: '4px solid #00A19B',
+          borderLeft: `4px solid ${leaderDriver?.team?.color || '#1E41FF'}`,
           borderRadius: '12px',
           display: 'flex',
           flexDirection: 'column',
@@ -96,7 +96,7 @@ export default function ChartsView({ data }) {
         <div className="card" style={{
           padding: '20px',
           background: 'linear-gradient(135deg, #151924 0%, #1A2133 100%)',
-          borderLeft: '4px solid #1E41FF',
+          borderLeft: `4px solid ${leaderTeam?.team?.color || '#1E41FF'}`,
           borderRadius: '12px',
           display: 'flex',
           flexDirection: 'column',
@@ -163,8 +163,8 @@ export default function ChartsView({ data }) {
           <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderTop: '1px solid #262B3A', paddingTop: '10px' }}>
             <div>
               <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>Статус чемпионата:</span>
-              <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#FFF' }}>
-                В самом разгаре
+              <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#10B981' }}>
+                Сезон завершён • Призёры определены 🏆
               </div>
             </div>
             <span style={{

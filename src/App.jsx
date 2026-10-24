@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import WinnerBanner from './components/WinnerBanner';
 import StandingsView from './components/StandingsView';
-import ChartsView from './components/ChartsView';
-import RacesView from './components/RacesView';
-import DriversView from './components/DriversView';
-import StartingGridView from './components/StartingGridView';
-import F1Calendar2027View from './components/F1Calendar2027View';
+
+const ChartsView = lazy(() => import('./components/ChartsView'));
+const RacesView = lazy(() => import('./components/RacesView'));
+const DriversView = lazy(() => import('./components/DriversView'));
+const StartingGridView = lazy(() => import('./components/StartingGridView'));
+const F1Calendar2027View = lazy(() => import('./components/F1Calendar2027View'));
 
 import {
   getTournamentData,
@@ -27,7 +28,7 @@ function getTabFromUrl() {
 }
 
 export default function App() {
-  const [data, setData] = useState(() => getTournamentData());
+  const [data] = useState(() => getTournamentData());
   const [activeTab, setActiveTabState] = useState(() => getTabFromUrl());
 
   // Function to set active tab and update browser address bar URL cleanly
@@ -55,7 +56,7 @@ export default function App() {
   };
 
   // Calculate live overall standings
-  const standings = calculateStandings(data);
+  const standings = useMemo(() => calculateStandings(data), [data]);
 
   return (
     <div className="app-container">
@@ -66,54 +67,63 @@ export default function App() {
         onExportData={handleExportData}
       />
 
-      <WinnerBanner
-        driverStandings={standings.driverStandings}
-        races={data.races}
-      />
+      {activeTab === 'standings' && (
+        <WinnerBanner
+          driverStandings={standings.driverStandings}
+          races={data.races}
+        />
+      )}
 
       <main>
-        {activeTab === 'standings' && (
-          <StandingsView
-            data={data}
-            standings={standings}
-            onNavigateTab={setActiveTab}
-          />
-        )}
+        <Suspense
+          fallback={
+            <div className="card" style={{ textAlign: 'center', padding: '48px 24px', color: 'var(--text-muted)' }}>
+              Загрузка телеметрии F1...
+            </div>
+          }
+        >
+          {activeTab === 'standings' && (
+            <StandingsView
+              data={data}
+              standings={standings}
+              onNavigateTab={setActiveTab}
+            />
+          )}
 
-        {activeTab === 'charts' && (
-          <ChartsView
-            data={data}
-          />
-        )}
+          {activeTab === 'charts' && (
+            <ChartsView
+              data={data}
+            />
+          )}
 
-        {activeTab === 'races' && (
-          <RacesView
-            races={data.races}
-            drivers={data.drivers}
-            teams={data.teams}
-            pointsMap={data.pointsMap}
-            fastestLapPoints={data.fastestLapPoints}
-            onNavigateTab={setActiveTab}
-          />
-        )}
+          {activeTab === 'races' && (
+            <RacesView
+              races={data.races}
+              drivers={data.drivers}
+              teams={data.teams}
+              pointsMap={data.pointsMap}
+              fastestLapPoints={data.fastestLapPoints}
+              onNavigateTab={setActiveTab}
+            />
+          )}
 
-        {activeTab === 'drivers' && (
-          <DriversView
-            drivers={data.drivers}
-            teams={data.teams}
-            standings={standings}
-            penalties={data.penalties}
-          />
-        )}
+          {activeTab === 'drivers' && (
+            <DriversView
+              drivers={data.drivers}
+              teams={data.teams}
+              standings={standings}
+              penalties={data.penalties}
+            />
+          )}
 
-        {activeTab === 'starting-grid' && (
-          <StartingGridView data={data} />
-        )}
+          {activeTab === 'starting-grid' && (
+            <StartingGridView data={data} />
+          )}
 
-        {activeTab === 'calendar' && (
-          <F1Calendar2027View />
-        )}
-
+          {activeTab === 'calendar' && (
+            <F1Calendar2027View />
+          )}
+        </Suspense>
       </main>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Camera, Star, Vote, CheckCircle2 } from 'lucide-react';
+import { Camera, Vote, CheckCircle2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
@@ -70,7 +70,7 @@ const REAL_TRACK_PHOTOS = {
   'race-25': '/tracks/jeddah.png'
 };
 
-export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
+export default function F1DriverOfTheDayCard({ raceTitle, fullResults, defaultDriverId, activeRaceId }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -102,7 +102,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     let savedVotes = {};
     try {
       savedVotes = JSON.parse(localStorage.getItem(votesKey)) || {};
-    } catch (e) {
+    } catch {
       savedVotes = {};
     }
     setVotes(savedVotes);

@@ -12,11 +12,6 @@ export default function F1WorldChampionCard({ champion, runnerUp, constructorCha
   const [heroMode, setHeroMode] = useState('art'); // 'art' (champion victory art) or 'photo' (standing cutout)
   const [showMemeModal, setShowMemeModal] = useState(false);
 
-  // Trigger celebration confetti on mount
-  useEffect(() => {
-    fireConfetti();
-  }, []);
-
   // Keyboard shortcut: Escape to close meme modal
   useEffect(() => {
     if (!showMemeModal) return;

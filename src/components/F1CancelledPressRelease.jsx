@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Camera, AlertTriangle, ShieldAlert, FileText, CheckCircle2 } from 'lucide-react';
+import { Camera, AlertTriangle, ShieldAlert, CheckCircle2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 export default function F1CancelledPressRelease({ raceTitle, trackImage }) {

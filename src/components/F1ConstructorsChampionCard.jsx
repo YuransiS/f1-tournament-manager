@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Trophy, Award, Sparkles, Camera, ChevronDown, ChevronUp, CheckCircle2, ShieldCheck, Users } from 'lucide-react';
+import { Trophy, Award, Sparkles, Camera, ChevronDown, ChevronUp, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import confetti from 'canvas-confetti';
@@ -9,7 +9,6 @@ export default function F1ConstructorsChampionCard({ constructorChampion, runner
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const teamName = constructorChampion?.team?.name || 'Red Bull / Red Kangaroo';
   const teamPoints = constructorChampion?.totalPoints || 680;
   const teamWins = constructorChampion?.wins || 14;
   const teamPodiums = constructorChampion?.podiums || 33;

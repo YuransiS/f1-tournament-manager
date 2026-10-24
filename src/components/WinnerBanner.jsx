@@ -1,32 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Flame, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
-import { DRIVER_NUMBER_MAP } from './StartingGridView';
+import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
 export default function WinnerBanner({ driverStandings, races }) {
   const leader = driverStandings && driverStandings.length > 0 ? driverStandings[0] : null;
   const runnerUp = driverStandings && driverStandings.length > 1 ? driverStandings[1] : null;
   const thirdPlace = driverStandings && driverStandings.length > 2 ? driverStandings[2] : null;
-  const leaderId = leader?.driver?.id;
   const lastRace = races && races.length > 0 ? races[races.length - 1] : null;
   const isChampionSealed = leader && runnerUp ? ((leader.totalPoints - runnerUp.totalPoints) > 26) : false;
-
-  // Trigger celebration confetti on mount
-  useEffect(() => {
-    if (!leaderId) return;
-    try {
-      confetti({
-        particleCount: isChampionSealed ? 65 : 45,
-        spread: 70,
-        origin: { y: 0.15 },
-        colors: isChampionSealed ? ['#FFD700', '#E10600', '#1E41FF', '#FFFFFF'] : ['#E10600', '#FFD700', '#00A19B', '#FFFFFF']
-      });
-    } catch {
-      // ignore
-    }
-  }, [leaderId, isChampionSealed]);
 
   if (!leader) return null;
 

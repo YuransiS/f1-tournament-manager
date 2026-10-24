@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Camera, AlertTriangle, ShieldAlert, Scale } from 'lucide-react';
+import { Camera, AlertTriangle, Scale } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 export default function F1PenaltyAnnouncement({

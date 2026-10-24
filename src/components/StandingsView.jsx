@@ -9,11 +9,12 @@ import F1ViceChampionCard from './F1ViceChampionCard';
 import F1BronzeChampionCard from './F1BronzeChampionCard';
 import F1ConstructorsChampionCard from './F1ConstructorsChampionCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
-import { DRIVER_NUMBER_MAP } from './StartingGridView';
+import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
 export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
   const [internalTab, setInternalTab] = useState('drivers');
   const [showInlineChart, setShowInlineChart] = useState(false);
+  const [activePoster, setActivePoster] = useState('p1'); // 'p1' | 'p2' | 'p3' | 'constructors' | 'broadcast-tv' | 'all' | 'none'
   const activeTab = propActiveTab || internalTab;
   const handleTabChange = onTabChange || setInternalTab;
 
@@ -24,32 +25,126 @@ export default function StandingsView({ data, standings: propStandings, activeTa
     return data ? calculatePointsProgression(data) : null;
   }, [data]);
 
+  const handleMainTabSwitch = (nextTab) => {
+    handleTabChange(nextTab);
+    if (nextTab === 'constructors' && ['p1', 'p2', 'p3'].includes(activePoster)) {
+      setActivePoster('constructors');
+    } else if (nextTab === 'drivers' && activePoster === 'constructors') {
+      setActivePoster('p1');
+    }
+  };
+
   return (
     <div>
+      {/* Interactive Hall of Fame / Champions Poster Switcher */}
+      <div
+        className="card"
+        style={{
+          padding: '14px 18px',
+          marginBottom: '20px',
+          background: 'linear-gradient(90deg, #121521 0%, #191E2E 100%)',
+          border: '1px solid rgba(255, 215, 0, 0.25)',
+          borderRadius: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{
+            fontSize: '0.72rem',
+            fontWeight: '900',
+            background: 'rgba(255, 215, 0, 0.15)',
+            color: '#FFD700',
+            border: '1px solid rgba(255, 215, 0, 0.4)',
+            padding: '4px 10px',
+            borderRadius: '6px',
+            letterSpacing: '1px',
+            textTransform: 'uppercase'
+          }}>
+            🏆 Зал Славы 2026
+          </span>
+          <span style={{ fontSize: '0.9rem', fontWeight: '800', color: '#E5E7EB' }}>
+            Официальные постеры призёров чемпионата:
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          {[
+            { id: 'p1', label: '🥇 Чемпион (#67 Коля)', color: '#FFD700' },
+            { id: 'p2', label: '🥈 Вице-чемпион (#69 Юра)', color: '#00D2BE' },
+            { id: 'p3', label: '🥉 Бронза (#88 Денис)', color: '#F59E0B' },
+            { id: 'constructors', label: '🏆 Кубок Конструкторов', color: '#3B82F6' },
+            { id: 'broadcast-tv', label: '📺 ТВ-Таблица 16:9', color: '#E10600' },
+            { id: 'all', label: 'Все постеры', color: '#9CA3AF' },
+            { id: 'none', label: 'Скрыть ✕', color: '#6B7280' }
+          ].map((item) => {
+            const isSelected = activePoster === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActivePoster(item.id)}
+                className="btn btn-sm"
+                style={{
+                  background: isSelected ? 'rgba(255, 255, 255, 0.14)' : 'rgba(11, 13, 18, 0.7)',
+                  borderColor: isSelected ? item.color : '#262B3A',
+                  color: isSelected ? '#FFFFFF' : '#9CA3AF',
+                  fontWeight: isSelected ? '900' : '700',
+                  boxShadow: isSelected ? `0 0 14px ${item.color}33` : 'none',
+                  padding: '6px 12px',
+                  fontSize: '0.8rem'
+                }}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Official FIA World Champion 2026 Declaration Card & Poster */}
-      <F1WorldChampionCard
-        champion={driverStandings[0]}
-        runnerUp={driverStandings[1]}
-        constructorChampion={constructorStandings[0]}
-        lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
-      />
+      {(activePoster === 'p1' || activePoster === 'all') && (
+        <F1WorldChampionCard
+          champion={driverStandings[0]}
+          runnerUp={driverStandings[1]}
+          constructorChampion={constructorStandings[0]}
+          lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
+        />
+      )}
 
       {/* Official FIA Vice-Champion 2026 Declaration Card & Poster */}
-      <F1ViceChampionCard
-        runnerUp={driverStandings[1]}
-        thirdPlace={driverStandings[2]}
-        lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
-      />
+      {(activePoster === 'p2' || activePoster === 'all') && (
+        <F1ViceChampionCard
+          runnerUp={driverStandings[1]}
+          thirdPlace={driverStandings[2]}
+          lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
+        />
+      )}
 
       {/* Official FIA Bronze Medalist 2026 Declaration Card & Poster */}
-      <F1BronzeChampionCard
-        thirdPlace={driverStandings[2]}
-        fourthPlace={driverStandings[3]}
-        lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
-      />
+      {(activePoster === 'p3' || activePoster === 'all') && (
+        <F1BronzeChampionCard
+          thirdPlace={driverStandings[2]}
+          fourthPlace={driverStandings[3]}
+          lastRaceTitle={data?.races?.[data.races.length - 1]?.title}
+        />
+      )}
+
+      {/* Official FIA Constructors World Champion 2026 Celebration Poster */}
+      {(activePoster === 'constructors' || activePoster === 'all') && (
+        <F1ConstructorsChampionCard
+          constructorChampion={constructorStandings[0]}
+          runnerUpTeam={constructorStandings[1]}
+        />
+      )}
 
       {/* Broadcast TV 16:9 Standings Graphic Card */}
-      <F1StandingsBroadcastCard standings={standings} activeTab={activeTab} />
+      {(activePoster === 'broadcast-tv' || activePoster === 'all') && (
+        <F1StandingsBroadcastCard driverStandings={driverStandings} subtitleLabel="ФИНАЛЬНЫЙ ЗАЧЁТ 2026" />
+      )}
 
       {/* 2027-1 Official Season Calendar Announcement Banner */}
       <div className="card" style={{
@@ -187,17 +282,17 @@ export default function StandingsView({ data, standings: propStandings, activeTa
       )}
 
       {/* Sub navigation for Drivers vs Constructors */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
         <button
           className={`btn ${activeTab === 'drivers' ? 'btn-primary' : ''}`}
-          onClick={() => handleTabChange('drivers')}
+          onClick={() => handleMainTabSwitch('drivers')}
           style={{ padding: '10px 24px', fontWeight: '800', fontSize: '0.95rem' }}
         >
           <User size={18} /> ЛИЧНЫЙ ЗАЧЁТ (DRIVERS)
         </button>
         <button
           className={`btn ${activeTab === 'constructors' ? 'btn-primary' : ''}`}
-          onClick={() => handleTabChange('constructors')}
+          onClick={() => handleMainTabSwitch('constructors')}
           style={{ padding: '10px 24px', fontWeight: '800', fontSize: '0.95rem' }}
         >
           <Shield size={18} /> КУБОК КОНСТРУКТОРОВ (TEAMS)
@@ -304,14 +399,7 @@ export default function StandingsView({ data, standings: propStandings, activeTa
           </div>
         </div>
       ) : (
-        <>
-          {/* Official FIA Constructors World Champion 2026 Celebration Poster */}
-          <F1ConstructorsChampionCard
-            constructorChampion={constructorStandings[0]}
-            runnerUpTeam={constructorStandings[1]}
-          />
-
-          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
           <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
@@ -389,7 +477,6 @@ export default function StandingsView({ data, standings: propStandings, activeTa
             </table>
           </div>
         </div>
-        </>
       )}
     </div>
   );

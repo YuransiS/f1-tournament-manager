@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star, Zap } from 'lucide-react';
+import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star, Tv } from 'lucide-react';
 import { calculateRacePoints } from '../services/storage';
+import FlagIcon from './FlagIcon';
+import TeamLogo from './TeamLogo';
 import F1PodiumOnlyCard from './F1PodiumOnlyCard';
 import F1BroadcastSplitResultCard from './F1BroadcastSplitResultCard';
 import F1CancelledPressRelease from './F1CancelledPressRelease';
 import F1PenaltyAnnouncement from './F1PenaltyAnnouncement';
 import F1DriverOfTheDayCard from './F1DriverOfTheDayCard';
+import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
 const TRACK_LAYOUTS = {
   'race-1': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Bahrain_Circuit.png',
@@ -221,7 +224,14 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
               onClick={() => setViewMode('main-results')}
               style={{ padding: '8px 16px', fontWeight: '700' }}
             >
-              <Trophy size={16} /> {activeRace.isSprint ? 'Результаты Спринта ⚡' : 'Результаты Гонки'}
+              <Trophy size={16} /> {activeRace.isSprint ? 'Протокол и Подиум ⚡' : 'Протокол и Подиум'}
+            </button>
+            <button
+              className={`btn btn-sm ${viewMode === 'tv-broadcast' ? 'btn-primary' : ''}`}
+              onClick={() => setViewMode('tv-broadcast')}
+              style={{ padding: '8px 16px', fontWeight: '700' }}
+            >
+              <Tv size={16} /> ТВ-Графика 1:1
             </button>
             <button
               className={`btn btn-sm ${viewMode === 'dotd' ? 'btn-primary' : ''}`}
@@ -265,38 +275,24 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
           defaultDriverId={activeRace.driverOfTheDayId || activeRace.fastestLapDriverId || fullResults[0].driverId}
           activeRaceId={activeRace.id}
         />
+      ) : viewMode === 'tv-broadcast' ? (
+        <F1BroadcastSplitResultCard
+          raceTitle={activeRace.title}
+          trackImage={trackImage}
+          fullResults={fullResults}
+        />
       ) : (
         <>
-          {/* Driver of the Day Spotlight Card at top of results */}
-          <F1DriverOfTheDayCard
-            raceTitle={activeRace.title}
-            trackImage={trackImage}
-            fullResults={fullResults}
-            defaultDriverId={activeRace.driverOfTheDayId || activeRace.fastestLapDriverId || fullResults[0].driverId}
-            activeRaceId={activeRace.id}
-          />
-
-          {/* 1:1 F1 Broadcast Split Result TV Cards (Top 10 / 11-20) */}
-          <F1BroadcastSplitResultCard
-            raceTitle={activeRace.title}
-            trackImage={trackImage}
-            fullResults={fullResults}
-          />
-
-          {/* 16:9 F1 Podium Card (Top 3) */}
-          <F1PodiumOnlyCard
-            raceTitle={activeRace.title}
-            trackImage={trackImage}
-            fullResults={fullResults}
-          />
-
-          {/* Full Interactive Table */}
-          <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {/* Full Interactive Table FIRST for immediate access */}
+          <div className="card" style={{ padding: 0, overflow: 'hidden', marginBottom: '24px' }}>
+            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Award size={18} style={{ color: 'var(--f1-gold)' }} />
                 ПОЛНЫЙ ИТОГОВЫЙ ПРОТОКОЛ {activeRace.title.toUpperCase()} {activeRace.isSprint ? '(СПРИНТ)' : ''}
               </h3>
+              <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: '700' }}>
+                Участников: {fullResults.length} • Быстрый круг: {fullResults.find(r => r.isFastestLap)?.driver?.name || '—'}
+              </span>
             </div>
 
             <div className="f1-table-wrapper">
@@ -316,6 +312,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
                 <tbody>
                   {fullResults.map((item) => {
                     const isPlayer = !item.driver.isAi;
+                    const raceNum = DRIVER_NUMBER_MAP[item.driverId] || item.driver.driverNumber || '';
 
                     return (
                       <tr key={item.driverId} className={isPlayer ? 'real-player-row' : ''}>
@@ -324,15 +321,34 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
                         </td>
                         <td>
                           <div className="driver-cell">
-                            {item.driver.avatar && (
+                            {item.driver.avatar ? (
                               <img
                                 src={item.driver.avatar}
                                 alt={item.driver.name}
-                                style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
+                                style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover', border: isPlayer ? '1.5px solid #0284C7' : '1px solid var(--border-color)' }}
                               />
+                            ) : (
+                              <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem' }}>
+                                🏎️
+                              </div>
                             )}
                             <div className="driver-name">
+                              <FlagIcon countryCode={item.driver.country} />
                               <span style={{ fontWeight: '700' }}>{item.driver.name}</span>
+                              {raceNum && (
+                                <span style={{
+                                  fontSize: '0.72rem',
+                                  fontWeight: '900',
+                                  color: item.team.color || '#FFF',
+                                  background: 'rgba(255,255,255,0.06)',
+                                  border: '1px solid rgba(255,255,255,0.12)',
+                                  padding: '1px 5px',
+                                  borderRadius: '4px',
+                                  fontFamily: 'Titillium Web, sans-serif'
+                                }}>
+                                  #{raceNum}
+                                </span>
+                              )}
                               {isPlayer && <span className="player-badge">Player</span>}
                             </div>
                           </div>
@@ -340,18 +356,21 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
                         <td>
                           <div className="team-cell">
                             <span className="team-stripe" style={{ backgroundColor: item.team.color }} />
-                            {item.team.name}
+                            {item.team.id && <TeamLogo teamId={item.team.id} size="xs" />}
+                            <span>{item.team.name}</span>
                           </div>
                         </td>
                         <td style={{ textAlign: 'center', fontWeight: '600' }}>
-                          {item.gridPos}
-                          {item.posDiff > 0 ? (
-                            <span className="grid-change grid-up">▲+{item.posDiff}</span>
-                          ) : item.posDiff < 0 ? (
-                            <span className="grid-change grid-down">▼{item.posDiff}</span>
-                          ) : (
-                            <span className="grid-change grid-same">=</span>
-                          )}
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                            <span>P{item.gridPos}</span>
+                            {item.posDiff > 0 ? (
+                              <span className="grid-change grid-up">▲+{item.posDiff}</span>
+                            ) : item.posDiff < 0 ? (
+                              <span className="grid-change grid-down">▼{item.posDiff}</span>
+                            ) : (
+                              <span className="grid-change grid-same">=</span>
+                            )}
+                          </div>
                         </td>
                         <td style={{ textAlign: 'center', fontWeight: '600' }}>{item.stops}</td>
                         <td style={{ textAlign: 'center' }}>
@@ -379,6 +398,13 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
               </table>
             </div>
           </div>
+
+          {/* 16:9 F1 Podium Card (Top 3) */}
+          <F1PodiumOnlyCard
+            raceTitle={activeRace.title}
+            trackImage={trackImage}
+            fullResults={fullResults}
+          />
         </>
       )}
     </div>

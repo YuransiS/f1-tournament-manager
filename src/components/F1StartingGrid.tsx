@@ -4,10 +4,8 @@ import { Play, Pause, ChevronUp, ChevronDown, Maximize2, Minimize2, RotateCcw, V
 import F1GridDriverCard from './F1GridDriverCard';
 import F1StartingGridSlotDisplay from './F1StartingGridSlotDisplay';
 import F1StartingGridIntro from './F1StartingGridIntro';
-import F1FlagVideoBackground, { COUNTRY_FLAG_YOUTUBE_MAP } from './F1FlagVideoBackground';
+import F1FlagVideoBackground from './F1FlagVideoBackground';
 import { extractF1RaceDetails } from '../utils/f1CircuitHelper';
-
-export { COUNTRY_FLAG_YOUTUBE_MAP };
 
 export interface GridPilot {
   id: string;
@@ -375,8 +373,8 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         </div>
       </div>
 
-      {/* Top-Right: Controls Strip (Hidden by default (opacity-0), reveals on hover) */}
-      <div className="absolute top-3 right-4 sm:top-4 sm:right-8 z-50 flex items-center gap-1.5 sm:gap-2 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/10 hover:border-white/25 shadow-2xl pointer-events-auto">
+      {/* Top-Right: Controls Strip */}
+      <div className="absolute top-3 right-4 sm:top-4 sm:right-8 z-50 flex items-center gap-1.5 sm:gap-2 opacity-80 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/65 hover:bg-black/85 backdrop-blur-md border border-white/15 hover:border-white/30 shadow-2xl pointer-events-auto">
         <button
           type="button"
           onClick={replayIntro}
@@ -512,7 +510,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </div>
 
             {/* CENTER ZONE: Layered over the drivers down the center */}
-            <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[520px] sm:w-[580px] lg:w-[660px] 2xl:w-[740px] flex flex-col items-center justify-center z-30 px-1 py-2 pointer-events-auto">
+            <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[350px] sm:w-[420px] lg:w-[480px] 2xl:w-[540px] flex flex-col items-center justify-center z-30 px-1 py-2 pointer-events-auto">
               <F1StartingGridSlotDisplay
                 pairs={pairs}
                 activePairIndex={activePairIndex}

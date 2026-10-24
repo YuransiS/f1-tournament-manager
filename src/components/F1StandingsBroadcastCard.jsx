@@ -3,7 +3,7 @@ import { Camera, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
-import { DRIVER_NUMBER_MAP } from './StartingGridView';
+import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
 export default function F1StandingsBroadcastCard({ driverStandings, subtitleLabel = 'ТЕКУЩИЙ ЗАЧЕТ' }) {
   const cardRef = useRef(null);

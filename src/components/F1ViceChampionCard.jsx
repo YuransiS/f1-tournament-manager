@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Trophy, Award, Sparkles, Camera, ChevronDown, ChevronUp, CheckCircle2, ShieldCheck, Medal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import confetti from 'canvas-confetti';
 import FlagIcon from './FlagIcon';
 
-export default function F1ViceChampionCard({ runnerUp, thirdPlace, lastRaceTitle = 'Chinese Grand Prix' }) {
+export default function F1ViceChampionCard({ runnerUp, thirdPlace }) {
   const cardRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -18,7 +18,6 @@ export default function F1ViceChampionCard({ runnerUp, thirdPlace, lastRaceTitle
   const thirdPoints = thirdPlace?.totalPoints || 255;
   const pointsGapP3 = Math.max(0, vicePoints - thirdPoints); // 135 pts
   const teamName = runnerUp?.team?.name || 'Mercedes-AMG Petronas';
-  const teamColor = runnerUp?.team?.color || '#00A19B';
   const teamAccent = runnerUp?.team?.accentColor || '#00D2BE';
 
   const fireSilverConfetti = () => {

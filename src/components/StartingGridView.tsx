@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import F1StartingGrid, { GridPilot } from './F1StartingGrid';
-import { Sparkles, Calendar, Gauge, Play, Volume2, Trophy, Square, Tv } from 'lucide-react';
-import { extractF1RaceDetails } from '../utils/f1CircuitHelper';
+import { Sparkles, Calendar, Gauge, Play, Square } from 'lucide-react';
+import { extractF1RaceDetails, DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
 interface StartingGridViewProps {
   data?: {
@@ -9,62 +9,6 @@ interface StartingGridViewProps {
     drivers?: any[];
     teams?: any[];
   };
-}
-
-// Canonical racing numbers for drivers
-export const DRIVER_NUMBER_MAP: Record<string, number> = {
-  'drv-1': 69,   // Yurii ZAKHARCHUK (69) — поменялись с Колей
-  'drv-2': 14,   // Fernando ALONSO
-  'drv-3': 3,    // MARK
-  'drv-4': 23,   // Alexander ALBON
-  'drv-5': 10,   // Pierre GASLY
-  'drv-6': 67,   // Mykola YAREMA (67) — поменялись с Юрой
-  'drv-7': 4,    // Lando NORRIS
-  'drv-8': 27,   // Nico HULKENBERG
-  'drv-9': 77,   // Valtteri BOTTAS
-  'drv-10': 18,  // Lance STROLL
-  'drv-11': 95,  // Alexsandr GROMOV (95)
-  'drv-12': 20,  // Kevin MAGNUSSEN
-  'drv-13': 31,  // Esteban OCON
-  'drv-14': 55,  // Carlos SAINZ
-  'drv-15': 11,  // Sergio PÉREZ
-  'drv-16': 16,  // Charles LECLERC
-  'drv-17': 88,  // Denys KOVALENKO (88)
-  'drv-18': 1,   // Max VERSTAPPEN
-  'drv-19': 81,  // Oscar PIASTRI
-  'drv-20': 24,  // ZHOU Guanyu
-  'drv-21': 3,   // Daniel RICCIARDO
-  'drv-22': 22,  // Yuki TSUNODA
-  'drv-23': 5    // Vadim MANSTEIN (5)
-};
-
-// Mapping of Grand Prix event to ISO 2-letter country code for host country waving flags
-export function getRaceCountryCode(race?: any): string {
-  if (!race) return 'jp';
-  const text = `${race.title || ''} ${race.subtitle || ''} ${race.circuitName || ''}`.toLowerCase();
-  if (text.includes('japan') || text.includes('suzuka')) return 'jp';
-  if (text.includes('bahrain') || text.includes('sakhir')) return 'bh';
-  if (text.includes('saudi') || text.includes('jeddah')) return 'sa';
-  if (text.includes('australia') || text.includes('albert park') || text.includes('melbourne')) return 'au';
-  if (text.includes('azerbaijan') || text.includes('baku')) return 'az';
-  if (text.includes('china') || text.includes('chinese') || text.includes('shanghai')) return 'cn';
-  if (text.includes('miami') || text.includes('united states') || text.includes('usa') || text.includes('austin')) return 'us';
-  if (text.includes('imola') || text.includes('emilia') || text.includes('monza') || text.includes('italy') || text.includes('italian')) return 'it';
-  if (text.includes('monaco') || text.includes('monte carlo')) return 'mc';
-  if (text.includes('canada') || text.includes('montreal') || text.includes('gilles')) return 'ca';
-  if (text.includes('spain') || text.includes('spanish') || text.includes('barcelona') || text.includes('catalunya')) return 'es';
-  if (text.includes('austria') || text.includes('red bull ring') || text.includes('spielberg')) return 'at';
-  if (text.includes('silverstone') || text.includes('british') || text.includes('united kingdom') || text.includes('uk')) return 'gb';
-  if (text.includes('hungary') || text.includes('hungaroring') || text.includes('budapest')) return 'hu';
-  if (text.includes('belgian') || text.includes('belgium') || text.includes('spa')) return 'be';
-  if (text.includes('netherlands') || text.includes('dutch') || text.includes('zandvoort')) return 'nl';
-  if (text.includes('singapore') || text.includes('marina bay')) return 'sg';
-  if (text.includes('qatar') || text.includes('lusail')) return 'qa';
-  if (text.includes('mexico') || text.includes('hermanos')) return 'mx';
-  if (text.includes('brazil') || text.includes('interlagos') || text.includes('são paulo') || text.includes('sao paulo')) return 'br';
-  if (text.includes('vegas')) return 'us';
-  if (text.includes('abu dhabi') || text.includes('yas marina')) return 'ae';
-  return 'jp';
 }
 
 export default function StartingGridView({ data }: StartingGridViewProps) {
@@ -115,7 +59,6 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
   }, [validRaces, races, selectedRaceId]);
 
   const raceDetails = useMemo(() => extractF1RaceDetails(selectedRace), [selectedRace]);
-  const hostCountryCode = raceDetails.countryCode;
 
   // Transform actual race results into GridPilot[] ordered by starting grid position (1, 2, 3...)
   const activePilots: GridPilot[] = useMemo(() => {
@@ -159,7 +102,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
         realName: fullName,
         nickname: surname.toUpperCase(),
         driverNumber: DRIVER_NUMBER_MAP[driver?.id] || res.grid,
-        avatarUrl: driver?.avatar || driver?.avatarFullNoBg || '',
+        avatarUrl: driver?.avatarFullNoBg || driver?.avatar || '',
         countryFlagUrl: driver?.country || 'UA',
         lapTimeOrDelta: timingDisplay,
         team: {
@@ -173,9 +116,6 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
       };
     });
   }, [selectedRace, drivers, teams]);
-
-  const activeEventTitle = selectedRace?.title ? selectedRace.title.toUpperCase() : 'GRAND PRIX';
-  const activeTrackName = selectedRace?.subtitle ? selectedRace.subtitle.toUpperCase() : 'F1 CIRCUIT';
 
   return (
     <div className="w-full flex flex-col gap-4">

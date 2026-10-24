@@ -1,7 +1,7 @@
 import React from 'react';
-import { User, Shield, AlertOctagon, Trophy, Zap, Flag } from 'lucide-react';
+import { User, AlertOctagon } from 'lucide-react';
 import FlagIcon from './FlagIcon';
-import { DRIVER_NUMBER_MAP } from './StartingGridView';
+import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
 export default function DriversView({ drivers, teams, standings, penalties }) {
   const standingsMap = {};
