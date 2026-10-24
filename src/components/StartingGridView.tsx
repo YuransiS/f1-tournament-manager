@@ -218,6 +218,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
             cycleIntervalMs={cycleSpeed}
             autoPlay={true}
             startWithSound={startWithAudio}
+            isBroadcastMode={true}
             onClose={handleCloseBroadcast}
             className="w-full h-full"
           />

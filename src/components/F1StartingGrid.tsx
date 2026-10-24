@@ -40,6 +40,7 @@ export interface F1StartingGridProps {
   cycleIntervalMs?: number;
   autoPlay?: boolean;
   startWithSound?: boolean;
+  isBroadcastMode?: boolean;
   onClose?: () => void;
   className?: string;
 }
@@ -57,6 +58,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   cycleIntervalMs = 2800,
   autoPlay = true,
   startWithSound = false,
+  isBroadcastMode = false,
   onClose,
   className = ''
 }) => {
@@ -266,15 +268,28 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
   }, []);
 
   // Automatic bottom-to-top cycle timer: progresses from rear row towards Pole
+  // When reached row 0 (P1 and P2), stops automatically without looping
   useEffect(() => {
     if (introStage !== 'broadcast' || !isPlaying || totalPairs <= 1) return;
 
+    // If already at Pole (row 0, positions 1 & 2), stop cycling
+    if (activePairIndex <= 0) {
+      setIsPlaying(false);
+      return;
+    }
+
     const timer = setInterval(() => {
-      setActivePairIndex((prev) => (prev > 0 ? prev - 1 : totalPairs - 1));
+      setActivePairIndex((prev) => {
+        if (prev <= 1) {
+          setIsPlaying(false);
+          return 0; // Stop on P1 and P2
+        }
+        return prev - 1;
+      });
     }, cycleIntervalMs);
 
     return () => clearInterval(timer);
-  }, [introStage, isPlaying, totalPairs, cycleIntervalMs]);
+  }, [introStage, isPlaying, totalPairs, cycleIntervalMs, activePairIndex]);
 
   const handleImageError = (id: string) => {
     setImgErrors((prev) => ({ ...prev, [id]: true }));
@@ -373,96 +388,98 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
         </div>
       </div>
 
-      {/* Top-Right: Controls Strip */}
-      <div className="absolute top-3 right-4 sm:top-4 sm:right-8 z-50 flex items-center gap-1.5 sm:gap-2 opacity-80 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/65 hover:bg-black/85 backdrop-blur-md border border-white/15 hover:border-white/30 shadow-2xl pointer-events-auto">
-        <button
-          type="button"
-          onClick={replayIntro}
-          title="Replay Intro Sequence (R)"
-          className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
-        >
-          <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
-          <span className="hidden md:inline">INTRO</span>
-        </button>
+      {/* Top-Right: Controls Strip (Hidden completely in broadcast mode, or reveals on hover in tab preview) */}
+      {!isBroadcastMode && (
+        <div className="absolute top-3 right-4 sm:top-4 sm:right-8 z-50 flex items-center gap-1.5 sm:gap-2 opacity-80 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 p-1.5 rounded-xl bg-black/65 hover:bg-black/85 backdrop-blur-md border border-white/15 hover:border-white/30 shadow-2xl pointer-events-auto">
+          <button
+            type="button"
+            onClick={replayIntro}
+            title="Replay Intro Sequence (R)"
+            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-neutral-200" />
+            <span className="hidden md:inline">INTRO</span>
+          </button>
 
-        <button
-          type="button"
-          onClick={togglePlay}
-          title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-          className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
-        >
-          {isPlaying ? (
-            <>
-              <Pause className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">PAUSE</span>
-            </>
-          ) : (
-            <>
-              <Play className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="hidden sm:inline">PLAY</span>
-            </>
+          <button
+            type="button"
+            onClick={togglePlay}
+            title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
+            className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/15 transition-all cursor-pointer"
+          >
+            {isPlaying ? (
+              <>
+                <Pause className="w-3.5 h-3.5 text-amber-400" />
+                <span className="hidden sm:inline">PAUSE</span>
+              </>
+            ) : (
+              <>
+                <Play className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden sm:inline">PLAY</span>
+              </>
+            )}
+          </button>
+
+          {/* Stepper Buttons (Up toward Pole / Down toward Rear) */}
+          <div className="flex items-center bg-white/10 rounded-lg border border-white/15 overflow-hidden">
+            <button
+              type="button"
+              onClick={handleStepUp}
+              title="Previous / Up Toward Pole (↑)"
+              className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
+            >
+              <ChevronUp className="w-4 h-4 text-white" />
+            </button>
+            <div className="w-[1px] h-4 bg-white/20" />
+            <button
+              type="button"
+              onClick={handleStepDown}
+              title="Next / Down Toward Rear (↓)"
+              className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
+            >
+              <ChevronDown className="w-4 h-4 text-white" />
+            </button>
+          </div>
+
+          {/* Sound Toggle (20% volume) */}
+          <button
+            type="button"
+            onClick={toggleMute}
+            title={isMuted ? 'Включить звук темы F1 (M)' : 'Выключить звук (M)'}
+            className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
+              isMuted
+                ? 'bg-white/10 text-neutral-400 border-white/15 hover:text-white'
+                : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_12px_rgba(225,6,0,0.6)]'
+            }`}
+          >
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
+            <span className="text-[10px] font-bold uppercase hidden lg:inline">
+              {isMuted ? 'MUTE' : 'AUDIO (20%)'}
+            </span>
+          </button>
+
+          {/* Fullscreen Button */}
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            title="Fullscreen Toggle (F)"
+            className="p-1.5 bg-white/10 hover:bg-white/25 active:scale-95 text-white rounded-lg border border-white/15 transition-all cursor-pointer"
+          >
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+          </button>
+
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              title="Close (Esc)"
+              className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
+            >
+              ✕
+            </button>
           )}
-        </button>
-
-        {/* Stepper Buttons (Up toward Pole / Down toward Rear) */}
-        <div className="flex items-center bg-white/10 rounded-lg border border-white/15 overflow-hidden">
-          <button
-            type="button"
-            onClick={handleStepUp}
-            title="Previous / Up Toward Pole (↑)"
-            className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
-          >
-            <ChevronUp className="w-4 h-4 text-white" />
-          </button>
-          <div className="w-[1px] h-4 bg-white/20" />
-          <button
-            type="button"
-            onClick={handleStepDown}
-            title="Next / Down Toward Rear (↓)"
-            className="p-1.5 hover:bg-white/25 active:bg-white/30 transition-colors cursor-pointer"
-          >
-            <ChevronDown className="w-4 h-4 text-white" />
-          </button>
         </div>
-
-        {/* Sound Toggle (20% volume) */}
-        <button
-          type="button"
-          onClick={toggleMute}
-          title={isMuted ? 'Включить звук темы F1 (M)' : 'Выключить звук (M)'}
-          className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
-            isMuted
-              ? 'bg-white/10 text-neutral-400 border-white/15 hover:text-white'
-              : 'bg-[#E10600]/30 text-white border-[#E10600]/60 shadow-[0_0_12px_rgba(225,6,0,0.6)]'
-          }`}
-        >
-          {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
-          <span className="text-[10px] font-bold uppercase hidden lg:inline">
-            {isMuted ? 'MUTE' : 'AUDIO (20%)'}
-          </span>
-        </button>
-
-        {/* Fullscreen Button */}
-        <button
-          type="button"
-          onClick={toggleFullscreen}
-          title="Fullscreen Toggle (F)"
-          className="p-1.5 bg-white/10 hover:bg-white/25 active:scale-95 text-white rounded-lg border border-white/15 transition-all cursor-pointer"
-        >
-          {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-        </button>
-
-        {onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            title="Close (Esc)"
-            className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase rounded-lg border border-red-500/50 transition-all cursor-pointer ml-1"
-          >
-            ✕
-          </button>
-        )}
-      </div>
+      )}
 
       {/* ===================================================================== */}
       {/* 4. MAIN STAGE: 50/50 FULL-SCREEN DRIVER DIVISION + CENTER OVERLAY     */}
