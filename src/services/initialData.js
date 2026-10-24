@@ -1205,6 +1205,38 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-11', grid: 2, stops: 0, bestLap: '1:38.398', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-23', grid: 3, stops: 0, bestLap: '1:37.863', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
     ]
+  },
+  {
+    id: 'race-25',
+    title: 'Abu Dhabi Grand Prix',
+    subtitle: 'YAS MARINA CIRCUIT - RACE 25 (FINAL ROUND)',
+    date: '2026-12-06',
+    status: 'completed',
+    fastestLapDriverId: 'drv-6',
+    driverOfTheDayId: 'drv-23',
+    incidentNote: '🇦🇪 Гран-при Абу-Даби (Yas Marina Circuit — Финал Сезона 2026): Сенсационная победа Вадима Манштейна (_erich_manstein_) за рулем Ferrari в заключительной гонке года! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м с быстрейшим кругом гонки (1:25.463), триумфально завершая свой чемпионский сезон. Денис Коваленко (Red Bull) занимает 3-е место, закрепляя дубль на подиуме для Red Bull и свою бронзу по итогам сезона! Пиастри, Боттас, Албон, Цунода, Норрис, Окон и Сайнс в очковой зоне. Для команды Mercedes финал обернулся драмой: Юрий Захарчук и Сашко Громов сошли с дистанции (DNF). Также сошли Алонсо, Стролл, Хюлькенберг и Магнуссен.',
+    results: [
+      { driverId: 'drv-23', grid: 2, stops: 2, bestLap: '1:26.340', totalTime: '86:53.034', penaltySeconds: 0, penaltyLabel: '🏆 Сенсационная победа Ferrari в финале сезона!', status: 'FINISHED' },
+      { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:25.463', totalTime: '+12.699', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Red Bull + Fastest Lap (1:25.463) • Чемпион Мира!', status: 'FINISHED' },
+      { driverId: 'drv-17', grid: 3, stops: 2, bestLap: '1:26.293', totalTime: '+28.921', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Red Bull (P3) • Бронзовый призёр сезона!', status: 'FINISHED' },
+      { driverId: 'drv-19', grid: 7, stops: 2, bestLap: '1:27.538', totalTime: '+44.490', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-9', grid: 5, stops: 3, bestLap: '1:26.447', totalTime: '+45.488', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-4', grid: 9, stops: 2, bestLap: '1:27.639', totalTime: '+50.656', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-22', grid: 4, stops: 2, bestLap: '1:27.687', totalTime: '+53.113', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-7', grid: 10, stops: 2, bestLap: '1:28.093', totalTime: '+53.462', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-13', grid: 18, stops: 3, bestLap: '1:28.104', totalTime: '+1:00.760', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-14', grid: 8, stops: 3, bestLap: '1:28.138', totalTime: '+1:03.108', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-24', grid: 12, stops: 3, bestLap: '1:28.015', totalTime: '+1:06.457', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-20', grid: 16, stops: 3, bestLap: '1:27.603', totalTime: '+1:06.460', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-21', grid: 20, stops: 3, bestLap: '1:27.711', totalTime: '+1:09.318', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-5', grid: 11, stops: 3, bestLap: '1:27.730', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+      { driverId: 'drv-1', grid: 6, stops: 1, bestLap: '1:27.100', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-11', grid: 13, stops: 1, bestLap: '1:27.800', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-2', grid: 14, stops: 1, bestLap: '1:28.200', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-10', grid: 15, stops: 1, bestLap: '1:28.500', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-8', grid: 17, stops: 1, bestLap: '1:28.700', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-12', grid: 19, stops: 1, bestLap: '1:28.900', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+    ]
   }
 ];
 

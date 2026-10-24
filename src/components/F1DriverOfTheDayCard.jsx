@@ -33,7 +33,8 @@ const RACE_COUNTRY_MAP = {
   'race-22-sprint': { code: 'BR', name: 'BRAZIL (SPRINT)' },
   'race-22': { code: 'BR', name: 'BRAZIL' },
   'race-23': { code: 'US', name: 'LAS VEGAS • USA' },
-  'race-24': { code: 'CN', name: 'CHINA' }
+  'race-24': { code: 'CN', name: 'CHINA' },
+  'race-25': { code: 'AE', name: 'ABU DHABI • UAE' }
 };
 
 // High-res real track background photos uploaded by user
@@ -65,7 +66,8 @@ const REAL_TRACK_PHOTOS = {
   'race-22-sprint': '/tracks/spain.jpg',
   'race-22': '/tracks/spain.jpg',
   'race-23': '/tracks/miami.jpg',
-  'race-24': '/tracks/spain.jpg'
+  'race-24': '/tracks/spain.jpg',
+  'race-25': '/tracks/jeddah.png'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResults, defaultDriverId, activeRaceId }) {
@@ -156,6 +158,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, trackImage, fullResult
     if (t.includes('brazil') || t.includes('são paulo') || t.includes('sao paulo') || t.includes('interlagos')) return { code: 'BR', name: 'BRAZIL' };
     if (t.includes('vegas')) return { code: 'US', name: 'LAS VEGAS' };
     if (t.includes('china') || t.includes('shanghai')) return { code: 'CN', name: 'CHINA' };
+    if (t.includes('abu dhabi') || t.includes('yas marina')) return { code: 'AE', name: 'ABU DHABI' };
     return {
       code: 'HU',
       name: (title || '').replace(/Grand Prix/i, '').trim().toUpperCase()
