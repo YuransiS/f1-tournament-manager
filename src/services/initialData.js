@@ -818,7 +818,7 @@ export const DEFAULT_RACES = [
     results: [
       { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:21.042', totalTime: '42:15.340', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 2, stops: 1, bestLap: '1:21.310', totalTime: '+3.418', penaltySeconds: 0, penaltyLabel: '⚖️ Вердикт FIA: 2-е место (отмена бага игры)', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 3, stops: 1, bestLap: '1:21.550', totalTime: '+8.920', penaltySeconds: 0, penaltyLabel: '🥉 Подиум в дебюте за Red Bull!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'red-bull', grid: 3, stops: 1, bestLap: '1:21.550', totalTime: '+8.920', penaltySeconds: 0, penaltyLabel: '🥉 Подиум в дебюте за Red Bull!', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 4, stops: 1, bestLap: '1:22.100', totalTime: '+16.623', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-16', grid: 5, stops: 1, bestLap: '1:22.050', totalTime: '+16.838', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 6, stops: 1, bestLap: '1:22.400', totalTime: '+19.574', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -850,7 +850,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-1', grid: 1, stops: 2, bestLap: '1:33.298', totalTime: '54:14.590', penaltySeconds: 0, penaltyLabel: '🏆 Хет-трик: Победа + FL (1:33.298)!', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 3, stops: 1, bestLap: '1:35.763', totalTime: '+3.039', penaltySeconds: 0, penaltyLabel: '🥈 Дубль Mercedes 1-2!', status: 'FINISHED' },
       { driverId: 'drv-12', grid: 15, stops: 1, bestLap: '1:38.379', totalTime: '+7.848', penaltySeconds: 0, penaltyLabel: '🥉 Сенсационный подиум Haas!', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 6, stops: 2, bestLap: '1:35.935', totalTime: '+8.631', penaltySeconds: 0, penaltyLabel: '⚡ Топ-4 в Сингапуре!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'red-bull', grid: 6, stops: 2, bestLap: '1:35.935', totalTime: '+8.631', penaltySeconds: 0, penaltyLabel: '⚡ Топ-4 в Сингапуре!', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 7, stops: 1, bestLap: '1:38.919', totalTime: '+9.299', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 8, stops: 2, bestLap: '1:37.834', totalTime: '+10.794', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-22', grid: 17, stops: 1, bestLap: '1:38.452', totalTime: '+11.787', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -912,7 +912,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-20', grid: 17, stops: 2, bestLap: '1:32.915', totalTime: '+54.360', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-3', grid: 13, stops: 1, bestLap: '1:33.604', totalTime: '+58.348', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 11, stops: 2, bestLap: '1:32.797', totalTime: '+58.535', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 3, stops: 0, bestLap: '1:33.791', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход на старте (DNF)', status: 'DNF' }
+      { driverId: 'drv-23', teamId: 'red-bull', grid: 3, stops: 0, bestLap: '1:33.791', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход на старте (DNF)', status: 'DNF' }
     ]
   },
   {
@@ -929,7 +929,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-1', grid: 3, stops: 0, bestLap: '1:24.812', totalTime: '14:26.171', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте • Driver of the Day!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:24.841', totalTime: '+0.495', penaltySeconds: 0, penaltyLabel: '🥈 P2 в борьбе (+0.495)', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 4, stops: 0, bestLap: '1:24.932', totalTime: '+8.324', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Mercedes!', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 2, stops: 0, bestLap: '1:25.942', totalTime: '+12.100', penaltySeconds: 0, penaltyLabel: '⚡ P4 за Ferrari!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 2, stops: 0, bestLap: '1:25.942', totalTime: '+12.100', penaltySeconds: 0, penaltyLabel: '⚡ P4 за Ferrari!', status: 'FINISHED' },
       { driverId: 'drv-17', grid: 5, stops: 0, bestLap: '1:26.546', totalTime: '+16.314', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-19', grid: 6, stops: 0, bestLap: '1:27.617', totalTime: '+22.861', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-14', grid: 7, stops: 0, bestLap: '1:27.439', totalTime: '+23.543', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -960,7 +960,7 @@ export const DEFAULT_RACES = [
     results: [
       { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:25.601', totalTime: '42:43.028', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull!', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:25.333', totalTime: '+1.489', penaltySeconds: 0, penaltyLabel: '🥈 Подиум P2 (+1.489)', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 4, stops: 1, bestLap: '1:26.234', totalTime: '+12.075', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Ferrari (P3)!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 4, stops: 1, bestLap: '1:26.234', totalTime: '+12.075', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Ferrari (P3)!', status: 'FINISHED' },
       { driverId: 'drv-17', grid: 5, stops: 2, bestLap: '1:25.328', totalTime: '+29.492', penaltySeconds: 0, penaltyLabel: '⏱️ P4 + Fastest Lap (1:25.328)', status: 'FINISHED' },
       { driverId: 'drv-19', grid: 10, stops: 1, bestLap: '1:27.751', totalTime: '+1:03.985', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-9', grid: 11, stops: 1, bestLap: '1:27.319', totalTime: '+1:04.527', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -1009,7 +1009,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-10', grid: 20, stops: 0, bestLap: '1:40.995', totalTime: '+21.390', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-8', grid: 10, stops: 0, bestLap: '1:39.728', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-11', grid: 3, stops: 0, bestLap: '1:38.124', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
-      { driverId: 'drv-23', grid: 4, stops: 0, bestLap: '1:38.003', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 4, stops: 0, bestLap: '1:38.003', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-7', grid: 17, stops: 0, bestLap: '1:40.936', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
     ]
   },
@@ -1024,7 +1024,7 @@ export const DEFAULT_RACES = [
     incidentNote: '🇺🇸 Драма и триумф в Остине: Денис Коваленко (ProstoDenya, Red Bull) завоевывает феноменальную победу! Вадим Манштейн (Ferrari) прорывается с 18-го места на вторую ступень подиума (P2, +19.512)! Сашко Громов (PABV, Mercedes), несмотря на +3 сек штрафа, героически удерживает P3 и забирает звание Driver of the Day! Логан Сарджент приносит Williams сенсационное 4-е место на домашней трассе! Юрий Захарчук финиширует 5-м (+3 сек штраф) и берет очко за Fastest Lap (1:36.066). Микола Ярема P6.',
     results: [
       { driverId: 'drv-17', grid: 3, stops: 1, bestLap: '1:36.123', totalTime: '47:02.352', penaltySeconds: 0, penaltyLabel: '🏆 Блистательная победа Red Bull!', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 18, stops: 1, bestLap: '1:37.252', totalTime: '+19.512', penaltySeconds: 0, penaltyLabel: '🥈 Мегапрорыв P18 ➔ P2 Ferrari!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 18, stops: 1, bestLap: '1:37.252', totalTime: '+19.512', penaltySeconds: 0, penaltyLabel: '🥈 Мегапрорыв P18 ➔ P2 Ferrari!', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 17, stops: 1, bestLap: '1:38.840', totalTime: '+22.450', penaltySeconds: 3, penaltyLabel: '🥉 Подиум P3 • Штраф +3 сек • Driver of the Day!', status: 'FINISHED' },
       { driverId: 'drv-24', grid: 6, stops: 1, bestLap: '1:40.260', totalTime: '+57.109', penaltySeconds: 0, penaltyLabel: '⚡ Сенсация Williams на домашнем ГП!', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 2, stops: 3, bestLap: '1:36.066', totalTime: '+58.120', penaltySeconds: 3, penaltyLabel: '⏱️ P5 + Fastest Lap (1:36.066) • +3 сек', status: 'FINISHED' },
@@ -1059,7 +1059,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-6', grid: 3, stops: 1, bestLap: '1:20.168', totalTime: '+3.844', penaltySeconds: 0, penaltyLabel: '⏱️ P2 + Fastest Lap (1:20.168)!', status: 'FINISHED' },
       { driverId: 'drv-17', grid: 5, stops: 1, bestLap: '1:21.491', totalTime: '+38.192', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Red Bull P3', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 2, stops: 1, bestLap: '1:21.184', totalTime: '+39.516', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 4, stops: 1, bestLap: '1:21.934', totalTime: '+47.282', penaltySeconds: 0, penaltyLabel: '⚡ Топ-5 за Ferrari!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 4, stops: 1, bestLap: '1:21.934', totalTime: '+47.282', penaltySeconds: 0, penaltyLabel: '⚡ Топ-5 за Ferrari!', status: 'FINISHED' },
       { driverId: 'drv-7', grid: 10, stops: 1, bestLap: '1:21.918', totalTime: '+48.482', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 14, stops: 1, bestLap: '1:21.723', totalTime: '+49.330', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-20', grid: 7, stops: 1, bestLap: '1:22.060', totalTime: '+49.861', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -1094,7 +1094,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-7', grid: 6, stops: 0, bestLap: '1:13.137', totalTime: '+23.303', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-19', grid: 5, stops: 0, bestLap: '1:13.170', totalTime: '+23.856', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-16', grid: 9, stops: 0, bestLap: '1:13.093', totalTime: '+25.735', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 4, stops: 0, bestLap: '1:11.549', totalTime: '+27.936', penaltySeconds: 0, penaltyLabel: '⚡ Очки для Ferrari (P7)', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 4, stops: 0, bestLap: '1:11.549', totalTime: '+27.936', penaltySeconds: 0, penaltyLabel: '⚡ Очки для Ferrari (P7)', status: 'FINISHED' },
       { driverId: 'drv-13', grid: 18, stops: 0, bestLap: '1:13.449', totalTime: '+32.557', penaltySeconds: 0, penaltyLabel: '⚡ Топ-8 для Alpine', status: 'FINISHED' },
       { driverId: 'drv-2', grid: 7, stops: 0, bestLap: '1:12.873', totalTime: '+32.861', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-21', grid: 19, stops: 0, bestLap: '1:13.476', totalTime: '+33.582', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -1125,7 +1125,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-1', grid: 2, stops: 1, bestLap: '1:18.508', totalTime: '+8.618', penaltySeconds: 0, penaltyLabel: '⏱️ P3 + Fastest Lap (1:18.508)', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 17, stops: 2, bestLap: '1:19.819', totalTime: '+1:06.159', penaltySeconds: 0, penaltyLabel: '⚡ Мегапрорыв P17 ➔ P4 (+13 мест)!', status: 'FINISHED' },
       { driverId: 'drv-7', grid: 8, stops: 0, bestLap: '1:22.329', totalTime: '+1:09.041', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 4, stops: 1, bestLap: '1:19.803', totalTime: '+1:14.157', penaltySeconds: 0, penaltyLabel: '⚡ Топ-6 для Ferrari', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 4, stops: 1, bestLap: '1:19.803', totalTime: '+1:14.157', penaltySeconds: 0, penaltyLabel: '⚡ Топ-6 для Ferrari', status: 'FINISHED' },
       { driverId: 'drv-19', grid: 9, stops: 0, bestLap: '1:22.633', totalTime: '+1:16.897', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-5', grid: 7, stops: 0, bestLap: '1:22.666', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-20', grid: 11, stops: 0, bestLap: '1:22.756', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -1154,7 +1154,7 @@ export const DEFAULT_RACES = [
     results: [
       { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:33.200', totalTime: '35:10.000', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes + Fastest Lap!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:33.800', totalTime: '+22.019', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Red Bull (P2)', status: 'FINISHED' },
-      { driverId: 'drv-23', grid: 3, stops: 1, bestLap: '1:34.200', totalTime: '+34.536', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Ferrari (P3)!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 3, stops: 1, bestLap: '1:34.200', totalTime: '+34.536', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Ferrari (P3)!', status: 'FINISHED' },
       { driverId: 'drv-17', grid: 4, stops: 1, bestLap: '1:34.400', totalTime: '+39.125', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 5, stops: 1, bestLap: '1:34.500', totalTime: '+41.593', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-7', grid: 6, stops: 1, bestLap: '1:35.000', totalTime: '+45.021', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -1203,7 +1203,7 @@ export const DEFAULT_RACES = [
       { driverId: 'drv-13', grid: 20, stops: 1, bestLap: '1:38.993', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-5', grid: 13, stops: 1, bestLap: '1:39.059', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
       { driverId: 'drv-11', grid: 2, stops: 0, bestLap: '1:38.398', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
-      { driverId: 'drv-23', grid: 3, stops: 0, bestLap: '1:37.863', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 3, stops: 0, bestLap: '1:37.863', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
     ]
   },
   {
@@ -1216,7 +1216,7 @@ export const DEFAULT_RACES = [
     driverOfTheDayId: 'drv-23',
     incidentNote: '🇦🇪 Гран-при Абу-Даби (Yas Marina Circuit — Финал Сезона 2026): Сенсационная победа Вадима Манштейна (_erich_manstein_) за рулем Ferrari в заключительной гонке года! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м с быстрейшим кругом гонки (1:25.463), триумфально завершая свой чемпионский сезон. Денис Коваленко (Red Bull) занимает 3-е место, закрепляя дубль на подиуме для Red Bull и свою бронзу по итогам сезона! Пиастри, Боттас, Албон, Цунода, Норрис, Окон и Сайнс в очковой зоне. Для команды Mercedes финал обернулся драмой: Юрий Захарчук и Сашко Громов сошли с дистанции (DNF). Также сошли Алонсо, Стролл, Хюлькенберг и Магнуссен.',
     results: [
-      { driverId: 'drv-23', grid: 2, stops: 2, bestLap: '1:26.340', totalTime: '86:53.034', penaltySeconds: 0, penaltyLabel: '🏆 Сенсационная победа Ferrari в финале сезона!', status: 'FINISHED' },
+      { driverId: 'drv-23', teamId: 'ferrari', grid: 2, stops: 2, bestLap: '1:26.340', totalTime: '86:53.034', penaltySeconds: 0, penaltyLabel: '🏆 Сенсационная победа Ferrari в финале сезона!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:25.463', totalTime: '+12.699', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Red Bull + Fastest Lap (1:25.463) • Чемпион Мира!', status: 'FINISHED' },
       { driverId: 'drv-17', grid: 3, stops: 2, bestLap: '1:26.293', totalTime: '+28.921', penaltySeconds: 0, penaltyLabel: '🥉 Подиум Red Bull (P3) • Бронзовый призёр сезона!', status: 'FINISHED' },
       { driverId: 'drv-19', grid: 7, stops: 2, bestLap: '1:27.538', totalTime: '+44.490', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },

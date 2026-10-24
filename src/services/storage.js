@@ -145,8 +145,24 @@ export function calculateRacePoints(position, isFastestLap, pointsMap = DEFAULT_
   return pts;
 }
 
+/**
+ * Resolves the team ID a driver was competing for in a specific race.
+ * Accounts for mid-season reserve/substitute stints (e.g. Vadim Manstein
+ * driving for Red Bull in Monza, Singapore and Japan, and Ferrari afterwards).
+ */
+export function getDriverTeamId(res, driver, raceId) {
+  if (res && res.teamId) return res.teamId;
+  if (driver?.id === 'drv-23' || res?.driverId === 'drv-23') {
+    if (raceId === 'race-16' || raceId === 'race-17' || raceId === 'race-18') {
+      return 'red-bull';
+    }
+    return 'ferrari';
+  }
+  return driver?.teamId || 'unknown';
+}
+
 export function calculateStandings(data) {
-  const { drivers, teams, races, penalties, pointsMap = DEFAULT_POINTS_MAP, fastestLapPoints = 1 } = data;
+  const { drivers = [], teams = [], races = [], penalties = [], pointsMap = DEFAULT_POINTS_MAP, fastestLapPoints = 1 } = data;
 
   const driverStatsMap = {};
   drivers.forEach(d => {
@@ -161,6 +177,18 @@ export function calculateStandings(data) {
       dnfs: 0,
       penaltiesDeductions: 0,
       raceHistory: []
+    };
+  });
+
+  // Calculate Constructors Standings per race results
+  const constructorStatsMap = {};
+  teams.forEach(t => {
+    constructorStatsMap[t.id] = {
+      team: t,
+      totalPoints: 0,
+      wins: 0,
+      podiums: 0,
+      drivers: drivers.filter(d => d.teamId === t.id)
     };
   });
 
@@ -184,20 +212,35 @@ export function calculateStandings(data) {
       const isFastestLap = !race.isSprint && race.fastestLapDriverId === res.driverId;
       const pts = calculateRacePoints(position, isFastestLap, pointsMap, fastestLapPoints, race.isSprint);
 
+      // Driver personal stats
       stats.totalPoints += pts;
       if (position === 1) stats.wins += 1;
       if (position <= 3) stats.podiums += 1;
       if (isFastestLap) stats.fastestLaps += 1;
 
       stats.raceHistory.push({ raceId: race.id, raceTitle: race.title, pos: position, pts, isFastestLap });
+
+      // Constructor stats: attribute points to the team driven for in THIS race
+      const teamId = getDriverTeamId(res, stats.driver, race.id);
+      const cStats = constructorStatsMap[teamId];
+      if (cStats) {
+        cStats.totalPoints += pts;
+        if (position === 1) cStats.wins += 1;
+        if (position <= 3) cStats.podiums += 1;
+      }
     });
   });
 
   // Deduct manual points penalties if any
   (penalties || []).forEach(p => {
     if (p.type === 'POINTS' && driverStatsMap[p.driverId]) {
-      driverStatsMap[p.driverId].totalPoints = Math.max(0, driverStatsMap[p.driverId].totalPoints - Number(p.value || 0));
-      driverStatsMap[p.driverId].penaltiesDeductions += Number(p.value || 0);
+      const deduction = Number(p.value || 0);
+      driverStatsMap[p.driverId].totalPoints = Math.max(0, driverStatsMap[p.driverId].totalPoints - deduction);
+      driverStatsMap[p.driverId].penaltiesDeductions += deduction;
+      const d = driverStatsMap[p.driverId].driver;
+      if (d && constructorStatsMap[d.teamId]) {
+        constructorStatsMap[d.teamId].totalPoints = Math.max(0, constructorStatsMap[d.teamId].totalPoints - deduction);
+      }
     }
   });
 
@@ -205,27 +248,6 @@ export function calculateStandings(data) {
     if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
     if (b.wins !== a.wins) return b.wins - a.wins;
     return b.podiums - a.podiums;
-  });
-
-  // Calculate Constructors Standings
-  const constructorStatsMap = {};
-  teams.forEach(t => {
-    constructorStatsMap[t.id] = {
-      team: t,
-      totalPoints: 0,
-      wins: 0,
-      podiums: 0,
-      drivers: drivers.filter(d => d.teamId === t.id)
-    };
-  });
-
-  driverStandings.forEach(ds => {
-    const cStats = constructorStatsMap[ds.driver.teamId];
-    if (cStats) {
-      cStats.totalPoints += ds.totalPoints;
-      cStats.wins += ds.wins;
-      cStats.podiums += ds.podiums;
-    }
   });
 
   const constructorStandings = Object.values(constructorStatsMap).sort((a, b) => {
@@ -347,6 +369,11 @@ export function calculatePointsProgression(data) {
       const isFastestLap = !race.isSprint && race.fastestLapDriverId === res.driverId;
       const pts = calculateRacePoints(position, isFastestLap, pointsMap, fastestLapPoints, race.isSprint);
       driverRacePts[res.driverId] = { pts, pos: position, isFastestLap, status: 'FINISHED' };
+
+      // Add to team points for this specific race
+      const driver = driverTrackers[res.driverId]?.driver;
+      const teamId = getDriverTeamId(res, driver, race.id);
+      currentRaceTeamPts[teamId] = (currentRaceTeamPts[teamId] || 0) + pts;
     });
 
     // Update cumulative for drivers
@@ -357,9 +384,6 @@ export function calculatePointsProgression(data) {
       tracker.pointsHistory.push(res.pts);
       tracker.cumulativeHistory.push(tracker.cumulative);
       tracker.raceResults.push(res);
-
-      // Add to team points
-      currentRaceTeamPts[d.teamId] = (currentRaceTeamPts[d.teamId] || 0) + res.pts;
     });
 
     // Update cumulative for teams
