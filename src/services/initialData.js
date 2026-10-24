@@ -269,9 +269,9 @@ export const DEFAULT_DRIVERS = [
     driverNumber: 5,
     teamId: 'ferrari',
     isAi: false,
-    avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GUAZHO01_Guanyu_Zhou/guazho01.png',
-    avatarFullWithBg: '/portraits/standing/zhou.webp',
-    avatarFullNoBg: '/portraits/standing/zhou.webp'
+    avatar: '/portraits/manstein.png',
+    avatarFullWithBg: '/portraits/manstein_standing_9-16_with_backjground.jpg',
+    avatarFullNoBg: '/portraits/manstein_standing_9-16_without_backjground.png'
   },
   {
     id: 'drv-24',
@@ -1315,7 +1315,7 @@ export const BREAKING_TRANSFERS = [
     type: 'TRANSFERRED',
     title: 'Вадим Манштейн офіційно перейшов у Scuderia Ferrari',
     subtitle: 'Після сенсаційного подіуму в Монці Вадим Манштейн підписав повноцінний контракт зі Scuderia Ferrari і став напарником Карлоса Сайнса!',
-    image: '/portraits/standing/zhou.webp',
+    image: '/announcements/manstein_ferrari.jpg',
     fromTeam: 'Red Bull Racing (Reserve)',
     toTeam: 'Scuderia Ferrari',
     badgeText: 'JOINED FERRARI'
