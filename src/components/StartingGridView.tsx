@@ -198,7 +198,7 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
               className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#E10600] hover:bg-[#ff1a14] active:scale-95 text-white border border-[#ff4d4d]/50 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-[0_0_16px_rgba(225,6,0,0.5)]"
             >
               <Play size={13} fill="currentColor" />
-              <span>В эфир (20%)</span>
+              <span>В эфир</span>
             </button>
           )}
         </div>

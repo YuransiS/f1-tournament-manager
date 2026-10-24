@@ -38,6 +38,94 @@ function getTeamNeonColor(teamId: string, fallbackColor: string): string {
   return fallbackColor || '#00A0DE';
 }
 
+interface HalftoneOverlayProps {
+  pilotId: string;
+  teamColor: string;
+  isLeft: boolean;
+}
+
+// Official F1 Broadcast Halftone Dot-Matrix Transition Effect (media_1792865475012_e333f9b7.jpg & media_1792865484764_d87537c1.jpg)
+const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
+  pilotId,
+  teamColor,
+  isLeft
+}) => {
+  const blocks = [
+    { top: '8%', height: '15%', width: '82%', alignLeft: isLeft, delay: 0.0 },
+    { top: '22%', height: '18%', width: '96%', alignLeft: !isLeft, delay: 0.04 },
+    { top: '39%', height: '21%', width: '88%', alignLeft: isLeft, delay: 0.08 },
+    { top: '58%', height: '18%', width: '94%', alignLeft: !isLeft, delay: 0.12 },
+    { top: '75%', height: '16%', width: '78%', alignLeft: isLeft, delay: 0.16 }
+  ];
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={`halftone-wrap-${pilotId}`}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        exit={{ opacity: 1 }}
+        transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
+        className="absolute inset-0 z-30 pointer-events-none overflow-hidden"
+      >
+        {blocks.map((b, idx) => (
+          <motion.div
+            key={idx}
+            initial={{
+              scaleX: 1,
+              opacity: 0.98,
+              x: b.alignLeft ? -25 : 25
+            }}
+            animate={{
+              scaleX: [1, 1.04, 0],
+              opacity: [0.98, 0.9, 0],
+              x: 0
+            }}
+            transition={{
+              duration: 0.45,
+              delay: b.delay,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            style={{
+              position: 'absolute',
+              top: b.top,
+              height: b.height,
+              width: b.width,
+              left: b.alignLeft ? 0 : 'auto',
+              right: b.alignLeft ? 'auto' : 0,
+              transformOrigin: b.alignLeft ? 'left center' : 'right center',
+              backgroundColor: `${teamColor}1a`,
+              borderTop: `1.5px solid ${teamColor}90`,
+              borderBottom: `1.5px solid ${teamColor}90`
+            }}
+            className="overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8)]"
+          >
+            {/* Halftone Dot Matrix Texture */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `radial-gradient(circle, ${teamColor} 2.6px, transparent 2.6px)`,
+                backgroundSize: '9px 9px',
+                opacity: 0.92
+              }}
+            />
+            {/* Neon Glitch Edge Indicator */}
+            <div
+              className="absolute inset-y-0 w-2.5 shadow-[0_0_14px_currentColor]"
+              style={{
+                backgroundColor: teamColor,
+                color: teamColor,
+                left: b.alignLeft ? 'auto' : 0,
+                right: b.alignLeft ? 0 : 'auto'
+              }}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   pilot,
   align,
@@ -93,23 +181,26 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
       {/* 2. DRIVER STAGE: 1:1 Torso Portrait & Lower Overlay           */}
       {/* ============================================================= */}
       <div className="relative flex-1 h-full overflow-hidden order-2">
-        {/* Torso Portrait: scaled up to waist/chest level (1:1 torso crop) */}
-        <div
-          className={`absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20 pb-0 ${
-            isLeft ? 'pr-[10%] sm:pr-[14%]' : 'pl-[10%] sm:pl-[14%]'
-          }`}
-        >
+        {/* Halftone Dot Matrix Transition Overlay */}
+        <HalftoneTransitionOverlay
+          pilotId={pilot.id}
+          teamColor={teamColor}
+          isLeft={isLeft}
+        />
+
+        {/* Torso Portrait: Natural framing with comfortable headroom matching media_1792865435171_00af0a55.png */}
+        <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20 pb-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={`pilot-portrait-${pilot.id}`}
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full h-full flex items-end justify-center pb-0"
               style={{
-                maskImage: 'linear-gradient(to top, transparent 0%, black 10%, black 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 10%, black 100%)'
+                maskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 8%, black 100%)'
               }}
             >
               {!hasImageError && pilot.avatarUrl ? (
@@ -117,7 +208,7 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                   src={pilot.avatarUrl}
                   alt={pilot.nickname}
                   onError={() => onImageError && onImageError(pilot.id)}
-                  className="h-[120%] sm:h-[125%] lg:h-[130%] w-auto max-w-none object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
+                  className="h-[84%] sm:h-[86%] lg:h-[88%] w-auto max-w-full object-contain object-bottom select-none relative z-5 filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
                 />
               ) : (
                 <div className="w-full h-full flex items-end justify-center">
@@ -128,20 +219,16 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
           </AnimatePresence>
         </div>
 
-        {/* Lower Chest Typography: First name script + Surname + Car number */}
-        <div
-          className={`absolute bottom-3 sm:bottom-5 lg:bottom-6 inset-x-2 sm:inset-x-4 z-35 flex flex-col items-center justify-center text-center pointer-events-none select-none ${
-            isLeft ? 'pr-[10%] sm:pr-[14%]' : 'pl-[10%] sm:pl-[14%]'
-          }`}
-        >
+        {/* Lower Chest / Torso Typography: Raised higher up and increased size by 5-6pt */}
+        <div className="absolute bottom-10 sm:bottom-14 lg:bottom-18 xl:bottom-20 inset-x-2 sm:inset-x-4 z-35 flex flex-col items-center justify-center text-center pointer-events-none select-none">
           {/* Cursive First Name in White Script */}
           {firstName && (
             <motion.span
               key={`first-name-${pilot.id}`}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.12 }}
-              className="text-3xl sm:text-4xl lg:text-5xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] -mb-1 select-none tracking-wide text-center"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.98)] -mb-1 select-none tracking-wide text-center"
             >
               {firstName}
             </motion.span>
@@ -150,20 +237,20 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
           {/* Big Bold Surname with Team Neon Color */}
           <motion.h2
             key={`last-name-${pilot.id}`}
-            initial={{ opacity: 0, scale: 0.94, y: 15 }}
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.38, delay: 0.08 }}
             className="w-full text-center font-black uppercase tracking-tight leading-none font-['Titillium_Web'] select-none px-2 whitespace-nowrap overflow-visible"
             style={{
               fontSize:
                 lastName.length > 9
-                  ? 'clamp(1.75rem, 1rem + 2.2vw, 3.4rem)'
+                  ? 'clamp(2.4rem, 1.4rem + 2.8vw, 4.2rem)'
                   : lastName.length > 6
-                  ? 'clamp(2.1rem, 1.1rem + 2.8vw, 4.2rem)'
-                  : 'clamp(2.5rem, 1.2rem + 3.4vw, 5.0rem)',
+                  ? 'clamp(3.0rem, 1.7rem + 3.4vw, 5.2rem)'
+                  : 'clamp(3.6rem, 2.0rem + 4.2vw, 6.2rem)',
               color: teamColor,
-              textShadow: `0 4px 24px rgba(0,0,0,0.98), 0 0 35px ${teamColor}90`,
-              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 24px ${teamColor}80)`
+              textShadow: `0 4px 28px rgba(0,0,0,0.98), 0 0 35px ${teamColor}95`,
+              filter: `drop-shadow(0 4px 28px rgba(0,0,0,0.98)) drop-shadow(0 0 24px ${teamColor}85)`
             }}
           >
             {lastName}
@@ -172,14 +259,14 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
           {/* Driver Race Number */}
           <motion.div
             key={`drv-num-${pilot.id}`}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.18 }}
-            className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-black font-['Chakra_Petch'] leading-none mt-1 select-none text-center mx-auto"
+            className="text-5xl sm:text-6xl lg:text-7xl 2xl:text-8xl font-black font-['Chakra_Petch'] leading-none mt-2 select-none text-center mx-auto"
             style={{
               color: teamColor,
-              textShadow: `0 4px 20px rgba(0,0,0,0.98), 0 0 26px ${teamColor}80`,
-              filter: `drop-shadow(0 4px 20px rgba(0,0,0,0.98)) drop-shadow(0 0 18px ${teamColor}70)`
+              textShadow: `0 4px 24px rgba(0,0,0,0.98), 0 0 28px ${teamColor}85`,
+              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 20px ${teamColor}75)`
             }}
           >
             {pilot.driverNumber}

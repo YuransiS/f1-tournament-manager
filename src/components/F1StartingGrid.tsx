@@ -441,7 +441,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
             </button>
           </div>
 
-          {/* Sound Toggle (20% volume) */}
+          {/* Sound Toggle */}
           <button
             type="button"
             onClick={toggleMute}
@@ -454,7 +454,7 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           >
             {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#00d2ff]" />}
             <span className="text-[10px] font-bold uppercase hidden lg:inline">
-              {isMuted ? 'MUTE' : 'AUDIO (20%)'}
+              {isMuted ? 'MUTE' : 'AUDIO'}
             </span>
           </button>
 
