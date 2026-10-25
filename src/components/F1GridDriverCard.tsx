@@ -47,7 +47,7 @@ interface HalftoneOverlayProps {
 }
 
 // Official F1 Broadcast Halftone Dot-Matrix Transition Effect (media_1792865475012_e333f9b7.jpg & media_1792865484764_d87537c1.jpg)
-// Frameless, vibrant neon glowing dots transitioning from current team to next team
+// Frameless, vibrant neon glowing dots transitioning from current team to next team (opacity: 0 -> 0.95 -> 0)
 const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
   pilotId,
   fromColor,
@@ -55,68 +55,63 @@ const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
   isLeft
 }) => {
   const blocks = [
-    { top: '8%', height: '16%', width: '84%', alignLeft: isLeft, delay: 0.0 },
-    { top: '23%', height: '19%', width: '96%', alignLeft: !isLeft, delay: 0.04 },
-    { top: '41%', height: '22%', width: '90%', alignLeft: isLeft, delay: 0.08 },
-    { top: '61%', height: '18%', width: '95%', alignLeft: !isLeft, delay: 0.12 },
-    { top: '77%', height: '16%', width: '80%', alignLeft: isLeft, delay: 0.16 }
+    { top: '3%', height: '18%', width: '96%', alignLeft: isLeft, delay: 0.0 },
+    { top: '20%', height: '21%', width: '100%', alignLeft: !isLeft, delay: 0.04 },
+    { top: '39%', height: '23%', width: '98%', alignLeft: isLeft, delay: 0.08 },
+    { top: '60%', height: '21%', width: '100%', alignLeft: !isLeft, delay: 0.12 },
+    { top: '79%', height: '19%', width: '95%', alignLeft: isLeft, delay: 0.16 }
   ];
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={`halftone-wrap-${pilotId}`}
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
-        exit={{ opacity: 1 }}
-        transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
-        className="absolute inset-0 z-30 pointer-events-none overflow-hidden"
-      >
-        {blocks.map((b, idx) => (
-          <motion.div
-            key={idx}
-            initial={{
-              scaleX: 1,
-              opacity: 1,
-              x: b.alignLeft ? -25 : 25
-            }}
-            animate={{
-              scaleX: [1, 1.05, 0],
-              opacity: [1, 0.95, 0],
-              x: 0
-            }}
-            transition={{
-              duration: 0.46,
-              delay: b.delay,
-              ease: [0.22, 1, 0.36, 1]
-            }}
+    <div
+      key={`halftone-wrap-${pilotId}`}
+      className="absolute inset-0 z-30 pointer-events-none overflow-hidden"
+    >
+      {blocks.map((b, idx) => (
+        <motion.div
+          key={`${pilotId}-${idx}`}
+          initial={{
+            opacity: 0,
+            scaleX: 0.72,
+            x: b.alignLeft ? -35 : 35
+          }}
+          animate={{
+            opacity: [0, 0.95, 0],
+            scaleX: [0.72, 1.03, 1],
+            x: [b.alignLeft ? -35 : 35, 0, b.alignLeft ? 12 : -12]
+          }}
+          transition={{
+            duration: 0.78,
+            delay: b.delay,
+            times: [0, 0.42, 1],
+            ease: [0.25, 0.1, 0.25, 1]
+          }}
+          style={{
+            position: 'absolute',
+            top: b.top,
+            height: b.height,
+            width: b.width,
+            left: b.alignLeft ? 0 : 'auto',
+            right: b.alignLeft ? 'auto' : 0,
+            transformOrigin: b.alignLeft ? 'left center' : 'right center'
+          }}
+          className="overflow-hidden"
+        >
+          {/* Prominent Halftone Dot Matrix: High-visibility dots, luminous glow & seamless team color shift (Zero borders) */}
+          <div
+            className="absolute inset-0"
             style={{
-              position: 'absolute',
-              top: b.top,
-              height: b.height,
-              width: b.width,
-              left: b.alignLeft ? 0 : 'auto',
-              right: b.alignLeft ? 'auto' : 0,
-              transformOrigin: b.alignLeft ? 'left center' : 'right center'
+              background: `linear-gradient(${b.alignLeft ? '90deg' : '270deg'}, ${fromColor} 0%, rgba(255, 255, 255, 0.92) 35%, ${toColor} 75%, ${fromColor} 100%)`,
+              WebkitMaskImage: 'radial-gradient(circle, #000 4.6px, rgba(0, 0, 0, 0.3) 5.1px, transparent 5.5px)',
+              maskImage: 'radial-gradient(circle, #000 4.6px, rgba(0, 0, 0, 0.3) 5.1px, transparent 5.5px)',
+              WebkitMaskSize: '13px 13px',
+              maskSize: '13px 13px',
+              filter: `drop-shadow(0 0 10px ${fromColor}) drop-shadow(0 0 18px ${toColor}) drop-shadow(0 0 3px rgba(255, 255, 255, 0.9))`
             }}
-            className="overflow-hidden"
-          >
-            {/* Vibrant Halftone Dot Matrix with seamless color shift from current to next team (Zero borders) */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(${b.alignLeft ? '90deg' : '270deg'}, ${fromColor} 0%, ${toColor} 100%)`,
-                WebkitMaskImage: 'radial-gradient(circle, black 3.2px, transparent 3.2px)',
-                maskImage: 'radial-gradient(circle, black 3.2px, transparent 3.2px)',
-                WebkitMaskSize: '10px 10px',
-                maskSize: '10px 10px',
-                filter: `drop-shadow(0 0 8px ${fromColor}) drop-shadow(0 0 16px ${toColor})`
-              }}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+          />
+        </motion.div>
+      ))}
+    </div>
   );
 };
 
@@ -142,7 +137,7 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   }, [currentTeamColor]);
 
   const fromColor = prevTeamColorRef.current || currentTeamColor;
-  const toColor = nextTeamColor || currentTeamColor;
+  const toColor = currentTeamColor !== fromColor ? currentTeamColor : (nextTeamColor || currentTeamColor);
 
   if (!pilot) {
     return (
