@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import DriverAvatarFallback from './DriverAvatarFallback';
 import TeamLogo from './TeamLogo';
 import { GridPilot } from './F1StartingGrid';
@@ -40,36 +40,41 @@ function getTeamNeonColor(teamId: string, fallbackColor: string): string {
 }
 
 interface HalftoneOverlayProps {
-  pilotId: string;
+  transitionKey: number;
   fromColor: string;
   toColor: string;
   isLeft: boolean;
+  active: boolean;
 }
 
 // Official F1 Broadcast Halftone Dot-Matrix Transition Effect (media_1792865475012_e333f9b7.jpg & media_1792865484764_d87537c1.jpg)
 // Frameless, vibrant neon glowing dots transitioning from current team to next team (opacity: 0 -> 0.95 -> 0)
+// Peaks at exactly 0.95 opacity in sync with driver swap (280ms)
 const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
-  pilotId,
+  transitionKey,
   fromColor,
   toColor,
-  isLeft
+  isLeft,
+  active
 }) => {
   const blocks = [
     { top: '3%', height: '18%', width: '96%', alignLeft: isLeft, delay: 0.0 },
-    { top: '20%', height: '21%', width: '100%', alignLeft: !isLeft, delay: 0.04 },
-    { top: '39%', height: '23%', width: '98%', alignLeft: isLeft, delay: 0.08 },
-    { top: '60%', height: '21%', width: '100%', alignLeft: !isLeft, delay: 0.12 },
-    { top: '79%', height: '19%', width: '95%', alignLeft: isLeft, delay: 0.16 }
+    { top: '20%', height: '21%', width: '100%', alignLeft: !isLeft, delay: 0.015 },
+    { top: '39%', height: '23%', width: '98%', alignLeft: isLeft, delay: 0.03 },
+    { top: '60%', height: '21%', width: '100%', alignLeft: !isLeft, delay: 0.015 },
+    { top: '79%', height: '19%', width: '95%', alignLeft: isLeft, delay: 0.0 }
   ];
+
+  if (!active && transitionKey === 0) return null;
 
   return (
     <div
-      key={`halftone-wrap-${pilotId}`}
+      key={`halftone-wrap-${transitionKey}`}
       className="absolute inset-0 z-30 pointer-events-none overflow-hidden"
     >
       {blocks.map((b, idx) => (
         <motion.div
-          key={`${pilotId}-${idx}`}
+          key={`${transitionKey}-${idx}`}
           initial={{
             opacity: 0,
             scaleX: 0.72,
@@ -81,9 +86,9 @@ const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
             x: [b.alignLeft ? -35 : 35, 0, b.alignLeft ? 12 : -12]
           }}
           transition={{
-            duration: 0.78,
+            duration: 0.70,
             delay: b.delay,
-            times: [0, 0.42, 1],
+            times: [0, 0.40, 1],
             ease: [0.25, 0.1, 0.25, 1]
           }}
           style={{
@@ -117,29 +122,85 @@ const HalftoneTransitionOverlay: React.FC<HalftoneOverlayProps> = ({
 
 export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
   pilot,
-  nextPilot,
+  nextPilot: _nextPilot,
   align,
   hasImageError,
   onImageError
 }) => {
   const isLeft = align === 'left';
-  const teamColor = pilot?.team
-    ? getTeamNeonColor(pilot.team.id, pilot.team.primaryColor)
-    : '#00A0DE';
-  const currentTeamColor = teamColor;
-  const nextTeamColor = nextPilot?.team
-    ? getTeamNeonColor(nextPilot.team.id, nextPilot.team.primaryColor)
-    : currentTeamColor;
 
-  const prevTeamColorRef = React.useRef(currentTeamColor);
+  // displayedPilot is the driver actively rendered on screen.
+  // It is swapped in the exact millisecond when the halftone transition dots reach 0.95 opacity (280ms).
+  const [displayedPilot, setDisplayedPilot] = React.useState<GridPilot | null>(pilot);
+  const [transitionKey, setTransitionKey] = React.useState(0);
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
+
+  const displayedPilotRef = React.useRef<GridPilot | null>(pilot);
+  displayedPilotRef.current = displayedPilot;
+
+  const outgoingPilotRef = React.useRef<GridPilot | null>(pilot);
+  const transitionTimerRef = React.useRef<number | null>(null);
+
+  // Synchronized Pilot Swap: Trigger halftone sweep immediately, swap character at peak (280ms, 0.95 opacity)
   React.useEffect(() => {
-    prevTeamColorRef.current = currentTeamColor;
-  }, [currentTeamColor]);
+    if (!pilot) {
+      setDisplayedPilot(null);
+      return;
+    }
 
-  const fromColor = prevTeamColorRef.current || currentTeamColor;
-  const toColor = currentTeamColor !== fromColor ? currentTeamColor : (nextTeamColor || currentTeamColor);
+    const currentDisplayed = displayedPilotRef.current;
+    if (currentDisplayed?.id === pilot.id) {
+      return;
+    }
 
-  if (!pilot) {
+    // Initial mount: display immediately without delay
+    if (!currentDisplayed) {
+      setDisplayedPilot(pilot);
+      outgoingPilotRef.current = pilot;
+      return;
+    }
+
+    // Save outgoing driver and trigger halftone dots transition immediately
+    outgoingPilotRef.current = currentDisplayed;
+    setIsTransitioning(true);
+    setTransitionKey((k) => k + 1);
+
+    if (transitionTimerRef.current) {
+      window.clearTimeout(transitionTimerRef.current);
+    }
+
+    // In the exact millisecond when dots reach 0.95 opacity (280ms): SWAP THE DRIVER!
+    transitionTimerRef.current = window.setTimeout(() => {
+      setDisplayedPilot(pilot);
+
+      // Finish transition when dots dissolve to 0 (at 700ms total, 420ms after swap)
+      transitionTimerRef.current = window.setTimeout(() => {
+        setIsTransitioning(false);
+      }, 420);
+    }, 280);
+
+    return () => {
+      if (transitionTimerRef.current) {
+        window.clearTimeout(transitionTimerRef.current);
+      }
+    };
+  }, [pilot]);
+
+  const activePilot = displayedPilot || pilot;
+
+  const fromColor = outgoingPilotRef.current?.team
+    ? getTeamNeonColor(outgoingPilotRef.current.team.id, outgoingPilotRef.current.team.primaryColor)
+    : (activePilot?.team ? getTeamNeonColor(activePilot.team.id, activePilot.team.primaryColor) : '#00A0DE');
+
+  const toColor = pilot?.team
+    ? getTeamNeonColor(pilot.team.id, pilot.team.primaryColor)
+    : fromColor;
+
+  const currentTeamColor = activePilot?.team
+    ? getTeamNeonColor(activePilot.team.id, activePilot.team.primaryColor)
+    : '#00A0DE';
+
+  if (!activePilot) {
     return (
       <div className={`relative w-full h-full flex flex-col justify-center items-center p-6 ${isLeft ? 'items-start' : 'items-end'}`}>
         <span className="text-xs font-mono font-bold tracking-widest text-neutral-600 uppercase">
@@ -149,7 +210,7 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
     );
   }
 
-  const { firstName, lastName } = parseDriverName(pilot.realName || '', pilot.nickname);
+  const { firstName, lastName } = parseDriverName(activePilot.realName || '', activePilot.nickname);
 
   return (
     <div className="relative w-full h-full flex select-none overflow-hidden">
@@ -171,13 +232,13 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
               transform: isLeft ? 'rotate(180deg)' : 'none'
             }}
           >
-            {pilot?.team?.name || 'F1 TEAM'}
+            {activePilot?.team?.name || 'F1 TEAM'}
           </span>
         </div>
 
         {/* Team Logo at bottom of constructor strip */}
         <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 flex items-center justify-center filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] mt-3">
-          <TeamLogo teamId={pilot?.team?.id || ''} size="sm" />
+          <TeamLogo teamId={activePilot?.team?.id || ''} size="sm" />
         </div>
       </div>
 
@@ -187,66 +248,53 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
       <div className="relative flex-1 h-full overflow-hidden order-2">
         {/* Halftone Dot Matrix Transition Overlay: Frameless & Bright Neon Color-Morph */}
         <HalftoneTransitionOverlay
-          pilotId={pilot.id}
+          transitionKey={transitionKey}
           fromColor={fromColor}
           toColor={toColor}
           isLeft={isLeft}
+          active={isTransitioning}
         />
 
-        {/* 1:1 Torso Portrait (50:50 Screen Ratio): 1:1 aspect ratio with natural headroom, bottom-cropped if tall */}
+        {/* 1:1 Torso Portrait (50:50 Screen Ratio): bottom-cropped if tall */}
         <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-20 pb-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`pilot-portrait-${pilot.id}`}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full h-full flex items-end justify-center pb-0"
-              style={{
-                maskImage: 'linear-gradient(to top, transparent 0%, black 6%, black 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 6%, black 100%)'
-              }}
-            >
-              {!hasImageError && pilot.avatarUrl ? (
-                <div className="relative aspect-square h-[86%] sm:h-[88%] lg:h-[92%] max-w-full flex items-end justify-center overflow-hidden">
-                  <img
-                    src={pilot.avatarUrl}
-                    alt={pilot.nickname}
-                    onError={() => onImageError && onImageError(pilot.id)}
-                    className="w-full h-full object-cover object-top select-none relative z-5 filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
-                  />
-                </div>
-              ) : (
-                <div className="w-full h-full flex items-end justify-center">
-                  <DriverAvatarFallback pilot={pilot} isRight={!isLeft} />
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
+          <div
+            className="relative w-full h-full flex items-end justify-center pb-0"
+            style={{
+              maskImage: 'linear-gradient(to top, transparent 0%, black 6%, black 100%)',
+              WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 6%, black 100%)'
+            }}
+          >
+            {!hasImageError && activePilot.avatarUrl ? (
+              <div className="relative aspect-square h-[86%] sm:h-[88%] lg:h-[92%] max-w-full flex items-end justify-center overflow-hidden">
+                <img
+                  key={activePilot.avatarUrl}
+                  src={activePilot.avatarUrl}
+                  alt={activePilot.nickname}
+                  onError={() => onImageError && onImageError(activePilot.id)}
+                  className="w-full h-full object-cover object-top select-none relative z-5 filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
+                />
+              </div>
+            ) : (
+              <div className="w-full h-full flex items-end justify-center">
+                <DriverAvatarFallback pilot={activePilot} isRight={!isLeft} />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Lower Chest / Torso Typography: Raised higher up and increased size by 5-6pt */}
         <div className="absolute bottom-10 sm:bottom-14 lg:bottom-18 xl:bottom-20 inset-x-2 sm:inset-x-4 z-35 flex flex-col items-center justify-center text-center pointer-events-none select-none">
           {/* Cursive First Name in White Script */}
           {firstName && (
-            <motion.span
-              key={`first-name-${pilot.id}`}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.12 }}
+            <span
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white font-['Caveat',_'Dancing_Script',_cursive] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.98)] -mb-1 select-none tracking-wide text-center"
             >
               {firstName}
-            </motion.span>
+            </span>
           )}
 
           {/* Big Bold Surname with Team Neon Color */}
-          <motion.h2
-            key={`last-name-${pilot.id}`}
-            initial={{ opacity: 0, scale: 0.94, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.38, delay: 0.08 }}
+          <h2
             className="w-full text-center font-black uppercase tracking-tight leading-none font-['Titillium_Web'] select-none px-2 whitespace-nowrap overflow-visible"
             style={{
               fontSize:
@@ -255,29 +303,25 @@ export const F1GridDriverCard: React.FC<F1GridDriverCardProps> = ({
                   : lastName.length > 6
                   ? 'clamp(3.0rem, 1.7rem + 3.4vw, 5.2rem)'
                   : 'clamp(3.6rem, 2.0rem + 4.2vw, 6.2rem)',
-              color: teamColor,
-              textShadow: `0 4px 28px rgba(0,0,0,0.98), 0 0 35px ${teamColor}95`,
-              filter: `drop-shadow(0 4px 28px rgba(0,0,0,0.98)) drop-shadow(0 0 24px ${teamColor}85)`
+              color: currentTeamColor,
+              textShadow: `0 4px 28px rgba(0,0,0,0.98), 0 0 35px ${currentTeamColor}95`,
+              filter: `drop-shadow(0 4px 28px rgba(0,0,0,0.98)) drop-shadow(0 0 24px ${currentTeamColor}85)`
             }}
           >
             {lastName}
-          </motion.h2>
+          </h2>
 
           {/* Driver Race Number */}
-          <motion.div
-            key={`drv-num-${pilot.id}`}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.18 }}
+          <div
             className="text-5xl sm:text-6xl lg:text-7xl 2xl:text-8xl font-black font-['Chakra_Petch'] leading-none mt-2 select-none text-center mx-auto"
             style={{
-              color: teamColor,
-              textShadow: `0 4px 24px rgba(0,0,0,0.98), 0 0 28px ${teamColor}85`,
-              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 20px ${teamColor}75)`
+              color: currentTeamColor,
+              textShadow: `0 4px 24px rgba(0,0,0,0.98), 0 0 28px ${currentTeamColor}85`,
+              filter: `drop-shadow(0 4px 24px rgba(0,0,0,0.98)) drop-shadow(0 0 20px ${currentTeamColor}75)`
             }}
           >
-            {pilot.driverNumber}
-          </motion.div>
+            {activePilot.driverNumber}
+          </div>
         </div>
       </div>
     </div>

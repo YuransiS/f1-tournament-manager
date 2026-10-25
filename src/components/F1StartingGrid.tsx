@@ -497,48 +497,40 @@ export const F1StartingGrid: React.FC<F1StartingGridProps> = ({
           />
         </AnimatePresence>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`pair-content-${activePairIndex}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.25, 0.1, 0.25, 1] }}
-            className="absolute inset-0 w-full h-full"
-          >
-            {/* LEFT DRIVER CARD: Takes full left 50% of the screen */}
-            <div className="absolute left-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
-              <F1GridDriverCard
-                pilot={leftPilot}
-                nextPilot={activePairIndex > 0 ? (pairs[activePairIndex - 1]?.[0] || null) : null}
-                align="left"
-                hasImageError={imgErrors[leftPilot.id]}
-                onImageError={handleImageError}
-              />
-            </div>
+        {/* DRIVER STAGE & CENTRAL LEADERBOARD (Continuous without mode="wait" gap) */}
+        <div className="absolute inset-0 w-full h-full">
+          {/* LEFT DRIVER CARD: Takes full left 50% of the screen */}
+          <div className="absolute left-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
+            <F1GridDriverCard
+              pilot={leftPilot}
+              nextPilot={activePairIndex > 0 ? (pairs[activePairIndex - 1]?.[0] || null) : null}
+              align="left"
+              hasImageError={leftPilot ? imgErrors[leftPilot.id] : false}
+              onImageError={handleImageError}
+            />
+          </div>
 
-            {/* RIGHT DRIVER CARD: Takes full right 50% of the screen */}
-            <div className="absolute right-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
-              <F1GridDriverCard
-                pilot={rightPilot}
-                nextPilot={activePairIndex > 0 ? (pairs[activePairIndex - 1]?.[1] || null) : null}
-                align="right"
-                hasImageError={rightPilot ? imgErrors[rightPilot.id] : false}
-                onImageError={handleImageError}
-              />
-            </div>
+          {/* RIGHT DRIVER CARD: Takes full right 50% of the screen */}
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 flex flex-col justify-end overflow-hidden z-10">
+            <F1GridDriverCard
+              pilot={rightPilot}
+              nextPilot={activePairIndex > 0 ? (pairs[activePairIndex - 1]?.[1] || null) : null}
+              align="right"
+              hasImageError={rightPilot ? imgErrors[rightPilot.id] : false}
+              onImageError={handleImageError}
+            />
+          </div>
 
-            {/* CENTER ZONE: Layered over the drivers down the center */}
-            <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[350px] sm:w-[420px] lg:w-[480px] 2xl:w-[540px] flex flex-col items-center justify-center z-30 px-1 py-2 pointer-events-auto">
-              <F1StartingGridSlotDisplay
-                pairs={pairs}
-                activePairIndex={activePairIndex}
-                revealedIndices={revealedIndices}
-                onSelectPair={handleSelectPair}
-              />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+          {/* CENTER ZONE: Layered over the drivers down the center */}
+          <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-[350px] sm:w-[420px] lg:w-[480px] 2xl:w-[540px] flex flex-col items-center justify-center z-30 px-1 py-2 pointer-events-auto">
+            <F1StartingGridSlotDisplay
+              pairs={pairs}
+              activePairIndex={activePairIndex}
+              revealedIndices={revealedIndices}
+              onSelectPair={handleSelectPair}
+            />
+          </div>
+        </div>
       </main>
     </div>
   );
