@@ -158,6 +158,20 @@ export default function F1PointsProgressionChart({ progressionData, defaultMode 
   // Hovered stage data
   const hoverStage = hoveredStageIdx !== null ? stages[hoveredStageIdx] : null;
 
+  if (totalStages === 0) {
+    return (
+      <div className="card" style={{ padding: '40px 20px', textAlign: 'center', background: '#12151F', borderRadius: '16px', border: '1px solid #262B3A' }}>
+        <Sparkles size={36} color="var(--f1-red)" style={{ margin: '0 auto 12px auto' }} />
+        <h3 style={{ fontSize: '1.25rem', fontWeight: '900', color: '#FFF' }}>
+          Телеметрия нового сезона 2027-1
+        </h3>
+        <p style={{ color: '#9CA3AF', fontSize: '0.88rem', maxWidth: '480px', margin: '8px auto 0' }}>
+          График роста очков и траектории чемпионата будут формироваться в реальном времени сразу после финиша первого этапа (Гран-при Австрии • Red Bull Ring).
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="card" style={{ padding: '24px', background: '#12141C', border: '1px solid var(--border-color)', borderRadius: '16px', boxShadow: '0 12px 36px rgba(0,0,0,0.6)' }}>
       {/* Top Controls Header */}

@@ -1,10 +1,169 @@
 import React from 'react';
-import { Flame, Sparkles } from 'lucide-react';
+import { Flame, Sparkles, Calendar, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FlagIcon from './FlagIcon';
 import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
-export default function WinnerBanner({ driverStandings, races }) {
+export default function WinnerBanner({ driverStandings, races, activeSeason = '2027-1', onNavigateTab, onOpenSeasonModal }) {
+  if (activeSeason === '2027-1') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: -20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="winner-banner"
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          background: 'linear-gradient(135deg, rgba(225,6,0,0.25) 0%, rgba(18,21,32,0.96) 50%, rgba(0,210,190,0.18) 100%)',
+          border: '2px solid rgba(225, 6, 0, 0.45)',
+          boxShadow: '0 12px 35px rgba(225,6,0,0.22)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '16px',
+          padding: '16px 22px'
+        }}
+      >
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 10px, transparent 10px, transparent 20px)',
+          pointerEvents: 'none'
+        }} />
+
+        <div style={{ zIndex: 5, position: 'relative', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ position: 'relative', flexShrink: 0 }}>
+            <img
+              src="/portraits/kolya_champion_victory.jpg"
+              alt="Reigning Champion"
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '14px',
+                objectFit: 'cover',
+                objectPosition: 'center 15%',
+                border: '2px solid #FFD700',
+                boxShadow: '0 0 18px rgba(255, 215, 0, 0.6)'
+              }}
+            />
+            <div style={{
+              position: 'absolute',
+              top: '-8px',
+              right: '-8px',
+              fontSize: '1.1rem',
+              filter: 'drop-shadow(0 0 6px rgba(255,215,0,0.9))'
+            }}>
+              👑
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              <span style={{
+                fontSize: '0.68rem',
+                fontWeight: '900',
+                background: '#E10600',
+                color: '#FFF',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                letterSpacing: '1px'
+              }}>
+                НОВЫЙ СЕЗОН 2027-1
+              </span>
+              <span style={{
+                fontSize: '0.68rem',
+                fontWeight: '800',
+                background: 'rgba(0, 210, 190, 0.15)',
+                color: '#00D2BE',
+                border: '1px solid rgba(0, 210, 190, 0.35)',
+                padding: '2px 8px',
+                borderRadius: '4px'
+              }}>
+                ⚡ ЭТАП 1: ГРАН-ПРИ АВСТРИИ (СПРИНТ)
+              </span>
+            </div>
+
+            <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#FFF', fontStyle: 'italic', marginTop: '4px' }}>
+              СТАРТ ЧЕМПИОНАТА МИРА 2027-1
+            </div>
+
+            <div style={{ fontSize: '0.82rem', color: '#D1D5DB', marginTop: '2px' }}>
+              Действующий чемпион <strong style={{ color: '#FFD700' }}>Микола Ярема (#67 Red Bull)</strong> защищает титул против Юрия Захарчука (#69 Mercedes) и Дениса Коваленко (#88 Red Bull).
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap', zIndex: 5, position: 'relative' }}>
+          {onNavigateTab && (
+            <>
+              <button
+                type="button"
+                onClick={() => onNavigateTab('starting-grid')}
+                className="btn btn-sm"
+                style={{
+                  background: '#E10600',
+                  color: '#FFF',
+                  border: 'none',
+                  fontWeight: '800',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                <Zap size={15} /> Starting Grid Австрии
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onNavigateTab('calendar')}
+                className="btn btn-sm"
+                style={{
+                  background: '#1A2133',
+                  color: '#38BDF8',
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  fontWeight: '800',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                <Calendar size={15} /> Календарь 23 этапов
+              </button>
+            </>
+          )}
+
+          {onOpenSeasonModal && (
+            <button
+              type="button"
+              onClick={onOpenSeasonModal}
+              className="btn btn-sm"
+              style={{
+                background: 'rgba(255, 215, 0, 0.12)',
+                color: '#FFD700',
+                border: '1px solid rgba(255, 215, 0, 0.4)',
+                fontWeight: '800',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                cursor: 'pointer'
+              }}
+              title="Открыть архив 2026 и центр перехода"
+            >
+              🏆 Архив 2026
+            </button>
+          )}
+        </div>
+      </motion.div>
+    );
+  }
+
   const leader = driverStandings && driverStandings.length > 0 ? driverStandings[0] : null;
   const runnerUp = driverStandings && driverStandings.length > 1 ? driverStandings[1] : null;
   const thirdPlace = driverStandings && driverStandings.length > 2 ? driverStandings[2] : null;

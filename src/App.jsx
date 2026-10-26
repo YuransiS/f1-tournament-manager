@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import WinnerBanner from './components/WinnerBanner';
 import StandingsView from './components/StandingsView';
+import F1SeasonTransitionModal from './components/F1SeasonTransitionModal';
 
 const ChartsView = lazy(() => import('./components/ChartsView'));
 const RacesView = lazy(() => import('./components/RacesView'));
@@ -10,6 +11,8 @@ const StartingGridView = lazy(() => import('./components/StartingGridView'));
 const F1Calendar2027View = lazy(() => import('./components/F1Calendar2027View'));
 
 import {
+  getActiveSeason,
+  setActiveSeason,
   getTournamentData,
   exportDataAsJSON,
   calculateStandings
@@ -28,8 +31,18 @@ function getTabFromUrl() {
 }
 
 export default function App() {
-  const [data] = useState(() => getTournamentData());
+  const [activeSeason, setActiveSeasonState] = useState(() => getActiveSeason());
+  const [data, setData] = useState(() => getTournamentData(activeSeason));
   const [activeTab, setActiveTabState] = useState(() => getTabFromUrl());
+  const [isSeasonModalOpen, setIsSeasonModalOpen] = useState(false);
+
+  // Switch between Season 2026 and Season 2027-1
+  const handleSwitchSeason = (seasonId) => {
+    setActiveSeason(seasonId);
+    setActiveSeasonState(seasonId);
+    const seasonData = getTournamentData(seasonId);
+    setData(seasonData);
+  };
 
   // Function to set active tab and update browser address bar URL cleanly
   const setActiveTab = (tab) => {
@@ -52,7 +65,7 @@ export default function App() {
   }, []);
 
   const handleExportData = () => {
-    exportDataAsJSON(data);
+    exportDataAsJSON(data, activeSeason);
   };
 
   // Calculate live overall standings
@@ -65,12 +78,18 @@ export default function App() {
         setActiveTab={setActiveTab}
         data={data}
         onExportData={handleExportData}
+        activeSeason={activeSeason}
+        onSwitchSeason={handleSwitchSeason}
+        onOpenSeasonModal={() => setIsSeasonModalOpen(true)}
       />
 
       {activeTab === 'standings' && (
         <WinnerBanner
           driverStandings={standings.driverStandings}
           races={data.races}
+          activeSeason={activeSeason}
+          onNavigateTab={setActiveTab}
+          onOpenSeasonModal={() => setIsSeasonModalOpen(true)}
         />
       )}
 
@@ -87,6 +106,7 @@ export default function App() {
               data={data}
               standings={standings}
               onNavigateTab={setActiveTab}
+              activeSeason={activeSeason}
             />
           )}
 
@@ -104,6 +124,7 @@ export default function App() {
               pointsMap={data.pointsMap}
               fastestLapPoints={data.fastestLapPoints}
               onNavigateTab={setActiveTab}
+              activeSeason={activeSeason}
             />
           )}
 
@@ -125,6 +146,16 @@ export default function App() {
           )}
         </Suspense>
       </main>
+
+      <F1SeasonTransitionModal
+        isOpen={isSeasonModalOpen}
+        onClose={() => setIsSeasonModalOpen(false)}
+        activeSeason={activeSeason}
+        onSwitchSeason={handleSwitchSeason}
+        onNavigateTab={setActiveTab}
+        season2026Data={getTournamentData('2026')}
+        season2027Data={getTournamentData('2027-1')}
+      />
     </div>
   );
 }

@@ -12,10 +12,10 @@ import F1PisarenkoAnnouncementCard from './F1PisarenkoAnnouncementCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
-export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab }) {
+export default function StandingsView({ data, standings: propStandings, activeTab: propActiveTab, onTabChange, onNavigateTab, activeSeason = '2027-1' }) {
   const [internalTab, setInternalTab] = useState('drivers');
   const [showInlineChart, setShowInlineChart] = useState(false);
-  const [activePoster, setActivePoster] = useState('p1'); // 'p1' | 'p2' | 'p3' | 'constructors' | 'broadcast-tv' | 'all' | 'none'
+  const [activePoster, setActivePoster] = useState(() => activeSeason === '2027-1' ? 'none' : 'p1'); // 'p1' | 'p2' | 'p3' | 'constructors' | 'broadcast-tv' | 'announcement' | 'all' | 'none'
   const activeTab = propActiveTab || internalTab;
   const handleTabChange = onTabChange || setInternalTab;
 
@@ -311,14 +311,16 @@ export default function StandingsView({ data, standings: propStandings, activeTa
           <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                FORMULA 1 2026 • ИТОГОВЫЙ ТЕКУЩИЙ ЗАЧЕТ
+                FORMULA 1 {activeSeason === '2027-1' ? '2027-1 • СТАРТОВЫЙ ЗАЧЁТ' : '2026 • ИТОГОВЫЙ ЗАЧЕТ'}
               </div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '0.5px' }}>
                 ЛИЧНЫЙ ЗАЧЕТ ПИЛОТОВ (DRIVERS CHAMPIONSHIP)
               </h3>
             </div>
             <div style={{ fontSize: '0.85rem', color: 'var(--f1-gold)', fontWeight: '700' }}>
-              ЛИДЕР: {driverStandings[0]?.driver.name} ({driverStandings[0]?.totalPoints} PTS)
+              {activeSeason === '2027-1' && (!driverStandings[0] || driverStandings[0]?.totalPoints === 0)
+                ? 'ПЕЛЕДОН ОЖИДАЕТ СТАРТА В АВСТРИИ (0 PTS)'
+                : `ЛИДЕР: ${driverStandings[0]?.driver.name} (${driverStandings[0]?.totalPoints} PTS)`}
             </div>
           </div>
 
@@ -410,14 +412,16 @@ export default function StandingsView({ data, standings: propStandings, activeTa
           <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-color)', background: '#12151F', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '0.75rem', color: 'var(--f1-red)', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                FORMULA 1 2026 • ИТОГОВЫЙ ТЕКУЩИЙ ЗАЧЕТ
+                FORMULA 1 {activeSeason === '2027-1' ? '2027-1 • СТАРТОВЫЙ ЗАЧЁТ' : '2026 • ИТОГОВЫЙ ЗАЧЕТ'}
               </div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: '900', fontStyle: 'italic', letterSpacing: '0.5px' }}>
                 КУБОК КОНСТРУКТОРОВ (CONSTRUCTORS CHAMPIONSHIP)
               </h3>
             </div>
             <div style={{ fontSize: '0.85rem', color: 'var(--f1-gold)', fontWeight: '700' }}>
-              ЛИДЕР: {constructorStandings[0]?.team.name} ({constructorStandings[0]?.totalPoints} PTS)
+              {activeSeason === '2027-1' && (!constructorStandings[0] || constructorStandings[0]?.totalPoints === 0)
+                ? 'КОМАНДЫ НАЧИНАЮТ С 0 PTS'
+                : `ЛИДЕР: ${constructorStandings[0]?.team.name} (${constructorStandings[0]?.totalPoints} PTS)`}
             </div>
           </div>
 

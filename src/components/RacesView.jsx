@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star, Tv } from 'lucide-react';
+import { Calendar, Flag, Award, AlertCircle, FileText, ShieldAlert, Trophy, Star, Tv, Zap } from 'lucide-react';
 import { calculateRacePoints } from '../services/storage';
 import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
@@ -42,8 +42,8 @@ const TRACK_LAYOUTS = {
   'race-25': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Abu_Dhabi_Circuit.png'
 };
 
-export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints, onNavigateTab }) {
-  const [selectedRaceId, setSelectedRaceId] = useState(races[races.length - 1]?.id || races[0]?.id || '');
+export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints, onNavigateTab, activeSeason = '2027-1' }) {
+  const [selectedRaceId, setSelectedRaceId] = useState(() => (activeSeason === '2027-1' ? races[0]?.id : races[races.length - 1]?.id) || races[0]?.id || '');
   const [viewMode, setViewMode] = useState('main-results'); // 'press-release', 'main-results', 'penalty-notice', 'dotd'
 
   const activeRace = races.find(r => r.id === selectedRaceId) || races[races.length - 1] || races[0];
@@ -83,7 +83,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
     };
   });
 
-  const trackImage = TRACK_LAYOUTS[activeRace.id] || TRACK_LAYOUTS['race-1'];
+  const trackImage = activeRace.trackMap || TRACK_LAYOUTS[activeRace.id] || TRACK_LAYOUTS['race-1'];
 
   return (
     <div>
@@ -110,10 +110,12 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
             fontSize: '0.72rem',
             letterSpacing: '0.5px'
           }}>
-            СЕЗОН 2026
+            {activeSeason === '2027-1' ? 'СЕЗОН 2027-1 (LIVE)' : 'СЕЗОН 2026 (АРХИВ)'}
           </span>
           <span style={{ fontSize: '0.85rem', color: '#E2E8F0', fontWeight: '600' }}>
-            Текущий архив гонок сезона 2026 (Сезон завершен)
+            {activeSeason === '2027-1'
+              ? 'Официальный календарь чемпионата мира (23 этапа) • Старт: Австрия'
+              : 'Текущий архив гонок сезона 2026 (Сезон завершен)'}
           </span>
         </div>
 
@@ -169,7 +171,7 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
                   color: isSelected ? '#FFF' : isSprint ? '#38BDF8' : isRaceCancelled ? '#EF4444' : 'var(--text-muted)'
                 }}
               >
-                ГП {index + 1}: {r.title.split(' ')[0]} {isSprint ? '⚡ (Спринт)' : isRaceCancelled ? '🚫' : ''}
+                ГП {r.round || index + 1}: {r.title.split(' ')[0]} {isSprint ? '⚡ (Спринт)' : isRaceCancelled ? '🚫' : ''}
               </button>
             );
           })}
@@ -281,6 +283,87 @@ export default function RacesView({ races, drivers, teams, pointsMap, fastestLap
           trackImage={trackImage}
           fullResults={fullResults}
         />
+      ) : activeRace.status === 'upcoming' ? (
+        <div className="card" style={{ padding: '24px', background: '#0F121C', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', alignItems: 'center' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: '900', background: '#E10600', color: '#FFF', padding: '2px 8px', borderRadius: '4px' }}>
+                  ЭТАП {activeRace.round || 1} • ПРЕДСТОЯЩИЙ ЗАЕЗД
+                </span>
+                {activeRace.isSprint && (
+                  <span style={{ fontSize: '0.72rem', fontWeight: '900', background: '#00A0DE', color: '#FFF', padding: '2px 8px', borderRadius: '4px' }}>
+                    ⚡ СПРИНТ-УИКЕНД
+                  </span>
+                )}
+              </div>
+
+              <h2 style={{ fontSize: '1.7rem', fontWeight: '900', fontStyle: 'italic', color: '#FFF', margin: '4px 0 10px 0' }}>
+                {activeRace.officialName || activeRace.title}
+              </h2>
+
+              <p style={{ color: '#9CA3AF', fontSize: '0.9rem', marginBottom: '16px' }}>
+                {activeRace.subtitle}
+              </p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', margin: '16px 0', fontSize: '0.85rem' }}>
+                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ color: '#9CA3AF', fontSize: '0.75rem', textTransform: 'uppercase' }}>Трасса</div>
+                  <div style={{ fontWeight: '800', color: '#FFF', marginTop: '2px' }}>{activeRace.circuit || 'Red Bull Ring'}</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ color: '#9CA3AF', fontSize: '0.75rem', textTransform: 'uppercase' }}>Дистанция</div>
+                  <div style={{ fontWeight: '800', color: '#FFF', marginTop: '2px' }}>{activeRace.laps ? `${activeRace.laps} кругов (${activeRace.raceDistance || ''})` : '71 круг'}</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ color: '#9CA3AF', fontSize: '0.75rem', textTransform: 'uppercase' }}>Длина круга</div>
+                  <div style={{ fontWeight: '800', color: '#FFF', marginTop: '2px' }}>{activeRace.circuitLength || '4.318 km'}</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ color: '#9CA3AF', fontSize: '0.75rem', textTransform: 'uppercase' }}>Рекорд круга</div>
+                  <div style={{ fontWeight: '800', color: '#FFF', marginTop: '2px' }}>{activeRace.lapRecord || '1:05.619 (Carlos Sainz)'}</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '20px' }}>
+                {onNavigateTab && (
+                  <button
+                    onClick={() => onNavigateTab('starting-grid')}
+                    className="btn btn-sm"
+                    style={{ background: '#E10600', color: '#FFF', border: 'none', fontWeight: '800', padding: '10px 18px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+                  >
+                    <Zap size={16} /> Смотреть ТВ-решётку (Starting Grid) →
+                  </button>
+                )}
+                {onNavigateTab && (
+                  <button
+                    onClick={() => onNavigateTab('calendar')}
+                    className="btn btn-sm"
+                    style={{ background: '#1E2433', color: '#38BDF8', border: '1px solid rgba(56, 189, 248, 0.4)', fontWeight: '800', padding: '10px 18px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+                  >
+                    <Calendar size={16} /> В Календарь 2027-1 →
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {trackImage && (
+              <div style={{ textAlign: 'center', background: 'rgba(0,0,0,0.35)', padding: '24px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <img
+                  src={trackImage}
+                  alt={activeRace.circuit || 'Track map'}
+                  style={{ maxWidth: '100%', maxHeight: '240px', objectFit: 'contain', filter: 'drop-shadow(0 0 16px rgba(225, 6, 0, 0.25))' }}
+                />
+                <div style={{ fontSize: '0.85rem', color: '#E2E8F0', marginTop: '12px', fontWeight: '800' }}>
+                  {activeRace.circuit} • {activeRace.city}, {activeRace.country}
+                </div>
+                <div style={{ fontSize: '0.75rem', color: '#9CA3AF', marginTop: '2px' }}>
+                  {activeRace.date}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       ) : (
         <>
           {/* Full Interactive Table FIRST for immediate access */}

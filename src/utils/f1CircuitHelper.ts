@@ -2,7 +2,7 @@
 export const DRIVER_NUMBER_MAP: Record<string, number> = {
   'drv-1': 69,   // Yurii ZAKHARCHUK (69)
   'drv-2': 14,   // Fernando ALONSO
-  'drv-3': 3,    // MARK
+  'drv-3': 47,   // MARK (47)
   'drv-4': 23,   // Alexander ALBON
   'drv-5': 10,   // Pierre GASLY
   'drv-6': 67,   // Mykola YAREMA (67)
@@ -46,13 +46,15 @@ export function extractF1RaceDetails(race?: any): F1RaceDetails {
     };
   }
 
-  // Extract round number from id or subtitle (e.g. "race-17" or "RACE 17")
+  // Extract round number from round property, id or subtitle (e.g. "race-17" or "2027-race-1")
   let roundNum = 1;
-  if (typeof race.id === 'string' && race.id.startsWith('race-')) {
-    const parsed = parseInt(race.id.replace('race-', ''), 10);
+  if (typeof race.round === 'number') {
+    roundNum = race.round;
+  } else if (typeof race.id === 'string' && race.id.includes('race-')) {
+    const parsed = parseInt(race.id.split('race-')[1], 10);
     if (!isNaN(parsed)) roundNum = parsed;
   } else if (race.subtitle) {
-    const match = race.subtitle.match(/RACE\s+(\d+)/i);
+    const match = race.subtitle.match(/(?:RACE|ROUND)\s+(\d+)/i);
     if (match) roundNum = parseInt(match[1], 10);
   }
 
@@ -60,12 +62,14 @@ export function extractF1RaceDetails(race?: any): F1RaceDetails {
   const rawSub = (race.subtitle || '').trim();
   const text = `${rawTitle} ${rawSub}`.toLowerCase();
 
-  let countryName = 'SINGAPORE';
-  let countryCode = 'sg';
-  let circuitCity = 'Singapore';
-  let circuitName = rawSub.split('-')[0]?.trim() || 'MARINA BAY STREET CIRCUIT';
+  let countryName = race.country ? race.country.toUpperCase() : 'AUSTRIA';
+  let countryCode = race.countryCode ? race.countryCode.toLowerCase() : 'at';
+  let circuitCity = race.city || 'Spielberg';
+  let circuitName = race.circuit ? race.circuit.toUpperCase() : (rawSub.split('-')[0]?.trim() || 'RED BULL RING');
 
-  if (text.includes('japan') || text.includes('suzuka')) {
+  if (race.country && race.city && race.circuit) {
+    // Explicit details supplied directly on race object
+  } else if (text.includes('japan') || text.includes('suzuka')) {
     countryName = 'JAPAN';
     countryCode = 'jp';
     circuitCity = 'Suzuka';

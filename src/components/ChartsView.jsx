@@ -31,6 +31,22 @@ export default function ChartsView({ data }) {
   const secondTeam = constructorSeries[1];
   const teamGap = leaderTeam && secondTeam ? leaderTeam.cumulative - secondTeam.cumulative : 0;
 
+  if (stages.length === 0) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div className="card" style={{ padding: '40px 24px', textAlign: 'center', background: '#121520', borderRadius: '16px', border: '1px solid rgba(225, 6, 0, 0.35)', boxShadow: '0 12px 36px rgba(0,0,0,0.5)' }}>
+          <TrendingUp size={44} color="var(--f1-red)" style={{ margin: '0 auto 12px auto' }} />
+          <h2 style={{ fontSize: '1.6rem', fontWeight: '900', fontStyle: 'italic', color: '#FFF' }}>
+            ПРЕДСТАРТОВАЯ АНАЛИТИКА СЕЗОНА 2027-1
+          </h2>
+          <p style={{ color: '#9CA3AF', fontSize: '0.95rem', maxWidth: '620px', margin: '8px auto 20px' }}>
+            Сезон 2027-1 готовится к старту. Интерактивная динамика очков, отрывы в личном зачёте и накопительные кривые Кубка конструкторов активируются сразу после завершения 1-го этапа (Гран-при Австрии • Red Bull Ring).
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* KPI Highlight Cards */}

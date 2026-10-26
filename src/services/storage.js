@@ -8,78 +8,163 @@ import {
   BREAKING_TRANSFERS
 } from './initialData.js';
 
-const STORAGE_KEY = 'f1_tournament_data_v1';
+import {
+  SEASON_2027_1_DATA,
+  DEFAULT_DRIVERS_2027_1,
+  DEFAULT_RACES_2027_1,
+  DEFAULT_TRANSFERS_2027_1
+} from './season2027Data.js';
 
-export function getTournamentData() {
+export const SEASONS = [
+  { id: '2027-1', name: 'Сезон 2027-1', year: 2027, status: 'active', isCurrent: true, label: '🔥 Сезон 2027-1 (Старт)' },
+  { id: '2026', name: 'Сезон 2026', year: 2026, status: 'completed', isCurrent: false, label: '🏆 Сезон 2026 (Архив)' }
+];
+
+const STORAGE_KEY_LEGACY = 'f1_tournament_data_v1';
+const STORAGE_KEY_2026 = 'f1_tournament_data_2026';
+const STORAGE_KEY_2027_1 = 'f1_tournament_data_2027_1';
+const ACTIVE_SEASON_KEY = 'f1_active_season';
+
+export function getActiveSeason() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      const initial = {
-        teams: DEFAULT_TEAMS,
-        drivers: DEFAULT_DRIVERS,
-        races: DEFAULT_RACES,
-        penalties: DEFAULT_PENALTIES,
-        pointsMap: DEFAULT_POINTS_MAP,
-        fastestLapPoints: 1,
-        transfers: BREAKING_TRANSFERS
-      };
-      saveTournamentData(initial);
-      return initial;
+    const saved = localStorage.getItem(ACTIVE_SEASON_KEY);
+    if (saved === '2026' || saved === '2027-1') return saved;
+  } catch {}
+  return '2027-1'; // Default to next season
+}
+
+export function setActiveSeason(seasonId) {
+  try {
+    localStorage.setItem(ACTIVE_SEASON_KEY, seasonId);
+  } catch {}
+  return seasonId;
+}
+
+export function getTournamentData(seasonId = getActiveSeason()) {
+  try {
+    if (seasonId === '2026') {
+      let raw = localStorage.getItem(STORAGE_KEY_2026);
+      if (!raw) {
+        raw = localStorage.getItem(STORAGE_KEY_LEGACY);
+      }
+      if (!raw) {
+        const initial2026 = {
+          seasonId: '2026',
+          seasonName: 'Сезон 2026',
+          year: 2026,
+          teams: DEFAULT_TEAMS,
+          drivers: DEFAULT_DRIVERS,
+          races: DEFAULT_RACES,
+          penalties: DEFAULT_PENALTIES,
+          pointsMap: DEFAULT_POINTS_MAP,
+          fastestLapPoints: 1,
+          transfers: BREAKING_TRANSFERS
+        };
+        saveTournamentData(initial2026, '2026');
+        return initial2026;
+      }
+      const parsed = JSON.parse(raw);
+      parsed.seasonId = '2026';
+      parsed.seasonName = 'Сезон 2026';
+      parsed.year = 2026;
+
+      // Sync updated teams (with logos)
+      if (parsed.teams) {
+        parsed.teams = parsed.teams.map(t => {
+          const def = DEFAULT_TEAMS.find(dt => dt.id === t.id);
+          return def ? { ...t, name: def.name || t.name, logo: def.logo || t.logo } : t;
+        });
+      }
+
+      // Sync updated drivers & their new team transfers!
+      if (parsed.drivers) {
+        DEFAULT_DRIVERS.forEach(def => {
+          if (!parsed.drivers.some(d => d.id === def.id)) {
+            parsed.drivers.push(def);
+          }
+        });
+        parsed.drivers = parsed.drivers.map(d => {
+          const def = DEFAULT_DRIVERS.find(dd => dd.id === d.id);
+          if (def) {
+            return {
+              ...d,
+              driverNumber: def.driverNumber,
+              teamId: def.teamId,
+              name: def.name || d.name,
+              country: d.id === 'drv-1' || d.id === 'drv-3' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' || d.id === 'drv-23' ? 'UA' : d.country,
+              isAi: def.isAi !== undefined ? def.isAi : d.isAi,
+              avatar: def.avatar || d.avatar,
+              avatarFullWithBg: def.avatarFullWithBg || def.avatar || d.avatar,
+              avatarFullNoBg: def.avatarFullNoBg || def.avatar || d.avatar,
+              avatarChampion: def.avatarChampion || d.avatarChampion,
+              avatarViceChampion: def.avatarViceChampion || d.avatarViceChampion,
+              avatarBronzeChampion: def.avatarBronzeChampion || d.avatarBronzeChampion
+            };
+          }
+          return d;
+        });
+      }
+
+      // Sync races & penalties from DEFAULT_RACES & DEFAULT_PENALTIES
+      if (parsed.races) {
+        parsed.races = DEFAULT_RACES;
+      }
+      parsed.penalties = DEFAULT_PENALTIES;
+      parsed.transfers = BREAKING_TRANSFERS;
+
+      saveTournamentData(parsed, '2026');
+      return parsed;
     }
-    const parsed = JSON.parse(raw);
 
-    // Sync updated teams (with logos)
-    if (parsed.teams) {
-      parsed.teams = parsed.teams.map(t => {
-        const def = DEFAULT_TEAMS.find(dt => dt.id === t.id);
-        return def ? { ...t, name: def.name || t.name, logo: def.logo || t.logo } : t;
-      });
+    // Default: Season 2027-1
+    const raw2027 = localStorage.getItem(STORAGE_KEY_2027_1);
+    if (!raw2027) {
+      saveTournamentData(SEASON_2027_1_DATA, '2027-1');
+      return SEASON_2027_1_DATA;
     }
+    const parsed2027 = JSON.parse(raw2027);
+    parsed2027.seasonId = '2027-1';
+    parsed2027.seasonName = 'Сезон 2027-1';
+    parsed2027.year = 2027;
 
-    // Sync updated drivers & their new team transfers!
-    if (parsed.drivers) {
-      DEFAULT_DRIVERS.forEach(def => {
-        if (!parsed.drivers.some(d => d.id === def.id)) {
-          parsed.drivers.push(def);
-        }
-      });
-      parsed.drivers = parsed.drivers.map(d => {
-        const def = DEFAULT_DRIVERS.find(dd => dd.id === d.id);
-        if (def) {
-          return {
-            ...d,
-            driverNumber: def.driverNumber,
-            teamId: def.teamId, // Update teamId to reflect transfers!
-            name: def.name || d.name,
-            country: d.id === 'drv-1' || d.id === 'drv-3' || d.id === 'drv-6' || d.id === 'drv-11' || d.id === 'drv-17' || d.id === 'drv-23' ? 'UA' : d.country,
-            isAi: def.isAi !== undefined ? def.isAi : d.isAi,
-            avatar: def.avatar || d.avatar,
-            avatarFullWithBg: def.avatarFullWithBg || def.avatar || d.avatar,
-            avatarFullNoBg: def.avatarFullNoBg || def.avatar || d.avatar,
-            avatarChampion: def.avatarChampion || d.avatarChampion,
-            avatarViceChampion: def.avatarViceChampion || d.avatarViceChampion,
-            avatarBronzeChampion: def.avatarBronzeChampion || d.avatarBronzeChampion
-          };
-        }
-        return d;
-      });
+    parsed2027.teams = DEFAULT_TEAMS;
+    parsed2027.drivers = DEFAULT_DRIVERS_2027_1;
+    if (!parsed2027.races || parsed2027.races.length === 0) {
+      parsed2027.races = DEFAULT_RACES_2027_1;
     }
-
-    // Auto-update check: Always sync races from DEFAULT_RACES!
-    if (parsed.races) {
-      parsed.races = DEFAULT_RACES;
-    }
-
-    // Auto-update check: Always sync penalties from DEFAULT_PENALTIES!
-    parsed.penalties = DEFAULT_PENALTIES;
-
-    parsed.transfers = BREAKING_TRANSFERS;
-
-    saveTournamentData(parsed);
-    return parsed;
+    parsed2027.transfers = DEFAULT_TRANSFERS_2027_1;
+    saveTournamentData(parsed2027, '2027-1');
+    return parsed2027;
   } catch (err) {
     console.error('Failed to load tournament data from localStorage:', err);
-    return {
+    return seasonId === '2026'
+      ? {
+          seasonId: '2026',
+          teams: DEFAULT_TEAMS,
+          drivers: DEFAULT_DRIVERS,
+          races: DEFAULT_RACES,
+          penalties: DEFAULT_PENALTIES,
+          pointsMap: DEFAULT_POINTS_MAP,
+          fastestLapPoints: 1,
+          transfers: BREAKING_TRANSFERS
+        }
+      : SEASON_2027_1_DATA;
+  }
+}
+
+export function saveTournamentData(data, seasonId = getActiveSeason()) {
+  try {
+    const key = seasonId === '2026' ? STORAGE_KEY_2026 : STORAGE_KEY_2027_1;
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (err) {
+    console.error('Failed to save tournament data:', err);
+  }
+}
+
+export function resetToDefaultData(seasonId = getActiveSeason()) {
+  if (seasonId === '2026') {
+    const initial = {
+      seasonId: '2026',
       teams: DEFAULT_TEAMS,
       drivers: DEFAULT_DRIVERS,
       races: DEFAULT_RACES,
@@ -88,38 +173,41 @@ export function getTournamentData() {
       fastestLapPoints: 1,
       transfers: BREAKING_TRANSFERS
     };
+    saveTournamentData(initial, '2026');
+    return initial;
   }
+  saveTournamentData(SEASON_2027_1_DATA, '2027-1');
+  return SEASON_2027_1_DATA;
 }
 
-export function saveTournamentData(data) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (err) {
-    console.error('Failed to save tournament data:', err);
-  }
-}
-
-export function resetToDefaultData() {
-  const initial = {
-    teams: DEFAULT_TEAMS,
-    drivers: DEFAULT_DRIVERS,
-    races: DEFAULT_RACES,
-    penalties: DEFAULT_PENALTIES,
-    pointsMap: DEFAULT_POINTS_MAP,
-    fastestLapPoints: 1,
-    transfers: BREAKING_TRANSFERS
-  };
-  saveTournamentData(initial);
-  return initial;
-}
-
-export function exportDataAsJSON(data) {
+export function exportDataAsJSON(data, seasonId = getActiveSeason()) {
   const jsonStr = JSON.stringify(data, null, 2);
   const blob = new Blob([jsonStr], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `f1_tournament_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `f1_season_${seasonId || 'active'}_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function exportFullArchiveJSON() {
+  const data2026 = getTournamentData('2026');
+  const data2027 = getTournamentData('2027-1');
+  const fullArchive = {
+    exportedAt: new Date().toISOString(),
+    activeSeason: getActiveSeason(),
+    seasons: {
+      '2026': data2026,
+      '2027-1': data2027
+    }
+  };
+  const jsonStr = JSON.stringify(fullArchive, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `f1_tournament_all_seasons_archive_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -269,6 +357,16 @@ export function calculatePointsProgression(data) {
     if (race.status === 'cancelled' && !race.isSprint) return false;
     return race.status === 'completed' || race.status === 'FINISHED' || race.status === 'cancelled';
   });
+
+  if (completedRaces.length === 0) {
+    return {
+      stages: [],
+      driverSeries: [],
+      constructorSeries: [],
+      leaderHistoryDrivers: [],
+      leaderHistoryConstructors: []
+    };
+  }
 
   const getShortTitle = (title, isSprint) => {
     if (title.includes('Azerbaijan') || title.includes('Baku')) return isSprint ? 'Баку Спринт' : 'Баку';
