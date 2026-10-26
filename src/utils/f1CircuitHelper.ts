@@ -10,7 +10,7 @@ export const DRIVER_NUMBER_MAP: Record<string, number> = {
   'drv-8': 27,   // Nico HULKENBERG
   'drv-9': 77,   // Valtteri BOTTAS
   'drv-10': 18,  // Lance STROLL
-  'drv-11': 95,  // Alexsandr GROMOV (95)
+  'drv-11': 95,  // Alexsandr PISARENKO (95)
   'drv-12': 20,  // Kevin MAGNUSSEN
   'drv-13': 31,   // Esteban OCON
   'drv-14': 55,  // Carlos SAINZ

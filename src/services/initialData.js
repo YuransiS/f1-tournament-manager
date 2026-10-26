@@ -128,7 +128,7 @@ export const DEFAULT_DRIVERS = [
   },
   {
     id: 'drv-11',
-    name: 'Alexsandr GROMOV',
+    name: 'Alexsandr PISARENKO',
     country: 'UA',
     flag: '🇺🇦',
     driverNumber: 95,
@@ -424,14 +424,14 @@ export const DEFAULT_RACES = [
     penaltyData: {
       offenderName: 'Carlos SAINZ',
       offenderCar: 'Car #55 • Ferrari',
-      victimName: 'Alexsandr GROMOV (PABV)',
+      victimName: 'Alexsandr PISARENKO (PABV)',
       victimCar: 'Car #63 • Mercedes-AMG Petronas',
       penaltyText: '+10 SEC TIME PENALTY',
       penaltyValue: '+10 SECONDS',
       docNo: 'DEC-2026-MIA-55',
       circuitName: 'MIAMI INTERNATIONAL AUTODROME',
       headline: 'ШТРАФ +10 СЕКУНД ДЛЯ CARLOS SAINZ (#55 FERRARI)',
-      description: 'Стюарды изучили видеозаписи с онборд-камер, данные GPS и телеметрии. Было установлено, что болид #55 (Carlos Sainz) совершил агрессивный и нескоординированный маневр обгона, вызвав фатальный контакт с болидом #63 (Alexsandr GROMOV / PABV).',
+      description: 'Стюарды изучили видеозаписи с онборд-камер, данные GPS и телеметрии. Было установлено, что болид #55 (Carlos Sainz) совершил агрессивный и нескоординированный маневр обгона, вызвав фатальный контакт с болидом #63 (Alexsandr PISARENKO / PABV).',
       consequences: '💥 Последствия инцидента: Болид Сашка получил несовместимые с продолжением гонки повреждения (Terminal Damage) и сошел с дистанции.',
       outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +10 секунд к финальному времени гонки. Карлос Сайнс перемещается с 6-го места на 17-е место.'
     },
@@ -722,7 +722,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     isSprint: true,
     fastestLapDriverId: '',
-    incidentNote: '🎳 Инцидент в Т1 La Source: Саша Громов (PABV) поздно затормозил и растолкал пелотон ("кеглировал почти всех"), но продолжил заезд и финишировал 7-м.',
+    incidentNote: '🎳 Инцидент в Т1 La Source: Сашко Писаренко (PABV) поздно затормозил и растолкал пелотон ("кеглировал почти всех"), но продолжил заезд и финишировал 7-м.',
     results: [
       { driverId: 'drv-1', grid: 1, stops: 0, bestLap: '1:48.100', totalTime: '23:45.120', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 2, stops: 0, bestLap: '1:48.350', totalTime: '+1.420', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
@@ -845,7 +845,7 @@ export const DEFAULT_RACES = [
     date: '2026-09-20',
     status: 'completed',
     fastestLapDriverId: 'drv-1',
-    incidentNote: '🇸🇬 Ночная буря в Сингапуре (Marina Bay): Гонка отметилась двумя выездами Safety Car! Дуэт Mercedes-AMG Юрий Захарчук (KillerplautzeGer) и Сашко Громов (PABV) оформили триумфальный победный дубль 1-2! Юрий Захарчук завоевал хет-трик (поул, победа, быстрейший круг 1:33.298). Кевин Магнуссен сенсационно принес Haas подиум (P3), а Вадим Манштейн снова в топ-4 за Red Bull. Микола Ярема из-за инцидентов и 5 пит-стопов финишировал 17-м (+3 сек. штраф). Марк (ugeto47, Williams), Ландо Норрис и Даниэль Риккардо сошли (DNF).',
+    incidentNote: '🇸🇬 Ночная буря в Сингапуре (Marina Bay): Гонка отметилась двумя выездами Safety Car! Дуэт Mercedes-AMG Юрий Захарчук (KillerplautzeGer) и Сашко Писаренко (PABV) оформили триумфальный победный дубль 1-2! Юрий Захарчук завоевал хет-трик (поул, победа, быстрейший круг 1:33.298). Кевин Магнуссен сенсационно принес Haas подиум (P3), а Вадим Манштейн снова в топ-4 за Red Bull. Микола Ярема из-за инцидентов и 5 пит-стопов финишировал 17-м (+3 сек. штраф). Марк (ugeto47, Williams), Ландо Норрис и Даниэль Риккардо сошли (DNF).',
     results: [
       { driverId: 'drv-1', grid: 1, stops: 2, bestLap: '1:33.298', totalTime: '54:14.590', penaltySeconds: 0, penaltyLabel: '🏆 Хет-трик: Победа + FL (1:33.298)!', status: 'FINISHED' },
       { driverId: 'drv-11', grid: 3, stops: 1, bestLap: '1:35.763', totalTime: '+3.039', penaltySeconds: 0, penaltyLabel: '🥈 Дубль Mercedes 1-2!', status: 'FINISHED' },
@@ -880,18 +880,18 @@ export const DEFAULT_RACES = [
     penaltyData: {
       offenderName: 'Fernando ALONSO',
       offenderCar: 'Car #14 • Aston Martin',
-      victimName: 'Alexsandr GROMOV (PABV)',
+      victimName: 'Alexsandr PISARENKO (PABV)',
       victimCar: 'Car #63 • Mercedes-AMG Petronas',
       penaltyText: '+10 SEC TIME PENALTY',
       penaltyValue: '+10 SECONDS',
       docNo: 'DEC-2026-JPN-14',
       circuitName: 'SUZUKA INTERNATIONAL RACING COURSE',
       headline: 'ШТРАФ +10 СЕКУНД ДЛЯ FERNANDO ALONSO (#14 ASTON MARTIN)',
-      description: 'Стюарды изучили записи онборд-камер и телеметрии на 16-м круге Гран-при Японии. Было установлено, что болид #14 (Fernando ALONSO) допустил грубый контакт и выбил болид #63 (Alexsandr GROMOV / PABV), стартовавшего с поула.',
-      consequences: '💥 Последствия инцидента: Сашко Громов получил серьезные повреждения болида, был вынужден совершить внеплановый второй пит-стоп и откатился за пределы очковой зоны на 11-е место.',
+      description: 'Стюарды изучили записи онборд-камер и телеметрии на 16-м круге Гран-при Японии. Было установлено, что болид #14 (Fernando ALONSO) допустил грубый контакт и выбил болид #63 (Alexsandr PISARENKO / PABV), стартовавшего с поула.',
+      consequences: '💥 Последствия инцидента: Сашко Писаренко получил серьезные повреждения болида, был вынужден совершить внеплановый второй пит-стоп и откатился за пределы очковой зоны на 11-е место.',
       outcome: '⚖️ ИТОГОВЫЙ ШТРАФ: +10 секунд к финальному времени гонки (падение с P4 на P7, потеря очков в пользу Leclerc, Tsunoda и Bottas).'
     },
-    incidentNote: '🇯🇵 Легендарная Сузука: Микола Ярема (kolyacoolguy, Red Bull) одерживает убедительную победу со 2-го места на старте! Юрий Захарчук (KillerplautzeGer, Mercedes) финиширует 2-м и забирает бонусный балл за быстрейший круг (1:31.288). Алекс Албон приносит подиум Williams (P3). Фернандо Алонсо получил штраф +10 секунд от стюардов FIA за столкновение и уничтожение гонки Сашка Громова (PABV) на 16-м круге (Алонсо опустился с P4 на P7, а Сашко из-за повреждений и лишнего пит-стопа финишировал 11-м). Вадим Манштейн (Red Bull) сошёл на старте из-за повреждений (DNF).',
+    incidentNote: '🇯🇵 Легендарная Сузука: Микола Ярема (kolyacoolguy, Red Bull) одерживает убедительную победу со 2-го места на старте! Юрий Захарчук (KillerplautzeGer, Mercedes) финиширует 2-м и забирает бонусный балл за быстрейший круг (1:31.288). Алекс Албон приносит подиум Williams (P3). Фернандо Алонсо получил штраф +10 секунд от стюардов FIA за столкновение и уничтожение гонки Сашка Писаренка (PABV) на 16-м круге (Алонсо опустился с P4 на P7, а Сашко из-за повреждений и лишнего пит-стопа финишировал 11-м). Вадим Манштейн (Red Bull) сошёл на старте из-за повреждений (DNF).',
     results: [
       { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:31.875', totalTime: '42:29.534', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull!', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 4, stops: 1, bestLap: '1:31.288', totalTime: '+15.061', penaltySeconds: 0, penaltyLabel: '⏱️ P2 + Fastest Lap (1:31.288)', status: 'FINISHED' },
@@ -924,7 +924,7 @@ export const DEFAULT_RACES = [
     isSprint: true,
     fastestLapDriverId: 'drv-1',
     driverOfTheDayId: 'drv-1',
-    incidentNote: '🇶🇦 Ночной спринт в Катаре (Lusail): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает победу в напряженной борьбе со 2-го ряда и признан Driver of the Day! Микола Ярема (kolyacoolguy, Red Bull) уступает всего +0.495 сек и берет P2. Сашко Громов (PABV) дополняет триумф Mercedes на подиуме (P3). Вадим Манштейн (Ferrari) финиширует 4-м (+12.100), Денис Коваленко (Red Bull) 5-й. Даниэль Риккардо и Кевин Магнуссен сошли с дистанции (DNF).',
+    incidentNote: '🇶🇦 Ночной спринт в Катаре (Lusail): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает победу в напряженной борьбе со 2-го ряда и признан Driver of the Day! Микола Ярема (kolyacoolguy, Red Bull) уступает всего +0.495 сек и берет P2. Сашко Писаренко (PABV) дополняет триумф Mercedes на подиуме (P3). Вадим Манштейн (Ferrari) финиширует 4-м (+12.100), Денис Коваленко (Red Bull) 5-й. Даниэль Риккардо и Кевин Магнуссен сошли с дистанции (DNF).',
     results: [
       { driverId: 'drv-1', grid: 3, stops: 0, bestLap: '1:24.812', totalTime: '14:26.171', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте • Driver of the Day!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:24.841', totalTime: '+0.495', penaltySeconds: 0, penaltyLabel: '🥈 P2 в борьбе (+0.495)', status: 'FINISHED' },
@@ -989,7 +989,7 @@ export const DEFAULT_RACES = [
     isSprint: true,
     fastestLapDriverId: 'drv-1',
     driverOfTheDayId: 'drv-6',
-    incidentNote: '🇺🇸 Спринт в Остине (Circuit of the Americas): Микола Ярема (Red Bull) удерживает лидерство с поула и берет победу! Юрий Захарчук (Mercedes) прессинговал до самого финиша (+0.352, быстрейший круг 1:37.737). Денис Коваленко замыкает топ-3. Цунода, Алонсо, Сарджент, Албон и Пиастри также берут очки в спринте. Сашко Громов, Вадим Манштейн, Хюлькенберг и Норрис сошли (DNF).',
+    incidentNote: '🇺🇸 Спринт в Остине (Circuit of the Americas): Микола Ярема (Red Bull) удерживает лидерство с поула и берет победу! Юрий Захарчук (Mercedes) прессинговал до самого финиша (+0.352, быстрейший круг 1:37.737). Денис Коваленко замыкает топ-3. Цунода, Алонсо, Сарджент, Албон и Пиастри также берут очки в спринте. Сашко Писаренко, Вадим Манштейн, Хюлькенберг и Норрис сошли (DNF).',
     results: [
       { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:37.926', totalTime: '17:45.801', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте Red Bull!', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 5, stops: 0, bestLap: '1:37.737', totalTime: '+0.352', penaltySeconds: 0, penaltyLabel: '🥈 P2 в плотной борьбе (+0.352)', status: 'FINISHED' },
@@ -1021,7 +1021,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     fastestLapDriverId: 'drv-1',
     driverOfTheDayId: 'drv-11',
-    incidentNote: '🇺🇸 Драма и триумф в Остине: Денис Коваленко (ProstoDenya, Red Bull) завоевывает феноменальную победу! Вадим Манштейн (Ferrari) прорывается с 18-го места на вторую ступень подиума (P2, +19.512)! Сашко Громов (PABV, Mercedes), несмотря на +3 сек штрафа, героически удерживает P3 и забирает звание Driver of the Day! Логан Сарджент приносит Williams сенсационное 4-е место на домашней трассе! Юрий Захарчук финиширует 5-м (+3 сек штраф) и берет очко за Fastest Lap (1:36.066). Микола Ярема P6.',
+    incidentNote: '🇺🇸 Драма и триумф в Остине: Денис Коваленко (ProstoDenya, Red Bull) завоевывает феноменальную победу! Вадим Манштейн (Ferrari) прорывается с 18-го места на вторую ступень подиума (P2, +19.512)! Сашко Писаренко (PABV, Mercedes), несмотря на +3 сек штрафа, героически удерживает P3 и забирает звание Driver of the Day! Логан Сарджент приносит Williams сенсационное 4-е место на домашней трассе! Юрий Захарчук финиширует 5-м (+3 сек штраф) и берет очко за Fastest Lap (1:36.066). Микола Ярема P6.',
     results: [
       { driverId: 'drv-17', grid: 3, stops: 1, bestLap: '1:36.123', totalTime: '47:02.352', penaltySeconds: 0, penaltyLabel: '🏆 Блистательная победа Red Bull!', status: 'FINISHED' },
       { driverId: 'drv-23', teamId: 'ferrari', grid: 18, stops: 1, bestLap: '1:37.252', totalTime: '+19.512', penaltySeconds: 0, penaltyLabel: '🥈 Мегапрорыв P18 ➔ P2 Ferrari!', status: 'FINISHED' },
@@ -1053,7 +1053,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     fastestLapDriverId: 'drv-6',
     driverOfTheDayId: 'drv-1',
-    incidentNote: '🇲🇽 Жара в Мехико (Autódromo Hermanos Rodríguez): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает великолепную победу со старта с поула! Микола Ярема (Red Bull) финиширует 2-м (+3.844) и забирает бонусный балл за быстрейший круг (1:20.168). Денис Коваленко (Red Bull) поднимается на подиум (P3). Сашко Громов (Mercedes) на P4, Вадим Манштейн (Ferrari) в топ-5 на P5. Норрис, Окон, Чжоу, Пиастри и Алонсо замыкают очковую зону. Даниэль Риккардо сошёл с дистанции (DNF).',
+    incidentNote: '🇲🇽 Жара в Мехико (Autódromo Hermanos Rodríguez): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает великолепную победу со старта с поула! Микола Ярема (Red Bull) финиширует 2-м (+3.844) и забирает бонусный балл за быстрейший круг (1:20.168). Денис Коваленко (Red Bull) поднимается на подиум (P3). Сашко Писаренко (Mercedes) на P4, Вадим Манштейн (Ferrari) в топ-5 на P5. Норрис, Окон, Чжоу, Пиастри и Алонсо замыкают очковую зону. Даниэль Риккардо сошёл с дистанции (DNF).',
     results: [
       { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:20.471', totalTime: '49:54.999', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes с поула!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 3, stops: 1, bestLap: '1:20.168', totalTime: '+3.844', penaltySeconds: 0, penaltyLabel: '⏱️ P2 + Fastest Lap (1:20.168)!', status: 'FINISHED' },
@@ -1086,7 +1086,7 @@ export const DEFAULT_RACES = [
     isSprint: true,
     fastestLapDriverId: 'drv-11',
     driverOfTheDayId: 'drv-6',
-    incidentNote: '🇧🇷 Дождевой спринт в Сан-Паулу (Autódromo José Carlos Pace): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает победу со старта с 3-го места (14:32.614)! Денис Коваленко (Red Bull) удерживает 2-е место (+8.525). Микола Ярема (Red Bull) совершает фантастический мегапрорыв с 20-го места на подиум (P3, +17 позиций, +21.313) и признан Driver of the Day! Макларен берут P4 (Норрис) и P5 (Пиастри), Феррари забирают P6 (Леклер) и P7 (Манштейн), Окон закрывает очковую зону спринта (P8). Сашко Громов (PABV) показывает абсолютно лучший круг заезда (1:11.100). Лэнс Стролл сошёл (DNF).',
+    incidentNote: '🇧🇷 Дождевой спринт в Сан-Паулу (Autódromo José Carlos Pace): Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает победу со старта с 3-го места (14:32.614)! Денис Коваленко (Red Bull) удерживает 2-е место (+8.525). Микола Ярема (Red Bull) совершает фантастический мегапрорыв с 20-го места на подиум (P3, +17 позиций, +21.313) и признан Driver of the Day! Макларен берут P4 (Норрис) и P5 (Пиастри), Феррари забирают P6 (Леклер) и P7 (Манштейн), Окон закрывает очковую зону спринта (P8). Сашко Писаренко (PABV) показывает абсолютно лучший круг заезда (1:11.100). Лэнс Стролл сошёл (DNF).',
     results: [
       { driverId: 'drv-1', grid: 3, stops: 0, bestLap: '1:11.461', totalTime: '14:32.614', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте Mercedes!', status: 'FINISHED' },
       { driverId: 'drv-17', grid: 1, stops: 0, bestLap: '1:11.745', totalTime: '+8.525', penaltySeconds: 0, penaltyLabel: '🥈 P2 Подиум Red Bull', status: 'FINISHED' },
@@ -1118,7 +1118,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     fastestLapDriverId: 'drv-1',
     driverOfTheDayId: 'drv-17',
-    incidentNote: '🇧🇷 Гран-при Сан-Паулу (Autódromo José Carlos Pace): Исторический победный дубль Red Bull (1-2)! Денис Коваленко (ProstoDenya) одерживает триумфальную победу со старта с поула (33:58.898) и признан Driver of the Day! Микола Ярема (kolyacoolguy) финиширует 2-м (+7.428). Юрий Захарчук (KillerplautzeGer, Mercedes) поднимается на подиум (P3) и забирает бонусный балл за Fastest Lap гонки (1:18.508). Сашко Громов (PABV, Mercedes) совершает феноменальный мегапрорыв с 17-го места на 4-е (P4, +13 позиций)! Норрис (McLaren) замыкает топ-5, Вадим Манштейн (Ferrari) P6, Пиастри (McLaren) P7. Гасли, Чжоу и Боттас в очках. Все 20 болидов добрались до финиша (0 сходов)!',
+    incidentNote: '🇧🇷 Гран-при Сан-Паулу (Autódromo José Carlos Pace): Исторический победный дубль Red Bull (1-2)! Денис Коваленко (ProstoDenya) одерживает триумфальную победу со старта с поула (33:58.898) и признан Driver of the Day! Микола Ярема (kolyacoolguy) финиширует 2-м (+7.428). Юрий Захарчук (KillerplautzeGer, Mercedes) поднимается на подиум (P3) и забирает бонусный балл за Fastest Lap гонки (1:18.508). Сашко Писаренко (PABV, Mercedes) совершает феноменальный мегапрорыв с 17-го места на 4-е (P4, +13 позиций)! Норрис (McLaren) замыкает топ-5, Вадим Манштейн (Ferrari) P6, Пиастри (McLaren) P7. Гасли, Чжоу и Боттас в очках. Все 20 болидов добрались до финиша (0 сходов)!',
     results: [
       { driverId: 'drv-17', grid: 1, stops: 1, bestLap: '1:18.558', totalTime: '33:58.898', penaltySeconds: 0, penaltyLabel: '🏆 Победа Red Bull с поула!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 3, stops: 1, bestLap: '1:18.529', totalTime: '+7.428', penaltySeconds: 0, penaltyLabel: '🥈 Победный дубль Red Bull (P2)', status: 'FINISHED' },
@@ -1150,7 +1150,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     fastestLapDriverId: 'drv-1',
     driverOfTheDayId: 'drv-1',
-    incidentNote: '🇺🇸 Ночная феерия на Лас-Вегас Стрип: Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает доминирующую победу с быстрейшим кругом гонки (1:33.200)! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м (+22.019). Вадим Манштейн (_erich_manstein_) приносит сенсационный подиум для Ferrari (P3, +34.536)! Денис Коваленко (Red Bull) 4-й, Сашко Громов (Mercedes) замыкает топ-5. Норрис, Боттас, Сарджент, Чжоу и Сайнс в топ-10. Лэнс Стролл сошёл (DNF).',
+    incidentNote: '🇺🇸 Ночная феерия на Лас-Вегас Стрип: Юрий Захарчук (KillerplautzeGer, Mercedes) одерживает доминирующую победу с быстрейшим кругом гонки (1:33.200)! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м (+22.019). Вадим Манштейн (_erich_manstein_) приносит сенсационный подиум для Ferrari (P3, +34.536)! Денис Коваленко (Red Bull) 4-й, Сашко Писаренко (Mercedes) замыкает топ-5. Норрис, Боттас, Сарджент, Чжоу и Сайнс в топ-10. Лэнс Стролл сошёл (DNF).',
     results: [
       { driverId: 'drv-1', grid: 1, stops: 1, bestLap: '1:33.200', totalTime: '35:10.000', penaltySeconds: 0, penaltyLabel: '🏆 Победа Mercedes + Fastest Lap!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 2, stops: 1, bestLap: '1:33.800', totalTime: '+22.019', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Red Bull (P2)', status: 'FINISHED' },
@@ -1182,7 +1182,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     fastestLapDriverId: 'drv-6',
     driverOfTheDayId: 'drv-6',
-    incidentNote: '🇨🇳 Гран-при Китая (Shanghai International Circuit): Микола Ярема (kolyacoolguy, Red Bull) выигрывает с поула и берет Fastest Lap (1:35.583), официально гарантируя себе титул Чемпиона Мира 2026! Юрий Захарчук (KillerplautzeGer, Mercedes) на 2-м месте (+14.627). Денис Коваленко (Red Bull) замыкает подиум P3. Чжоу Гуаньюй восхищает трибуны домашним 4-м местом! Алонсо, Сарджент, Пиастри, Боттас, Норрис и Риккардо в очках. Окон, Гасли, Громов и Манштейн сошли с дистанции (DNF).',
+    incidentNote: '🇨🇳 Гран-при Китая (Shanghai International Circuit): Микола Ярема (kolyacoolguy, Red Bull) выигрывает с поула и берет Fastest Lap (1:35.583), официально гарантируя себе титул Чемпиона Мира 2026! Юрий Захарчук (KillerplautzeGer, Mercedes) на 2-м месте (+14.627). Денис Коваленко (Red Bull) замыкает подиум P3. Чжоу Гуаньюй восхищает трибуны домашним 4-м местом! Алонсо, Сарджент, Пиастри, Боттас, Норрис и Риккардо в очках. Окон, Гасли, Писаренко и Манштейн сошли с дистанции (DNF).',
     results: [
       { driverId: 'drv-6', grid: 1, stops: 1, bestLap: '1:35.583', totalTime: '47:58.135', penaltySeconds: 0, penaltyLabel: '🏆 Победа + Fastest Lap • Чемпион Мира!', status: 'FINISHED' },
       { driverId: 'drv-1', grid: 4, stops: 2, bestLap: '1:36.464', totalTime: '+14.627', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Mercedes (P2)', status: 'FINISHED' },
@@ -1214,7 +1214,7 @@ export const DEFAULT_RACES = [
     status: 'completed',
     fastestLapDriverId: 'drv-6',
     driverOfTheDayId: 'drv-23',
-    incidentNote: '🇦🇪 Гран-при Абу-Даби (Yas Marina Circuit — Финал Сезона 2026): Сенсационная победа Вадима Манштейна (_erich_manstein_) за рулем Ferrari в заключительной гонке года! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м с быстрейшим кругом гонки (1:25.463), триумфально завершая свой чемпионский сезон. Денис Коваленко (Red Bull) занимает 3-е место, закрепляя дубль на подиуме для Red Bull и свою бронзу по итогам сезона! Пиастри, Боттас, Албон, Цунода, Норрис, Окон и Сайнс в очковой зоне. Для команды Mercedes финал обернулся драмой: Юрий Захарчук и Сашко Громов сошли с дистанции (DNF). Также сошли Алонсо, Стролл, Хюлькенберг и Магнуссен.',
+    incidentNote: '🇦🇪 Гран-при Абу-Даби (Yas Marina Circuit — Финал Сезона 2026): Сенсационная победа Вадима Манштейна (_erich_manstein_) за рулем Ferrari в заключительной гонке года! Микола Ярема (kolyacoolguy, Red Bull) финиширует 2-м с быстрейшим кругом гонки (1:25.463), триумфально завершая свой чемпионский сезон. Денис Коваленко (Red Bull) занимает 3-е место, закрепляя дубль на подиуме для Red Bull и свою бронзу по итогам сезона! Пиастри, Боттас, Албон, Цунода, Норрис, Окон и Сайнс в очковой зоне. Для команды Mercedes финал обернулся драмой: Юрий Захарчук и Сашко Писаренко сошли с дистанции (DNF). Также сошли Алонсо, Стролл, Хюлькенберг и Магнуссен.',
     results: [
       { driverId: 'drv-23', teamId: 'ferrari', grid: 2, stops: 2, bestLap: '1:26.340', totalTime: '86:53.034', penaltySeconds: 0, penaltyLabel: '🏆 Сенсационная победа Ferrari в финале сезона!', status: 'FINISHED' },
       { driverId: 'drv-6', grid: 1, stops: 2, bestLap: '1:25.463', totalTime: '+12.699', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Red Bull + Fastest Lap (1:25.463) • Чемпион Мира!', status: 'FINISHED' },
@@ -1245,9 +1245,9 @@ export const DEFAULT_PENALTIES = [
   { id: 'pen-3', driverId: 'drv-1', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-4', driverId: 'drv-6', raceId: 'race-2', type: 'TIME', value: 3, reason: 'Track limits warning (x1)', date: '2026-03-09' },
   { id: 'pen-5', driverId: 'drv-16', raceId: 'race-3', type: 'TIME', value: 5, reason: 'Track limits warning x1 (+5 secs.)', date: '2026-03-16' },
-  { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr GROMOV (Terminal Damage)', date: '2026-05-03' },
+  { id: 'pen-6', driverId: 'drv-14', raceId: 'race-5', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и уничтожение болида Alexsandr PISARENKO (Terminal Damage)', date: '2026-05-03' },
   { id: 'pen-7', driverId: 'drv-22', raceId: 'race-8', type: 'TIME', value: 20, reason: 'Штраф +20 сек за столкновение, разворот Юрия Захарчука в стену и повреждение своего колеса (DNF)', date: '2026-05-31' },
-  { id: 'pen-8', driverId: 'drv-2', raceId: 'race-18', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и выбивание Сашка Громова (PABV) на 16-м круге Сузуки', date: '2026-09-27' },
+  { id: 'pen-8', driverId: 'drv-2', raceId: 'race-18', type: 'TIME', value: 10, reason: 'Штраф +10 сек за столкновение и выбивание Сашка Писаренка (PABV) на 16-м круге Сузуки', date: '2026-09-27' },
   { id: 'pen-9', driverId: 'drv-11', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' },
   { id: 'pen-10', driverId: 'drv-1', raceId: 'race-20', type: 'TIME', value: 3, reason: 'Track limits warning (+3 secs.)', date: '2026-10-03' },
   { id: 'pen-11', driverId: 'drv-13', raceId: 'race-20', type: 'TIME', value: 5, reason: 'Штраф +5 сек', date: '2026-10-03' }
@@ -1255,12 +1255,24 @@ export const DEFAULT_PENALTIES = [
 
 export const BREAKING_TRANSFERS = [
   {
+    id: 'tr-7',
+    driverName: 'Олександр Писаренко (PABV)',
+    type: 'ANNOUNCEMENT',
+    title: 'Офіційне спростування та анонс: Олександр Писаренко (#95)!',
+    subtitle: 'Прес-служба Mercedes-AMG офіційно вносить ясність: напарником Юрія Захарчука є Олександр Писаренко (а не Громов)!',
+    image: '/announcements/pisarenko_mercedes.png',
+    fromTeam: 'Mercedes-AMG Petronas',
+    toTeam: 'Mercedes-AMG Petronas',
+    badgeText: 'OFFICIAL ANNOUNCEMENT'
+  },
+
+  {
     id: 'tr-1',
-    driverName: 'Олександр Громов (PABV)',
+    driverName: 'Олександр Писаренко (PABV)',
     type: 'EXTENDED',
-    title: 'Олександр Громов залишається в AL-Mercedes',
-    subtitle: 'Mercedes-AMG Petronas F1 Team продлевает контракт с Александром Громовым',
-    image: '/announcements/gromov_mercedes.png',
+    title: 'Олександр Писаренко залишається в AL-Mercedes',
+    subtitle: 'Mercedes-AMG Petronas F1 Team продлевает контракт с Олександром Писаренком',
+    image: '/announcements/pisarenko_mercedes.png',
     fromTeam: 'Mercedes-AMG Petronas',
     toTeam: 'Mercedes-AMG Petronas',
     badgeText: 'REMAINS IN MERCEDES'

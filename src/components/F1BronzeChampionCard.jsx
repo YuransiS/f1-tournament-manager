@@ -552,7 +552,7 @@ export default function F1BronzeChampionCard({ thirdPlace, fourthPlace }) {
                   <CheckCircle2 size={16} /> ОФИЦИАЛЬНОЕ ПОДТВЕРЖДЕНИЕ СТЮАРДОВ FIA & ДИРЕКЦИИ ЧЕМПИОНАТА
                 </div>
                 <p style={{ margin: '0 0 10px 0', fontSize: '0.95rem', color: '#E2E8F0', lineHeight: '1.5' }}>
-                  Украинский пилот Red Bull Racing <strong style={{ color: '#F59E0B' }}>Денис Коваленко (Denys KOVALENKO)</strong> провёл мощнейший сезон, завоевав <strong>{bronzeWins} победы</strong> на Гран-при, {bronzePodiums} подиумов и набрав <strong>{bronzePoints} очков</strong>. С отрывом в <strong>+{pointsGapP4} очков</strong> от ближайшего преследователя Александра Громова ({fourthPoints} очков), Денис официально гарантировал себе <strong style={{ color: '#FFF' }}>3-е место и Бронзовую медаль Чемпионата Мира 2026</strong>!
+                  Украинский пилот Red Bull Racing <strong style={{ color: '#F59E0B' }}>Денис Коваленко (Denys KOVALENKO)</strong> провёл мощнейший сезон, завоевав <strong>{bronzeWins} победы</strong> на Гран-при, {bronzePodiums} подиумов и набрав <strong>{bronzePoints} очков</strong>. С отрывом в <strong>+{pointsGapP4} очков</strong> от ближайшего преследователя Александра Писаренко ({fourthPoints} очков), Денис официально гарантировал себе <strong style={{ color: '#FFF' }}>3-е место и Бронзовую медаль Чемпионата Мира 2026</strong>!
                 </p>
                 <div style={{
                   display: 'flex',

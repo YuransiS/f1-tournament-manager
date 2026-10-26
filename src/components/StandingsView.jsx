@@ -8,6 +8,7 @@ import F1WorldChampionCard from './F1WorldChampionCard';
 import F1ViceChampionCard from './F1ViceChampionCard';
 import F1BronzeChampionCard from './F1BronzeChampionCard';
 import F1ConstructorsChampionCard from './F1ConstructorsChampionCard';
+import F1PisarenkoAnnouncementCard from './F1PisarenkoAnnouncementCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
@@ -78,6 +79,7 @@ export default function StandingsView({ data, standings: propStandings, activeTa
             { id: 'p3', label: '🥉 Бронза (#88 Денис)', color: '#F59E0B' },
             { id: 'constructors', label: '🏆 Кубок Конструкторов', color: '#3B82F6' },
             { id: 'broadcast-tv', label: '📺 ТВ-Таблица 16:9', color: '#E10600' },
+            { id: 'announcement', label: '📢 Анонс: Писаренко #95', color: '#00D2BE' },
             { id: 'all', label: 'Все постеры', color: '#9CA3AF' },
             { id: 'none', label: 'Скрыть ✕', color: '#6B7280' }
           ].map((item) => {
@@ -144,6 +146,11 @@ export default function StandingsView({ data, standings: propStandings, activeTa
       {/* Broadcast TV 16:9 Standings Graphic Card */}
       {(activePoster === 'broadcast-tv' || activePoster === 'all') && (
         <F1StandingsBroadcastCard driverStandings={driverStandings} subtitleLabel="ФИНАЛЬНЫЙ ЗАЧЁТ 2026" />
+      )}
+
+      {/* Official Mercedes Announcement: Oleksandr Pisarenko Card */}
+      {(activePoster === 'announcement' || activePoster === 'all') && (
+        <F1PisarenkoAnnouncementCard />
       )}
 
       {/* 2027-1 Official Season Calendar Announcement Banner */}

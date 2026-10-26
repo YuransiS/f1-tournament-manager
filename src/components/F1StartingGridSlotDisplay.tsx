@@ -26,7 +26,7 @@ function getDriver3LetterCode(pilot?: GridPilot | null): string {
   if (clean === 'MARK') return 'MRK';
   if (clean === 'ZAKHARCHUK') return 'ZAK';
   if (clean === 'YAREMA') return 'YAR';
-  if (clean === 'GROMOV') return 'GRO';
+  if (clean === 'PISARENKO' || clean === 'GROMOV') return 'PIS';
   if (clean === 'KOVALENKO') return 'KOV';
   if (clean === 'MANSTEIN') return 'MAN';
   if (clean === 'ALONSO') return 'ALO';
