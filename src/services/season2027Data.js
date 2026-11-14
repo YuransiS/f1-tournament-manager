@@ -26,7 +26,7 @@ export const DEFAULT_DRIVERS_2027_1 = [
         teamId: 'aston-martin',
         driverNumber: 69,
         isAi: false,
-        avatar: '/portraits/yura_aston.jpg',
+        avatar: '/portraits/yura_aston_nobg.png',
         avatarFullWithBg: '/portraits/yura_aston_standing.jpg',
         avatarFullNoBg: '/portraits/yura_aston_standing_nobg.png'
       };
