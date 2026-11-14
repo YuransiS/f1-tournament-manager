@@ -270,14 +270,36 @@ export const DEFAULT_TRANSFERS_2027_1 = [
   },
   {
     id: 'tr-2027-3',
-    driverName: 'Вадим Манштейн (erich_manstein)',
+    driverName: 'Вадим Манштейн (_erich_manstein_)',
     type: 'EXTENDED',
-    title: 'Вадим Манштейн — основной пилот Scuderia Ferrari на сезон 2027-1',
-    subtitle: 'После сенсационной победы в Абу-Даби Вадим остаётся в Маранелло под номером #5 в паре с Шарлем Леклером!',
+    title: 'Scuderia Ferrari продлила контракт с Вадимом Манштейном на сезон 2027-1!',
+    subtitle: 'После сенсационной победы в Абу-Даби команда из Маранелло продлила контракт с Вадимом Манштейном (#5) на новый сезон в паре с Шарлем Леклером!',
     image: '/announcements/manstein_ferrari.jpg',
     fromTeam: 'Scuderia Ferrari',
     toTeam: 'Scuderia Ferrari',
-    badgeText: 'FERRARI WORKS DRIVER'
+    badgeText: 'CONTRACT EXTENDED'
+  },
+  {
+    id: 'tr-2027-4',
+    driverName: 'Льюис Хэмилтон & Джордж Расселл',
+    type: 'TRANSFERRED',
+    title: 'Mercedes-AMG Petronas подписала Хэмилтона (#44) и Расселла (#63)',
+    subtitle: 'После ухода Юрия Захарчука и Сашка Писаренко в Aston Martin команда Mercedes была вынуждена искать новых пилотов и сделала ставку на британский дуэт.',
+    image: '/portraits/standing/hamilton.webp',
+    fromTeam: 'Free Agents',
+    toTeam: 'Mercedes-AMG Petronas',
+    badgeText: 'MERCEDES NEW LINEUP'
+  },
+  {
+    id: 'tr-2027-5',
+    driverName: 'Макс Ферстаппен & Серхио Перес',
+    type: 'TRANSFERRED',
+    title: 'Red Bull Racing подписала Ферстаппена (#1) и Переса (#11)',
+    subtitle: 'Из-за перехода Миколы Яремы и Дениса Коваленко в Williams Racing команда Red Bull также оказалась вынуждена полностью обновить состав пилотов.',
+    image: '/portraits/standing/verstappen.webp',
+    fromTeam: 'Free Agents',
+    toTeam: 'Red Bull Racing',
+    badgeText: 'RED BULL NEW LINEUP'
   }
 ];
 

@@ -438,6 +438,34 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                       «Переход в Aston Martin вместе с Юрой — идеальный шаг. Мы уже сработали как единый механизм, и старт в Австрии и Венгрии доказал, что у зелёного болида есть скорость побеждать с первых метров дистанции».
                     </div>
                   </div>
+
+                  {/* Silly Season Domino Effect */}
+                  <div
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: '10px',
+                      padding: '12px 14px',
+                      fontSize: '0.82rem',
+                      lineHeight: 1.55,
+                      color: '#94A3B8'
+                    }}
+                  >
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
+                      Трансферное домино сезона 2027-1:
+                    </div>
+                    <ul style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <li>
+                        <strong style={{ color: '#00D2BE' }}>Mercedes-AMG Petronas:</strong> после ухода Захарчука и Писаренко в Aston Martin команда была вынуждена искать новый состав и подписала <strong style={{ color: '#E2E8F0' }}>Льюиса Хэмилтона (#44)</strong> и <strong style={{ color: '#E2E8F0' }}>Джорджа Расселла (#63)</strong>.
+                      </li>
+                      <li>
+                        <strong style={{ color: '#3B82F6' }}>Red Bull → Williams Racing:</strong> действующий чемпион <strong style={{ color: '#E2E8F0' }}>Микола Ярема (#67)</strong> и <strong style={{ color: '#E2E8F0' }}>Денис Коваленко (#88)</strong> перешли в Williams Racing, из-за чего Red Bull также пришлось полностью обновлять состав — выбор пал на <strong style={{ color: '#E2E8F0' }}>Макса Ферстаппена (#1)</strong> и <strong style={{ color: '#E2E8F0' }}>Серхио Переса (#11)</strong>.
+                      </li>
+                      <li>
+                        <strong style={{ color: '#EF4444' }}>Scuderia Ferrari:</strong> после победы в финале 2026 года в Абу-Даби команда из Маранелло официально продлила контракт с <strong style={{ color: '#E2E8F0' }}>Вадимом Манштейном (#5)</strong> на сезон 2027-1.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
 
                 {/* Live Season Impact Telemetry */}
