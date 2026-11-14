@@ -43,7 +43,10 @@ const TRACK_LAYOUTS = {
 };
 
 export default function RacesView({ races, drivers, teams, pointsMap, fastestLapPoints, onNavigateTab, activeSeason = '2027-1' }) {
-  const [selectedRaceId, setSelectedRaceId] = useState(() => (activeSeason === '2027-1' ? races[0]?.id : races[races.length - 1]?.id) || races[0]?.id || '');
+  const [selectedRaceId, setSelectedRaceId] = useState(() => {
+    const lastCompleted = [...races].reverse().find(r => r.status === 'completed' || r.status === 'FINISHED');
+    return lastCompleted?.id || races[0]?.id || '';
+  });
   const [viewMode, setViewMode] = useState('main-results'); // 'press-release', 'main-results', 'penalty-notice', 'dotd'
 
   const activeRace = races.find(r => r.id === selectedRaceId) || races[races.length - 1] || races[0];
