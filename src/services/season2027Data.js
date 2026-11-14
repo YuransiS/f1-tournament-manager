@@ -112,6 +112,29 @@ const AUSTRIA_RACE_2027_RESULTS = [
   { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:08.075', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход с поула (DNF)', status: 'DNF' }
 ];
 
+const HUNGARY_QUALIFYING_2027_RESULTS = [
+  { driverId: 'drv-1', grid: 1, qualiTime: '1:17.104', qualiGap: '-', bestLap: '1:17.104', status: 'UPCOMING' },
+  { driverId: 'drv-23', grid: 2, qualiTime: '1:17.259', qualiGap: '+0.155', bestLap: '1:17.259', status: 'UPCOMING' },
+  { driverId: 'drv-11', grid: 3, qualiTime: '1:17.299', qualiGap: '+0.195', bestLap: '1:17.299', status: 'UPCOMING' },
+  { driverId: 'drv-6', grid: 4, qualiTime: '1:17.895', qualiGap: '+0.791', bestLap: '1:17.895', status: 'UPCOMING' },
+  { driverId: 'drv-15', grid: 5, qualiTime: '1:18.308', qualiGap: '+1.204', bestLap: '1:18.308', status: 'UPCOMING' },
+  { driverId: 'drv-17', grid: 6, qualiTime: '1:18.332', qualiGap: '+1.228', bestLap: '1:18.332', status: 'UPCOMING' },
+  { driverId: 'drv-16', grid: 7, qualiTime: '1:18.344', qualiGap: '+1.240', bestLap: '1:18.344', status: 'UPCOMING' },
+  { driverId: 'drv-25', grid: 8, qualiTime: '1:18.366', qualiGap: '+1.262', bestLap: '1:18.366', status: 'UPCOMING' },
+  { driverId: 'drv-22', grid: 9, qualiTime: '1:18.385', qualiGap: '+1.281', bestLap: '1:18.385', status: 'UPCOMING' },
+  { driverId: 'drv-26', grid: 10, qualiTime: '1:18.424', qualiGap: '+1.320', bestLap: '1:18.424', status: 'UPCOMING' },
+  { driverId: 'drv-7', grid: 11, qualiTime: '1:18.463', qualiGap: '+1.359', bestLap: '1:18.463', status: 'UPCOMING' },
+  { driverId: 'drv-8', grid: 12, qualiTime: '1:18.498', qualiGap: '+1.394', bestLap: '1:18.498', status: 'UPCOMING' },
+  { driverId: 'drv-20', grid: 13, qualiTime: '1:18.513', qualiGap: '+1.409', bestLap: '1:18.513', status: 'UPCOMING' },
+  { driverId: 'drv-9', grid: 14, qualiTime: '1:18.536', qualiGap: '+1.432', bestLap: '1:18.536', status: 'UPCOMING' },
+  { driverId: 'drv-19', grid: 15, qualiTime: '1:18.624', qualiGap: '+1.520', bestLap: '1:18.624', status: 'UPCOMING' },
+  { driverId: 'drv-12', grid: 16, qualiTime: '1:18.663', qualiGap: '+1.559', bestLap: '1:18.663', status: 'UPCOMING' },
+  { driverId: 'drv-13', grid: 17, qualiTime: '1:18.706', qualiGap: '+1.602', bestLap: '1:18.706', status: 'UPCOMING' },
+  { driverId: 'drv-18', grid: 18, qualiTime: '1:18.732', qualiGap: '+1.628', bestLap: '1:18.732', status: 'UPCOMING' },
+  { driverId: 'drv-21', grid: 19, qualiTime: '1:18.827', qualiGap: '+1.723', bestLap: '1:18.827', status: 'UPCOMING' },
+  { driverId: 'drv-5', grid: 20, qualiTime: '1:18.832', qualiGap: '+1.728', bestLap: '1:18.832', status: 'UPCOMING' }
+];
+
 // Official 2027-1 Season Races based on FIA CALENDAR 2027-1 (23 Rounds + Sprint weekends)
 export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
   const baseFields = {
@@ -152,6 +175,7 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
   }
 
   const isRound1 = cal.round === 1;
+  const isRound2 = cal.round === 2;
 
   events.push({
     ...baseFields,
@@ -165,7 +189,11 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
     incidentNote: isRound1
       ? '🇦🇹 Гран-при Австрии 2027-1 (Red Bull Ring — Основная гонка): Драматичный финал уик-энда! Сашко Громов/Писаренко (PABV) приносит Aston Martin сенсационную победу (старт P5 → P1)! Вадим Манштейн (_erich_manstein_, Ferrari) совершил невероятный прорыв с 15-го места и финишировал 2-м всего в 1.512с от лидера! Юки Цунода (AlphaTauri) взял второй подиум за уик-энд (P3). Денис Коваленко (ProstoDenya, Williams) прорвался с последнего 20-го места на 6-е (+14 позиций)! Обладатель поула Микола Ярема (kolyacoolguy, Williams) и Серхио Перес (Red Bull) сошли с дистанции (DNF). Юрий Захарчук (KillerplautzeGer, Aston Martin) поставил абсолютный лучший круг гонки (1:07.035), но финишировал 15-м после 2 пит-стопов (без бонусного очка).'
       : '',
-    results: isRound1 ? AUSTRIA_RACE_2027_RESULTS : []
+    results: isRound1
+      ? AUSTRIA_RACE_2027_RESULTS
+      : isRound2
+        ? HUNGARY_QUALIFYING_2027_RESULTS
+        : []
   });
 
   return events;

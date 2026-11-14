@@ -89,11 +89,15 @@ export default function StartingGridView({ data }: StartingGridViewProps) {
       const nameParts = fullName.trim().split(' ');
       const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0];
 
-      // Pole time for P1, strictly monotonic delta to pole (+X.XXX) for P2+
-      let timingDisplay = poleLap;
+      // Pole time for P1, actual qualifying gap or monotonic fallback for P2+
+      let timingDisplay = res.qualiTime || poleLap;
       if (res.grid > 1) {
-        const deltaSec = 0.125 * (res.grid - 1) + (((res.grid * 37) % 60) / 1000);
-        timingDisplay = `+${deltaSec.toFixed(3)}`;
+        if (res.qualiGap) {
+          timingDisplay = res.qualiGap;
+        } else {
+          const deltaSec = 0.125 * (res.grid - 1) + (((res.grid * 37) % 60) / 1000);
+          timingDisplay = `+${deltaSec.toFixed(3)}`;
+        }
       }
 
       return {

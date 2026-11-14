@@ -22,7 +22,10 @@ export const DRIVER_NUMBER_MAP: Record<string, number> = {
   'drv-20': 24,  // ZHOU Guanyu
   'drv-21': 3,   // Daniel RICCIARDO
   'drv-22': 22,  // Yuki TSUNODA
-  'drv-23': 5    // Vadim MANSTEIN (5)
+  'drv-23': 5,   // Vadim MANSTEIN (5)
+  'drv-24': 2,   // Logan SARGEANT
+  'drv-25': 44,  // Lewis HAMILTON
+  'drv-26': 63   // George RUSSELL
 };
 
 export interface F1RaceDetails {
