@@ -9,7 +9,7 @@ import FlagIcon from './FlagIcon';
 import TeamLogo from './TeamLogo';
 import { calculatePointsProgression } from '../services/storage';
 
-export default function ChartsView({ data }) {
+export default function ChartsView({ data, activeSeason = '2026' }) {
   const [activeMatrixTab, setActiveMatrixTab] = useState('drivers'); // 'drivers' | 'constructors'
 
   const progressionData = useMemo(() => {
@@ -18,6 +18,8 @@ export default function ChartsView({ data }) {
 
   const {
     stages = [],
+    gpCount = 0,
+    sprintCount = 0,
     driverSeries = [],
     constructorSeries = []
   } = progressionData;
@@ -169,10 +171,12 @@ export default function ChartsView({ data }) {
               <TrendingUp size={18} color="var(--f1-red)" />
             </div>
             <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#FFF' }}>
-              {stages.length - 1} Завершенных Гран-при
+              {gpCount} Завершенных Гран-при
             </div>
             <div style={{ fontSize: '0.8rem', color: '#9CA3AF', marginTop: '4px' }}>
-              Начальная точка: 0 очков у всех участников
+              {sprintCount > 0
+                ? `Плюс ${sprintCount} ${sprintCount === 1 ? 'спринт' : sprintCount < 5 ? 'спринта' : 'спринтов'} • Начальная точка: 0 PTS`
+                : 'Начальная точка: 0 очков у всех участников'}
             </div>
           </div>
 
@@ -180,7 +184,9 @@ export default function ChartsView({ data }) {
             <div>
               <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>Статус чемпионата:</span>
               <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#10B981' }}>
-                Сезон завершён • Призёры определены 🏆
+                {activeSeason === '2027-1'
+                  ? `Сезон в разгаре • ${gpCount} из 23 этапов 🏁`
+                  : 'Сезон завершён • Призёры определены 🏆'}
               </div>
             </div>
             <span style={{
@@ -191,7 +197,7 @@ export default function ChartsView({ data }) {
               fontWeight: '800',
               fontSize: '0.8rem'
             }}>
-              СЕЗОН 2026
+              {activeSeason === '2027-1' ? 'СЕЗОН 2027-1' : 'СЕЗОН 2026'}
             </span>
           </div>
         </div>
@@ -251,7 +257,7 @@ export default function ChartsView({ data }) {
                 {stages.map(stg => (
                   <th key={`th-${stg.id}`} style={{ textAlign: 'center', minWidth: '85px', padding: '10px 6px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '800' }}>{stg.shortTitle}</div>
-                    <div style={{ fontSize: '0.65rem', color: '#6B7280' }}>{stg.stageIndex === 0 ? '0 PTS' : `R${stg.stageIndex}`}</div>
+                    <div style={{ fontSize: '0.65rem', color: stg.isSprint ? '#00D2BE' : '#6B7280' }}>{stg.roundLabel || (stg.stageIndex === 0 ? '0 PTS' : `R${stg.stageIndex}`)}</div>
                   </th>
                 ))}
                 <th style={{ textAlign: 'right', paddingRight: '20px', minWidth: '90px' }}>ИТОГО</th>

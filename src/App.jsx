@@ -113,6 +113,7 @@ export default function App() {
           {activeTab === 'charts' && (
             <ChartsView
               data={data}
+              activeSeason={activeSeason}
             />
           )}
 

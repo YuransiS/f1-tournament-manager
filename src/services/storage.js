@@ -260,8 +260,11 @@ export function calculateStandings(data) {
       totalPoints: 0,
       wins: 0,
       podiums: 0,
+      sprintWins: 0,
+      sprintPodiums: 0,
       fastestLaps: 0,
       racesCount: 0,
+      sprintsCount: 0,
       dnfs: 0,
       penaltiesDeductions: 0,
       raceHistory: []
@@ -288,11 +291,15 @@ export function calculateStandings(data) {
       const stats = driverStatsMap[res.driverId];
       if (!stats) return;
 
-      stats.racesCount += 1;
+      if (race.isSprint) {
+        stats.sprintsCount += 1;
+      } else {
+        stats.racesCount += 1;
+      }
 
       if (res.status === 'DNF') {
         stats.dnfs += 1;
-        stats.raceHistory.push({ raceId: race.id, raceTitle: race.title, pos: 'DNF', pts: 0 });
+        stats.raceHistory.push({ raceId: race.id, raceTitle: race.title, pos: 'DNF', pts: 0, isSprint: Boolean(race.isSprint) });
         return;
       }
 
@@ -300,21 +307,28 @@ export function calculateStandings(data) {
       const isFastestLap = !race.isSprint && race.fastestLapDriverId === res.driverId;
       const pts = calculateRacePoints(position, isFastestLap, pointsMap, fastestLapPoints, race.isSprint);
 
-      // Driver personal stats
+      // Driver personal stats (GP wins/podiums are tracked separately from Sprint wins/podiums)
       stats.totalPoints += pts;
-      if (position === 1) stats.wins += 1;
-      if (position <= 3) stats.podiums += 1;
+      if (race.isSprint) {
+        if (position === 1) stats.sprintWins += 1;
+        if (position <= 3) stats.sprintPodiums += 1;
+      } else {
+        if (position === 1) stats.wins += 1;
+        if (position <= 3) stats.podiums += 1;
+      }
       if (isFastestLap) stats.fastestLaps += 1;
 
-      stats.raceHistory.push({ raceId: race.id, raceTitle: race.title, pos: position, pts, isFastestLap });
+      stats.raceHistory.push({ raceId: race.id, raceTitle: race.title, pos: position, pts, isFastestLap, isSprint: Boolean(race.isSprint) });
 
       // Constructor stats: attribute points to the team driven for in THIS race
       const teamId = getDriverTeamId(res, stats.driver, race.id);
       const cStats = constructorStatsMap[teamId];
       if (cStats) {
         cStats.totalPoints += pts;
-        if (position === 1) cStats.wins += 1;
-        if (position <= 3) cStats.podiums += 1;
+        if (!race.isSprint) {
+          if (position === 1) cStats.wins += 1;
+          if (position <= 3) cStats.podiums += 1;
+        }
       }
     });
   });
@@ -361,6 +375,9 @@ export function calculatePointsProgression(data) {
   if (completedRaces.length === 0) {
     return {
       stages: [],
+      gpCount: 0,
+      sprintCount: 0,
+      totalEvents: 0,
       driverSeries: [],
       constructorSeries: [],
       leaderHistoryDrivers: [],
@@ -403,24 +420,38 @@ export function calculatePointsProgression(data) {
     {
       id: 'stage-0',
       stageIndex: 0,
-      title: 'Старт сезона 2026',
+      roundNumber: 0,
+      title: 'Старт сезона',
       shortTitle: 'СТАРТ',
       code: 'START',
+      roundLabel: '0 PTS',
       date: '',
       isSprint: false
     }
   ];
 
+  let gpCount = 0;
+  let sprintCount = 0;
+
   completedRaces.forEach((race, idx) => {
+    const isSprint = Boolean(race.isSprint);
+    if (isSprint) {
+      sprintCount += 1;
+    } else {
+      gpCount += 1;
+    }
+    const roundNumber = isSprint ? gpCount + 1 : gpCount;
     stages.push({
       id: race.id,
       stageIndex: idx + 1,
+      roundNumber,
       title: race.title,
       subtitle: race.subtitle,
-      shortTitle: getShortTitle(race.title, race.isSprint),
-      code: `GP ${idx + 1}`,
+      shortTitle: getShortTitle(race.title, isSprint),
+      code: isSprint ? `SPRINT ${sprintCount}` : `GP ${gpCount}`,
+      roundLabel: isSprint ? `R${roundNumber} ⚡` : `R${roundNumber}`,
       date: race.date,
-      isSprint: Boolean(race.isSprint)
+      isSprint
     });
   });
 
@@ -565,6 +596,9 @@ export function calculatePointsProgression(data) {
 
   return {
     stages,
+    gpCount,
+    sprintCount,
+    totalEvents: completedRaces.length,
     driverSeries,
     constructorSeries,
     maxDriverPoints,

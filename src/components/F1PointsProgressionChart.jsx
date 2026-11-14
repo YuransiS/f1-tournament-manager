@@ -253,7 +253,7 @@ export default function F1PointsProgressionChart({ progressionData, defaultMode 
               className="btn btn-sm"
               disabled={currentMaxStage <= 0}
               onClick={() => { setIsPlaying(false); setActiveStageLimit(Math.max(0, currentMaxStage - 1)); }}
-              title="Предыдущий Гран-при"
+              title="Предыдущий этап"
               style={{ padding: '6px 8px' }}
             >
               <ChevronLeft size={14} />
@@ -273,7 +273,7 @@ export default function F1PointsProgressionChart({ progressionData, defaultMode 
               className="btn btn-sm"
               disabled={currentMaxStage >= totalStages - 1}
               onClick={() => { setIsPlaying(false); setActiveStageLimit(Math.min(totalStages - 1, currentMaxStage + 1)); }}
-              title="Следующий Гран-при"
+              title="Следующий этап"
               style={{ padding: '6px 8px' }}
             >
               <ChevronRight size={14} />
