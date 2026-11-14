@@ -9,7 +9,7 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const yuriiImg = yuriiDriver?.avatarFullNoBg || '/portraits/yura_aston_standing_nobg.png';
+  const yuriiImg = '/portraits/yura_aston_nobg.png';
   const sashkoImg = sashkoDriver?.avatarFullNoBg || '/portraits/sashko_standing_9-16_without_backjground.png';
 
   const handleDownload = async () => {
@@ -168,139 +168,43 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                   width: '100%',
                   minHeight: '540px',
                   aspectRatio: '4 / 5',
-                  background: '#1E2428',
+                  background: 'radial-gradient(circle at 50% 45%, #233331 0%, #101718 100%)',
                   borderRadius: '14px',
                   overflow: 'hidden',
                   boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
-                  border: '1px solid rgba(0, 210, 190, 0.3)',
+                  border: '1px solid rgba(0, 210, 190, 0.35)',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
                   userSelect: 'none'
                 }}
               >
-                {/* Studio Background Split (Left & Right Driver Photos instead of Cars) */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    background: 'radial-gradient(circle at 50% 35%, #374147 0%, #171B1E 100%)'
-                  }}
-                >
-                  {/* Yurii Zakharchuk */}
-                  <div style={{ position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
-                    <img
-                      src={yuriiImg}
-                      alt="Yurii Zakharchuk Aston Martin"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
-                        transform: 'scale(1.04)'
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 25%, transparent 65%, rgba(0,0,0,0.6) 100%)'
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '132px',
-                        left: '14px',
-                        zIndex: 4,
-                        background: 'rgba(3, 31, 27, 0.85)',
-                        borderLeft: '3px solid #CEDC00',
-                        padding: '5px 10px',
-                        borderRadius: '4px',
-                        backdropFilter: 'blur(6px)'
-                      }}
-                    >
-                      <div style={{ fontSize: '0.68rem', fontWeight: 800, color: '#CEDC00', letterSpacing: '0.08em' }}>
-                        #69 • UA
-                      </div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 900, color: '#FFFFFF', textTransform: 'uppercase' }}>
-                        ZAKHARCHUK
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Alexsandr Pisarenko */}
-                  <div style={{ position: 'relative', overflow: 'hidden' }}>
-                    <img
-                      src={sashkoImg}
-                      alt="Alexsandr Pisarenko Aston Martin"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
-                        transform: 'scale(1.04)'
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, transparent 25%, transparent 65%, rgba(0,0,0,0.6) 100%)'
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '132px',
-                        right: '14px',
-                        zIndex: 4,
-                        background: 'rgba(3, 31, 27, 0.85)',
-                        borderRight: '3px solid #00D2BE',
-                        padding: '5px 10px',
-                        borderRadius: '4px',
-                        textAlign: 'right',
-                        backdropFilter: 'blur(6px)'
-                      }}
-                    >
-                      <div style={{ fontSize: '0.68rem', fontWeight: 800, color: '#00D2BE', letterSpacing: '0.08em' }}>
-                        #95 • UA
-                      </div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 900, color: '#FFFFFF', textTransform: 'uppercase' }}>
-                        PISARENKO
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 {/* TOP BREAKING RIBBON (Diagonal F1 Broadcast Style) */}
                 <div
                   style={{
                     position: 'relative',
                     zIndex: 5,
-                    background: 'linear-gradient(135deg, #006F62 0%, #008C7A 60%, #006F62 100%)',
-                    padding: '14px 20px 18px',
-                    clipPath: 'polygon(0 0, 100% 0, 100% 78%, 18% 78%, 0 100%)',
+                    background: 'linear-gradient(135deg, #00A19B 0%, #00C896 100%)',
+                    padding: '16px 22px 24px',
+                    clipPath: 'polygon(0 0, 100% 0, 100% 76%, 16% 76%, 0 100%)',
                     boxShadow: '0 8px 25px rgba(0,0,0,0.45)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '16px'
+                    gap: '16px',
+                    flexShrink: 0
                   }}
                 >
                   {/* Official F1 Mark */}
                   <svg width="58" height="22" viewBox="0 0 120 30" fill="none" style={{ flexShrink: 0 }}>
-                    <path d="M12.5 28L25.5 15H68.5L76.5 7H22.5C15.5 7 9.8 10 5.5 14.5L0 20L12.5 28Z" fill="#061412" />
-                    <path d="M30 28L39.5 18.5H65L57 28H30Z" fill="#061412" />
-                    <path d="M84 7H102L81 28H63L84 7Z" fill="#061412" />
+                    <path d="M12.5 28L25.5 15H68.5L76.5 7H22.5C15.5 7 9.8 10 5.5 14.5L0 20L12.5 28Z" fill="#051311" />
+                    <path d="M30 28L39.5 18.5H65L57 28H30Z" fill="#051311" />
+                    <path d="M84 7H102L81 28H63L84 7Z" fill="#051311" />
                   </svg>
                   <div
                     style={{
-                      fontSize: 'clamp(2.1rem, 4.5vw, 3.1rem)',
+                      fontSize: 'clamp(2.1rem, 4.4vw, 3.05rem)',
                       fontWeight: 900,
                       letterSpacing: '0.04em',
-                      color: '#061412',
+                      color: '#051311',
                       lineHeight: 0.9,
                       textTransform: 'uppercase',
                       fontFamily: "'Titillium Web', sans-serif"
@@ -310,24 +214,82 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                   </div>
                 </div>
 
-                {/* BOTTOM ANNOUNCEMENT BANNER (Diagonal Aston Martin Style) */}
+                {/* CENTER STAGE: Equal-Scale Bust Portraits cleanly framed between banners */}
+                <div
+                  style={{
+                    position: 'relative',
+                    flex: 1,
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    alignItems: 'end',
+                    marginTop: '-16px',
+                    marginBottom: '-24px',
+                    overflow: 'hidden'
+                  }}
+                >
+                  {/* Subtle center vertical glow */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '10%',
+                      bottom: '10%',
+                      left: '50%',
+                      width: '1px',
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,210,190,0.28) 50%, transparent 100%)',
+                      zIndex: 2
+                    }}
+                  />
+
+                  {/* Yurii Zakharchuk (Chest-up cutout) */}
+                  <div style={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden', paddingTop: '24px' }}>
+                    <img
+                      src={yuriiImg}
+                      alt="Yurii Zakharchuk Aston Martin"
+                      style={{
+                        width: '100%',
+                        height: '94%',
+                        objectFit: 'contain',
+                        objectPosition: 'center bottom',
+                        filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.55))'
+                      }}
+                    />
+                  </div>
+
+                  {/* Alexsandr Pisarenko (Chest-up cutout) */}
+                  <div style={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden', paddingTop: '24px' }}>
+                    <img
+                      src={sashkoImg}
+                      alt="Alexsandr Pisarenko Aston Martin"
+                      style={{
+                        width: '100%',
+                        height: '96%',
+                        objectFit: 'contain',
+                        objectPosition: 'center bottom',
+                        filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.55))'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* BOTTOM ANNOUNCEMENT BANNER (Diagonal Aston Martin Style - zero clipping) */}
                 <div
                   style={{
                     position: 'relative',
                     zIndex: 5,
-                    background: 'linear-gradient(135deg, #006F62 0%, #008C7A 75%, #00594F 100%)',
-                    padding: '28px 22px 18px',
-                    clipPath: 'polygon(0 28%, 82% 28%, 100% 0, 100% 100%, 0 100%)',
-                    boxShadow: '0 -10px 30px rgba(0,0,0,0.5)'
+                    background: 'linear-gradient(135deg, #00A19B 0%, #00C896 100%)',
+                    padding: '44px 22px 18px',
+                    clipPath: 'polygon(0 24%, 82% 24%, 100% 0, 100% 100%, 0 100%)',
+                    boxShadow: '0 -10px 30px rgba(0,0,0,0.5)',
+                    flexShrink: 0
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
                     <img
                       src="/teams/aston-martin.png"
                       alt="Aston Martin"
-                      style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+                      style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0)' }}
                     />
-                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#CEDC00', letterSpacing: '0.12em' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 900, color: '#051311', letterSpacing: '0.12em' }}>
                       ARAMCO F1 TEAM
                     </span>
                   </div>
@@ -335,21 +297,22 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                   <div style={{ textAlign: 'right' }}>
                     <div
                       style={{
-                        fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)',
-                        fontWeight: 700,
+                        fontSize: 'clamp(1.05rem, 2.1vw, 1.3rem)',
+                        fontWeight: 800,
                         letterSpacing: '0.06em',
-                        color: '#E2F5F2',
-                        textTransform: 'uppercase'
+                        color: '#FFFFFF',
+                        textTransform: 'uppercase',
+                        textShadow: '0 1px 4px rgba(0,0,0,0.2)'
                       }}
                     >
                       ASTON MARTIN SIGN
                     </div>
                     <div
                       style={{
-                        fontSize: 'clamp(1.45rem, 3vw, 2.05rem)',
+                        fontSize: 'clamp(1.45rem, 2.9vw, 1.95rem)',
                         fontWeight: 900,
                         letterSpacing: '0.02em',
-                        color: '#061412',
+                        color: '#051311',
                         textTransform: 'uppercase',
                         lineHeight: 1.05,
                         marginTop: '2px'
