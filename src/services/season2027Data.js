@@ -21,7 +21,15 @@ export const DEFAULT_DRIVERS_2027_1 = [
       return { ...d, teamId: 'williams', driverNumber: 88, isAi: false };
     }
     if (d.id === 'drv-1') {
-      return { ...d, teamId: 'aston-martin', driverNumber: 69, isAi: false };
+      return {
+        ...d,
+        teamId: 'aston-martin',
+        driverNumber: 69,
+        isAi: false,
+        avatar: '/portraits/yura_aston.jpg',
+        avatarFullWithBg: '/portraits/yura_aston_standing.jpg',
+        avatarFullNoBg: '/portraits/yura_aston_standing.jpg'
+      };
     }
     if (d.id === 'drv-11') {
       return { ...d, teamId: 'aston-martin', driverNumber: 95, isAi: false };
