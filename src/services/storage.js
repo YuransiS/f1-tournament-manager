@@ -12,6 +12,7 @@ import {
   SEASON_2027_1_DATA,
   DEFAULT_DRIVERS_2027_1,
   DEFAULT_RACES_2027_1,
+  DEFAULT_PENALTIES_2027_1,
   DEFAULT_TRANSFERS_2027_1
 } from './season2027Data.js';
 
@@ -130,6 +131,7 @@ export function getTournamentData(seasonId = getActiveSeason()) {
     parsed2027.teams = DEFAULT_TEAMS;
     parsed2027.drivers = DEFAULT_DRIVERS_2027_1;
     parsed2027.races = DEFAULT_RACES_2027_1;
+    parsed2027.penalties = DEFAULT_PENALTIES_2027_1;
     parsed2027.transfers = DEFAULT_TRANSFERS_2027_1;
     saveTournamentData(parsed2027, '2027-1');
     return parsed2027;
@@ -391,6 +393,8 @@ export function calculatePointsProgression(data) {
     if (title.includes('Las Vegas') || title.includes('Vegas')) return 'Лас-Вегас';
     if (title.includes('China') || title.includes('Chinese') || title.includes('Shanghai')) return 'Шанхай';
     if (title.includes('Abu Dhabi') || title.includes('Yas Marina')) return 'Абу-Даби';
+    if (title.includes('French') || title.includes('France') || title.includes('Paul Ricard')) return 'Франция';
+    if (title.includes('Portuguese') || title.includes('Portugal') || title.includes('Portim')) return 'Португалия';
     return isSprint ? `${title.replace(/Grand Prix/i, '').trim()} Спринт` : title.replace('Grand Prix', 'GP').trim();
   };
 

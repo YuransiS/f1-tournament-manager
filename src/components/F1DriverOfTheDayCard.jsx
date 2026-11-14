@@ -69,7 +69,9 @@ const REAL_TRACK_PHOTOS = {
   'race-24': '/tracks/spain.jpg',
   'race-25': '/tracks/jeddah.png',
   '2027-race-1-sprint': '/tracks/austria-sprint.jpg',
-  '2027-race-1': '/tracks/austria.jpg'
+  '2027-race-1': '/tracks/austria.jpg',
+  '2027-race-2': '/tracks/hungary.jpg',
+  '2027-race-3': '/tracks/spain.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, fullResults, defaultDriverId, activeRaceId }) {
@@ -161,6 +163,7 @@ export default function F1DriverOfTheDayCard({ raceTitle, fullResults, defaultDr
     if (t.includes('vegas')) return { code: 'US', name: 'LAS VEGAS' };
     if (t.includes('china') || t.includes('shanghai')) return { code: 'CN', name: 'CHINA' };
     if (t.includes('abu dhabi') || t.includes('yas marina')) return { code: 'AE', name: 'ABU DHABI' };
+    if (t.includes('french') || t.includes('france') || t.includes('paul ricard')) return { code: 'FR', name: 'FRANCE' };
     return {
       code: 'HU',
       name: (title || '').replace(/Grand Prix/i, '').trim().toUpperCase()
