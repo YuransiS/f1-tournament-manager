@@ -166,9 +166,9 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                 style={{
                   position: 'relative',
                   width: '100%',
-                  minHeight: '540px',
-                  aspectRatio: '4 / 5',
-                  background: 'radial-gradient(circle at 50% 45%, #233331 0%, #101718 100%)',
+                  minHeight: '480px',
+                  aspectRatio: '1 / 1',
+                  background: 'radial-gradient(circle at 50% 40%, #1E3330 0%, #0D1415 100%)',
                   borderRadius: '14px',
                   overflow: 'hidden',
                   boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
@@ -184,7 +184,7 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                     position: 'relative',
                     zIndex: 5,
                     background: 'linear-gradient(135deg, #00A19B 0%, #00C896 100%)',
-                    padding: '16px 22px 24px',
+                    padding: '14px 22px 22px',
                     clipPath: 'polygon(0 0, 100% 0, 100% 76%, 16% 76%, 0 100%)',
                     boxShadow: '0 8px 25px rgba(0,0,0,0.45)',
                     display: 'flex',
@@ -214,19 +214,43 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                   </div>
                 </div>
 
-                {/* CENTER STAGE: Equal-Scale Bust Portraits cleanly framed between banners */}
+                {/* CENTER STAGE: Full-fill Bust Portraits + subtle Silverstone track backdrop */}
                 <div
                   style={{
                     position: 'relative',
                     flex: 1,
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
-                    alignItems: 'end',
+                    alignItems: 'stretch',
                     marginTop: '-16px',
                     marginBottom: '-24px',
                     overflow: 'hidden'
                   }}
                 >
+                  {/* Subtle Silverstone track backdrop */}
+                  <img
+                    src="/tracks/silverstone.jpg"
+                    alt=""
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      opacity: 0.2,
+                      filter: 'grayscale(45%) contrast(1.15)',
+                      pointerEvents: 'none'
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'radial-gradient(circle at 50% 45%, rgba(0,111,98,0.18) 0%, rgba(10,18,18,0.75) 100%)',
+                      pointerEvents: 'none'
+                    }}
+                  />
+
                   {/* Subtle center vertical glow */}
                   <div
                     style={{
@@ -235,37 +259,37 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                       bottom: '10%',
                       left: '50%',
                       width: '1px',
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,210,190,0.28) 50%, transparent 100%)',
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,210,190,0.35) 50%, transparent 100%)',
                       zIndex: 2
                     }}
                   />
 
-                  {/* Yurii Zakharchuk (Chest-up cutout) */}
-                  <div style={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden', paddingTop: '24px' }}>
+                  {/* Yurii Zakharchuk (Full-height cover cutout) */}
+                  <div style={{ position: 'relative', zIndex: 3, height: '100%', width: '100%', overflow: 'hidden', paddingTop: '14px' }}>
                     <img
                       src={yuriiImg}
                       alt="Yurii Zakharchuk Aston Martin"
                       style={{
                         width: '100%',
-                        height: '94%',
-                        objectFit: 'contain',
-                        objectPosition: 'center bottom',
-                        filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.55))'
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center top',
+                        filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.65))'
                       }}
                     />
                   </div>
 
-                  {/* Alexsandr Pisarenko (Chest-up cutout) */}
-                  <div style={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden', paddingTop: '24px' }}>
+                  {/* Alexsandr Pisarenko (Full-height cover cutout) */}
+                  <div style={{ position: 'relative', zIndex: 3, height: '100%', width: '100%', overflow: 'hidden', paddingTop: '14px' }}>
                     <img
                       src={sashkoImg}
                       alt="Alexsandr Pisarenko Aston Martin"
                       style={{
                         width: '100%',
-                        height: '96%',
-                        objectFit: 'contain',
-                        objectPosition: 'center bottom',
-                        filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.55))'
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center top',
+                        filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.65))'
                       }}
                     />
                   </div>
@@ -277,17 +301,17 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                     position: 'relative',
                     zIndex: 5,
                     background: 'linear-gradient(135deg, #00A19B 0%, #00C896 100%)',
-                    padding: '44px 22px 18px',
+                    padding: '42px 22px 16px',
                     clipPath: 'polygon(0 24%, 82% 24%, 100% 0, 100% 100%, 0 100%)',
                     boxShadow: '0 -10px 30px rgba(0,0,0,0.5)',
                     flexShrink: 0
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
                     <img
                       src="/teams/aston-martin.png"
                       alt="Aston Martin"
-                      style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0)' }}
+                      style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.35))' }}
                     />
                     <span style={{ fontSize: '0.72rem', fontWeight: 900, color: '#051311', letterSpacing: '0.12em' }}>
                       ARAMCO F1 TEAM
