@@ -10,7 +10,7 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const yuriiImg = '/portraits/yura_aston_nobg.png';
-  const sashkoImg = sashkoDriver?.avatarFullNoBg || '/portraits/sashko_standing_9-16_without_backjground.png';
+  const sashkoImg = '/portraits/sashko_aston_nobg.png';
 
   const handleDownload = async () => {
     if (!posterRef.current) return;
