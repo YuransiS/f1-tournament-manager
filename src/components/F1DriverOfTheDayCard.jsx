@@ -67,7 +67,9 @@ const REAL_TRACK_PHOTOS = {
   'race-22': '/tracks/spain.jpg',
   'race-23': '/tracks/miami.jpg',
   'race-24': '/tracks/spain.jpg',
-  'race-25': '/tracks/jeddah.png'
+  'race-25': '/tracks/jeddah.png',
+  '2027-race-1-sprint': '/tracks/austria-sprint.jpg',
+  '2027-race-1': '/tracks/austria.jpg'
 };
 
 export default function F1DriverOfTheDayCard({ raceTitle, fullResults, defaultDriverId, activeRaceId }) {

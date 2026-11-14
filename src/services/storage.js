@@ -129,9 +129,7 @@ export function getTournamentData(seasonId = getActiveSeason()) {
 
     parsed2027.teams = DEFAULT_TEAMS;
     parsed2027.drivers = DEFAULT_DRIVERS_2027_1;
-    if (!parsed2027.races || parsed2027.races.length === 0) {
-      parsed2027.races = DEFAULT_RACES_2027_1;
-    }
+    parsed2027.races = DEFAULT_RACES_2027_1;
     parsed2027.transfers = DEFAULT_TRANSFERS_2027_1;
     saveTournamentData(parsed2027, '2027-1');
     return parsed2027;
