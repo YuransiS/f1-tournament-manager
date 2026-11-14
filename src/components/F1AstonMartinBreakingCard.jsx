@@ -9,8 +9,8 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
   const [isExporting, setIsExporting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const yuriiImg = yuriiDriver?.avatarFullWithBg || '/portraits/yura_aston_standing.jpg';
-  const sashkoImg = sashkoDriver?.avatarFullWithBg || '/portraits/sashko_standing_9-16_with_backjground.png';
+  const yuriiImg = yuriiDriver?.avatarFullNoBg || '/portraits/yura_aston_standing_nobg.png';
+  const sashkoImg = sashkoDriver?.avatarFullNoBg || '/portraits/sashko_standing_9-16_without_backjground.png';
 
   const handleDownload = async () => {
     if (!posterRef.current) return;

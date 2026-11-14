@@ -28,7 +28,7 @@ export const DEFAULT_DRIVERS_2027_1 = [
         isAi: false,
         avatar: '/portraits/yura_aston.jpg',
         avatarFullWithBg: '/portraits/yura_aston_standing.jpg',
-        avatarFullNoBg: '/portraits/yura_aston_standing.jpg'
+        avatarFullNoBg: '/portraits/yura_aston_standing_nobg.png'
       };
     }
     if (d.id === 'drv-11') {
