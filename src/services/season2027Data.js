@@ -128,27 +128,27 @@ const AUSTRIA_RACE_2027_RESULTS = [
   { driverId: 'drv-6', grid: 1, stops: 0, bestLap: '1:08.075', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход с поула (DNF)', status: 'DNF' }
 ];
 
-const HUNGARY_QUALIFYING_2027_RESULTS = [
-  { driverId: 'drv-1', grid: 1, qualiTime: '1:17.104', qualiGap: '-', bestLap: '1:17.104', status: 'UPCOMING' },
-  { driverId: 'drv-23', grid: 2, qualiTime: '1:17.259', qualiGap: '+0.155', bestLap: '1:17.259', status: 'UPCOMING' },
-  { driverId: 'drv-11', grid: 3, qualiTime: '1:17.299', qualiGap: '+0.195', bestLap: '1:17.299', status: 'UPCOMING' },
-  { driverId: 'drv-6', grid: 4, qualiTime: '1:17.895', qualiGap: '+0.791', bestLap: '1:17.895', status: 'UPCOMING' },
-  { driverId: 'drv-15', grid: 5, qualiTime: '1:18.308', qualiGap: '+1.204', bestLap: '1:18.308', status: 'UPCOMING' },
-  { driverId: 'drv-17', grid: 6, qualiTime: '1:18.332', qualiGap: '+1.228', bestLap: '1:18.332', status: 'UPCOMING' },
-  { driverId: 'drv-16', grid: 7, qualiTime: '1:18.344', qualiGap: '+1.240', bestLap: '1:18.344', status: 'UPCOMING' },
-  { driverId: 'drv-25', grid: 8, qualiTime: '1:18.366', qualiGap: '+1.262', bestLap: '1:18.366', status: 'UPCOMING' },
-  { driverId: 'drv-22', grid: 9, qualiTime: '1:18.385', qualiGap: '+1.281', bestLap: '1:18.385', status: 'UPCOMING' },
-  { driverId: 'drv-26', grid: 10, qualiTime: '1:18.424', qualiGap: '+1.320', bestLap: '1:18.424', status: 'UPCOMING' },
-  { driverId: 'drv-7', grid: 11, qualiTime: '1:18.463', qualiGap: '+1.359', bestLap: '1:18.463', status: 'UPCOMING' },
-  { driverId: 'drv-8', grid: 12, qualiTime: '1:18.498', qualiGap: '+1.394', bestLap: '1:18.498', status: 'UPCOMING' },
-  { driverId: 'drv-20', grid: 13, qualiTime: '1:18.513', qualiGap: '+1.409', bestLap: '1:18.513', status: 'UPCOMING' },
-  { driverId: 'drv-9', grid: 14, qualiTime: '1:18.536', qualiGap: '+1.432', bestLap: '1:18.536', status: 'UPCOMING' },
-  { driverId: 'drv-19', grid: 15, qualiTime: '1:18.624', qualiGap: '+1.520', bestLap: '1:18.624', status: 'UPCOMING' },
-  { driverId: 'drv-12', grid: 16, qualiTime: '1:18.663', qualiGap: '+1.559', bestLap: '1:18.663', status: 'UPCOMING' },
-  { driverId: 'drv-13', grid: 17, qualiTime: '1:18.706', qualiGap: '+1.602', bestLap: '1:18.706', status: 'UPCOMING' },
-  { driverId: 'drv-18', grid: 18, qualiTime: '1:18.732', qualiGap: '+1.628', bestLap: '1:18.732', status: 'UPCOMING' },
-  { driverId: 'drv-21', grid: 19, qualiTime: '1:18.827', qualiGap: '+1.723', bestLap: '1:18.827', status: 'UPCOMING' },
-  { driverId: 'drv-5', grid: 20, qualiTime: '1:18.832', qualiGap: '+1.728', bestLap: '1:18.832', status: 'UPCOMING' }
+const HUNGARY_RACE_2027_RESULTS = [
+  { driverId: 'drv-11', grid: 3, stops: 2, qualiTime: '1:17.299', qualiGap: '+0.195', bestLap: '1:19.634', totalTime: '52:25.596', penaltySeconds: 0, penaltyLabel: '🏆 Победа + Fastest Lap (1:19.634)! Вторая победа Сашка подряд!', status: 'FINISHED' },
+  { driverId: 'drv-17', grid: 5, stops: 1, qualiTime: '1:18.332', qualiGap: '+1.228', bestLap: '1:20.743', totalTime: '+7.635', penaltySeconds: 0, penaltyLabel: '🥈 Первый подиум Дениса за Williams (стратегия 1 пит-стопа)!', status: 'FINISHED' },
+  { driverId: 'drv-1', grid: 1, stops: 2, qualiTime: '1:17.104', qualiGap: '-', bestLap: '1:19.798', totalTime: '+7.995', penaltySeconds: 0, penaltyLabel: '🥉 Подиум с поула — двойной подиум Aston Martin!', status: 'FINISHED' },
+  { driverId: 'drv-23', grid: 2, stops: 2, qualiTime: '1:17.259', qualiGap: '+0.155', bestLap: '1:20.342', totalTime: '+8.517', penaltySeconds: 0, penaltyLabel: 'P4 в плотной борьбе за подиум (Ferrari)', status: 'FINISHED' },
+  { driverId: 'drv-18', grid: 6, stops: 2, qualiTime: '1:18.732', qualiGap: '+1.628', bestLap: '1:21.239', totalTime: '+26.400', penaltySeconds: 5, penaltyLabel: '⚠️ Штраф x1 (+5 secs.)', status: 'FINISHED' },
+  { driverId: 'drv-16', grid: 8, stops: 2, qualiTime: '1:18.344', qualiGap: '+1.240', bestLap: '1:21.188', totalTime: '+29.904', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-25', grid: 9, stops: 2, qualiTime: '1:18.366', qualiGap: '+1.262', bestLap: '1:20.942', totalTime: '+34.602', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-6', grid: 4, stops: 3, qualiTime: '1:17.895', qualiGap: '+0.791', bestLap: '1:19.996', totalTime: '+1:17.835', penaltySeconds: 0, penaltyLabel: '3 пит-стопа • P8 для Williams Racing', status: 'FINISHED' },
+  { driverId: 'drv-15', grid: 7, stops: 2, qualiTime: '1:18.308', qualiGap: '+1.204', bestLap: '1:21.816', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-21', grid: 20, stops: 2, qualiTime: '1:18.827', qualiGap: '+1.723', bestLap: '1:20.974', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '⚡ Прорыв P20 → P10 (+10 позиций) — очко для AlphaTauri!', status: 'FINISHED' },
+  { driverId: 'drv-20', grid: 16, stops: 2, qualiTime: '1:18.513', qualiGap: '+1.409', bestLap: '1:20.965', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-12', grid: 17, stops: 2, qualiTime: '1:18.663', qualiGap: '+1.559', bestLap: '1:21.288', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-22', grid: 19, stops: 2, qualiTime: '1:18.385', qualiGap: '+1.281', bestLap: '1:21.545', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-5', grid: 12, stops: 2, qualiTime: '1:18.832', qualiGap: '+1.728', bestLap: '1:21.822', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-26', grid: 10, stops: 2, qualiTime: '1:18.424', qualiGap: '+1.320', bestLap: '1:21.910', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-7', grid: 11, stops: 2, qualiTime: '1:18.463', qualiGap: '+1.359', bestLap: '1:22.045', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-8', grid: 13, stops: 2, qualiTime: '1:18.498', qualiGap: '+1.394', bestLap: '1:22.180', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-9', grid: 14, stops: 2, qualiTime: '1:18.536', qualiGap: '+1.432', bestLap: '1:22.310', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-19', grid: 15, stops: 2, qualiTime: '1:18.624', qualiGap: '+1.520', bestLap: '1:22.490', totalTime: '+1 Lap', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-13', grid: 18, stops: 2, qualiTime: '1:18.706', qualiGap: '+1.602', bestLap: '1:22.640', totalTime: '+2 Laps', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
 ];
 
 const FRANCE_RACE_2027_RESULTS = [
@@ -222,19 +222,21 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
     id: `2027-race-${cal.round}`,
     title: cal.name,
     subtitle: `${cal.circuit.toUpperCase()} - ROUND ${cal.round}${cal.hasSprint ? ' (MAIN RACE)' : ''}`,
-    status: isRound1 || isRound3 ? 'completed' : 'upcoming',
+    status: isRound1 || isRound2 || isRound3 ? 'completed' : 'upcoming',
     isSprint: false,
-    fastestLapDriverId: isRound1 ? 'drv-1' : isRound3 ? 'drv-1' : '',
-    driverOfTheDayId: isRound1 ? 'drv-23' : isRound3 ? 'drv-1' : '',
+    fastestLapDriverId: isRound1 ? 'drv-1' : isRound2 ? 'drv-11' : isRound3 ? 'drv-1' : '',
+    driverOfTheDayId: isRound1 ? 'drv-23' : isRound2 ? 'drv-11' : isRound3 ? 'drv-1' : '',
     incidentNote: isRound1
       ? '🇦🇹 Гран-при Австрии 2027-1 (Red Bull Ring — Основная гонка): Драматичный финал уик-энда! Сашко Громов/Писаренко (PABV) приносит Aston Martin сенсационную победу (старт P5 → P1)! Вадим Манштейн (_erich_manstein_, Ferrari) совершил невероятный прорыв с 15-го места и финишировал 2-м всего в 1.512с от лидера! Юки Цунода (AlphaTauri) взял второй подиум за уик-энд (P3). Денис Коваленко (ProstoDenya, Williams) прорвался с последнего 20-го места на 6-е (+14 позиций)! Обладатель поула Микола Ярема (kolyacoolguy, Williams) и Серхио Перес (Red Bull) сошли с дистанции (DNF). Юрий Захарчук (KillerplautzeGer, Aston Martin) поставил абсолютный лучший круг гонки (1:07.035), но финишировал 15-м после 2 пит-стопов (без бонусного очка).'
-      : isRound3
-        ? '🇫🇷 Гран-при Франции 2027-1 (Circuit Paul Ricard): Полное доминирование украинских пилотов! Юрий Захарчук (KillerplautzeGer, Aston Martin) конвертировал поул-позицию в уверенную победу с лучшим кругом (1:33.732, 26 очков)! Вадим Манштейн (_erich_manstein_, Ferrari) финишировал 2-м, а Сашко Писаренко (PABV, Aston Martin) несмотря на штраф +3 сек забрал 3-е место и двойной подиум для Aston Martin! Денис Коваленко (P4) и Микола Ярема (P5) из Williams Racing замкнули топ-5.'
-        : '',
+      : isRound2
+        ? '🇭🇺 Гран-при Венгрии 2027-1 (Hungaroring): Вторая победа подряд Сашка Писаренко (PABV, Aston Martin) + Fastest Lap (1:19.634, 26 очков)! Денис Коваленко (ProstoDenya, Williams Racing) на стратегии одного пит-стопа прорвался с 5-го на 2-е место (+7.635с). Обладатель поула Юрий Захарчук (KillerplautzeGer) принёс Aston Martin двойной подиум (P3), а Вадим Манштейн (_erich_manstein_, Ferrari) финишировал 4-м. Макс Ферстаппен (P5) получил штраф +5 сек, Микола Ярема после 3 пит-стопов стал 8-м.'
+        : isRound3
+          ? '🇫🇷 Гран-при Франции 2027-1 (Circuit Paul Ricard): Полное доминирование украинских пилотов! Юрий Захарчук (KillerplautzeGer, Aston Martin) конвертировал поул-позицию в уверенную победу с лучшим кругом (1:33.732, 26 очков)! Вадим Манштейн (_erich_manstein_, Ferrari) финишировал 2-м, а Сашко Писаренко (PABV, Aston Martin) несмотря на штраф +3 сек забрал 3-е место и двойной подиум для Aston Martin! Денис Коваленко (P4) и Микола Ярема (P5) из Williams Racing замкнули топ-5.'
+          : '',
     results: isRound1
       ? AUSTRIA_RACE_2027_RESULTS
       : isRound2
-        ? HUNGARY_QUALIFYING_2027_RESULTS
+        ? HUNGARY_RACE_2027_RESULTS
         : isRound3
           ? FRANCE_RACE_2027_RESULTS
           : []
@@ -302,7 +304,8 @@ export const DEFAULT_TRANSFERS_2027_1 = [
 ];
 
 export const DEFAULT_PENALTIES_2027_1 = [
-  { id: 'pen-2027-1', driverId: 'drv-11', raceId: '2027-race-3', type: 'TIME', value: 3, reason: 'Track limits warning x1 (+3 secs.)', date: '2027-04-25' }
+  { id: 'pen-2027-1', driverId: 'drv-11', raceId: '2027-race-3', type: 'TIME', value: 3, reason: 'Track limits warning x1 (+3 secs.)', date: '2027-04-25' },
+  { id: 'pen-2027-2', driverId: 'drv-18', raceId: '2027-race-2', type: 'TIME', value: 5, reason: 'Time penalty x1 (+5 secs.)', date: '2027-04-11' }
 ];
 
 export const SEASON_2027_1_DATA = {
