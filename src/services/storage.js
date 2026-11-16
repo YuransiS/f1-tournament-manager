@@ -440,7 +440,7 @@ export function calculatePointsProgression(data) {
     } else {
       gpCount += 1;
     }
-    const roundNumber = isSprint ? gpCount + 1 : gpCount;
+    const roundNumber = race.round || (isSprint ? gpCount + 1 : gpCount);
     stages.push({
       id: race.id,
       stageIndex: idx + 1,
