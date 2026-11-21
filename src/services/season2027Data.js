@@ -80,7 +80,7 @@ export const DEFAULT_DRIVERS_2027_1 = [
     driverNumber: 44,
     teamId: 'mercedes',
     isAi: true,
-    avatar: 'https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png',
+    avatar: '/portraits/hamilton_mercedes.webp',
     avatarFullWithBg: '/portraits/standing/hamilton.webp',
     avatarFullNoBg: '/portraits/standing/hamilton.webp'
   },
