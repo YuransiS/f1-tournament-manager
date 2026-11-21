@@ -15,10 +15,26 @@ const ACTIVE_RETURNING_IDS_2027_1 = new Set([
 export const DEFAULT_DRIVERS_2027_1 = [
   ...DEFAULT_DRIVERS.filter((d) => ACTIVE_RETURNING_IDS_2027_1.has(d.id)).map((d) => {
     if (d.id === 'drv-6') {
-      return { ...d, teamId: 'williams', driverNumber: 67, isAi: false };
+      return {
+        ...d,
+        teamId: 'williams',
+        driverNumber: 67,
+        isAi: false,
+        avatar: '/portraits/kolya_williams_nobg.png',
+        avatarFullWithBg: '/portraits/kolya_williams_nobg.png',
+        avatarFullNoBg: '/portraits/kolya_williams_nobg.png'
+      };
     }
     if (d.id === 'drv-17') {
-      return { ...d, teamId: 'williams', driverNumber: 88, isAi: false };
+      return {
+        ...d,
+        teamId: 'williams',
+        driverNumber: 88,
+        isAi: false,
+        avatar: '/portraits/denya_williams_nobg.png',
+        avatarFullWithBg: '/portraits/denya_williams_nobg.png',
+        avatarFullNoBg: '/portraits/denya_williams_nobg.png'
+      };
     }
     if (d.id === 'drv-1') {
       return {
@@ -252,7 +268,7 @@ export const DEFAULT_TRANSFERS_2027_1 = [
     type: 'TRANSFERRED',
     title: 'Чемпионский дуэт Red Bull переходит в Williams Racing!',
     subtitle: 'Чемпион мира 2026 Микола Ярема (#67) и бронзовый призёр Денис Коваленко (#88) объединяются в легендарной команде Williams Racing на сезон 2027-1!',
-    image: '/portraits/kolya_champion_victory.jpg',
+    image: '/portraits/kolya_williams_nobg.png',
     fromTeam: 'Red Bull Racing',
     toTeam: 'Williams Racing',
     badgeText: 'WILLIAMS LINEUP'

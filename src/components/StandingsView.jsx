@@ -10,6 +10,7 @@ import F1BronzeChampionCard from './F1BronzeChampionCard';
 import F1ConstructorsChampionCard from './F1ConstructorsChampionCard';
 import F1PisarenkoAnnouncementCard from './F1PisarenkoAnnouncementCard';
 import F1AstonMartinBreakingCard from './F1AstonMartinBreakingCard';
+import F1WilliamsBreakingCard from './F1WilliamsBreakingCard';
 import { calculateStandings, calculatePointsProgression } from '../services/storage';
 import { DRIVER_NUMBER_MAP } from '../utils/f1CircuitHelper';
 
@@ -39,10 +40,23 @@ export default function StandingsView({ data, standings: propStandings, activeTa
   return (
     <div>
       {activeSeason === '2027-1' && (
-        <F1AstonMartinBreakingCard
-          yuriiDriver={data?.drivers?.find((d) => d.id === 'drv-1')}
-          sashkoDriver={data?.drivers?.find((d) => d.id === 'drv-11')}
-        />
+        <>
+          <F1WilliamsBreakingCard
+            mykolaDriver={data?.drivers?.find((d) => d.id === 'drv-6')}
+            denysDriver={data?.drivers?.find((d) => d.id === 'drv-17')}
+            constructorStandings={constructorStandings}
+            driverStandings={driverStandings}
+            races={data?.races || []}
+            defaultCollapsed={false}
+          />
+          <F1AstonMartinBreakingCard
+            yuriiDriver={data?.drivers?.find((d) => d.id === 'drv-1')}
+            sashkoDriver={data?.drivers?.find((d) => d.id === 'drv-11')}
+            constructorStandings={constructorStandings}
+            races={data?.races || []}
+            defaultCollapsed={true}
+          />
+        </>
       )}
 
       {/* Interactive Hall of Fame / Champions Poster Switcher */}

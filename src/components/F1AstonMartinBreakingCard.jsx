@@ -4,10 +4,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import FlagIcon from './FlagIcon';
 
-export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver }) {
+export default function F1AstonMartinBreakingCard({
+  yuriiDriver,
+  sashkoDriver,
+  constructorStandings = [],
+  races = [],
+  defaultCollapsed = false
+}) {
   const posterRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
+
+  const astonIdx = constructorStandings.findIndex((c) => c.team?.id === 'aston-martin');
+  const astonEntry = astonIdx >= 0 ? constructorStandings[astonIdx] : null;
+  const astonRank = astonIdx >= 0 ? `P${astonIdx + 1}` : 'P1';
+  const astonPoints = astonEntry ? astonEntry.totalPoints : 80;
+  const astonWins = astonEntry ? astonEntry.wins : 2;
+  const completedGpsCount =
+    races.filter((r) => !r.isSprint && (r.status === 'completed' || r.status === 'FINISHED')).length || 3;
 
   const yuriiImg = '/portraits/yura_aston_nobg.png';
   const sashkoImg = '/portraits/sashko_aston_nobg.png';
@@ -479,19 +493,19 @@ export default function F1AstonMartinBreakingCard({ yuriiDriver, sashkoDriver })
                   }}
                 >
                   <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px', textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#CEDC00' }}>P1</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#CEDC00' }}>{astonRank}</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginTop: '2px' }}>
                       Кубок конструкторов
                     </div>
                   </div>
                   <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px', textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#00D2BE' }}>80</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#00D2BE' }}>{astonPoints}</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginTop: '2px' }}>
                       Очков команды
                     </div>
                   </div>
                   <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px', textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFFFFF' }}>2 / 3</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#FFFFFF' }}>{astonWins} / {completedGpsCount}</div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginTop: '2px' }}>
                       Побед в ГП
                     </div>
