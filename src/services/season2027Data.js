@@ -259,6 +259,52 @@ const SAO_PAULO_RACE_2027_RESULTS = [
   { driverId: 'drv-13', grid: 20, stops: 1, bestLap: '1:13.150', totalTime: '+35.890', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' }
 ];
 
+const AUSTRALIA_SPRINT_2027_RESULTS = [
+  { driverId: 'drv-23', grid: 2, stops: 0, bestLap: '1:21.690', totalTime: '15:17.598', penaltySeconds: 0, penaltyLabel: '🏆 Победа в спринте Мельбурна (Ferrari)!', status: 'FINISHED' },
+  { driverId: 'drv-11', grid: 4, stops: 0, bestLap: '1:21.357', totalTime: '+0.825', penaltySeconds: 0, penaltyLabel: '🥈 Подиум спринта (Aston Martin, +0.825с)', status: 'FINISHED' },
+  { driverId: 'drv-6', grid: 3, stops: 0, bestLap: '1:22.385', totalTime: '+1.824', penaltySeconds: 0, penaltyLabel: '🥉 Подиум спринта (Williams Racing)', status: 'FINISHED' },
+  { driverId: 'drv-9', grid: 7, stops: 0, bestLap: '1:22.113', totalTime: '+2.513', penaltySeconds: 0, penaltyLabel: 'Топ-4 для Alfa Romeo KICK (+3 позиции)', status: 'FINISHED' },
+  { driverId: 'drv-22', grid: 6, stops: 0, bestLap: '1:22.066', totalTime: '+2.667', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-17', grid: 12, stops: 0, bestLap: '1:22.142', totalTime: '+3.454', penaltySeconds: 0, penaltyLabel: '⚡ Прорыв P12 → P6 (+6 позиций, Williams)', status: 'FINISHED' },
+  { driverId: 'drv-26', grid: 11, stops: 0, bestLap: '1:22.145', totalTime: '+3.606', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-19', grid: 8, stops: 0, bestLap: '1:22.099', totalTime: '+3.641', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-21', grid: 19, stops: 0, bestLap: '1:21.956', totalTime: '+3.945', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-13', grid: 18, stops: 0, bestLap: '1:22.598', totalTime: '+7.432', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-8', grid: 20, stops: 0, bestLap: '1:22.625', totalTime: '+7.932', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-5', grid: 15, stops: 0, bestLap: '1:22.763', totalTime: '+8.038', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-18', grid: 10, stops: 0, bestLap: '1:22.064', totalTime: '+8.590', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-12', grid: 16, stops: 0, bestLap: '1:21.954', totalTime: '+8.750', penaltySeconds: 5, penaltyLabel: '⚠️ Штраф x1 (+5 secs.)', status: 'FINISHED' },
+  { driverId: 'drv-7', grid: 17, stops: 1, bestLap: '1:22.050', totalTime: '+8.878', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-16', grid: 14, stops: 0, bestLap: '1:21.925', totalTime: '+9.266', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-15', grid: 5, stops: 0, bestLap: '1:21.576', totalTime: '+9.850', penaltySeconds: 5, penaltyLabel: '⚠️ Штраф x1 (+5 secs.)', status: 'FINISHED' },
+  { driverId: 'drv-20', grid: 13, stops: 0, bestLap: '1:21.904', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+  { driverId: 'drv-1', grid: 1, stops: 0, bestLap: '1:21.565', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход с поула (DNF)', status: 'DNF' },
+  { driverId: 'drv-25', grid: 9, stops: 0, bestLap: '1:22.088', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+];
+
+const AUSTRALIA_RACE_2027_RESULTS = [
+  { driverId: 'drv-6', grid: 3, stops: 2, bestLap: '1:23.900', totalTime: '45:11.042', penaltySeconds: 0, penaltyLabel: '🏆 Победа + Fastest Lap (1:23.900)! Дубль подиумов Williams!', status: 'FINISHED' },
+  { driverId: 'drv-11', grid: 2, stops: 2, bestLap: '1:25.405', totalTime: '+2.983', penaltySeconds: 0, penaltyLabel: '🥈 Подиум Aston Martin (P2)', status: 'FINISHED' },
+  { driverId: 'drv-17', grid: 6, stops: 1, bestLap: '1:28.942', totalTime: '+10.117', penaltySeconds: 0, penaltyLabel: '🥉 Двойной подиум Williams Racing (P3)!', status: 'FINISHED' },
+  { driverId: 'drv-22', grid: 5, stops: 1, bestLap: '1:29.216', totalTime: '+10.966', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-26', grid: 7, stops: 1, bestLap: '1:29.502', totalTime: '+11.799', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-12', grid: 14, stops: 1, bestLap: '1:29.417', totalTime: '+15.314', penaltySeconds: 0, penaltyLabel: '⚡ Прорыв P14 → P6 (+8 позиций, Haas)', status: 'FINISHED' },
+  { driverId: 'drv-19', grid: 8, stops: 1, bestLap: '1:29.022', totalTime: '+15.810', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-25', grid: 20, stops: 1, bestLap: '1:29.077', totalTime: '+18.834', penaltySeconds: 0, penaltyLabel: '⚡ Прорыв P20 → P8 (+12 позиций, Mercedes)', status: 'FINISHED' },
+  { driverId: 'drv-5', grid: 12, stops: 1, bestLap: '1:29.624', totalTime: '+22.624', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-16', grid: 16, stops: 1, bestLap: '1:29.158', totalTime: '+23.000', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-1', grid: 19, stops: 2, bestLap: '1:26.129', totalTime: '+24.930', penaltySeconds: 0, penaltyLabel: 'Прорыв P19 → P11 (в шаге от очков)', status: 'FINISHED' },
+  { driverId: 'drv-7', grid: 15, stops: 1, bestLap: '1:29.509', totalTime: '+27.131', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-21', grid: 9, stops: 2, bestLap: '1:27.339', totalTime: '+27.388', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-8', grid: 11, stops: 1, bestLap: '1:29.980', totalTime: '+30.015', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-15', grid: 17, stops: 2, bestLap: '1:26.724', totalTime: '+32.463', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-13', grid: 10, stops: 2, bestLap: '1:24.567', totalTime: '+36.716', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-20', grid: 18, stops: 1, bestLap: '1:29.909', totalTime: '+37.503', penaltySeconds: 0, penaltyLabel: '', status: 'FINISHED' },
+  { driverId: 'drv-23', grid: 1, stops: 1, bestLap: '1:28.612', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход с поула (DNF)', status: 'DNF' },
+  { driverId: 'drv-18', grid: 13, stops: 0, bestLap: '1:31.134', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' },
+  { driverId: 'drv-9', grid: 4, stops: 0, bestLap: '1:30.464', totalTime: 'DNF', penaltySeconds: 0, penaltyLabel: '🚨 Сход (DNF)', status: 'DNF' }
+];
+
 // Official 2027-1 Season Races based on FIA CALENDAR 2027-1 (23 Rounds + Sprint weekends)
 export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
   const baseFields = {
@@ -284,24 +330,29 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
   if (cal.hasSprint) {
     const isRound1 = cal.round === 1;
     const isRound5 = cal.round === 5;
+    const isRound6 = cal.round === 6;
     events.push({
       ...baseFields,
       id: `2027-race-${cal.round}-sprint`,
       title: `${cal.name} Sprint`,
       subtitle: `${cal.circuit.toUpperCase()} - ROUND ${cal.round} (SPRINT)`,
-      status: isRound1 || isRound5 ? 'completed' : 'upcoming',
+      status: isRound1 || isRound5 || isRound6 ? 'completed' : 'upcoming',
       isSprint: true,
-      driverOfTheDayId: isRound1 ? 'drv-6' : isRound5 ? 'drv-1' : '',
+      driverOfTheDayId: isRound1 ? 'drv-6' : isRound5 ? 'drv-1' : isRound6 ? 'drv-23' : '',
       incidentNote: isRound1
         ? '🇦🇹 Открытие сезона 2027-1 в Австрии (Red Bull Ring — Спринт): Действующий чемпион Микола Ярема (kolyacoolguy) в дебютном заезде за Williams Racing стартовал 3-м, прорвался на 1-е место и разгромил пелотон с отрывом +12.722с (лучший круг 1:11.413)! Льюис Хэмилтон (Mercedes) и Юки Цунода (AlphaTauri) на подиуме. Сашко Громов (PABV) взял поул-позицию спринта за Aston Martin и финишировал 6-м, а его напарник Юрий Захарчук (KillerplautzeGer) взял 1 очко (P8). Вадим Манштейн (Ferrari) после старта с P2 опустился на P17, Денис Коваленко (Williams) совершил пит-стоп и стал 18-м. Макс Ферстаппен (Red Bull) сошёл (DNF).'
         : isRound5
           ? '🇧🇷 Гран-при Сан-Паулу 2027-1 (Interlagos — Спринт): Тотальное доминирование Юрия Захарчука (Kierplaut1, Aston Martin) — победа с поула с отрывом +9.820с и лучшим кругом 1:10.592 (8 очков)! Микола Ярема (Williams, P2) и Вадим Манштейн (Ferrari, P3) на подиуме спринта. Сашко Писаренко (Aston Martin) финишировал 4-м, Денис Коваленко (Williams) замкнул топ-5 (4 очка).'
-          : '',
+          : isRound6
+            ? '🇦🇺 Гран-при Австралии 2027-1 (Albert Park — Спринт): Плотный спринт в Мельбурне! Вадим Манштейн (_erich_manstein_, Ferrari) выиграл гонку (8 очков), опередив Сашка Писаренко (PABV, Aston Martin) всего на +0.825с, а Микола Ярема (kolyacoolguy, Williams) замкнул подиум (P3). Денис Коваленко (Williams) прорвался с 12-го на 6-е место (3 очка). Обладатель поула Юрий Захарчук (Kierplaut1) сошёл с дистанции (DNF) вместе с Хэмилтоном и Чжоу.'
+            : '',
       results: isRound1
         ? AUSTRIA_SPRINT_2027_RESULTS
         : isRound5
           ? SAO_PAULO_SPRINT_2027_RESULTS
-          : []
+          : isRound6
+            ? AUSTRALIA_SPRINT_2027_RESULTS
+            : []
     });
   }
 
@@ -310,16 +361,17 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
   const isRound3 = cal.round === 3;
   const isRound4 = cal.round === 4;
   const isRound5 = cal.round === 5;
+  const isRound6 = cal.round === 6;
 
   events.push({
     ...baseFields,
     id: `2027-race-${cal.round}`,
     title: cal.name,
     subtitle: `${cal.circuit.toUpperCase()} - ROUND ${cal.round}${cal.hasSprint ? ' (MAIN RACE)' : ''}`,
-    status: isRound1 || isRound2 || isRound3 || isRound4 || isRound5 ? 'completed' : 'upcoming',
+    status: isRound1 || isRound2 || isRound3 || isRound4 || isRound5 || isRound6 ? 'completed' : 'upcoming',
     isSprint: false,
-    fastestLapDriverId: isRound1 ? 'drv-1' : isRound2 ? 'drv-11' : isRound3 ? 'drv-1' : isRound4 ? 'drv-11' : isRound5 ? 'drv-20' : '',
-    driverOfTheDayId: isRound1 ? 'drv-23' : isRound2 ? 'drv-11' : isRound3 ? 'drv-1' : isRound4 ? 'drv-9' : isRound5 ? 'drv-6' : '',
+    fastestLapDriverId: isRound1 ? 'drv-1' : isRound2 ? 'drv-11' : isRound3 ? 'drv-1' : isRound4 ? 'drv-11' : isRound5 ? 'drv-20' : isRound6 ? 'drv-6' : '',
+    driverOfTheDayId: isRound1 ? 'drv-23' : isRound2 ? 'drv-11' : isRound3 ? 'drv-1' : isRound4 ? 'drv-9' : isRound5 ? 'drv-6' : isRound6 ? 'drv-6' : '',
     incidentNote: isRound1
       ? '🇦🇹 Гран-при Австрии 2027-1 (Red Bull Ring — Основная гонка): Драматичный финал уик-энда! Сашко Громов/Писаренко (PABV) приносит Aston Martin сенсационную победу (старт P5 → P1)! Вадим Манштейн (_erich_manstein_, Ferrari) совершил невероятный прорыв с 15-го места и финишировал 2-м всего в 1.512с от лидера! Юки Цунода (AlphaTauri) взял второй подиум за уик-энд (P3). Денис Коваленко (ProstoDenya, Williams) прорвался с последнего 20-го места на 6-е (+14 позиций)! Обладатель поула Микола Ярема (kolyacoolguy, Williams) и Серхио Перес (Red Bull) сошли с дистанции (DNF). Юрий Захарчук (KillerplautzeGer, Aston Martin) поставил абсолютный лучший круг гонки (1:07.035), но финишировал 15-м после 2 пит-стопов (без бонусного очка).'
       : isRound2
@@ -330,7 +382,9 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
             ? '🇲🇽 Гран-при Мехико 2027-1 (Autódromo Hermanos Rodríguez): Победный дубль Aston Martin! Юрий Захарчук (Kierplaut1) стартовал 2-м и выиграл гонку (25 очков), а Сашко Писаренко (PABV) дополнил 1-2 дубль на 2-м месте с быстрейшим кругом (1:19.168, 19 очков)! Обладатель поула Вадим Манштейн (_erich_manstein_, Ferrari) получил штраф +3 сек, но удержался на подиуме (P3). Валттери Боттас (P13 → P5) и Гуаньюй Чжоу (P14 → P7) принесли Alfa Romeo мощные очки. Уик-энд Williams не задался: Ярема — 13-й, Коваленко — 16-й (оба по 2 пит-стопа). Риккардо, Окон и Хэмилтон сошли (DNF).'
             : isRound5
               ? '🇧🇷 Гран-при Сан-Паулу 2027-1 (Interlagos — Основная гонка): Первая победа Миколы Яремы (kolyacoolguy) в основной гонке за Williams Racing (старт P2 → P1, 2 пит-стопа)! Вадим Манштейн (_erich_manstein_, Ferrari) на 3 пит-стопах финишировал 2-м (+3.921с), а обладатель поула Юрий Захарчук (Kierplaut1, Aston Martin) пробился на 3-е место даже после 4 пит-стопов! Сашко Писаренко (PABV) прорвался с 9-го на 4-е место, Денис Коваленко (Williams) финишировал 5-м. Быстрейший круг гонки забрал Гуаньюй Чжоу (Alfa Romeo, 1:11.854, P7).'
-              : '',
+              : isRound6
+                ? '🇦🇺 Гран-при Австралии 2027-1 (Albert Park — Основная гонка): Триумф Williams Racing под дождём в Мельбурне! Микола Ярема (kolyacoolguy) выиграл гонку с лучшим кругом (1:23.900, 26 очков), а Денис Коваленко (ProstoDenya) на стратегии 1 пит-стопа дополнил двойной подиум команды на 3-м месте! Сашко Писаренко (PABV, Aston Martin) финишировал 2-м (+2.983с). Обладатель поула Вадим Манштейн (_erich_manstein_, Ferrari) сошёл (DNF) вместе с Ферстаппеном и Боттасом, а Юрий Захарчук (Kierplaut1) прорвался с 19-го на 11-е место.'
+                : '',
     results: isRound1
       ? AUSTRIA_RACE_2027_RESULTS
       : isRound2
@@ -341,7 +395,9 @@ export const DEFAULT_RACES_2027_1 = CALENDAR_2027_1.flatMap((cal) => {
             ? MEXICO_RACE_2027_RESULTS
             : isRound5
               ? SAO_PAULO_RACE_2027_RESULTS
-              : []
+              : isRound6
+                ? AUSTRALIA_RACE_2027_RESULTS
+                : []
   });
 
   return events;
@@ -408,7 +464,9 @@ export const DEFAULT_TRANSFERS_2027_1 = [
 export const DEFAULT_PENALTIES_2027_1 = [
   { id: 'pen-2027-1', driverId: 'drv-11', raceId: '2027-race-3', type: 'TIME', value: 3, reason: 'Track limits warning x1 (+3 secs.)', date: '2027-04-25' },
   { id: 'pen-2027-2', driverId: 'drv-18', raceId: '2027-race-2', type: 'TIME', value: 5, reason: 'Time penalty x1 (+5 secs.)', date: '2027-04-11' },
-  { id: 'pen-2027-3', driverId: 'drv-23', raceId: '2027-race-4', type: 'TIME', value: 3, reason: 'Track limits warning x1 (+3 secs.)', date: '2027-05-09' }
+  { id: 'pen-2027-3', driverId: 'drv-23', raceId: '2027-race-4', type: 'TIME', value: 3, reason: 'Track limits warning x1 (+3 secs.)', date: '2027-05-09' },
+  { id: 'pen-2027-4', driverId: 'drv-12', raceId: '2027-race-6-sprint', type: 'TIME', value: 5, reason: 'Time penalty x1 (+5 secs.)', date: '2027-06-05' },
+  { id: 'pen-2027-5', driverId: 'drv-15', raceId: '2027-race-6-sprint', type: 'TIME', value: 5, reason: 'Time penalty x1 (+5 secs.)', date: '2027-06-05' }
 ];
 
 export const SEASON_2027_1_DATA = {
